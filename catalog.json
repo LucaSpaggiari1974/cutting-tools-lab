@@ -1,6 +1,222 @@
 [
-  {"manufacturer":"Sandvik Coromant","code":"CNMG 12 04 04-PF","iso":"CNMG 120404","family":"T-Max P","geometry":"PF","operation":"Turning","corner_radius_mm":0.4,"source":"https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12"},
-  {"manufacturer":"Sandvik Coromant","code":"CNMG 12 04 08-PF","iso":"CNMG 120408","family":"T-Max P","geometry":"PF","operation":"Turning","corner_radius_mm":0.8,"source":"https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12"},
-  {"manufacturer":"Sandvik Coromant","code":"SNMG 12 04 08-QM","iso":"SNMG 120408","family":"T-Max P","geometry":"QM","operation":"Turning","corner_radius_mm":0.8,"source":"https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=34"},
-  {"manufacturer":"Sandvik Coromant","code":"SNMG 12 04 08-SM","iso":"SNMG 120408","family":"T-Max P","geometry":"SM","operation":"Turning","corner_radius_mm":0.8,"source":"https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=34"}
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 04-PF",
+    "iso": "CNMG 120404",
+    "family": "T-Max P",
+    "geometry": "PF",
+    "operation": "Tornitura · finitura",
+    "corner_radius_mm": 0.4,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 08-PF",
+    "iso": "CNMG 120408",
+    "family": "T-Max P",
+    "geometry": "PF",
+    "operation": "Tornitura · finitura",
+    "corner_radius_mm": 0.8,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 12-PF",
+    "iso": "CNMG 120412",
+    "family": "T-Max P",
+    "geometry": "PF",
+    "operation": "Tornitura · finitura",
+    "corner_radius_mm": 1.2,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 08-PM",
+    "iso": "CNMG 120408",
+    "family": "T-Max P",
+    "geometry": "PM",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 0.8,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=13"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 08-WF",
+    "iso": "CNMG 120408",
+    "family": "T-Max P",
+    "geometry": "WF",
+    "operation": "Tornitura · finitura",
+    "corner_radius_mm": 0.8,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=14"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 08-WM",
+    "iso": "CNMG 120408",
+    "family": "T-Max P",
+    "geometry": "WM",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 0.8,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=14"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 04-QM",
+    "iso": "CNMG 120404",
+    "family": "T-Max P",
+    "geometry": "QM",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 0.4,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 08-QM",
+    "iso": "CNMG 120408",
+    "family": "T-Max P",
+    "geometry": "QM",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 0.8,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 12-QM",
+    "iso": "CNMG 120412",
+    "family": "T-Max P",
+    "geometry": "QM",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 1.2,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 04-SM",
+    "iso": "CNMG 120404",
+    "family": "T-Max P",
+    "geometry": "SM",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 0.4,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 08-SM",
+    "iso": "CNMG 120408",
+    "family": "T-Max P",
+    "geometry": "SM",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 0.8,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 12-SM",
+    "iso": "CNMG 120412",
+    "family": "T-Max P",
+    "geometry": "SM",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 1.2,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 04-SMC",
+    "iso": "CNMG 120404",
+    "family": "T-Max P",
+    "geometry": "SMC",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 0.4,
+    "source": "https://epublications.sandvik.coromant.com/frontend/catalogs/1151657/1/pdf/print/bk_19.pdf"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 08-SMC",
+    "iso": "CNMG 120408",
+    "family": "T-Max P",
+    "geometry": "SMC",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 0.8,
+    "source": "https://epublications.sandvik.coromant.com/frontend/catalogs/1151657/1/pdf/print/bk_19.pdf"
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "CNMG 12 04 12-SMC",
+    "iso": "CNMG 120412",
+    "family": "T-Max P",
+    "geometry": "SMC",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 1.2,
+    "source": "https://epublications.sandvik.coromant.com/frontend/catalogs/1151657/1/pdf/print/bk_19.pdf"
+  },
+  {
+    "manufacturer": "ISCAR",
+    "code": "CNMG 120404-GN",
+    "iso": "CNMG 120404",
+    "family": "ISOTURN",
+    "geometry": "GN",
+    "operation": "Tornitura · generale",
+    "corner_radius_mm": 0.4,
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+  },
+  {
+    "manufacturer": "ISCAR",
+    "code": "CNMG 120408-GN",
+    "iso": "CNMG 120408",
+    "family": "ISOTURN",
+    "geometry": "GN",
+    "operation": "Tornitura · generale",
+    "corner_radius_mm": 0.8,
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+  },
+  {
+    "manufacturer": "ISCAR",
+    "code": "CNMG 120404-TF",
+    "iso": "CNMG 120404",
+    "family": "ISOTURN",
+    "geometry": "TF",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 0.4,
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+  },
+  {
+    "manufacturer": "ISCAR",
+    "code": "CNMG 120408-TF",
+    "iso": "CNMG 120408",
+    "family": "ISOTURN",
+    "geometry": "TF",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 0.8,
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+  },
+  {
+    "manufacturer": "ISCAR",
+    "code": "CNMG 120412-TF",
+    "iso": "CNMG 120412",
+    "family": "ISOTURN",
+    "geometry": "TF",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 1.2,
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+  },
+  {
+    "manufacturer": "ISCAR",
+    "code": "CNMG 120404-PP",
+    "iso": "CNMG 120404",
+    "family": "ISOTURN",
+    "geometry": "PP",
+    "operation": "Tornitura · materiali duttili",
+    "corner_radius_mm": 0.4,
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+  },
+  {
+    "manufacturer": "ISCAR",
+    "code": "CNMG 120408-PP",
+    "iso": "CNMG 120408",
+    "family": "ISOTURN",
+    "geometry": "PP",
+    "operation": "Tornitura · materiali duttili",
+    "corner_radius_mm": 0.8,
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+  }
 ]
