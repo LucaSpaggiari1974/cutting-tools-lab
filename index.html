@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#111827"><link rel="manifest" href="manifest.webmanifest"><title>Cutting Tools LAB</title>
 <style>
-body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background:#f4f5f7;color:#111827}main{max-width:800px;margin:auto;padding:18px}section{background:#fff;border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 2px 10px #0001}input,button{font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;box-sizing:border-box;width:100%}button{background:#111827;color:#fff;border:0;margin-top:10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:8px 10px;background:#eef2ff;border-radius:999px}.card{padding:12px;border:1px solid #eee;border-radius:12px;margin:8px 0}.muted{color:#6b7280;font-size:13px}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background:#f4f5f7;color:#111827}main{max-width:800px;margin:auto;padding:18px}section{background:#fff;border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 2px 10px #0001}input,button{font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;box-sizing:border-box;width:100%}button{background:#111827;color:#fff;border:0;margin-top:10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:8px 10px;background:#eef2ff;border-radius:999px}.card{padding:12px;border:1px solid #eee;border-radius:12px;margin:8px 0}.tool-drawing{background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:10px;text-align:center;margin-top:12px}.tool-drawing svg{width:100%;max-width:360px;height:150px}.muted{color:#6b7280;font-size:13px}
 </style></head><body><main>
 <h1>🔧 Cutting Tools LAB</h1><p>Catalogo utensili, inserti e calcolatori.</p>
 <section><input id="search" placeholder="Cerca codice, ISO, produttore…"><div id="results"><p class="muted">Caricamento catalogo…</p></div></section>
@@ -27,6 +27,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background
 <input id="f" type="number" step=".001" placeholder="f mm/giro" readonly>
 <input id="ap" type="number" step=".1" placeholder="ap mm" readonly>
 </div>
+<div style="margin-top:12px">
+<select id="toolType" style="font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box">
+<option value="turning">Utensile tornitura esterna — CNMG</option>
+<option value="finishing">Utensile finitura — VNMG</option>
+<option value="grooving">Utensile scanalatura/troncatura — G</option>
+<option value="threading">Utensile filettatura — 16ER</option>
+<option value="drilling">Punta da foro — DR</option>
+</select>
+<div id="toolDrawing" class="tool-drawing"></div>
+</div>
+const toolDrawings={
+turning:`<svg viewBox="0 0 360 150" aria-label="Utensile tornitura CNMG"><path d="M30 115h190l55-55H85z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M205 65l35-35 55 55-35 35z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M245 30l55 55" stroke="currentColor" stroke-width="5"/><text x="18" y="140" font-size="14">Portautensile + inserto CNMG</text></svg>`,
+finishing:`<svg viewBox="0 0 360 150" aria-label="Utensile finitura VNMG"><path d="M30 115h195l55-55H85z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M220 65l28-38 48 48-38 28z" fill="none" stroke="currentColor" stroke-width="5"/><text x="18" y="140" font-size="14">Inserto VNMG — finitura</text></svg>`,
+grooving:`<svg viewBox="0 0 360 150" aria-label="Utensile scanalatura"><path d="M30 115h210V85H30z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M240 85v-50h55v50" fill="none" stroke="currentColor" stroke-width="5"/><path d="M240 35h55" stroke="currentColor" stroke-width="5"/><text x="18" y="140" font-size="14">Utensile scanalatura / troncatura</text></svg>`,
+threading:`<svg viewBox="0 0 360 150" aria-label="Utensile filettatura"><path d="M30 115h205l55-55H85z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M235 60l35-35 35 35-35 35z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M265 25v70" stroke="currentColor" stroke-width="3" stroke-dasharray="6 5"/><text x="18" y="140" font-size="14">Inserto 16ER — filettatura</text></svg>`,
+drilling:`<svg viewBox="0 0 360 150" aria-label="Punta da foro"><path d="M70 110V55l110-30 110 30v55" fill="none" stroke="currentColor" stroke-width="5"/><path d="M70 55h220" stroke="currentColor" stroke-width="5"/><path d="M125 70h110M145 90h70" stroke="currentColor" stroke-width="3"/><text x="18" y="140" font-size="14">Punta da foro — utensile di foratura</text></svg>`
+};
+const toolTypeEl=document.getElementById("toolType"), drawingEl=document.getElementById("toolDrawing");
+function updateToolDrawing(){drawingEl.innerHTML=toolDrawings[toolTypeEl.value]||toolDrawings.turning;}
+toolTypeEl.addEventListener("change",updateToolDrawing);updateToolDrawing();
 <div id="autoInfo" class="muted" style="margin-top:10px"></div>
 <div id="out"></div></section>
 <section><b>Fonte:</b> i dati tecnici vengono inseriti solo quando verificati su fonti ufficiali. Parametri di taglio non disponibili sono indicati come non disponibili.</section>
