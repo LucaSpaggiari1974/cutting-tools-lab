@@ -1,0 +1,6 @@
+[
+  {"manufacturer":"Sandvik Coromant","code":"CNMG 12 04 04-PF","iso":"CNMG 120404","family":"T-Max P","geometry":"PF","operation":"Turning","corner_radius_mm":0.4,"source":"https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12"},
+  {"manufacturer":"Sandvik Coromant","code":"CNMG 12 04 08-PF","iso":"CNMG 120408","family":"T-Max P","geometry":"PF","operation":"Turning","corner_radius_mm":0.8,"source":"https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12"},
+  {"manufacturer":"Sandvik Coromant","code":"SNMG 12 04 08-QM","iso":"SNMG 120408","family":"T-Max P","geometry":"QM","operation":"Turning","corner_radius_mm":0.8,"source":"https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=34"},
+  {"manufacturer":"Sandvik Coromant","code":"SNMG 12 04 08-SM","iso":"SNMG 120408","family":"T-Max P","geometry":"SM","operation":"Turning","corner_radius_mm":0.8,"source":"https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=34"}
+]
