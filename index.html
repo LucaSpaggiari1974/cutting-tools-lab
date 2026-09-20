@@ -9,7 +9,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background
 <h1>🔧 Cutting Tools LAB</h1><p>Catalogo utensili, inserti e calcolatori.</p>
 <section><input id="search" placeholder="Cerca codice, ISO, produttore…"><div id="results"><p class="muted">Caricamento catalogo…</p></div></section>
 <section><h2>Produttori</h2><div class="chips" id="makers"></div></section>
-<section><h2>Calcolo tornitura</h2><div class="grid"><input id="d" type="number" placeholder="Diametro mm"><input id="vc" type="number" placeholder="Vc m/min"><input id="f" type="number" step=".001" placeholder="f mm/giro"><input id="ap" type="number" step=".1" placeholder="ap mm"></div><button id="calc">Calcola</button><div id="out"></div></section>
+<section><h2>Calcolo tornitura automatico</h2>
+<p class="muted">Inserisci diametro e materiale: il calcolatore propone automaticamente i parametri iniziali di taglio. Sono valori indicativi e vanno verificati con utensile, grado e materiale reali.</p>
+<div class="grid">
+<input id="d" type="number" min="0.1" step="0.1" placeholder="Diametro pezzo mm">
+<select id="material" style="font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box">
+<option value="">Materiale…</option>
+<option value="steel">Acciaio</option>
+<option value="stainless">Acciaio inox</option>
+<option value="castiron">Ghisa</option>
+<option value="aluminum">Alluminio</option>
+<option value="brass">Ottone</option>
+<option value="titanium">Titanio</option>
+<option value="hardened">Acciaio temprato</option>
+</select>
+<input id="vc" type="number" placeholder="Vc m/min" readonly>
+<input id="f" type="number" step=".001" placeholder="f mm/giro" readonly>
+<input id="ap" type="number" step=".1" placeholder="ap mm" readonly>
+</div>
+<div id="autoInfo" class="muted" style="margin-top:10px"></div>
+<div id="out"></div></section>
 <section><b>Fonte:</b> i dati tecnici vengono inseriti solo quando verificati su fonti ufficiali. Parametri di taglio non disponibili sono indicati come non disponibili.</section>
 </main>
 <script>
@@ -19,6 +38,21 @@ let products=[];
 function render(q=""){const box=document.getElementById("results");const a=products.filter(p=>JSON.stringify(p).toLowerCase().includes(q.toLowerCase()));box.innerHTML=a.length?a.map(p=>`<div class="card"><b>${p.code}</b><br>${p.manufacturer} · ${p.family||""}<br>ISO: ${p.iso||"—"} · Geometria: ${p.geometry||"—"} · Raggio: ${p.corner_radius_mm??"—"} mm<br><span class="muted">Operazione: ${p.operation||"—"}</span></div>`).join(""):"<p class='muted'>Nessun risultato.</p>"}
 fetch("./catalog.json?ts="+Date.now(),{cache:"no-store"}).then(r=>r.json()).then(d=>{products=d;render()}).catch(()=>{document.getElementById("results").innerHTML="<p>Catalogo temporaneamente non disponibile.</p>"});
 document.getElementById("search").oninput=e=>render(e.target.value);
-document.getElementById("calc").onclick=()=>{const d=+document.getElementById("d").value,vc=+document.getElementById("vc").value,f=+document.getElementById("f").value,ap=+document.getElementById("ap").value,out=document.getElementById("out");if(!(d&&vc&&f&&ap)){out.textContent="Completa tutti i campi.";return}const rpm=1000*vc/(Math.PI*d),feed=rpm*f,mrr=ap*f*feed;out.innerHTML=`<p>RPM: <b>${rpm.toFixed(0)}</b><br>Avanzamento: <b>${feed.toFixed(1)} mm/min</b><br>MRR teorico: <b>${mrr.toFixed(1)} mm³/min</b></p>`};
+const cuttingData={
+steel:{name:"Acciaio",vc:180,f:.20,ap:2.0},
+stainless:{name:"Acciaio inox",vc:120,f:.16,ap:1.5},
+castiron:{name:"Ghisa",vc:140,f:.22,ap:2.0},
+aluminum:{name:"Alluminio",vc:350,f:.25,ap:2.5},
+brass:{name:"Ottone",vc:250,f:.20,ap:2.0},
+titanium:{name:"Titanio",vc:60,f:.10,ap:1.0},
+hardened:{name:"Acciaio temprato",vc:70,f:.08,ap:.6}
+};
+const dEl=document.getElementById("d"), matEl=document.getElementById("material"), vcEl=document.getElementById("vc"), fEl=document.getElementById("f"), apEl=document.getElementById("ap"), outEl=document.getElementById("out"), infoEl=document.getElementById("autoInfo");
+function autoTurn(){const d=+dEl.value,key=matEl.value,out=outEl;if(!d||!key){vcEl.value=fEl.value=apEl.value="";infoEl.textContent="";out.innerHTML="";return}
+const p=cuttingData[key];vcEl.value=p.vc;fEl.value=p.f;apEl.value=p.ap;
+const rpm=1000*p.vc/(Math.PI*d),feed=rpm*p.f,mrr=p.ap*p.f*feed;
+infoEl.textContent="Parametri iniziali automatici per "+p.name+" · Vc "+p.vc+" m/min · f "+p.f+" mm/giro · ap "+p.ap+" mm";
+out.innerHTML=`<p><b>Risultato automatico</b><br>RPM: <b>${rpm.toFixed(0)}</b><br>Avanzamento: <b>${feed.toFixed(1)} mm/min</b><br>MRR teorico: <b>${mrr.toFixed(1)} mm³/min</b></p>`;}
+dEl.addEventListener("input",autoTurn);matEl.addEventListener("change",autoTurn);
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");
 </script></body></html>
