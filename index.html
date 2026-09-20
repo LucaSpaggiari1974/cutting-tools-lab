@@ -2,14 +2,25 @@
 <html lang="it">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827"><link rel="manifest" href="manifest.webmanifest"><title>Cutting Tools LAB</title>
+<meta name="theme-color" content="#111827">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Cutting Tools LAB">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Cutting Tools LAB</title>
 <style>
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background:#f4f5f7;color:#111827}main{max-width:800px;margin:auto;padding:18px}section{background:#fff;border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 2px 10px #0001}input,button{font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;box-sizing:border-box;width:100%}button{background:#111827;color:#fff;border:0;margin-top:10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:8px 10px;background:#eef2ff;border-radius:999px}.card{padding:12px;border:1px solid #eee;border-radius:12px;margin:8px 0}.tool-photo{background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:10px;text-align:center;margin-top:12px}.tool-photo img{width:100%;max-width:380px;height:210px;object-fit:contain;border-radius:10px;background:#fff}.tool-caption{font-weight:600;margin-top:8px}.field{display:flex;flex-direction:column;gap:6px}.field span{font-size:13px;font-weight:600;color:#374151}.help{background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-top:12px}.help div{margin:7px 0}.muted{color:#6b7280;font-size:13px}
 </style></head><body><main>
 <h1>🔧 Cutting Tools LAB</h1><p>Catalogo utensili, inserti e calcolatori.</p>
+<details class="help"><summary><b>📲 Installa su iPhone</b></summary><div>Apri questa pagina in <b>Safari</b> → <b>Condividi</b> → <b>Aggiungi alla schermata Home</b> → <b>Aggiungi</b>. Non serve un Mac.</div></details>
 <section><input id="search" placeholder="Cerca codice, ISO, produttore…"><div id="results"><p class="muted">Caricamento catalogo…</p></div></section>
 <section><h2>Produttori</h2><div class="chips" id="makers"></div></section>
-<section><h2>Calcolo tornitura automatico</h2>
+<section><h2>Calcolatori CNC</h2>
+<div class="grid">
+<button id="modeTurning" type="button">Tornitura</button>
+<button id="modeDrilling" type="button">Foratura</button>
+</div>
+<div id="calculatorMode" style="margin-top:12px"><h3>Calcolo tornitura automatico</h3>
 <p class="muted">Inserisci diametro e materiale: il calcolatore propone automaticamente i parametri iniziali di taglio. Sono valori indicativi e vanno verificati con utensile, grado e materiale reali.</p>
 <div class="grid">
 <label class="field"><span>Diametro D (mm)</span><input id="d" type="number" min="0.1" step="0.1" placeholder="Es. 50"></label>
@@ -26,6 +37,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background
 <label class="field"><span>Velocità di taglio Vc (m/min)</span><input id="vc" type="number" placeholder="Automatica" readonly></label>
 <label class="field"><span>Avanzamento f (mm/giro)</span><input id="f" type="number" step=".001" placeholder="Automatico" readonly></label>
 <label class="field"><span>Profondità ap (mm)</span><input id="ap" type="number" step=".1" placeholder="Automatica" readonly></label>
+</div>
+<div id="drillingFields" style="display:none;margin-top:12px">
+<div class="grid">
+<label class="field"><span>Diametro punta Ø (mm)</span><input id="dd" type="number" min="0.1" step="0.1" placeholder="Es. 10"></label>
+<label class="field"><span>Velocità di taglio Vc (m/min)</span><input id="dvc" type="number" placeholder="Automatica" readonly></label>
+<label class="field"><span>Avanzamento f (mm/giro)</span><input id="df" type="number" step=".001" placeholder="Automatico" readonly></label>
+</div>
 </div>
 <div style="margin-top:12px">
 <select id="toolType" style="font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box">
@@ -49,7 +67,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background
 <div><b>Avanzamento (mm/min)</b> = velocità con cui si muove l'utensile.</div>
 <div><b>MRR (mm³/min)</b> = volume teorico di materiale asportato al minuto.</div>
 </div>
-<div id="out"></div></section>
+<div id="out"></div>
+<div id="drillOut"></div></section>
 <section><b>Fonte:</b> i dati tecnici vengono inseriti solo quando verificati su fonti ufficiali. Parametri di taglio non disponibili sono indicati come non disponibili.</section>
 </main>
 <script>
@@ -81,12 +100,37 @@ function updateToolDrawing(){
  drawingEl.innerHTML=`<img src="${p.src}" alt="${p.title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.textContent='Immagine non disponibile.'"><div class="tool-caption">${p.title}</div><div class="muted">${p.note}</div>`;
 }
 toolTypeEl.addEventListener("change",updateToolDrawing);updateToolDrawing();
+const modeTurningEl=document.getElementById("modeTurning"),modeDrillingEl=document.getElementById("modeDrilling"),drillFields=document.getElementById("drillingFields"),drillOut=document.getElementById("drillOut"),ddEl=document.getElementById("dd"),dvcEl=document.getElementById("dvc"),dfEl=document.getElementById("df");
+let calcMode="turning";
+function setCalcMode(mode){
+ calcMode=mode; const turnFields=document.querySelector("#calculatorMode .grid");
+ document.querySelector("#calculatorMode h3").textContent=mode==="turning"?"Calcolo tornitura automatico":"Calcolo foratura automatico";
+ document.querySelector("#calculatorMode .muted").textContent=mode==="turning"?"Inserisci diametro e materiale: il calcolatore propone automaticamente i parametri iniziali di taglio. Sono valori indicativi e vanno verificati con utensile, grado e materiale reali.":"Inserisci diametro punta e materiale: il calcolatore propone RPM e avanzamento iniziali indicativi.";
+ const turningGrid=document.querySelector("#calculatorMode .grid");
+ turningGrid.style.display=mode==="turning"?"grid":"none";
+ drillFields.style.display=mode==="drilling"?"block":"none";
+ document.getElementById("toolType").value=mode==="drilling"?"drilling":"turning";
+ updateToolDrawing();
+ if(mode==="drilling") autoDrill(); else autoTurn();
+}
+modeTurningEl.addEventListener("click",()=>setCalcMode("turning"));
+modeDrillingEl.addEventListener("click",()=>setCalcMode("drilling"));
 const dEl=document.getElementById("d"), matEl=document.getElementById("material"), vcEl=document.getElementById("vc"), fEl=document.getElementById("f"), apEl=document.getElementById("ap"), outEl=document.getElementById("out"), infoEl=document.getElementById("autoInfo");
+function autoDrill(){
+ const d=+ddEl.value,key=matEl.value;
+ if(!d||!key){dvcEl.value=dfEl.value="";drillOut.innerHTML="";return}
+ const p={steel:{vc:80,f:.16},stainless:{vc:45,f:.12},castiron:{vc:70,f:.18},aluminum:{vc:180,f:.20},brass:{vc:120,f:.18},titanium:{vc:25,f:.08},hardened:{vc:30,f:.06}}[key];
+ dvcEl.value=p.vc;dfEl.value=p.f;
+ const rpm=1000*p.vc/(Math.PI*d),feed=rpm*p.f;
+ drillOut.innerHTML=`<div class="card"><b>Risultato foratura</b><br><br><b>RPM — giri/min:</b> ${rpm.toFixed(0)}<br><span class="muted">Calcolati da Vc e diametro punta.</span><br><br><b>Avanzamento — mm/min:</b> ${feed.toFixed(1)}<br><span class="muted">Calcolato da RPM × f.</span><br><br><span class="muted">Valori iniziali indicativi: verificare sempre catalogo della punta, grado, refrigerazione e macchina.</span></div>`;
+}
+ddEl.addEventListener("input",autoDrill);
 function autoTurn(){const d=+dEl.value,key=matEl.value,out=outEl;if(!d||!key){vcEl.value=fEl.value=apEl.value="";infoEl.textContent="";out.innerHTML="";return}
 const p=cuttingData[key];vcEl.value=p.vc;fEl.value=p.f;apEl.value=p.ap;
 const rpm=1000*p.vc/(Math.PI*d),feed=rpm*p.f,mrr=p.ap*p.f*feed;
 infoEl.textContent="Parametri iniziali automatici per "+p.name+" · Vc "+p.vc+" m/min · f "+p.f+" mm/giro · ap "+p.ap+" mm";
 out.innerHTML=`<div class="card"><b>Risultato automatico</b><br><br><b>RPM — giri/min:</b> ${rpm.toFixed(0)}<br><span class="muted">Giri del mandrino necessari per ottenere Vc al diametro D.</span><br><br><b>Avanzamento — mm/min:</b> ${feed.toFixed(1)}<br><span class="muted">Velocità lineare di avanzamento = RPM × f.</span><br><br><b>MRR teorico — mm³/min:</b> ${mrr.toFixed(1)}<br><span class="muted">Asportazione volumetrica teorica = ap × f × avanzamento.</span></div>`;}
 dEl.addEventListener("input",autoTurn);matEl.addEventListener("change",autoTurn);
-if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js?v=2");
+setCalcMode("turning");
 </script></body></html>
