@@ -2,27 +2,23 @@
 <html lang="it">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827"><link rel="manifest" href="manifest.webmanifest">
-<title>Cutting Tools LAB</title>
+<meta name="theme-color" content="#111827"><link rel="manifest" href="manifest.webmanifest"><title>Cutting Tools LAB</title>
 <style>
-body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background:#f4f5f7;color:#111827}main{max-width:760px;margin:auto;padding:20px}h1{margin-top:8px}section{background:white;border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 2px 10px #0001}input,button,select{font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box}button{background:#111827;color:white;border:0;margin-top:10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.result{font-size:18px;margin-top:12px;line-height:1.7}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:8px 10px;background:#eef2ff;border-radius:999px}
-</style></head>
-<body><main>
-<h1>🔧 Cutting Tools LAB</h1>
-<p>Catalogo e calcolatori per utensili da taglio.</p>
-<section><input id="search" placeholder="Cerca codice, ISO, produttore…"><div id="results"></div></section>
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background:#f4f5f7;color:#111827}main{max-width:800px;margin:auto;padding:18px}section{background:#fff;border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 2px 10px #0001}input,button{font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;box-sizing:border-box;width:100%}button{background:#111827;color:#fff;border:0;margin-top:10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:8px 10px;background:#eef2ff;border-radius:999px}.card{padding:12px;border:1px solid #eee;border-radius:12px;margin:8px 0}.muted{color:#6b7280;font-size:13px}
+</style></head><body><main>
+<h1>🔧 Cutting Tools LAB</h1><p>Catalogo utensili, inserti e calcolatori.</p>
+<section><input id="search" placeholder="Cerca codice, ISO, produttore…"><div id="results"><p class="muted">Caricamento catalogo…</p></div></section>
 <section><h2>Produttori</h2><div class="chips" id="makers"></div></section>
-<section><h2>Calcolo tornitura</h2><div class="grid">
-<input id="d" type="number" placeholder="Diametro mm"><input id="vc" type="number" placeholder="Vc m/min">
-<input id="f" type="number" step=".001" placeholder="f mm/giro"><input id="ap" type="number" step=".1" placeholder="ap mm">
-</div><button id="calc">Calcola</button><div class="result" id="out">Inserisci i parametri.</div></section>
-<section><b>Nota:</b> i dati tecnici dei produttori saranno collegati a fonti ufficiali e non verranno inventati.</section>
+<section><h2>Calcolo tornitura</h2><div class="grid"><input id="d" type="number" placeholder="Diametro mm"><input id="vc" type="number" placeholder="Vc m/min"><input id="f" type="number" step=".001" placeholder="f mm/giro"><input id="ap" type="number" step=".1" placeholder="ap mm"></div><button id="calc">Calcola</button><div id="out"></div></section>
+<section><b>Fonte:</b> i dati tecnici vengono inseriti solo quando verificati su fonti ufficiali. Parametri di taglio non disponibili sono indicati come non disponibili.</section>
 </main>
 <script>
 const makers=["Sandvik Coromant","ISCAR","Kennametal","Walter","Seco","Mitsubishi Materials","Tungaloy","Sumitomo","Kyocera","CERATIZIT","Dormer Pramet","TaeguTec","ZCC-CT","Ingersoll"];
-const products=[];
 const makersEl=document.getElementById("makers"); makers.forEach(x=>{const b=document.createElement("span");b.className="chip";b.textContent=x;makersEl.appendChild(b)});
-document.getElementById("calc").onclick=()=>{const d=+document.getElementById("d").value,vc=+document.getElementById("vc").value,f=+document.getElementById("f").value,ap=+document.getElementById("ap").value;if(!(d&&vc&&f&&ap)){out.textContent="Completa tutti i campi.";return}const rpm=1000*vc/(Math.PI*d),feed=rpm*f,mrr=ap*f*feed;out.innerHTML="RPM: <b>"+rpm.toFixed(0)+"</b><br>Avanzamento: <b>"+feed.toFixed(1)+" mm/min</b><br>MRR teorico: <b>"+mrr.toFixed(1)+" mm³/min</b>"};
-document.getElementById("search").oninput=e=>{const q=e.target.value.toLowerCase();document.getElementById("results").innerHTML=q?products.filter(x=>x.toLowerCase().includes(q)).map(x=>"<p>"+x+"</p>").join(""):"";};
-if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+let products=[];
+function render(q=""){const box=document.getElementById("results");const a=products.filter(p=>JSON.stringify(p).toLowerCase().includes(q.toLowerCase()));box.innerHTML=a.length?a.map(p=>`<div class="card"><b>${p.code}</b><br>${p.manufacturer} · ${p.family||""}<br>ISO: ${p.iso||"—"} · Geometria: ${p.geometry||"—"} · Raggio: ${p.corner_radius_mm??"—"} mm<br><span class="muted">Operazione: ${p.operation||"—"}</span></div>`).join(""):"<p class='muted'>Nessun risultato.</p>"}
+fetch("./catalog.json?ts="+Date.now(),{cache:"no-store"}).then(r=>r.json()).then(d=>{products=d;render()}).catch(()=>{document.getElementById("results").innerHTML="<p>Catalogo temporaneamente non disponibile.</p>"});
+document.getElementById("search").oninput=e=>render(e.target.value);
+document.getElementById("calc").onclick=()=>{const d=+document.getElementById("d").value,vc=+document.getElementById("vc").value,f=+document.getElementById("f").value,ap=+document.getElementById("ap").value,out=document.getElementById("out");if(!(d&&vc&&f&&ap)){out.textContent="Completa tutti i campi.";return}const rpm=1000*vc/(Math.PI*d),feed=rpm*f,mrr=ap*f*feed;out.innerHTML=`<p>RPM: <b>${rpm.toFixed(0)}</b><br>Avanzamento: <b>${feed.toFixed(1)} mm/min</b><br>MRR teorico: <b>${mrr.toFixed(1)} mm³/min</b></p>`};
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");
 </script></body></html>
