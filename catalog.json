@@ -7,7 +7,9 @@
     "geometry": "PF",
     "operation": "Tornitura · finitura",
     "corner_radius_mm": 0.4,
-    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12"
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
+    "image": "https://dcngli4g50fhp.cloudfront.net/userfiles/ad/sandvik/large/sandvik_coromant_7080857.jpg",
+    "image_note": "Foto di riferimento della geometria/inserto; verificare sempre codice e grado nel catalogo."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -17,7 +19,9 @@
     "geometry": "PF",
     "operation": "Tornitura · finitura",
     "corner_radius_mm": 0.8,
-    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12"
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
+    "image": "https://dcngli4g50fhp.cloudfront.net/userfiles/ad/sandvik/large/sandvik_coromant_7080857.jpg",
+    "image_note": "Foto di riferimento della geometria/inserto; verificare sempre codice e grado nel catalogo."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -27,7 +31,9 @@
     "geometry": "PF",
     "operation": "Tornitura · finitura",
     "corner_radius_mm": 1.2,
-    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12"
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
+    "image": "https://dcngli4g50fhp.cloudfront.net/userfiles/ad/sandvik/large/sandvik_coromant_7080857.jpg",
+    "image_note": "Foto di riferimento della geometria/inserto; verificare sempre codice e grado nel catalogo."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -37,7 +43,9 @@
     "geometry": "PM",
     "operation": "Tornitura · media",
     "corner_radius_mm": 0.8,
-    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=13"
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=13",
+    "image": "https://www.denchiya.net/html/upload/save_image/CNMG120408-PM%EF%BC%884415%EF%BC%89-01.jpg",
+    "image_note": "Foto di riferimento della geometria/inserto; verificare sempre codice e grado nel catalogo."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -47,7 +55,9 @@
     "geometry": "WF",
     "operation": "Tornitura · finitura",
     "corner_radius_mm": 0.8,
-    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=14"
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=14",
+    "image": "https://www.denchiya.net/html/upload/save_image/CNMG120408-PM%EF%BC%884415%EF%BC%89-01.jpg",
+    "image_note": "Foto di riferimento CNMG T-Max P."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -57,7 +67,9 @@
     "geometry": "WM",
     "operation": "Tornitura · media",
     "corner_radius_mm": 0.8,
-    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=14"
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=14",
+    "image": "https://www.denchiya.net/html/upload/save_image/CNMG120408-PM%EF%BC%884415%EF%BC%89-01.jpg",
+    "image_note": "Foto di riferimento CNMG T-Max P."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -67,7 +79,9 @@
     "geometry": "QM",
     "operation": "Tornitura · media",
     "corner_radius_mm": 0.4,
-    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17"
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17",
+    "image": "https://i.ebayimg.com/images/g/RNQAAOSwAqljBMn2/s-l1600.jpg",
+    "image_note": "Foto di riferimento della geometria/inserto; verificare sempre codice e grado nel catalogo."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -77,7 +91,9 @@
     "geometry": "QM",
     "operation": "Tornitura · media",
     "corner_radius_mm": 0.8,
-    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17"
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17",
+    "image": "https://i.ebayimg.com/images/g/RNQAAOSwAqljBMn2/s-l1600.jpg",
+    "image_note": "Foto di riferimento della geometria/inserto; verificare sempre codice e grado nel catalogo."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -87,7 +103,9 @@
     "geometry": "QM",
     "operation": "Tornitura · media",
     "corner_radius_mm": 1.2,
-    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17"
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17",
+    "image": "https://i.ebayimg.com/images/g/RNQAAOSwAqljBMn2/s-l1600.jpg",
+    "image_note": "Foto di riferimento della geometria/inserto; verificare sempre codice e grado nel catalogo."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -97,7 +115,9 @@
     "geometry": "SM",
     "operation": "Tornitura · media",
     "corner_radius_mm": 0.4,
-    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17"
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17",
+    "image": "https://www.denchiya.net/html/upload/save_image/CNMG120408-PM%EF%BC%884415%EF%BC%89-01.jpg",
+    "image_note": "Foto di riferimento CNMG T-Max P."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -107,7 +127,9 @@
     "geometry": "SM",
     "operation": "Tornitura · media",
     "corner_radius_mm": 0.8,
-    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17"
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17",
+    "image": "https://www.denchiya.net/html/upload/save_image/CNMG120408-PM%EF%BC%884415%EF%BC%89-01.jpg",
+    "image_note": "Foto di riferimento CNMG T-Max P."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -117,7 +139,9 @@
     "geometry": "SM",
     "operation": "Tornitura · media",
     "corner_radius_mm": 1.2,
-    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17"
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=17",
+    "image": "https://www.denchiya.net/html/upload/save_image/CNMG120408-PM%EF%BC%884415%EF%BC%89-01.jpg",
+    "image_note": "Foto di riferimento CNMG T-Max P."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -127,7 +151,9 @@
     "geometry": "SMC",
     "operation": "Tornitura · media",
     "corner_radius_mm": 0.4,
-    "source": "https://epublications.sandvik.coromant.com/frontend/catalogs/1151657/1/pdf/print/bk_19.pdf"
+    "source": "https://epublications.sandvik.coromant.com/frontend/catalogs/1151657/1/pdf/print/bk_19.pdf",
+    "image": "https://cdn.askul.co.jp/img/product/3L1/UK91488_3L1.jpg",
+    "image_note": "Foto di riferimento della geometria/inserto; verificare sempre codice e grado nel catalogo."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -137,7 +163,9 @@
     "geometry": "SMC",
     "operation": "Tornitura · media",
     "corner_radius_mm": 0.8,
-    "source": "https://epublications.sandvik.coromant.com/frontend/catalogs/1151657/1/pdf/print/bk_19.pdf"
+    "source": "https://epublications.sandvik.coromant.com/frontend/catalogs/1151657/1/pdf/print/bk_19.pdf",
+    "image": "https://cdn.askul.co.jp/img/product/3L1/UK91488_3L1.jpg",
+    "image_note": "Foto di riferimento della geometria/inserto; verificare sempre codice e grado nel catalogo."
   },
   {
     "manufacturer": "Sandvik Coromant",
@@ -147,7 +175,9 @@
     "geometry": "SMC",
     "operation": "Tornitura · media",
     "corner_radius_mm": 1.2,
-    "source": "https://epublications.sandvik.coromant.com/frontend/catalogs/1151657/1/pdf/print/bk_19.pdf"
+    "source": "https://epublications.sandvik.coromant.com/frontend/catalogs/1151657/1/pdf/print/bk_19.pdf",
+    "image": "https://cdn.askul.co.jp/img/product/3L1/UK91488_3L1.jpg",
+    "image_note": "Foto di riferimento della geometria/inserto; verificare sempre codice e grado nel catalogo."
   },
   {
     "manufacturer": "ISCAR",
@@ -157,7 +187,9 @@
     "geometry": "GN",
     "operation": "Tornitura · generale",
     "corner_radius_mm": 0.4,
-    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf",
+    "image": "https://webshop.iscar.fr/images/Fittings/hq/System_Images/ISC/Prod_Pic/55/55_Enlarge.jpg",
+    "image_note": "Foto del modello CNMG-GN; verificare codice e grado."
   },
   {
     "manufacturer": "ISCAR",
@@ -167,7 +199,9 @@
     "geometry": "GN",
     "operation": "Tornitura · generale",
     "corner_radius_mm": 0.8,
-    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf",
+    "image": "https://webshop.iscar.fr/images/Fittings/hq/System_Images/ISC/Prod_Pic/55/55_Enlarge.jpg",
+    "image_note": "Foto del modello CNMG-GN; verificare codice e grado."
   },
   {
     "manufacturer": "ISCAR",
@@ -177,7 +211,9 @@
     "geometry": "TF",
     "operation": "Tornitura · media",
     "corner_radius_mm": 0.4,
-    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf",
+    "image": "https://a.allegroimg.com/original/11735d/624e17bb4e2dbd636050c61f89fb/Plytki-CNMG-120408-IC-908-ISCAR",
+    "image_note": "Foto di riferimento CNMG-TF; verificare codice e grado."
   },
   {
     "manufacturer": "ISCAR",
@@ -187,7 +223,9 @@
     "geometry": "TF",
     "operation": "Tornitura · media",
     "corner_radius_mm": 0.8,
-    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf",
+    "image": "https://a.allegroimg.com/original/11735d/624e17bb4e2dbd636050c61f89fb/Plytki-CNMG-120408-IC-908-ISCAR",
+    "image_note": "Foto di riferimento CNMG-TF; verificare codice e grado."
   },
   {
     "manufacturer": "ISCAR",
@@ -197,7 +235,9 @@
     "geometry": "TF",
     "operation": "Tornitura · media",
     "corner_radius_mm": 1.2,
-    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf",
+    "image": "https://a.allegroimg.com/original/11735d/624e17bb4e2dbd636050c61f89fb/Plytki-CNMG-120408-IC-908-ISCAR",
+    "image_note": "Foto di riferimento CNMG-TF; verificare codice e grado."
   },
   {
     "manufacturer": "ISCAR",
@@ -207,7 +247,9 @@
     "geometry": "PP",
     "operation": "Tornitura · materiali duttili",
     "corner_radius_mm": 0.4,
-    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf",
+    "image": "https://smartinserts.net/cdn/shop/files/IMG_1795.png?v=1687288636&width=533",
+    "image_note": "Foto di riferimento CNMG-PP; verificare codice e grado."
   },
   {
     "manufacturer": "ISCAR",
@@ -217,6 +259,8 @@
     "geometry": "PP",
     "operation": "Tornitura · materiali duttili",
     "corner_radius_mm": 0.8,
-    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf"
+    "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf",
+    "image": "https://smartinserts.net/cdn/shop/files/IMG_1795.png?v=1687288636&width=533",
+    "image_note": "Foto di riferimento CNMG-PP; verificare codice e grado."
   }
 ]
