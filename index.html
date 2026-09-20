@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827"><link rel="manifest" href="manifest.webmanifest">
+<title>Cutting Tools LAB</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background:#f4f5f7;color:#111827}main{max-width:760px;margin:auto;padding:20px}h1{margin-top:8px}section{background:white;border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 2px 10px #0001}input,button,select{font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box}button{background:#111827;color:white;border:0;margin-top:10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.result{font-size:18px;margin-top:12px;line-height:1.7}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:8px 10px;background:#eef2ff;border-radius:999px}
+</style></head>
+<body><main>
+<h1>🔧 Cutting Tools LAB</h1>
+<p>Catalogo e calcolatori per utensili da taglio.</p>
+<section><input id="search" placeholder="Cerca codice, ISO, produttore…"><div id="results"></div></section>
+<section><h2>Produttori</h2><div class="chips" id="makers"></div></section>
+<section><h2>Calcolo tornitura</h2><div class="grid">
+<input id="d" type="number" placeholder="Diametro mm"><input id="vc" type="number" placeholder="Vc m/min">
+<input id="f" type="number" step=".001" placeholder="f mm/giro"><input id="ap" type="number" step=".1" placeholder="ap mm">
+</div><button id="calc">Calcola</button><div class="result" id="out">Inserisci i parametri.</div></section>
+<section><b>Nota:</b> i dati tecnici dei produttori saranno collegati a fonti ufficiali e non verranno inventati.</section>
+</main>
+<script>
+const makers=["Sandvik Coromant","ISCAR","Kennametal","Walter","Seco","Mitsubishi Materials","Tungaloy","Sumitomo","Kyocera","CERATIZIT","Dormer Pramet","TaeguTec","ZCC-CT","Ingersoll"];
+const products=[];
+const makersEl=document.getElementById("makers"); makers.forEach(x=>{const b=document.createElement("span");b.className="chip";b.textContent=x;makersEl.appendChild(b)});
+document.getElementById("calc").onclick=()=>{const d=+document.getElementById("d").value,vc=+document.getElementById("vc").value,f=+document.getElementById("f").value,ap=+document.getElementById("ap").value;if(!(d&&vc&&f&&ap)){out.textContent="Completa tutti i campi.";return}const rpm=1000*vc/(Math.PI*d),feed=rpm*f,mrr=ap*f*feed;out.innerHTML="RPM: <b>"+rpm.toFixed(0)+"</b><br>Avanzamento: <b>"+feed.toFixed(1)+" mm/min</b><br>MRR teorico: <b>"+mrr.toFixed(1)+" mm³/min</b>"};
+document.getElementById("search").oninput=e=>{const q=e.target.value.toLowerCase();document.getElementById("results").innerHTML=q?products.filter(x=>x.toLowerCase().includes(q)).map(x=>"<p>"+x+"</p>").join(""):"";};
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+</script></body></html>
