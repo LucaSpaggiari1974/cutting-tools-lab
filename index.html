@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#111827"><link rel="manifest" href="manifest.webmanifest"><title>Cutting Tools LAB</title>
 <style>
-body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background:#f4f5f7;color:#111827}main{max-width:800px;margin:auto;padding:18px}section{background:#fff;border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 2px 10px #0001}input,button{font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;box-sizing:border-box;width:100%}button{background:#111827;color:#fff;border:0;margin-top:10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:8px 10px;background:#eef2ff;border-radius:999px}.card{padding:12px;border:1px solid #eee;border-radius:12px;margin:8px 0}.tool-drawing{background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:10px;text-align:center;margin-top:12px}.tool-drawing svg{width:100%;max-width:360px;height:150px}.muted{color:#6b7280;font-size:13px}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background:#f4f5f7;color:#111827}main{max-width:800px;margin:auto;padding:18px}section{background:#fff;border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 2px 10px #0001}input,button{font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;box-sizing:border-box;width:100%}button{background:#111827;color:#fff;border:0;margin-top:10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:8px 10px;background:#eef2ff;border-radius:999px}.card{padding:12px;border:1px solid #eee;border-radius:12px;margin:8px 0}.tool-photo{background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:10px;text-align:center;margin-top:12px}.tool-photo img{width:100%;max-width:380px;height:210px;object-fit:contain;border-radius:10px;background:#fff}.tool-caption{font-weight:600;margin-top:8px}.field{display:flex;flex-direction:column;gap:6px}.field span{font-size:13px;font-weight:600;color:#374151}.help{background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-top:12px}.help div{margin:7px 0}.muted{color:#6b7280;font-size:13px}
 </style></head><body><main>
 <h1>🔧 Cutting Tools LAB</h1><p>Catalogo utensili, inserti e calcolatori.</p>
 <section><input id="search" placeholder="Cerca codice, ISO, produttore…"><div id="results"><p class="muted">Caricamento catalogo…</p></div></section>
@@ -12,9 +12,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background
 <section><h2>Calcolo tornitura automatico</h2>
 <p class="muted">Inserisci diametro e materiale: il calcolatore propone automaticamente i parametri iniziali di taglio. Sono valori indicativi e vanno verificati con utensile, grado e materiale reali.</p>
 <div class="grid">
-<input id="d" type="number" min="0.1" step="0.1" placeholder="Diametro pezzo mm">
-<select id="material" style="font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box">
-<option value="">Materiale…</option>
+<label class="field"><span>Diametro D (mm)</span><input id="d" type="number" min="0.1" step="0.1" placeholder="Es. 50"></label>
+<label class="field"><span>Materiale pezzo</span><select id="material" style="font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box">
+<option value="">Seleziona materiale…</option>
 <option value="steel">Acciaio</option>
 <option value="stainless">Acciaio inox</option>
 <option value="castiron">Ghisa</option>
@@ -22,32 +22,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background
 <option value="brass">Ottone</option>
 <option value="titanium">Titanio</option>
 <option value="hardened">Acciaio temprato</option>
-</select>
-<input id="vc" type="number" placeholder="Vc m/min" readonly>
-<input id="f" type="number" step=".001" placeholder="f mm/giro" readonly>
-<input id="ap" type="number" step=".1" placeholder="ap mm" readonly>
+</select></label>
+<label class="field"><span>Velocità di taglio Vc (m/min)</span><input id="vc" type="number" placeholder="Automatica" readonly></label>
+<label class="field"><span>Avanzamento f (mm/giro)</span><input id="f" type="number" step=".001" placeholder="Automatico" readonly></label>
+<label class="field"><span>Profondità ap (mm)</span><input id="ap" type="number" step=".1" placeholder="Automatica" readonly></label>
 </div>
 <div style="margin-top:12px">
 <select id="toolType" style="font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box">
-<option value="turning">Utensile tornitura esterna — CNMG</option>
-<option value="finishing">Utensile finitura — VNMG</option>
-<option value="grooving">Utensile scanalatura/troncatura — G</option>
-<option value="threading">Utensile filettatura — 16ER</option>
-<option value="drilling">Punta da foro — DR</option>
+<option value="turning">Tornitura esterna — CNMG</option>
+<option value="finishing">Finitura — VNMG</option>
+<option value="grooving">Scanalatura / troncatura — G</option>
+<option value="threading">Filettatura esterna — 16ER</option>
+<option value="drilling">Foratura — punta DR</option>
 </select>
-<div id="toolDrawing" class="tool-drawing"></div>
+<div id="toolDrawing" class="tool-photo"></div>
 </div>
-const toolDrawings={
-turning:`<svg viewBox="0 0 360 150" aria-label="Utensile tornitura CNMG"><path d="M30 115h190l55-55H85z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M205 65l35-35 55 55-35 35z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M245 30l55 55" stroke="currentColor" stroke-width="5"/><text x="18" y="140" font-size="14">Portautensile + inserto CNMG</text></svg>`,
-finishing:`<svg viewBox="0 0 360 150" aria-label="Utensile finitura VNMG"><path d="M30 115h195l55-55H85z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M220 65l28-38 48 48-38 28z" fill="none" stroke="currentColor" stroke-width="5"/><text x="18" y="140" font-size="14">Inserto VNMG — finitura</text></svg>`,
-grooving:`<svg viewBox="0 0 360 150" aria-label="Utensile scanalatura"><path d="M30 115h210V85H30z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M240 85v-50h55v50" fill="none" stroke="currentColor" stroke-width="5"/><path d="M240 35h55" stroke="currentColor" stroke-width="5"/><text x="18" y="140" font-size="14">Utensile scanalatura / troncatura</text></svg>`,
-threading:`<svg viewBox="0 0 360 150" aria-label="Utensile filettatura"><path d="M30 115h205l55-55H85z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M235 60l35-35 35 35-35 35z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M265 25v70" stroke="currentColor" stroke-width="3" stroke-dasharray="6 5"/><text x="18" y="140" font-size="14">Inserto 16ER — filettatura</text></svg>`,
-drilling:`<svg viewBox="0 0 360 150" aria-label="Punta da foro"><path d="M70 110V55l110-30 110 30v55" fill="none" stroke="currentColor" stroke-width="5"/><path d="M70 55h220" stroke="currentColor" stroke-width="5"/><path d="M125 70h110M145 90h70" stroke="currentColor" stroke-width="3"/><text x="18" y="140" font-size="14">Punta da foro — utensile di foratura</text></svg>`
-};
-const toolTypeEl=document.getElementById("toolType"), drawingEl=document.getElementById("toolDrawing");
-function updateToolDrawing(){drawingEl.innerHTML=toolDrawings[toolTypeEl.value]||toolDrawings.turning;}
-toolTypeEl.addEventListener("change",updateToolDrawing);updateToolDrawing();
 <div id="autoInfo" class="muted" style="margin-top:10px"></div>
+<div class="help">
+<b>Cosa significano le finestre</b>
+<div><b>D (mm)</b> = diametro del pezzo nel punto di taglio.</div>
+<div><b>Materiale pezzo</b> = materiale che stai lavorando; determina i valori iniziali proposti.</div>
+<div><b>Vc (m/min)</b> = velocità di taglio periferica dell'utensile.</div>
+<div><b>f (mm/giro)</b> = quanto avanza l'utensile a ogni giro del pezzo.</div>
+<div><b>ap (mm)</b> = profondità radiale della passata.</div>
+<div><b>RPM</b> = giri/minuto del mandrino, calcolati da Vc e D.</div>
+<div><b>Avanzamento (mm/min)</b> = velocità con cui si muove l'utensile.</div>
+<div><b>MRR (mm³/min)</b> = volume teorico di materiale asportato al minuto.</div>
+</div>
 <div id="out"></div></section>
 <section><b>Fonte:</b> i dati tecnici vengono inseriti solo quando verificati su fonti ufficiali. Parametri di taglio non disponibili sono indicati come non disponibili.</section>
 </main>
@@ -67,12 +68,25 @@ brass:{name:"Ottone",vc:250,f:.20,ap:2.0},
 titanium:{name:"Titanio",vc:60,f:.10,ap:1.0},
 hardened:{name:"Acciaio temprato",vc:70,f:.08,ap:.6}
 };
+const toolImages={
+turning:{src:"https://cnchome-beyond.com/cdn/shop/files/BEYOND_MCKNR2020K12_right_hand_indexable_turning_tool_holder_20x20mm_shank_for_heavy_duty_CNMG_1204_carbide_inserts.jpg?v=1782009238&width=600",title:"Portautensile reale con inserto CNMG",note:"Esempio di utensile per tornitura esterna."},
+finishing:{src:"https://zlatinco.ru/d/2525_mvr_16_2.jpg",title:"Portautensile reale con inserto VNMG",note:"Esempio di utensile con inserto romboidale per finitura."},
+grooving:{src:"https://i.ebayimg.com/images/g/DsQAAOSwpd1j~woo/s-l1600.jpg",title:"Portautensile reale per scanalatura / troncatura",note:"Esempio di utensile con inserto stretto per gole e troncatura."},
+threading:{src:"https://ashdowntooling.co.uk/cdn/shop/files/SER1616H16.png?v=1743080355&width=1920",title:"Portautensile reale per filettatura 16ER",note:"Esempio di portautensile esterno con inserto 16ER."},
+drilling:{src:"https://ssl.ingersoll-imc.com/resources/product-images/dh_5xd/dh_5xd_Enlarge.jpg",title:"Punta reale in metallo duro",note:"Esempio di punta integrale per foratura CNC."}
+};
+const toolTypeEl=document.getElementById("toolType"), drawingEl=document.getElementById("toolDrawing");
+function updateToolDrawing(){
+ const p=toolImages[toolTypeEl.value]||toolImages.turning;
+ drawingEl.innerHTML=`<img src="${p.src}" alt="${p.title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.textContent='Immagine non disponibile.'"><div class="tool-caption">${p.title}</div><div class="muted">${p.note}</div>`;
+}
+toolTypeEl.addEventListener("change",updateToolDrawing);updateToolDrawing();
 const dEl=document.getElementById("d"), matEl=document.getElementById("material"), vcEl=document.getElementById("vc"), fEl=document.getElementById("f"), apEl=document.getElementById("ap"), outEl=document.getElementById("out"), infoEl=document.getElementById("autoInfo");
 function autoTurn(){const d=+dEl.value,key=matEl.value,out=outEl;if(!d||!key){vcEl.value=fEl.value=apEl.value="";infoEl.textContent="";out.innerHTML="";return}
 const p=cuttingData[key];vcEl.value=p.vc;fEl.value=p.f;apEl.value=p.ap;
 const rpm=1000*p.vc/(Math.PI*d),feed=rpm*p.f,mrr=p.ap*p.f*feed;
 infoEl.textContent="Parametri iniziali automatici per "+p.name+" · Vc "+p.vc+" m/min · f "+p.f+" mm/giro · ap "+p.ap+" mm";
-out.innerHTML=`<p><b>Risultato automatico</b><br>RPM: <b>${rpm.toFixed(0)}</b><br>Avanzamento: <b>${feed.toFixed(1)} mm/min</b><br>MRR teorico: <b>${mrr.toFixed(1)} mm³/min</b></p>`;}
+out.innerHTML=`<div class="card"><b>Risultato automatico</b><br><br><b>RPM — giri/min:</b> ${rpm.toFixed(0)}<br><span class="muted">Giri del mandrino necessari per ottenere Vc al diametro D.</span><br><br><b>Avanzamento — mm/min:</b> ${feed.toFixed(1)}<br><span class="muted">Velocità lineare di avanzamento = RPM × f.</span><br><br><b>MRR teorico — mm³/min:</b> ${mrr.toFixed(1)}<br><span class="muted">Asportazione volumetrica teorica = ap × f × avanzamento.</span></div>`;}
 dEl.addEventListener("input",autoTurn);matEl.addEventListener("change",autoTurn);
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");
 </script></body></html>
