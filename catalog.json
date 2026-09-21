@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-09-21T09:24:24.990Z",
+  "updatedAt": "2026-09-21T09:26:18.158Z",
   "source": "Cutting Tools LAB",
   "items": [
     {
@@ -73,7 +73,8 @@
       "ap": "0,2–1,5",
       "maker": "Ingersoll",
       "photoUrl": "https://cdn.grovesindustrial.com/img/groves/product_images/1/Ingersoll_5523013_HR.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Media",
@@ -97,7 +98,8 @@
       "ap": "0,3–2,5",
       "maker": "Ingersoll",
       "photoUrl": "https://www.suncoasttools.com/crm/Resizer/resizeimg.aspx?img=%2Fcrm%2FItemImages%2FINGERSOLL-6241238.jpg&width=1500",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -109,7 +111,8 @@
       "ap": "1–5",
       "maker": "Ingersoll",
       "photoUrl": "https://i.ebayimg.com/images/g/Aj4AAOSwnFJfunQU/s-l1200.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Media",
@@ -121,7 +124,8 @@
       "ap": "0,5–3",
       "maker": "Ingersoll",
       "photoUrl": "https://i.ebayimg.com/images/g/Aj4AAOSwnFJfunQU/s-l1200.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Finitura",
@@ -133,7 +137,8 @@
       "ap": "0,3–2",
       "maker": "Ingersoll",
       "photoUrl": "https://i.ebayimg.com/images/g/Aj4AAOSwnFJfunQU/s-l1200.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Media",
@@ -145,7 +150,8 @@
       "ap": "0,3–2",
       "maker": "Kennametal",
       "photoUrl": "https://i.ebayimg.com/images/g/dzgAAOSwq~1oGkci/s-l400.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Finitura",
@@ -157,7 +163,8 @@
       "ap": "0,2–1,2",
       "maker": "Kennametal",
       "photoUrl": "https://i.ebayimg.com/images/g/dzgAAOSwq~1oGkci/s-l400.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -169,7 +176,8 @@
       "ap": "0,5–3",
       "maker": "Kennametal",
       "photoUrl": "https://i.ebayimg.com/images/g/dzgAAOSwq~1oGkci/s-l400.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Finitura",
@@ -181,7 +189,8 @@
       "ap": "0,5–4",
       "maker": "Kennametal",
       "photoUrl": "https://ocean.biz.ua/image/cache/catalog/DNMG-150608-MW-KCP25-KENNAMETA-1200x800.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -193,7 +202,8 @@
       "ap": "1–5",
       "maker": "Kennametal",
       "photoUrl": "https://i.ebayimg.com/images/g/dzgAAOSwq~1oGkci/s-l400.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Media",
@@ -205,7 +215,8 @@
       "ap": "0,5–3",
       "maker": "Kennametal",
       "photoUrl": "https://i.ebayimg.com/images/g/dzgAAOSwq~1oGkci/s-l400.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Finitura",
@@ -217,7 +228,8 @@
       "ap": "0,3–2",
       "maker": "Kennametal",
       "photoUrl": "https://i.ebayimg.com/images/g/dzgAAOSwq~1oGkci/s-l400.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Media",
@@ -328,7 +340,8 @@
       "ap": "0,2–1,2",
       "maker": "Walter",
       "photoUrl": "https://cdn11.bigcommerce.com/s-4s9liwcv/images/stencil/original/products/678608/828090/4731151-21__96346.1682542851.jpg?c=2&imbypass=on",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Finitura",
@@ -340,7 +353,8 @@
       "ap": "0,6–4",
       "maker": "Walter",
       "photoUrl": "https://cdn.askul.co.jp/img/product/3L1/WWE7683_3L1.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -352,7 +366,8 @@
       "ap": "1–5",
       "maker": "Walter",
       "photoUrl": "https://cdn11.bigcommerce.com/s-4s9liwcv/images/stencil/original/products/679021/828503/1173505-21__55673.1682542965.jpg?c=2&imbypass=on",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Finitura",
@@ -364,7 +379,8 @@
       "ap": "0,8–4",
       "maker": "Walter",
       "photoUrl": "https://cdn11.bigcommerce.com/s-4s9liwcv/images/stencil/original/products/679021/828503/1173505-21__55673.1682542965.jpg?c=2&imbypass=on",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -376,7 +392,8 @@
       "ap": "1–5",
       "maker": "Walter",
       "photoUrl": "https://static.raptorsupplies.com/catalog/product/og/walter-cnmg160612-mp5-wpp10s.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Media",
@@ -388,7 +405,8 @@
       "ap": "0,8–4",
       "maker": "Walter",
       "photoUrl": "https://static.raptorsupplies.com/catalog/product/og/walter-cnmg160612-mp5-wpp10s.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Finitura",
@@ -400,7 +418,8 @@
       "ap": "0,5–4",
       "maker": "Walter",
       "photoUrl": "https://static.raptorsupplies.com/catalog/product/og/walter-cnmg160612-mp5-wpp10s.jpg",
-      "photoSource": "distributor"
+      "photoSource": "distributor",
+      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
     },
     {
       "category": "Tornitura · Finitura",
@@ -1045,6 +1064,90 @@
       "photoUrl": "https://www.store.secotools.com/wcsstore/SecoCatalogAssetStore/thumbnailimages/As%20Delivered%20Image/20135965_Thumbnail.jpg",
       "photoSource": "manufacturer",
       "productUrl": "https://www.store.secotools.com/wcs/shop/ProductDisplay?catalogId=10065&langId=6&productId=6001157&storeId=10214&urlLangId=6&urlRequestType=Base"
+    },
+    {
+      "category": "Tornitura · Media",
+      "code": "CNMG120408-CM T505",
+      "geom": "Rombo 80° · media · R0,8",
+      "material": "K Ghisa",
+      "vc": "180–400",
+      "f": "0,10–0,25",
+      "ap": "1–5",
+      "maker": "Tungaloy",
+      "productUrl": "https://tungaloy.com/it/product/turning/t505/",
+      "photoSource": "manufacturer"
+    },
+    {
+      "category": "Tornitura · Sgrossatura",
+      "code": "CNMG120412-CM T505",
+      "geom": "Rombo 80° · sgrossatura · R1,2",
+      "material": "K Ghisa",
+      "vc": "180–400",
+      "f": "0,15–0,50",
+      "ap": "1–5",
+      "maker": "Tungaloy",
+      "productUrl": "https://tungaloy.com/it/product/turning/t505/",
+      "photoSource": "manufacturer"
+    },
+    {
+      "category": "Tornitura · Media",
+      "code": "CNMG120408-TM T9215",
+      "geom": "Rombo 80° · media · R0,8",
+      "material": "P Acciaio",
+      "vc": "180–300",
+      "f": "0,20–0,35",
+      "ap": "1–4",
+      "maker": "Tungaloy",
+      "productUrl": "https://tungaloy.com/it/product/turning/turninga/",
+      "photoSource": "manufacturer"
+    },
+    {
+      "category": "Tornitura · Finitura",
+      "code": "CNMG120408N-FE AC8025P",
+      "geom": "Rombo 80° · finitura · R0,8",
+      "material": "P Acciaio",
+      "vc": "160–220",
+      "f": "0,10–0,40",
+      "ap": "0,2–3",
+      "maker": "Sumitomo Electric Hardmetal",
+      "productUrl": "https://www.sumitool.com/en/products/cutting-tools/inserts/chipbreakers/fe-fb.html",
+      "photoSource": "manufacturer"
+    },
+    {
+      "category": "Tornitura · Media",
+      "code": "CNMG120408N-FB T1500A",
+      "geom": "Rombo 80° · media · R0,8",
+      "material": "P Acciaio",
+      "vc": "160–220",
+      "f": "0,10–0,30",
+      "ap": "0,5–3",
+      "maker": "Sumitomo Electric Hardmetal",
+      "productUrl": "https://www.sumitool.com/en/products/cutting-tools/inserts/chipbreakers/fe-fb.html",
+      "photoSource": "manufacturer"
+    },
+    {
+      "category": "Tornitura · Sgrossatura",
+      "code": "CNMG120408-VM NC3010",
+      "geom": "Rombo 80° · sgrossatura · R0,8",
+      "material": "P Acciaio",
+      "vc": "200–260",
+      "f": "0,15–0,30",
+      "ap": "1–2,5",
+      "maker": "KORLOY",
+      "productUrl": "https://www.korloy.com/en/ebook/NC3010%28EM%29/assets/contents/download.pdf",
+      "photoSource": "manufacturer"
+    },
+    {
+      "category": "Tornitura · Media",
+      "code": "DNMG150608-VM NC3010",
+      "geom": "Rombo 55° · media · R0,8",
+      "material": "P Acciaio",
+      "vc": "200–300",
+      "f": "0,15–0,25",
+      "ap": "1–2",
+      "maker": "KORLOY",
+      "productUrl": "https://www.korloy.com/en/ebook/NC3010%28EM%29/assets/contents/download.pdf",
+      "photoSource": "manufacturer"
     }
   ]
 }
