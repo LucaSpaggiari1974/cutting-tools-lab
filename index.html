@@ -272,12 +272,48 @@ async function checkForDatabaseUpdate(){
  }catch(_){}
 }
 setTimeout(()=>loadCatalog(),0);
+
+let photoRuntimeHealth={checked:0,loaded:0,failed:0};
+async function verifyPhotoRuntime(){
+ const list=data.filter(x=>x&&x.photoUrl);
+ let loaded=0,failed=0;
+ await Promise.all(list.map(x=>new Promise(resolve=>{
+   const im=new Image();
+   let done=false;
+   const finish=ok=>{if(done)return;done=true;ok?loaded++:failed++;resolve();};
+   im.onload=()=>finish(true);
+   im.onerror=()=>finish(false);
+   im.src=x.photoUrl;
+   setTimeout(()=>finish(false),12000);
+ })));
+ photoRuntimeHealth={checked:list.length,loaded,failed};
+ const el=document.getElementById("status");
+ if(el && list.length) el.textContent=el.textContent+" · Foto verificate nel browser: "+loaded+"/"+list.length+(failed?" · errori "+failed:" ✓");
+ window.dispatchEvent(new CustomEvent("photo-runtime-verified",{detail:photoRuntimeHealth}));
+}
 setInterval(checkForDatabaseUpdate,2*60*1000);
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkForDatabaseUpdate()});
 document.getElementById("refreshData").onclick=()=>manualRefresh();
 
-if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").then(reg=>{reg.update();setInterval(()=>reg.update(),5*60*1000)}).catch(()=>{});}
-let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.getElementById("installApp").hidden=false});document.getElementById("installApp").onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById("installApp").hidden=true};
+if("serviceWorker" in navigator){
+ navigator.serviceWorker.register("sw.js").then(reg=>{
+   reg.update();
+   setInterval(()=>reg.update(),5*60*1000);
+   navigator.serviceWorker.addEventListener("controllerchange",()=>{
+     if(!window.__swReloaded){window.__swReloaded=true;location.reload();}
+   });
+ }).catch(()=>{});
+}
+let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.getElementById("installApp").hidden=false});document.getElementById("installApp").onclick=async()=>{
+ const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+ const standalone=window.matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+ if(isIOS&&!standalone){alert("Per installare Cutting Tools LAB su iPhone: tocca Condividi → Aggiungi alla schermata Home → Aggiungi.");return;}
+ if(!deferredPrompt)return;
+ deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; document.getElementById("installApp").hidden=true;
+};
+if(/iphone|ipad|ipod/i.test(navigator.userAgent) && !(window.matchMedia("(display-mode: standalone)").matches||navigator.standalone===true)){
+ document.getElementById("installApp").hidden=false;
+}
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
 const photoMap={
@@ -306,12 +342,7 @@ ADAPTER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?
 };
 function toolImageUrl(x){
  if(!x)return null;
- if(x.photoUrl)return x.photoUrl;
- if(x.genericPhotoUrl)return x.genericPhotoUrl;
- if(x.drawingUrl)return x.drawingUrl;
- if(x.productUrl)return x.productUrl;
- const p=photoMap[familyFor(x)];
- return p&&p[0]||null;
+ return x.photoUrl||null;
 }
 function toolPhoto(x,modal=false){
  if(x && x.photoUrl){
