@@ -76,48 +76,28 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 
 
 </section>\n<section id="formule" class="page">
-  <div class="calc"><h2>🧮 Formule di taglio</h2>
-    <div class="formulaBox">n = (1000 × Vc) ÷ (π × D)<br>Vf tornitura = f × n<br>Vf fresatura = fz × z × n</div>
-    <p>Vc = velocità di taglio · D = diametro · f = avanzamento/giro · fz = avanzamento/dente · z = numero denti.</p>
-  </div>
-</section>
+<div class="calc"><h2>🧮 Calcolo automatico</h2>
+<div class="formulaBox">n = (1000 × Vc) ÷ (π × D)<br>Vc = (π × D × n) ÷ 1000<br>Vf = f × n<br>Vf fresatura = fz × z × n</div>
+<p><b>Inserisci solo il diametro D.</b> Il programma usa automaticamente i parametri consigliati del catalogo e calcola giri/min e avanzamento.</p>
+</div></section>
 
-<section id="tornitura" class="page">
-  <div class="calc"><h2>🔩 Elaborazione Tornitura</h2>
-    <div class="calcgrid">
-      <label>Vc (m/min)<input id="tc_vc" type="number" value="180"></label>
-      <label>Diametro D (mm)<input id="tc_d" type="number" value="50"></label>
-      <label>f (mm/giro)<input id="tc_f" type="number" value="0.18" step="0.01"></label>
-    </div>
-    <button id="tc_go" type="button">Calcola</button><div id="tc_out" class="result">Inserisci i dati e calcola.</div>
-    <div class="recommendTitle">Utensili consigliati · disegno aggiornato</div><div id="tc_rec" class="recommend"></div>
-  </div>
-</section>
+<section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura</h2>
+<label>Diametro D (mm)<input id="tc_d" type="number" value="50" min="0.1" step="0.1"></label>
+<div id="tc_out" class="result">Inserisci il diametro: il calcolo è automatico.</div>
+<div class="recommendTitle">Utensili consigliati · foto reale</div><div id="tc_rec" class="recommend"></div>
+</div></section>
 
-<section id="foratura" class="page">
-  <div class="calc"><h2>🕳️ Elaborazione Foratura</h2>
-    <div class="calcgrid">
-      <label>Vc (m/min)<input id="dr_vc" type="number" value="80"></label>
-      <label>Diametro D (mm)<input id="dr_d" type="number" value="10"></label>
-      <label>f (mm/giro)<input id="dr_f" type="number" value="0.12" step="0.01"></label>
-    </div>
-    <button id="dr_go" type="button">Calcola</button><div id="dr_out" class="result">Inserisci i dati e calcola.</div>
-    <div class="recommendTitle">Utensili consigliati · disegno aggiornato</div><div id="dr_rec" class="recommend"></div>
-  </div>
-</section>
+<section id="foratura" class="page"><div class="calc"><h2>🕳️ Foratura</h2>
+<label>Diametro D (mm)<input id="dr_d" type="number" value="10" min="0.1" step="0.1"></label>
+<div id="dr_out" class="result">Inserisci il diametro: il calcolo è automatico.</div>
+<div class="recommendTitle">Punte consigliate · foto reale</div><div id="dr_rec" class="recommend"></div>
+</div></section>
 
-<section id="fresatura" class="page">
-  <div class="calc"><h2>⚙️ Elaborazione Fresatura</h2>
-    <div class="calcgrid">
-      <label>Vc (m/min)<input id="mi_vc" type="number" value="120"></label>
-      <label>Diametro D (mm)<input id="mi_d" type="number" value="10"></label>
-      <label>fz (mm/dente)<input id="mi_fz" type="number" value="0.04" step="0.01"></label>
-      <label>Numero denti z<input id="mi_z" type="number" value="4"></label>
-    </div>
-    <button id="mi_go" type="button">Calcola</button><div id="mi_out" class="result">Inserisci i dati e calcola.</div>
-    <div class="recommendTitle">Utensili consigliati · disegno aggiornato</div><div id="mi_rec" class="recommend"></div>
-  </div>
-</section>
+<section id="fresatura" class="page"><div class="calc"><h2>⚙️ Fresatura</h2>
+<label>Diametro D (mm)<input id="mi_d" type="number" value="10" min="0.1" step="0.1"></label>
+<div id="mi_out" class="result">Inserisci il diametro: il calcolo è automatico.</div>
+<div class="recommendTitle">Frese consigliate · foto reale</div><div id="mi_rec" class="recommend"></div>
+</div></section>
 
 <div id="toolModal" class="modal" hidden>
   <div class="modalCard">
@@ -223,7 +203,7 @@ function toolDrawing(kind){
 }
 function familyFor(x){
  const k=(x.code+' '+x.category).toUpperCase();
- for(const f of Object.keys(drawingMap)) if(k.includes(f)) return f;
+ for(const f of Object.keys(photoMap)) if(k.includes(f)) return f;
  if(x.category.includes('Foratura')) return 'DRILL';
  if(x.category.includes('Fresatura')) return 'MILL';
  if(x.category.includes('Spianatura')) return 'FACE';
@@ -241,10 +221,12 @@ function refreshRecommendations(){
 }
 function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll(".navtab").forEach(b=>b.classList.toggle("active",b.dataset.page===id));window.scrollTo({top:0,behavior:"smooth"})}
 document.querySelectorAll(".navtab").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+function avgRange(s){const n=String(s||'').replace(',','.').match(/\d+(?:[.,]\d+)?/g)||[];const a=n.map(v=>parseFloat(v.replace(',','.'))).filter(Number.isFinite);return a.length?(Math.min(...a)+Math.max(...a))/2:0}
 function calcN(vc,d){return d>0?(1000*vc)/(Math.PI*d):0}
-tc_go.onclick=()=>{const n=calcN(+tc_vc.value,+tc_d.value);tc_out.textContent='n '+Math.round(n)+' giri/min · Vf '+(n*+tc_f.value).toFixed(1)+' mm/min';refreshRecommendations()};
-dr_go.onclick=()=>{const n=calcN(+dr_vc.value,+dr_d.value);dr_out.textContent='n '+Math.round(n)+' giri/min · Vf '+(n*+dr_f.value).toFixed(1)+' mm/min';refreshRecommendations()};
-mi_go.onclick=()=>{const n=calcN(+mi_vc.value,+mi_d.value);mi_out.textContent='n '+Math.round(n)+' giri/min · Vf '+(n*+mi_fz.value*+mi_z.value).toFixed(1)+' mm/min';refreshRecommendations()};
+function autoCalc(id,out,filter,mill){const d=+document.getElementById(id).value;if(!d){document.getElementById(out).textContent='Inserisci un diametro valido.';return}const x=data.find(filter);if(!x)return;const vc=avgRange(x.vc),f=avgRange(x.f),n=calcN(vc,d);const z=mill?4:1;const vf=n*f*z;document.getElementById(out).textContent='Utensile: '+x.code+' · Vc '+vc.toFixed(0)+' m/min · n '+Math.round(n)+' giri/min · Vf '+vf.toFixed(1)+' mm/min';refreshRecommendations()}
+document.getElementById('tc_d').oninput=()=>autoCalc('tc_d','tc_out',x=>x.category.includes('Tornitura')||x.category.includes('Profilatura'),false);
+document.getElementById('dr_d').oninput=()=>autoCalc('dr_d','dr_out',x=>x.category==='Foratura',false);
+document.getElementById('mi_d').oninput=()=>autoCalc('mi_d','mi_out',x=>x.category.includes('Fresatura')||x.category==='Spianatura',true);
 function openTool(x){
  const kind=familyFor(x), p=photoMap[kind]||photoMap.HOLDER;
  let body='<h2>'+esc(x.code)+'</h2><p><b>Categoria:</b> '+esc(x.category)+'</p><p>'+esc(x.geom)+'</p>'+toolDrawing(kind)+'<p><b>Materiale:</b> '+esc(x.material)+'</p><div class="formulaBox">Vc: '+esc(x.vc)+' m/min · f/fz: '+esc(x.f)+' · ap: '+esc(x.ap)+'</div><p class="photo-caption">Fotografia reale del prodotto/famiglia. Il codice preciso, grado e quote devono essere verificati sulla scheda del produttore.</p>';
