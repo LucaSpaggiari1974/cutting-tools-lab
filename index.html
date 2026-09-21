@@ -510,10 +510,32 @@ function renderProblems(){
 }
 document.getElementById('problemSearch').oninput=renderProblems;document.getElementById('problemArea').oninput=renderProblems;renderProblems();
 
-const SPECIAL_KEY="cuttingToolsLabAllisonSpecial";
+const SPECIAL_API_BASE=window.CUTTING_TOOLS_API_BASE||"";
 let specialTools=[];
-async function loadOnlineSpecialTools(){try{const r=await fetch("./special-tools.json?ts="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error();const j=await r.json();if(Array.isArray(j.items))specialTools=j.items;else specialTools=[];}catch(_){try{specialTools=JSON.parse(localStorage.getItem(SPECIAL_KEY)||"[]");if(!Array.isArray(specialTools))specialTools=[]}catch(_){specialTools=[]}}}
-function saveSpecialTools(){localStorage.setItem(SPECIAL_KEY,JSON.stringify(specialTools));}
+let specialOnlineReady=false;
+async function specialApi(path="",options={}){
+  const r=await fetch(SPECIAL_API_BASE+"/api/special-tools"+path,{...options,headers:{"Content-Type":"application/json",...(options.headers||{})}});
+  let j={};try{j=await r.json()}catch(_){}
+  if(!r.ok)throw new Error(j.error||"Archivio Allison non disponibile.");
+  return j;
+}
+async function loadOnlineSpecialTools(silent=false){
+  try{
+    const j=await specialApi("?ts="+Date.now());
+    specialTools=Array.isArray(j.items)?j.items:[];
+    specialOnlineReady=true;
+    window.__specialUpdatedAt=j.updatedAt||null;
+    renderSpecialTools();
+    return true;
+  }catch(e){
+    specialOnlineReady=false;
+    const st=document.getElementById("specialStatus");
+    if(st)st.textContent="⚠️ Archivio online Allison non raggiungibile.";
+    if(!silent)alert("Archivio online Allison non raggiungibile. Verifica il collegamento Vercel.");
+    renderSpecialTools();
+    return false;
+  }
+}
 function renderSpecialTools(){
  const el=document.getElementById("specialList"),st=document.getElementById("specialStatus");
  if(!el)return;
@@ -521,30 +543,63 @@ function renderSpecialTools(){
  if(mf){const vals=[...new Set(specialTools.map(x=>x.machine).filter(Boolean))].sort();mf.innerHTML="<option value=\"\">Tutte le macchine</option>"+vals.map(v=>"<option value=\""+esc(v)+"\""+(v===mv?" selected":"")+">"+esc(v)+"</option>").join("");}
  if(pf){const vals=[...new Set(specialTools.map(x=>x.pieceType).filter(Boolean))].sort();pf.innerHTML="<option value=\"\">Tutte le tipologie</option>"+vals.map(v=>"<option value=\""+esc(v)+"\""+(v===pv?" selected":"")+">"+esc(v)+"</option>").join("");}
  const visible=specialTools.filter(x=>(!mv||x.machine===mv)&&(!pv||x.pieceType===pv));
- st.textContent=specialTools.length?specialTools.length+" utensile/i speciale/i Allison presenti nell’archivio del dispositivo.":"Nessun utensile speciale inserito.";
- el.innerHTML=visible.length?visible.map((x,i)=>'<article class="problemCard"><h3>🧰 '+esc(x.code)+'</h3><p><b>Nome:</b> '+esc(x.name||"—")+' · <b>Tipo:</b> '+esc(x.type||"—")+'</p><p><b>Macchina:</b> '+esc(x.machine||"—")+' · <b>Materiale:</b> '+esc(x.material||"—")+'</p><p><b>Geometria:</b> '+esc(x.geom||"—")+'</p><p><b>Parametri:</b> '+esc(x.params||"—")+'</p><p><b>Note:</b> '+esc(x.notes||"—")+'</p>'+(x.fileData?(x.fileType&&x.fileType.includes("pdf")?'<a href="'+x.fileData+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:#185b8f;font-weight:800">📄 Apri disegno PDF</a>':'<img class="recDraw" src="'+x.fileData+'" alt="Disegno/foto '+esc(x.code)+'">'):'<div class="result">Anteprima non disponibile</div>')+'<br><button type="button" data-special-index="'+i+'" style="width:auto;margin-top:8px">Apri utensile</button> <button type="button" data-special-delete="'+i+'" style="width:auto;margin-top:8px;background:#8b2d2d">Elimina</button></article>').join(""):'<div class="result">Nessun utensile speciale presente.</div>';
+ st.textContent=specialOnlineReady?(specialTools.length?specialTools.length+" utensile/i speciale/i Allison presenti nell’archivio centrale online.":"Nessun utensile speciale Allison nell’archivio centrale online."):"⚠️ Archivio online Allison non disponibile.";
+ el.innerHTML=visible.length?visible.map((x,i)=>'<article class="problemCard"><h3>🧰 '+esc(x.code)+'</h3><p><b>Nome:</b> '+esc(x.name||"—")+' · <b>Tipo:</b> '+esc(x.type||"—")+'</p><p><b>Macchina:</b> '+esc(x.machine||"—")+' · <b>Tipologia pezzo:</b> '+esc(x.pieceType||"—")+'</p><p><b>Materiale:</b> '+esc(x.material||"—")+'</p><p><b>Geometria:</b> '+esc(x.geom||"—")+'</p><p><b>Parametri:</b> '+esc(x.params||"—")+'</p><p><b>Note:</b> '+esc(x.notes||"—")+'</p>'+(x.fileUrl?(x.fileType&&x.fileType.includes("pdf")?'<a href="'+esc(x.fileUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:#185b8f;font-weight:800">📄 Apri disegno PDF</a>':'<img class="recDraw" src="'+esc(x.fileUrl)+'" alt="Disegno/foto '+esc(x.code)+'">'):'<div class="result">Anteprima non disponibile</div>')+'<br><button type="button" data-special-index="'+i+'" style="width:auto;margin-top:8px">Apri utensile</button> <button type="button" data-special-delete="'+i+'" style="width:auto;margin-top:8px;background:#8b2d2d">Elimina</button></article>').join(""):'<div class="result">Nessun utensile speciale presente.</div>';
  el.querySelectorAll("[data-special-index]").forEach(b=>b.onclick=()=>openSpecialTool(specialTools[+b.dataset.specialIndex]));
- el.querySelectorAll("[data-special-delete]").forEach(b=>b.onclick=()=>{if(confirm("Eliminare questo utensile speciale?")){specialTools.splice(+b.dataset.specialDelete,1);saveSpecialTools();renderSpecialTools();}});
+ el.querySelectorAll("[data-special-delete]").forEach(b=>b.onclick=async()=>{
+   const x=specialTools[+b.dataset.specialDelete];
+   if(!x||!confirm("Eliminare questo utensile speciale dall’archivio centrale?"))return;
+   try{await specialApi("",{method:"DELETE",body:JSON.stringify({id:x.id})});await loadOnlineSpecialTools(true);alert("Utensile speciale eliminato.");}
+   catch(e){alert(e.message||"Errore durante l’eliminazione.");}
+ });
 }
 function openSpecialTool(x){
  const m=document.getElementById("toolModal"),body=document.getElementById("modalBody");
- body.innerHTML='<h2>🧰 '+esc(x.code)+'</h2><p><b>Nome:</b> '+esc(x.name||"—")+'</p><p><b>Tipo:</b> '+esc(x.type||"—")+'</p><p><b>Macchina:</b> '+esc(x.machine||"—")+'</p><p><b>Materiale / impiego:</b> '+esc(x.material||"—")+'</p><p><b>Geometria:</b> '+esc(x.geom||"—")+'</p><p><b>Parametri:</b> '+esc(x.params||"—")+'</p><p><b>Note:</b> '+esc(x.notes||"—")+'</p>'+(x.fileData?(x.fileType&&x.fileType.includes("pdf")?'<a href="'+x.fileData+'" target="_blank" rel="noopener" style="display:block;margin-top:10px;color:#185b8f;font-weight:800">📄 Apri disegno PDF</a>':'<img class="modalImg" src="'+x.fileData+'" alt="Disegno/foto '+esc(x.code)+'">'):'<div class="result">Anteprima non disponibile</div>');
+ body.innerHTML='<h2>🧰 '+esc(x.code)+'</h2><p><b>Nome:</b> '+esc(x.name||"—")+'</p><p><b>Tipo:</b> '+esc(x.type||"—")+'</p><p><b>Macchina:</b> '+esc(x.machine||"—")+'</p><p><b>Tipologia pezzo:</b> '+esc(x.pieceType||"—")+'</p><p><b>Materiale / impiego:</b> '+esc(x.material||"—")+'</p><p><b>Geometria:</b> '+esc(x.geom||"—")+'</p><p><b>Parametri:</b> '+esc(x.params||"—")+'</p><p><b>Note:</b> '+esc(x.notes||"—")+'</p>'+(x.fileUrl?(x.fileType&&x.fileType.includes("pdf")?'<a href="'+esc(x.fileUrl)+'" target="_blank" rel="noopener" style="display:block;margin-top:10px;color:#185b8f;font-weight:800">📄 Apri disegno PDF</a>':'<img class="modalImg" src="'+esc(x.fileUrl)+'" alt="Disegno/foto '+esc(x.code)+'">'):'<div class="result">Anteprima non disponibile</div>');
  m.hidden=false;
 }
 document.getElementById("saveSpecial").onclick=async()=>{
  const code=document.getElementById("spCode").value.trim();if(!code){alert("Inserisci almeno il codice / identificativo.");return}
- const file=document.getElementById("spFile").files[0];let fileData="",fileType="";
- if(file){if(file.size>3*1024*1024){alert("File troppo grande. Usa un file fino a 3 MB.");return}fileData=await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=rej;fr.readAsDataURL(file)});fileType=file.type}
- const machine=document.getElementById("spMachine").value.trim(),pieceType=document.getElementById("spPieceType").value.trim();if(!machine||!pieceType){alert("Inserisci sempre il nome della macchina e la tipologia di pezzo lavorato.");return} specialTools.push({id:Date.now(),code,name:document.getElementById("spName").value.trim(),type:document.getElementById("spType").value.trim(),machine,pieceType,material:document.getElementById("spMaterial").value.trim(),geom:document.getElementById("spGeom").value.trim(),params:document.getElementById("spParams").value.trim(),notes:document.getElementById("spNotes").value.trim(),fileData,fileType,createdAt:new Date().toISOString()});
- saveSpecialTools();["spCode","spName","spType","spMachine","spPieceType","spMaterial","spGeom","spParams","spNotes","spFile"].forEach(id=>{const e=document.getElementById(id);if(e)e.value=""});renderSpecialTools();alert("Utensile speciale Allison salvato.");
+ const file=document.getElementById("spFile").files[0];let fileData="",fileType="",fileName="";
+ if(file){if(file.size>3*1024*1024){alert("File troppo grande. Usa un file fino a 3 MB.");return}fileName=file.name;fileData=await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=rej;fr.readAsDataURL(file)});fileType=file.type}
+ const machine=document.getElementById("spMachine").value.trim(),pieceType=document.getElementById("spPieceType").value.trim();if(!machine||!pieceType){alert("Inserisci sempre il nome della macchina e la tipologia di pezzo lavorato.");return}
+ const item={id:Date.now(),code,name:document.getElementById("spName").value.trim(),type:document.getElementById("spType").value.trim(),machine,pieceType,material:document.getElementById("spMaterial").value.trim(),geom:document.getElementById("spGeom").value.trim(),params:document.getElementById("spParams").value.trim(),notes:document.getElementById("spNotes").value.trim(),fileData,fileType,fileName,createdAt:new Date().toISOString()};
+ const b=document.getElementById("saveSpecial");b.disabled=true;b.textContent="☁️ Salvataggio online…";
+ try{
+   await specialApi("",{method:"POST",body:JSON.stringify(item)});
+   await loadOnlineSpecialTools(true);
+   ["spCode","spName","spType","spMachine","spPieceType","spMaterial","spGeom","spParams","spNotes","spFile"].forEach(id=>{const e=document.getElementById(id);if(e)e.value=""});
+   alert("Utensile speciale Allison salvato nell’archivio centrale online.");
+ }catch(e){alert(e.message||"Errore durante il salvataggio online.");}
+ finally{b.disabled=false;b.textContent="💾 Salva utensile speciale";}
 };
 document.getElementById("exportSpecial").onclick=()=>{
  const blob=new Blob([JSON.stringify({version:1,category:"Utensili speciali Allison",items:specialTools},null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="utensili-speciali-allison.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 };
 document.getElementById("importSpecial").onclick=()=>document.getElementById("specialImportFile").click();
-document.getElementById("specialImportFile").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(!Array.isArray(j.items))throw new Error();specialTools=j.items;saveSpecialTools();renderSpecialTools();alert("Archivio importato.");}catch(_){alert("File archivio non valido.");}e.target.value=""};
-loadOnlineSpecialTools().then(renderSpecialTools);
-document.getElementById("specialMachineFilter")?.addEventListener("change",renderSpecialTools);document.getElementById("specialPieceFilter")?.addEventListener("change",renderSpecialTools);
+document.getElementById("specialImportFile").onchange=async e=>{
+ const f=e.target.files[0];if(!f)return;
+ try{
+   const j=JSON.parse(await f.text());if(!Array.isArray(j.items))throw new Error();
+   for(const item of j.items){
+     await specialApi("",{method:"POST",body:JSON.stringify(item)});
+   }
+   await loadOnlineSpecialTools(true);alert("Archivio importato nell’archivio centrale online.");
+ }catch(_){alert("File archivio non valido o errore di salvataggio online.");}
+ e.target.value="";
+};
+loadOnlineSpecialTools(true);
+setInterval(async()=>{
+  if(document.visibilityState!=="visible")return;
+  try{
+    const j=await specialApi("?ts="+Date.now());
+    if(j.updatedAt&&window.__specialUpdatedAt&&j.updatedAt!==window.__specialUpdatedAt){
+      specialTools=Array.isArray(j.items)?j.items:[];window.__specialUpdatedAt=j.updatedAt;specialOnlineReady=true;renderSpecialTools();
+    }
+  }catch(_){}
+},30000);
+document.getElementById("specialMachineFilter")?.addEventListener("change",renderSpecialTools);
+document.getElementById("specialPieceFilter")?.addEventListener("change",renderSpecialTools);
 
 const toolModal=document.getElementById("toolModal");
 const closeModal=document.getElementById("closeModal");
