@@ -45,8 +45,8 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <nav class="navtabs" aria-label="Sezioni">
 <button class="navtab active" data-page="catalogo">📋 Utensili</button>
 <button class="navtab" data-page="tornitura">🔩 Tornitura</button>
-<button class="navtab" data-page="alesatura">🔩 Alesatura</button>
 <button class="navtab" data-page="fresatura">⚙️ Fresatura</button>
+<button class="navtab" data-page="alesatura">🔩 Alesatura</button>
 <button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="produttori">🏭 Produttori</button>
 </nav>
 <section id="catalogo" class="page active"><section class="sheet">
@@ -283,7 +283,7 @@ function renderRecommendations(target,filter){
 let manufacturers=[];
 async function loadManufacturers(){try{const r=await fetch("./manufacturers.json",{cache:"no-store"});manufacturers=await r.json();renderManufacturers()}catch(e){document.getElementById("manufacturerList").innerHTML="<div class=\"result\">Registro produttori non disponibile.</div>"}}
 function renderManufacturers(){const q=String(document.getElementById("manufacturerSearch")?.value||"").toLowerCase(),t=document.getElementById("manufacturerType")?.value||"";const list=(manufacturers.groups||[]).filter(x=>(!t||x.type===t)&&(!q||JSON.stringify(x).toLowerCase().includes(q)));document.getElementById("manufacturerList").innerHTML=list.map(x=>"<article class=\"problemCard\"><h3>"+esc(x.name)+"</h3><p><b>Tipo:</b> "+esc(x.type)+"</p><p><b>Assortimento:</b> "+esc(x.catalogScope||"—")+"</p><p><b>Disegni:</b> "+esc(x.drawings||"—")+"</p>"+(x.catalog?("<a href=\""+x.catalog+"\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block;margin-top:7px;color:#185b8f;font-weight:800\">📚 Apri catalogo / documentazione</a>"):"<p class=\"cause\">ISO: categoria standard separata, senza catalogo di un singolo produttore.</p>")+"</article>").join("")||"<div class=\"result\">Nessun produttore trovato.</div>"}
-document.getElementById("manufacturerSearch").oninput=renderManufacturers;document.getElementById("manufacturerType").onchange=renderManufacturers;loadManufacturers();
+document.getElementById("manufacturerSearch").oninput=renderManufacturers;document.getElementById("manufacturerType").onchange=renderManufacturers;loadManufacturers();document.querySelectorAll(".navtab").forEach(btn=>{btn.addEventListener("click",()=>{const page=btn.dataset.page;document.querySelectorAll(".navtab").forEach(b=>b.classList.toggle("active",b===btn));document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===page));window.scrollTo({top:0,behavior:"smooth"});});});
 const problems=[
 ['Tornitura','Vibrazioni / chatter','Utensile troppo sporgente, pezzo poco rigido, ap o f troppo elevati, inserto non adatto.','Riduci la sporgenza, aumenta la rigidità del serraggio, riduci ap o f del 10–20%, prova un tagliente più positivo o una geometria anti-vibrante.'],
 ['Tornitura','Superficie rugosa','Avanzamento elevato, inserto usurato, raggio punta inadatto o vibrazioni.','Controlla usura e serraggio; riduci f e stabilizza il sistema. Per finitura valuta un raggio punta adeguato alla profondità e alla rigidità.'],
