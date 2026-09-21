@@ -177,7 +177,7 @@ async function loadCatalog(){
   document.getElementById("updateState").textContent="🟠 Catalogo locale disponibile";
  }
 }
-loadCatalog();setTimeout(()=>{runAllCalcs();calcFormulaPage()},700);setInterval(loadCatalog,15*60*1000);document.getElementById("refreshData").onclick=loadCatalog;
+loadCatalog();setTimeout(()=>{runAllCalcs();calcFormulaPage()},1200);setInterval(loadCatalog,15*60*1000);document.getElementById("refreshData").onclick=loadCatalog;
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js?v=4").then(reg=>{reg.update();setInterval(()=>reg.update(),5*60*1000)}).catch(()=>{});}
 let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.getElementById("installApp").hidden=false});document.getElementById("installApp").onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById("installApp").hidden=true};
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
@@ -227,7 +227,7 @@ function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.
 document.querySelectorAll(".navtab").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
 function avgRange(s){
  const raw=String(s||'').replace(/,/g,'.');
- const n=raw.match(/\\d+(?:\\.\\d+)?/g)||[];
+ const n=raw.match(/\d+(?:\.\d+)?/g)||[];
  const a=n.map(Number).filter(Number.isFinite);
  return a.length===1?a[0]:(a.length?((Math.min(...a)+Math.max(...a))/2):0);
 }
