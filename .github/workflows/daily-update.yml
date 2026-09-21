@@ -29,11 +29,26 @@ jobs:
       - name: Aggiorna catalogo e foto dai produttori ufficiali
         run: python scripts/daily_update.py
 
+      - name: Backup archivio Allison (metadati)
+        run: |
+          mkdir -p backups
+          if curl -fsS "https://cutting-tools-lab.vercel.app/api/special-tools?ts=$(date +%s)" -o /tmp/allison.json; then
+            python - <<'PY'
+          import json
+          p=json.load(open("/tmp/allison.json",encoding="utf-8"))
+          for x in p.get("items",[]):
+              x.pop("fileUrl",None)
+          json.dump(p,open("backups/allison-latest.json","w",encoding="utf-8"),ensure_ascii=False,indent=2)
+          PY
+          else
+            echo '{"items":[],"backupNote":"Archivio Allison non raggiungibile durante questo run."}' > backups/allison-latest.json
+          fi
+
       - name: Commit automatico se necessario
         run: |
           git config user.name "Cutting Tools LAB Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add catalog.json update-status.json backups/catalog-latest.json
+          git add catalog.json update-status.json backups/catalog-latest.json backups/allison-latest.json
           if git diff --cached --quiet; then
             echo "Nessuna modifica da pubblicare."
           else
