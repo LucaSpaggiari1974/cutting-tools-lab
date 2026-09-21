@@ -11,78 +11,47 @@
 <style>
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background:#f4f5f7;color:#111827}main{max-width:800px;margin:auto;padding:18px}section{background:#fff;border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 2px 10px #0001}input,button{font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;box-sizing:border-box;width:100%}button{background:#111827;color:#fff;border:0;margin-top:10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:8px 10px;background:#eef2ff;border-radius:999px}.card{padding:12px;border:1px solid #eee;border-radius:12px;margin:8px 0}.tool-photo{background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:10px;text-align:center;margin-top:12px}.tool-photo img{width:100%;max-width:380px;height:210px;object-fit:contain;border-radius:10px;background:#fff}.tool-caption{font-weight:600;margin-top:8px}.field{display:flex;flex-direction:column;gap:6px}.field span{font-size:13px;font-weight:600;color:#374151}.help{background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-top:12px}.help div{margin:7px 0}.muted{color:#6b7280;font-size:13px}.catalog-filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.catalog-filters select{font:inherit;padding:11px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box}.product-img{width:100%;max-width:320px;height:180px;object-fit:contain;border-radius:10px;background:#fff;border:1px solid #eee;margin:10px auto;display:block}.img-note{font-size:12px;color:#6b7280;margin-top:6px}.tool-library{background:#fff;border-radius:16px;padding:16px;margin:14px 0;box-shadow:0 2px 10px #0001}.tool-library summary{cursor:pointer;font-size:17px}.tool-group{border-top:1px solid #eee;padding:12px 0}.tool-group summary{cursor:pointer;font-weight:700}.tool-group img{width:100%;max-width:360px;height:190px;object-fit:contain;background:#fff;border:1px solid #eee;border-radius:10px;margin-top:10px}.detail-btn{width:auto;padding:8px 12px;margin-top:8px}
 </style></head><body><main>
-<h1>🔧 Cutting Tools LAB</h1><p>Catalogo utensili, inserti e calcolatori.</p>
-<details class="help"><summary><b>📲 Installa su iPhone</b></summary><div>Apri questa pagina in <b>Safari</b> → <b>Condividi</b> → <b>Aggiungi alla schermata Home</b> → <b>Aggiungi</b>. Non serve un Mac.</div></details>
-<section><h2>🧮 Calcolatori CNC</h2>
-<p class="muted">I calcolatori sono qui all'inizio per essere richiamati subito.</p>
+<h1>🔧 Cutting Tools LAB</h1><p>Catalogo utensili, inserti, portautensili e calcolatori CNC.</p>
+<details class="help"><summary><b>📲 Installa su iPhone</b></summary><div>Apri in Safari → Condividi → Aggiungi alla schermata Home. Non serve un Mac.</div></details>
+
+<section><h2>🧮 Barra formule CNC</h2>
 <div class="grid"><button id="modeTurning" type="button">Tornitura</button><button id="modeDrilling" type="button">Foratura</button></div>
-<div id="calculatorMode" style="margin-top:12px"><h3>Calcolo tornitura automatico</h3>
-<p class="muted">Inserisci diametro e materiale: i valori proposti sono indicativi e vanno verificati con utensile, grado e materiale reali.</p>
-<div class="grid">
-<label class="field"><span>Diametro D (mm)</span><input id="d" type="number" min="0.1" step="0.1" placeholder="Es. 50"></label>
-<label class="field"><span>Materiale pezzo</span><select id="material" style="font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box"><option value="">Seleziona materiale…</option><option value="steel">Acciaio</option><option value="stainless">Acciaio inox</option><option value="castiron">Ghisa</option><option value="aluminum">Alluminio</option><option value="brass">Ottone</option><option value="titanium">Titanio</option><option value="hardened">Acciaio temprato</option></select></label>
-<label class="field"><span>Velocità di taglio Vc (m/min)</span><input id="vc" type="number" placeholder="Automatica" readonly></label>
-<label class="field"><span>Avanzamento f (mm/giro)</span><input id="f" type="number" step=".001" placeholder="Automatico" readonly></label>
-<label class="field"><span>Profondità ap (mm)</span><input id="ap" type="number" step=".1" placeholder="Automatica" readonly></label></div>
-<div id="drillingFields" style="display:none;margin-top:12px"><div class="grid">
-<label class="field"><span>Diametro punta Ø (mm)</span><input id="dd" type="number" min="0.1" step="0.1" placeholder="Es. 10"></label>
-<label class="field"><span>Velocità di taglio Vc (m/min)</span><input id="dvc" type="number" placeholder="Automatica" readonly></label>
-<label class="field"><span>Avanzamento f (mm/giro)</span><input id="df" type="number" step=".001" placeholder="Automatico" readonly></label></div></div>
-<div style="margin-top:12px"><select id="toolType" style="font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box"><option value="turning">Tornitura esterna — CNMG</option><option value="finishing">Finitura — VNMG</option><option value="grooving">Scanalatura / troncatura — G</option><option value="threading">Filettatura esterna — 16ER</option><option value="drilling">Foratura — punta DR</option></select><div id="toolDrawing" class="tool-photo"></div></div>
-<div id="autoInfo" class="muted" style="margin-top:10px"></div><div class="help"><b>Cosa significano le finestre</b><div><b>D</b> = diametro del pezzo.</div><div><b>Vc</b> = velocità di taglio.</div><div><b>f</b> = avanzamento per giro.</div><div><b>ap</b> = profondità radiale della passata.</div><div><b>RPM</b> = giri/minuto.</div><div><b>MRR</b> = volume teorico asportato al minuto.</div></div><div id="out"></div><div id="drillOut"></div></section><section><h2>Calcolatori CNC</h2>
-<div class="grid">
-<button id="modeTurning" type="button">Tornitura</button>
-<button id="modeDrilling" type="button">Foratura</button>
-</div>
-<div id="calculatorMode" style="margin-top:12px"><h3>Calcolo tornitura automatico</h3>
-<p class="muted">Inserisci diametro e materiale: il calcolatore propone automaticamente i parametri iniziali di taglio. Sono valori indicativi e vanno verificati con utensile, grado e materiale reali.</p>
-<div class="grid">
-<label class="field"><span>Diametro D (mm)</span><input id="d" type="number" min="0.1" step="0.1" placeholder="Es. 50"></label>
-<label class="field"><span>Materiale pezzo</span><select id="material" style="font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box">
-<option value="">Seleziona materiale…</option>
-<option value="steel">Acciaio</option>
-<option value="stainless">Acciaio inox</option>
-<option value="castiron">Ghisa</option>
-<option value="aluminum">Alluminio</option>
-<option value="brass">Ottone</option>
-<option value="titanium">Titanio</option>
-<option value="hardened">Acciaio temprato</option>
+<div id="calculatorMode" style="margin-top:12px">
+<label class="field"><span>Tipo di utensile</span><select id="toolType" style="font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box">
+<option value="turning">Tornitura esterna — CNMG / DNMG / SNMG / WNMG</option>
+<option value="finishing">Profilatura e finitura — VNMG / VBMT / DCMT / CCMT</option>
+<option value="grooving">Scanalatura e troncatura — G / MGMN / N</option>
+<option value="threading">Filettatura — 16ER / 16IR / 11ER / 11IR</option>
+<option value="drilling">Foratura — punte integrali / inserti / punte modulari</option>
+<option value="milling">Fresatura — frese a candela / spianatura / inserti</option>
 </select></label>
-<label class="field"><span>Velocità di taglio Vc (m/min)</span><input id="vc" type="number" placeholder="Automatica" readonly></label>
-<label class="field"><span>Avanzamento f (mm/giro)</span><input id="f" type="number" step=".001" placeholder="Automatico" readonly></label>
-<label class="field"><span>Profondità ap (mm)</span><input id="ap" type="number" step=".1" placeholder="Automatica" readonly></label>
-</div>
-<div id="drillingFields" style="display:none;margin-top:12px">
 <div class="grid">
+<label class="field"><span>Diametro D / Ø (mm)</span><input id="d" type="number" min="0.1" step="0.1" placeholder="Es. 50"></label>
+<label class="field"><span>Materiale pezzo</span><select id="material" style="font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box"><option value="">Seleziona materiale…</option><option value="steel">Acciaio</option><option value="stainless">Acciaio inox</option><option value="castiron">Ghisa</option><option value="aluminum">Alluminio</option><option value="brass">Ottone</option><option value="titanium">Titanio</option><option value="hardened">Acciaio temprato</option></select></label>
+<label class="field"><span>Vc (m/min)</span><input id="vc" type="number" placeholder="Automatica" readonly></label>
+<label class="field"><span>f (mm/giro)</span><input id="f" type="number" step=".001" placeholder="Automatico" readonly></label>
+<label class="field"><span>ap (mm)</span><input id="ap" type="number" step=".1" placeholder="Automatica" readonly></label>
+</div>
+<div id="drillingFields" style="display:none" class="grid">
 <label class="field"><span>Diametro punta Ø (mm)</span><input id="dd" type="number" min="0.1" step="0.1" placeholder="Es. 10"></label>
-<label class="field"><span>Velocità di taglio Vc (m/min)</span><input id="dvc" type="number" placeholder="Automatica" readonly></label>
-<label class="field"><span>Avanzamento f (mm/giro)</span><input id="df" type="number" step=".001" placeholder="Automatico" readonly></label>
+<label class="field"><span>Vc foratura (m/min)</span><input id="dvc" type="number" readonly></label>
+<label class="field"><span>f punta (mm/giro)</span><input id="df" type="number" step=".001" readonly></label>
 </div>
-</div>
-<div style="margin-top:12px">
-<select id="toolType" style="font:inherit;padding:12px;border-radius:10px;border:1px solid #ddd;width:100%;box-sizing:border-box">
-<option value="turning">Tornitura esterna — CNMG</option>
-<option value="finishing">Finitura — VNMG</option>
-<option value="grooving">Scanalatura / troncatura — G</option>
-<option value="threading">Filettatura esterna — 16ER</option>
-<option value="drilling">Foratura — punta DR</option>
-</select>
 <div id="toolDrawing" class="tool-photo"></div>
-</div>
-<div id="autoInfo" class="muted" style="margin-top:10px"></div>
-<div class="help">
-<b>Cosa significano le finestre</b>
-<div><b>D (mm)</b> = diametro del pezzo nel punto di taglio.</div>
-<div><b>Materiale pezzo</b> = materiale che stai lavorando; determina i valori iniziali proposti.</div>
-<div><b>Vc (m/min)</b> = velocità di taglio periferica dell'utensile.</div>
-<div><b>f (mm/giro)</b> = quanto avanza l'utensile a ogni giro del pezzo.</div>
-<div><b>ap (mm)</b> = profondità radiale della passata.</div>
-<div><b>RPM</b> = giri/minuto del mandrino, calcolati da Vc e D.</div>
-<div><b>Avanzamento (mm/min)</b> = velocità con cui si muove l'utensile.</div>
-<div><b>MRR (mm³/min)</b> = volume teorico di materiale asportato al minuto.</div>
-</div>
-<div id="out"></div>
-<div id="drillOut"></div></section><section><b>Fonte:</b> i dati tecnici vengono inseriti solo quando verificati su fonti ufficiali. Parametri di taglio non disponibili sono indicati come non disponibili.</section>
+<div id="autoInfo" class="muted"></div><div id="out"></div><div id="drillOut"></div>
+</div></section>
+
+<details class="tool-library"><summary><b>🔩 TUTTI I DISEGNI, INSERTI E PORTAUTENSILI — apri / chiudi</b></summary>
+<p class="muted">Questa sezione resta chiusa finché non la apri tu. Ogni famiglia ha la propria tendina.</p>
+<div id="toolLibrary"></div>
+</details>
+
+<section><h2>📚 Catalogo codici inserti</h2><input id="search" placeholder="Cerca codice, ISO, produttore…">
+<div class="catalog-filters"><select id="filterMaker"><option value="">Tutti i produttori</option></select><select id="filterIso"><option value="">Tutti gli ISO</option></select><select id="filterGeometry"><option value="">Tutte le geometrie</option></select></div>
+<button id="clearFilters" type="button">Azzera filtri</button><div id="catalogStatus" class="muted" style="margin-top:8px">Caricamento catalogo…</div><div id="results"></div></section>
+
+<section><h2>Produttori</h2><div class="chips" id="makers"></div></section>
+<section><b>Fonte:</b> i dati tecnici vengono inseriti solo quando verificati su fonti disponibili. Le immagini sono riferimenti visivi: verificare sempre codice, grado e modello.</section>
 </main>
 <script>
 const makers=["Sandvik Coromant","ISCAR","Kennametal","Walter","Seco","Mitsubishi Materials","Tungaloy","Sumitomo","Kyocera","CERATIZIT","Dormer Pramet","TaeguTec","ZCC-CT","Ingersoll"];
@@ -103,26 +72,15 @@ titanium:{name:"Titanio",vc:60,f:.10,ap:1.0},
 hardened:{name:"Acciaio temprato",vc:70,f:.08,ap:.6}
 };
 const toolImages={
-turning:{src:"https://cnchome-beyond.com/cdn/shop/files/BEYOND_MCKNR2020K12_right_hand_indexable_turning_tool_holder_20x20mm_shank_for_heavy_duty_CNMG_1204_carbide_inserts.jpg?v=1782009238&width=600",title:"Portautensile reale con inserto CNMG",note:"Esempio di utensile per tornitura esterna."},
-finishing:{src:"https://zlatinco.ru/d/2525_mvr_16_2.jpg",title:"Portautensile reale con inserto VNMG",note:"Esempio di utensile con inserto romboidale per finitura."},
-grooving:{src:"https://i.ebayimg.com/images/g/DsQAAOSwpd1j~woo/s-l1600.jpg",title:"Portautensile reale per scanalatura / troncatura",note:"Esempio di utensile con inserto stretto per gole e troncatura."},
-threading:{src:"https://ashdowntooling.co.uk/cdn/shop/files/SER1616H16.png?v=1743080355&width=1920",title:"Portautensile reale per filettatura 16ER",note:"Esempio di portautensile esterno con inserto 16ER."},
-drilling:{src:"https://ssl.ingersoll-imc.com/resources/product-images/dh_5xd/dh_5xd_Enlarge.jpg",title:"Punta reale in metallo duro",note:"Esempio di punta integrale per foratura CNC."}
+turning:{src:"https://cnchome-beyond.com/cdn/shop/files/BEYOND_MCKNR2020K12_right_hand_indexable_turning_tool_holder_20x20mm_shank_for_heavy_duty_CNMG_1204_carbide_inserts.jpg?v=1782009238&width=600",title:"Portautensile CNMG",note:"Tornitura esterna."},
+finishing:{src:"https://zlatinco.ru/d/2525_mvr_16_2.jpg",title:"Portautensile VNMG",note:"Profilatura e finitura."},
+grooving:{src:"https://i.ebayimg.com/images/g/DsQAAOSwpd1j~woo/s-l1600.jpg",title:"Portautensile scanalatura",note:"Gole e troncatura."},
+threading:{src:"https://ashdowntooling.co.uk/cdn/shop/files/SER1616H16.png?v=1743080355&width=1920",title:"Portautensile 16ER",note:"Filettatura esterna."},
+drilling:{src:"https://ssl.ingersoll-imc.com/resources/product-images/dh_5xd/dh_5xd_Enlarge.jpg",title:"Punta integrale",note:"Foratura CNC."},
+milling:{src:"https://www.sandvik.coromant.com/-/media/sandvik-coromant/images/products/milling/end-mills.jpg",title:"Fresa CNC",note:"Fresatura."}
 };
-const toolLibraryData=[
-["CNMG","Inserto CNMG 80° per tornitura","https://dcngli4g50fhp.cloudfront.net/userfiles/ad/sandvik/large/sandvik_coromant_7080857.jpg","Sandvik Coromant"],
-["VNMG","Inserto VNMG per profilatura/finitura","https://zlatinco.ru/d/2525_mvr_16_2.jpg","Foto di riferimento"],
-["Scanalatura","Utensile per scanalatura e troncatura","https://i.ebayimg.com/images/g/DsQAAOSwpd1j~woo/s-l1600.jpg","Foto di riferimento"],
-["Filettatura","Portautensile esterno 16ER","https://ashdowntooling.co.uk/cdn/shop/files/SER1616H16.png?v=1743080355&width=1920","Foto di riferimento"],
-["Foratura","Punta integrale in metallo duro","https://ssl.ingersoll-imc.com/resources/product-images/dh_5xd/dh_5xd_Enlarge.jpg","Ingersoll"],
-["Portautensili ISO","Famiglie di portautensili ISO per inserti intercambiabili","https://www.iscar.com/Catalogs/publication-2022/english-1/Turning_catalog_INCH_2022_45/Turning%20catalog%20INCH%202022_LR_P1-112.pdf","ISCAR — catalogo ufficiale"]
-];
-const libEl=document.getElementById("toolLibrary");libEl.innerHTML=toolLibraryData.map(x=>`<details class="tool-group"><summary>${x[0]} — ${x[1]}</summary><img src="${x[2]}" alt="${x[1]}" loading="lazy" onerror="this.style.display='none'"><div class="muted">${x[3]} · foto/figura di riferimento; verificare sempre codice e modello.</div></details>`).join('');
-const toolTypeEl=document.getElementById("toolType"), drawingEl=document.getElementById("toolDrawing");
-function updateToolDrawing(){
- const p=toolImages[toolTypeEl.value]||toolImages.turning;
- drawingEl.innerHTML=`<img src="${p.src}" alt="${p.title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.textContent='Immagine non disponibile.'"><div class="tool-caption">${p.title}</div><div class="muted">${p.note}</div>`;
-}
+const toolTypeEl=document.getElementById("toolType"),drawingEl=document.getElementById("toolDrawing");
+function updateToolDrawing(){const p=toolImages[toolTypeEl.value]||toolImages.turning;drawingEl.innerHTML=`<img src="${p.src}" alt="${p.title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.textContent='Immagine non disponibile.'"><div class="tool-caption">${p.title}</div><div class="muted">${p.note}</div>`;}
 toolTypeEl.addEventListener("change",updateToolDrawing);updateToolDrawing();
 const modeTurningEl=document.getElementById("modeTurning"),modeDrillingEl=document.getElementById("modeDrilling"),drillFields=document.getElementById("drillingFields"),drillOut=document.getElementById("drillOut"),ddEl=document.getElementById("dd"),dvcEl=document.getElementById("dvc"),dfEl=document.getElementById("df");
 let calcMode="turning";
