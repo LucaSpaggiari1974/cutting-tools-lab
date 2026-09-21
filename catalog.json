@@ -1,6 +1,6 @@
 {
-  "version": "2.1-sandvik-exact-links",
-  "updatedAt": "2026-09-21T10:32:53.750Z",
+  "version": "2.2-photo-coverage",
+  "updatedAt": "2026-09-21T10:35:32.036Z",
   "source": "Cutting Tools LAB · cataloghi ufficiali produttori",
   "items": [
     {
@@ -240,11 +240,12 @@
       "f": "0,12–0,30",
       "ap": "0,8–3",
       "maker": "Sandvik Coromant",
-      "photoUrl": "",
+      "photoUrl": "https://www.tomcnc.com/upload/202306/m_20230626164014351.jpg",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=29",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=29",
-      "photoSource": "manufacturer",
-      "photoNote": "Disegno/codice verificato nel catalogo ufficiale Sandvik Coromant."
+      "photoSource": "distributor",
+      "photoNote": "Geometria corrispondente al tipo di inserto; usare il link del codice/disegno per la verifica esatta.",
+      "photoWarning": "Immagine generica della geometria Sandvik: non sostituisce la foto del singolo codice."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -255,11 +256,12 @@
       "f": "0,12–0,30",
       "ap": "0,5–3",
       "maker": "Sandvik Coromant",
-      "photoUrl": "",
+      "photoUrl": "https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_vnmg_16_04_08_mf_2220_t_max_p_sorvaustera_pict3dview.jpg",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
-      "photoSource": "manufacturer",
-      "photoNote": "Disegno/codice verificato nel catalogo ufficiale Sandvik Coromant."
+      "photoSource": "distributor",
+      "photoNote": "Geometria corrispondente al tipo di inserto; usare il link del codice/disegno per la verifica esatta.",
+      "photoWarning": "Immagine generica della geometria Sandvik: non sostituisce la foto del singolo codice."
     },
     {
       "category": "Tornitura · Media",
@@ -270,11 +272,12 @@
       "f": "0,08–0,22",
       "ap": "0,3–2",
       "maker": "Sandvik Coromant",
-      "photoUrl": "",
+      "photoUrl": "https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_vnmg_16_04_08_mf_2220_t_max_p_sorvaustera_pict3dview.jpg",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
-      "photoSource": "manufacturer",
-      "photoNote": "Disegno/codice verificato nel catalogo ufficiale Sandvik Coromant."
+      "photoSource": "distributor",
+      "photoNote": "Geometria corrispondente al tipo di inserto; usare il link del codice/disegno per la verifica esatta.",
+      "photoWarning": "Immagine generica della geometria Sandvik: non sostituisce la foto del singolo codice."
     },
     {
       "category": "Tornitura · Finitura",
@@ -285,7 +288,10 @@
       "f": "0,05–0,16",
       "ap": "0,2–1,2",
       "maker": "Sandvik Coromant",
-      "photoUrl": ""
+      "photoUrl": "https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_vnmg_16_04_08_mf_2220_t_max_p_sorvaustera_pict3dview.jpg",
+      "photoSource": "distributor",
+      "photoWarning": "Immagine generica della geometria Sandvik: non sostituisce la foto del singolo codice.",
+      "photoNote": "Geometria corrispondente al tipo di inserto; usare il link del codice/disegno per la verifica esatta."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -296,11 +302,12 @@
       "f": "0,20–0,45",
       "ap": "1,5–6",
       "maker": "Sandvik Coromant",
-      "photoUrl": "",
+      "photoUrl": "https://c.cdnmp.net/713071415/p/m/0/placuta-strunjire-inveio-sandvik-coromant-snmg-15-06-12-pm-4425~5110.jpg",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=19",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=19",
-      "photoSource": "manufacturer",
-      "photoNote": "Disegno/codice verificato nel catalogo ufficiale Sandvik Coromant."
+      "photoSource": "distributor",
+      "photoNote": "Geometria corrispondente al tipo di inserto; usare il link del codice/disegno per la verifica esatta.",
+      "photoWarning": "Immagine generica della geometria Sandvik: non sostituisce la foto del singolo codice."
     },
     {
       "category": "Tornitura · Finitura",
@@ -311,11 +318,12 @@
       "f": "0,10–0,28",
       "ap": "0,4–3",
       "maker": "Sandvik Coromant",
-      "photoUrl": "",
+      "photoUrl": "https://static1.industrybuying.com/products/tooling-and-cutting/inserts/turning-inserts/TOO.TUR.332971358_1747837688878.webp",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=14",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=14",
-      "photoSource": "manufacturer",
-      "photoNote": "Disegno/codice verificato nel catalogo ufficiale Sandvik Coromant."
+      "photoSource": "distributor",
+      "photoNote": "Geometria corrispondente al tipo di inserto; usare il link del codice/disegno per la verifica esatta.",
+      "photoWarning": "Immagine generica della geometria Sandvik: non sostituisce la foto del singolo codice."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -326,11 +334,12 @@
       "f": "0,18–0,40",
       "ap": "1–5",
       "maker": "Sandvik Coromant",
-      "photoUrl": "",
+      "photoUrl": "https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
-      "photoSource": "manufacturer",
-      "photoNote": "Disegno/codice verificato nel catalogo ufficiale Sandvik Coromant."
+      "photoSource": "distributor",
+      "photoNote": "Geometria corrispondente al tipo di inserto; usare il link del codice/disegno per la verifica esatta.",
+      "photoWarning": "Immagine generica della geometria Sandvik: non sostituisce la foto del singolo codice."
     },
     {
       "category": "Tornitura · Media",
@@ -341,11 +350,12 @@
       "f": "0,12–0,30",
       "ap": "0,5–3",
       "maker": "Sandvik Coromant",
-      "photoUrl": "",
+      "photoUrl": "https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
-      "photoSource": "manufacturer",
-      "photoNote": "Disegno/codice verificato nel catalogo ufficiale Sandvik Coromant."
+      "photoSource": "distributor",
+      "photoNote": "Geometria corrispondente al tipo di inserto; usare il link del codice/disegno per la verifica esatta.",
+      "photoWarning": "Immagine generica della geometria Sandvik: non sostituisce la foto del singolo codice."
     },
     {
       "category": "Tornitura · Finitura",
@@ -356,11 +366,12 @@
       "f": "0,08–0,20",
       "ap": "0,2–2",
       "maker": "Sandvik Coromant",
-      "photoUrl": "",
+      "photoUrl": "https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
-      "photoSource": "manufacturer",
-      "photoNote": "Disegno/codice verificato nel catalogo ufficiale Sandvik Coromant."
+      "photoSource": "distributor",
+      "photoNote": "Geometria corrispondente al tipo di inserto; usare il link del codice/disegno per la verifica esatta.",
+      "photoWarning": "Immagine generica della geometria Sandvik: non sostituisce la foto del singolo codice."
     },
     {
       "category": "Tornitura · Finitura",
