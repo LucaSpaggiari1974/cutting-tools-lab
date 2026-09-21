@@ -93,7 +93,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <label>Geometria / caratteristiche<textarea id="spGeom" rows="4" style="width:100%;font:inherit;border:1px solid #cbd7e1;border-radius:9px;padding:10px"></textarea></label>
 <label>Parametri di taglio<input id="spParams" placeholder="Vc, f/fz, ap, n, ecc."></label>
 <label>Note<input id="spNotes" placeholder="Note interne"></label>
-<label>Foto o disegno (JPG/PNG/PDF)<input id="spFile" type="file" accept="image/*,.pdf"></label>
+<label>Foto o disegno (JPG/PNG/PDF)<input id="spFile" type="file" accept="image/*,.pdf"></label><small style="display:block;margin-top:6px;color:#5f7180">Il file viene salvato nel Blob privato e collegato automaticamente alla scheda.</small>
 <button type="button" id="saveSpecial">💾 Salva utensile speciale</button>
 </div>
 <div class="calc"><b>Gestione archivio</b>
@@ -544,10 +544,10 @@ function renderSpecialTools(){
  if(pf){const vals=[...new Set(specialTools.map(x=>x.pieceType).filter(Boolean))].sort();pf.innerHTML="<option value=\"\">Tutte le tipologie</option>"+vals.map(v=>"<option value=\""+esc(v)+"\""+(v===pv?" selected":"")+">"+esc(v)+"</option>").join("");}
  const visible=specialTools.filter(x=>(!mv||x.machine===mv)&&(!pv||x.pieceType===pv));
  st.textContent=specialOnlineReady?(specialTools.length?specialTools.length+" utensile/i speciale/i Allison presenti nell’archivio centrale online.":"Nessun utensile speciale Allison nell’archivio centrale online."):"⚠️ Archivio online Allison non disponibile.";
- el.innerHTML=visible.length?visible.map((x,i)=>'<article class="problemCard"><h3>🧰 '+esc(x.code)+'</h3><p><b>Nome:</b> '+esc(x.name||"—")+' · <b>Tipo:</b> '+esc(x.type||"—")+'</p><p><b>Macchina:</b> '+esc(x.machine||"—")+' · <b>Tipologia pezzo:</b> '+esc(x.pieceType||"—")+'</p><p><b>Materiale:</b> '+esc(x.material||"—")+'</p><p><b>Geometria:</b> '+esc(x.geom||"—")+'</p><p><b>Parametri:</b> '+esc(x.params||"—")+'</p><p><b>Note:</b> '+esc(x.notes||"—")+'</p>'+(x.fileUrl?(x.fileType&&x.fileType.includes("pdf")?'<a href="'+esc(x.fileUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:#185b8f;font-weight:800">📄 Apri disegno PDF</a>':'<img class="recDraw" src="'+esc(x.fileUrl)+'" alt="Disegno/foto '+esc(x.code)+'">'):'<div class="result">Anteprima non disponibile</div>')+'<br><button type="button" data-special-index="'+i+'" style="width:auto;margin-top:8px">Apri utensile</button> <button type="button" data-special-delete="'+i+'" style="width:auto;margin-top:8px;background:#8b2d2d">Elimina</button></article>').join(""):'<div class="result">Nessun utensile speciale presente.</div>';
- el.querySelectorAll("[data-special-index]").forEach(b=>b.onclick=()=>openSpecialTool(specialTools[+b.dataset.specialIndex]));
- el.querySelectorAll("[data-special-delete]").forEach(b=>b.onclick=async()=>{
-   const x=specialTools[+b.dataset.specialDelete];
+ el.innerHTML=visible.length?visible.map(x=>'<article class="problemCard"><h3>🧰 '+esc(x.code)+'</h3><p><b>Nome:</b> '+esc(x.name||"—")+' · <b>Tipo:</b> '+esc(x.type||"—")+'</p><p><b>Macchina:</b> '+esc(x.machine||"—")+' · <b>Tipologia pezzo:</b> '+esc(x.pieceType||"—")+'</p><p><b>Materiale:</b> '+esc(x.material||"—")+'</p><p><b>Geometria:</b> '+esc(x.geom||"—")+'</p><p><b>Parametri:</b> '+esc(x.params||"—")+'</p><p><b>Note:</b> '+esc(x.notes||"—")+'</p>'+(x.fileUrl?(x.fileType&&x.fileType.includes("pdf")?'<a href="'+esc(x.fileUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:#185b8f;font-weight:800">📄 Apri disegno PDF</a>':'<img class="recDraw" src="'+esc(x.fileUrl)+'" alt="Disegno/foto '+esc(x.code)+'">'):'<div class="result">Anteprima non disponibile</div>')+'<br><button type="button" data-special-index="'+i+'" style="width:auto;margin-top:8px">Apri utensile</button> <button type="button" data-special-delete="'+i+'" style="width:auto;margin-top:8px;background:#8b2d2d">Elimina</button></article>').join(""):'<div class="result">Nessun utensile speciale presente.</div>';
+ el.querySelectorAll("[data-special-id]").forEach(b=>b.onclick=()=>{const x=specialTools.find(v=>String(v.id)===String(b.dataset.specialId));if(x)openSpecialTool(x)});
+ el.querySelectorAll("[data-special-delete-id]").forEach(b=>b.onclick=async()=>{
+   const x=specialTools.find(v=>String(v.id)===String(b.dataset.specialDeleteId));
    if(!x||!confirm("Eliminare questo utensile speciale dall’archivio centrale?"))return;
    try{await specialApi("",{method:"DELETE",body:JSON.stringify({id:x.id})});await loadOnlineSpecialTools(true);alert("Utensile speciale eliminato.");}
    catch(e){alert(e.message||"Errore durante l’eliminazione.");}
