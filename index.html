@@ -130,7 +130,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 </div></section>
 <section id="fresatura" class="page"><div class="calc"><h2>⚙️ Fresatura — calcolo completo</h2>
 <div class="grid">
-<label>Diametro utensile DC/Dcap (mm)<input id="mi_d" type="number" min="0.1" step="0.1" placeholder="richiesto"></label>
+<label>Diametro di taglio Dcap (mm)<input id="mi_d" type="number" min="0.1" step="0.1" placeholder="richiesto"></label>
 <label>Vc (m/min)<input id="mi_vc" type="number" min="0" step="0.1" placeholder="da produttore"></label>
 <label>fz (mm/dente)<input id="mi_fz" type="number" min="0" step="0.001" placeholder="da produttore"></label>
 <label>Numero denti efficaci zc<input id="mi_zc" type="number" min="1" step="1" placeholder="richiesto"></label>
@@ -425,7 +425,7 @@ function autoCalc(id,out,filter,mill){
  }else if(id==='dr_d'){
    const vc=+document.getElementById('dr_vc').value, f=+document.getElementById('dr_fn').value, kc=+document.getElementById('dr_kc').value, kapr=+document.getElementById('dr_kapr').value, lm=+document.getElementById('dr_lm').value;
    if(!vc||!f){target.textContent='Inserisci Vc e fn per completare il calcolo.';return}
-   const n=calcN(vc,d),vf=f*n,Q=vc*d*f/4,Pc=kc>0?vc*d*f*kc/(240e3):0,Ff=kc>0&&kapr>0?0.5*kc*(d*d/2)*f*Math.sin(kapr*Math.PI/180):0,Mc=Pc>0?n>0?Pc*30e3/(Math.PI*n):0:0,Tc=lm>0?lm/vf:0;
+   const n=calcN(vc,d),vf=f*n,Q=vc*d*f/4,Pc=kc>0?vc*d*f*kc/(240e3):0,Ff=kc>0&&kapr>0?0.5*kc*(d/2)*f*Math.sin(kapr*Math.PI/180):0,Mc=Pc>0?n>0?Pc*30e3/(Math.PI*n):0:0,Tc=lm>0?lm/vf:0;
    target.textContent='Utensile: '+use.code+' · Vc '+vc.toFixed(1)+' m/min · n '+Math.round(n)+' rpm · Vf '+vf.toFixed(1)+' mm/min · Q '+Q.toFixed(2)+' cm³/min'+(Tc?' · Tc '+Tc.toFixed(2)+' min':'')+(Pc?' · Pc '+Pc.toFixed(2)+' kW':'')+(Mc?' · Mc '+Mc.toFixed(1)+' Nm':'')+(Ff?' · Ff '+Ff.toFixed(0)+' N':'');
  }else{
    const vc=+document.getElementById('mi_vc').value,fz=+document.getElementById('mi_fz').value,zc=+document.getElementById('mi_zc').value,ap=+document.getElementById('mi_ap').value,ae=+document.getElementById('mi_ae').value,kc=+document.getElementById('mi_kc').value,dc=d,n=vc>0?calcN(vc,dc):0,vf=vc>0&&fz>0&&zc>0?fz*n*zc:0,Q=ap>0&&ae>0&&vf>0?ap*ae*vf/1000:0,Pc=kc>0&&ae>0&&ap>0&&vf>0?ae*ap*vf*kc/(60e6):0,Mc=Pc>0&&n>0?Pc*30e3/(Math.PI*n):0;
