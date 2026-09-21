@@ -182,8 +182,9 @@ async function loadCatalog(options={}){
   fillFilters();render();
   const updated=new Date(pack.updatedAt||Date.now());
   currentCatalogUpdatedAt=pack.updatedAt||updated.toISOString();
+  const nowUpdate=new Date();
   document.getElementById("status").textContent=data.length+" righe · catalogo aggiornato: "+updated.toLocaleString("it-IT");
-  document.getElementById("lastUpdate").textContent=updated.toLocaleString("it-IT",{dateStyle:"short",timeStyle:"short"});
+  document.getElementById("lastUpdate").textContent=nowUpdate.toLocaleString("it-IT",{dateStyle:"short",timeStyle:"short"});
   document.getElementById("updateState").textContent="🟢 Dati aggiornati automaticamente";
   if(manual) showRefreshProgress(78,"Aggiornamento completato…");
  }catch(e){
