@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-09-21T09:16:53.032Z",
+  "updatedAt": "2026-09-21T09:18:51.906Z",
   "source": "Cutting Tools LAB",
   "items": [
     {
@@ -730,7 +730,9 @@
       "vc": "60–160",
       "f": "0,05–0,25",
       "ap": "passate multiple",
-      "maker": "ISO"
+      "maker": "ISO",
+      "photoType": "official_product_page",
+      "photoNote": "Immagine ufficiale/prodotto: verificare sempre codice completo, passo, profilo e portautensile."
     },
     {
       "category": "Filettatura",
@@ -740,7 +742,9 @@
       "vc": "50–140",
       "f": "0,05–0,22",
       "ap": "passate multiple",
-      "maker": "ISO"
+      "maker": "ISO",
+      "photoType": "official_product_page",
+      "photoNote": "Immagine ufficiale/prodotto: verificare sempre codice completo, passo, profilo e portautensile."
     },
     {
       "category": "Filettatura",
@@ -750,7 +754,9 @@
       "vc": "60–150",
       "f": "0,05–0,25",
       "ap": "passate multiple",
-      "maker": "ISO"
+      "maker": "ISO",
+      "photoType": "official_product_page",
+      "photoNote": "Immagine ufficiale/prodotto: verificare sempre codice completo, passo, profilo e portautensile."
     },
     {
       "category": "Filettatura",
@@ -760,7 +766,9 @@
       "vc": "50–140",
       "f": "0,05–0,22",
       "ap": "passate multiple",
-      "maker": "ISO"
+      "maker": "ISO",
+      "photoType": "official_product_page",
+      "photoNote": "Immagine ufficiale/prodotto: verificare sempre codice completo, passo, profilo e portautensile."
     },
     {
       "category": "Foratura",
