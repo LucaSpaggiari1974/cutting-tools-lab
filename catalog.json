@@ -1,8 +1,38 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-09-21T06:40:14.769Z",
+  "updatedAt": "2026-09-21T08:32:11.363Z",
   "source": "Cutting Tools LAB",
   "items": [
+    {
+      "category": "Tornitura · Finitura",
+      "code": "CNMG 120404",
+      "geom": "Rombo 80° · FINITURA · R0,4",
+      "material": "P Acciaio · M Inox · K Ghisa",
+      "vc": "160–240",
+      "f": "0,10–0,25",
+      "ap": "0,5–2",
+      "maker": "Sandvik / ISO"
+    },
+    {
+      "category": "Tornitura · Sgrossatura",
+      "code": "CNMG 120408",
+      "geom": "Rombo 80° · SGROSSATURA/MEDIA · R0,8",
+      "material": "P Acciaio · M Inox · K Ghisa",
+      "vc": "140–230",
+      "f": "0,15–0,35",
+      "ap": "0,8–4",
+      "maker": "Sandvik / ISO"
+    },
+    {
+      "category": "Tornitura · Sgrossatura",
+      "code": "CNMG 120412",
+      "geom": "Rombo 80° · SGROSSATURA · R1,2",
+      "material": "P Acciaio · M Inox · K Ghisa",
+      "vc": "120–210",
+      "f": "0,18–0,40",
+      "ap": "1–5",
+      "maker": "Sandvik / ISO"
+    },
     {
       "category": "Tornitura esterna",
       "code": "CNMG 120404",
