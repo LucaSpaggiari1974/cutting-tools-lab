@@ -64,7 +64,7 @@ def main():
             "officialInsertDesignationsFound":len(official),
             "matchedExistingISCARRecords":verified,
             "recordsChanged":changed,
-            "officialPhotosUpdated":photos}
+            "officialPhotosUpdated":0}
     with open(OUT,"w",encoding="utf-8") as f:
         json.dump(report,f,ensure_ascii=False,indent=2)
         f.write("\n")
