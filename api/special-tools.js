@@ -39,6 +39,27 @@ async function putArchive(json, sha, message) {
   });
 }
 
+async function uploadMedia(item) {
+  const data = String(item.fileData || "");
+  if (!data || !data.startsWith("data:")) return { fileUrl: String(item.fileUrl || ""), fileName: String(item.fileName || ""), fileType: String(item.fileType || "") };
+  const match = data.match(/^data:([^;]+);base64,(.+)$/s);
+  if (!match) throw new Error("File allegato non valido.");
+  const mime = match[1];
+  const base64 = match[2];
+  if (base64.length > 3 * 1024 * 1024 * 1.4) throw new Error("File troppo grande. Usa un file fino a 3 MB.");
+  const ext = mime === "application/pdf" ? "pdf" : (mime.split("/")[1] || "bin").replace(/[^a-z0-9]/gi, "");
+  const path = `special-tools-media/${item.id}-${Date.now()}.${ext}`;
+  await github(`/repos/${REPO}/contents/${path}`, {
+    method: "PUT",
+    body: JSON.stringify({ message: `feat(allison): allega ${item.code}`, content: base64, branch: BRANCH })
+  });
+  return {
+    fileUrl: `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${path}`,
+    fileName: String(item.fileName || `allegato.${ext}`),
+    fileType: mime
+  };
+}
+
 function cleanItem(x) {
   return {
     id: x.id || Date.now(),
@@ -71,11 +92,16 @@ module.exports = async (req, res) => {
     }
 
     if (req.method === "POST") {
-      const incoming = cleanItem(req.body || {});
+      const raw = req.body || {};
+      const incoming = cleanItem(raw);
       if (!incoming.code || !incoming.machine || !incoming.pieceType) {
         return res.status(400).json({ error: "Codice, macchina e tipologia di pezzo sono obbligatori." });
       }
 
+      const media = await uploadMedia({ ...incoming, fileData: raw.fileData, fileName: raw.fileName, fileType: raw.fileType });
+      incoming.fileUrl = media.fileUrl;
+      incoming.fileName = media.fileName;
+      incoming.fileType = media.fileType;
       const { json, sha } = await getArchive();
       if (!Array.isArray(json.items)) json.items = [];
       const index = json.items.findIndex(x => String(x.id) === String(incoming.id));
