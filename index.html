@@ -95,7 +95,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <label>KAPR · angolo di registrazione (°)<input id="tc_kapr" type="number" min="0" max="180" step="0.1" placeholder="per hm"></label>
 <label>kc · forza specifica (N/mm²)<input id="tc_kc" type="number" min="0" step="1" placeholder="da produttore"></label>
 </div>
-<div class="formulaBox"><b>FORMULE TORNITURA</b><br>Vc = π × Dm × n / 1000<br>n = Vc × 1000 / (π × Dm)<br>Vf = fn × n<br>Q = Vc × ap × fn <span class="unitNote">[cm³/min]</span><br>Tc = lm / (fn × n)<br>Pc = Vc × ap × fn × kc / (60 × 10³)<br>hm = fn × sin(KAPR)</div>
+<div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>Vc = 3,14 × Dm × n / 1000<br>n = Vc × 1000 / (3,14 × Dm)<br>Vf = fn × n<br>Q = Vc × ap × fn <span class="unitNote">[cm³/min]</span><br>Tc = lm / Vf<br>Pc = Vc × ap × fn × kc / (60 × 10³)<br>hm = fn × sin(KAPR)</div>
 <div id="tc_out" class="result">Compila i dati richiesti.</div>
 <div class="recommendTitle">Inserto associato alla lavorazione e ai parametri</div><div id="tc_rec" class="recommend"></div>
 </div></section>
@@ -111,7 +111,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <label>lm · profondità foro (mm)<input id="dr_lm" type="number" min="0" step="0.1" placeholder="per Tc"></label>
 <label>kc · forza specifica (N/mm²)<input id="dr_kc" type="number" min="0" step="1" placeholder="da produttore"></label>
 </div>
-<div class="formulaBox"><b>FORMULE FORATURA</b><br>Vc = π × Dc × n / 1000<br>n = Vc × 1000 / (π × Dc)<br>Vf = fn × n<br>Tc = lm / Vf<br>Q = Vc × Dc × fn / 4<br>Pc = Vc × Dc × fn × kc / (240 × 10³)<br>Mc = Pc × 30 × 10³ / (π × n)</div>
+<div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>Vc = 3,14 × Dc × n / 1000<br>n = Vc × 1000 / (3,14 × Dc)<br>Vf = fn × n<br>Tc = lm / Vf<br>Q = Vc × Dc × fn / 4<br>Pc = Vc × Dc × fn × kc / (240 × 10³)<br>Mc = Pc × 30 × 10³ / (3,14 × n)</div>
 <div id="dr_out" class="result">Compila i dati richiesti.</div>
 <div class="recommendTitle">Punta associata al diametro, materiale e tipo</div><div id="dr_rec" class="recommend"></div>
 </div></section>
@@ -129,7 +129,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <label>ae · impegno radiale (mm)<input id="mi_ae" type="number" min="0" step="0.01" placeholder="da scheda"></label>
 <label>kc · forza specifica (N/mm²)<input id="mi_kc" type="number" min="0" step="1" placeholder="da produttore"></label>
 </div>
-<div class="formulaBox"><b>FORMULE FRESATURA</b><br>Vc = π × Dcap × n / 1000<br>n = Vc × 1000 / (π × Dcap)<br>Vf = fz × n × zc<br>fz = Vf / (n × zc)<br>Q = ap × ae × Vf / 1000<br>Pc = ae × ap × Vf × kc / (60 × 10⁶)<br>Mc = Pc × 30 × 10³ / (π × n)</div>
+<div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>Vc = 3,14 × Dcap × n / 1000<br>n = Vc × 1000 / (3,14 × Dcap)<br>Vf = fz × n × zc<br>Q = ap × ae × Vf / 1000<br>Pc = ae × ap × Vf × kc / (60 × 10⁶)<br>Mc = Pc × 30 × 10³ / (3,14 × n)</div>
 <div id="mi_out" class="result">Compila i dati richiesti.</div>
 <div class="recommendTitle">Fresa associata al diametro, materiale e tipo</div><div id="mi_rec" class="recommend"></div>
 </div></section>
@@ -369,7 +369,7 @@ function teethOfTool(x){
 function nearestTool(list,d){
  return list.slice().sort((a,b)=>Math.abs(diameterOfTool(a)-d)-Math.abs(diameterOfTool(b)-d))[0]||null;
 }
-function calcN(vc,d){return d>0&&vc>0?(1000*vc)/(Math.PI*d):0}
+function calcN(vc,d){return d>0&&vc>0?(1000*vc)/(PI*d):0}
 function calcFeed(f,n,mill,z){return mill?n*f*(z||4):n*f}
 function insertRadius(x){
  const g=String(x.geom||'');
@@ -423,8 +423,8 @@ function autoCalc(id,out,filter,mill){
  if(id==='tc_d'){
    const vc=num('tc_vc'), nIn=num('tc_n'), f=num('tc_fn'), ap=num('tc_ap'), lm=num('tc_lm'), kapr=num('tc_kapr'), kc=num('tc_kc');
    let n=nIn, vcUse=vc;
-   if(vcUse>0)n=calcN(vcUse,d); else if(n>0)vcUse=Math.PI*d*n/1000;
-   const vf=f>0&&n>0?f*n:0, Q=vcUse>0&&ap>0&&f>0?vcUse*ap*f:0, Tc=lm>0&&vf>0?lm/vf:0, Pc=vcUse>0&&ap>0&&f>0&&kc>0?vcUse*ap*f*kc/(60e3):0, hm=f>0&&kapr>0?f*Math.sin(kapr*Math.PI/180):0; const turnMat=document.getElementById('tc_mat')?.value||'';
+   if(vcUse>0)n=calcN(vcUse,d); else if(n>0)vcUse=PI*d*n/1000;
+   const vf=f>0&&n>0?f*n:0, Q=vcUse>0&&ap>0&&f>0?vcUse*ap*f:0, Tc=lm>0&&vf>0?lm/vf:0, Pc=vcUse>0&&ap>0&&f>0&&kc>0?vcUse*ap*f*kc/(60e3):0, hm=f>0&&kapr>0?f*Math.sin(kapr*PI/180):0; const turnMat=document.getElementById('tc_mat')?.value||'';
    const turnOp=document.getElementById('tc_op')?.value||'rough';
    const turnRadius=num('tc_r')||0.8;
    const turnList=data.filter(x=>(x.category.includes('Tornitura')||x.category.includes('Profilatura'))&&x.vc&&x.f);
@@ -434,14 +434,14 @@ function autoCalc(id,out,filter,mill){
  }else if(id==='dr_d'){
    const vc=num('dr_vc'), nIn=num('dr_n'), f=num('dr_fn'), lm=num('dr_lm'), kc=num('dr_kc');
    let n=nIn, vcUse=vc;
-   if(vcUse>0)n=calcN(vcUse,d); else if(n>0)vcUse=Math.PI*d*n/1000;
-   const vf=f>0&&n>0?f*n:0, Tc=lm>0&&vf>0?lm/vf:0, Q=vcUse>0&&f>0?vcUse*d*f/4:0, Pc=vcUse>0&&f>0&&kc>0?vcUse*d*f*kc/(240e3):0, Mc=Pc>0&&n>0?Pc*30e3/(Math.PI*n):0; const use=selectToolFor('drill',d);
+   if(vcUse>0)n=calcN(vcUse,d); else if(n>0)vcUse=PI*d*n/1000;
+   const vf=f>0&&n>0?f*n:0, Tc=lm>0&&vf>0?lm/vf:0, Q=vcUse>0&&f>0?vcUse*d*f/4:0, Pc=vcUse>0&&f>0&&kc>0?vcUse*d*f*kc/(240e3):0, Mc=Pc>0&&n>0?Pc*30e3/(PI*n):0; const use=selectToolFor('drill',d);
    if(use){target.textContent='Punta: '+use.code+' · Vc '+(vcUse?vcUse.toFixed(1):'—')+' m/min · n '+(n?Math.round(n):'—')+' rpm · Vf '+(vf?vf.toFixed(1):'—')+' mm/min · Tc '+(Tc?Tc.toFixed(2):'—')+' min · Q '+(Q?Q.toFixed(2):'—')+' cm³/min · Pc '+(Pc?Pc.toFixed(2):'—')+' kW · Mc '+(Mc?Mc.toFixed(2):'—')+' Nm';}else{target.textContent='Nessuna punta compatibile trovata nel catalogo.';}
  }else{
    const vc=num('mi_vc'), nIn=num('mi_n'), fz=num('mi_fz'), z=num('mi_zc'), ap=num('mi_ap'), ae=num('mi_ae'), kc=num('mi_kc');
    let n=nIn, vcUse=vc;
-   if(vcUse>0)n=calcN(vcUse,d); else if(n>0)vcUse=Math.PI*d*n/1000;
-   const vf=fz>0&&n>0&&z>0?fz*n*z:0, Q=ap>0&&ae>0&&vf>0?ap*ae*vf/1000:0, Pc=ap>0&&ae>0&&vf>0&&kc>0?ae*ap*vf*kc/(60e6):0, Mc=Pc>0&&n>0?Pc*30e3/(Math.PI*n):0; const use=selectToolFor('mill',d);
+   if(vcUse>0)n=calcN(vcUse,d); else if(n>0)vcUse=PI*d*n/1000;
+   const vf=fz>0&&n>0&&z>0?fz*n*z:0, Q=ap>0&&ae>0&&vf>0?ap*ae*vf/1000:0, Pc=ap>0&&ae>0&&vf>0&&kc>0?ae*ap*vf*kc/(60e6):0, Mc=Pc>0&&n>0?Pc*30e3/(PI*n):0; const use=selectToolFor('mill',d);
    if(use){target.textContent='Fresa: '+use.code+' · Vc '+(vcUse?vcUse.toFixed(1):'—')+' m/min · n '+(n?Math.round(n):'—')+' rpm · Vf '+(vf?vf.toFixed(1):'—')+' mm/min · Q '+(Q?Q.toFixed(2):'—')+' cm³/min · Pc '+(Pc?Pc.toFixed(2):'—')+' kW · Mc '+(Mc?Mc.toFixed(2):'—')+' Nm';}else{target.textContent='Nessuna fresa compatibile trovata nel catalogo.';}
  }
  refreshRecommendations();
