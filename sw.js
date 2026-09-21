@@ -1,5 +1,5 @@
-const CACHE="cutting-tools-lab-v5";
-const APP=["./","./index.html","./manifest.webmanifest","./icon.svg","./catalog.json"];
+const CACHE="cutting-tools-lab-v6";
+const APP=["./","./index.html","./manifest.webmanifest","./icon.svg","./catalog.json","./manufacturers.json"];
 self.addEventListener("install",event=>event.waitUntil((async()=>{
   const c=await caches.open(CACHE);
   await c.addAll(APP);
