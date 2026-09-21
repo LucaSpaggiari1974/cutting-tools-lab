@@ -33,12 +33,14 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 .drawings .hint{padding:10px 15px;color:#607487;font-size:13px}.groups{padding:0 12px 12px}
 .toolgroup{border-top:1px solid var(--line);padding:10px 0}.toolgroup summary{cursor:pointer;font-weight:800;padding:6px}.drawingbox{display:grid;grid-template-columns:320px 1fr;gap:14px;align-items:center;padding:10px;background:#f8fbfd;border-radius:10px}.realphoto{width:100%;height:210px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:9px}.photo-caption{font-size:11px;color:#607487;margin-top:5px}.notes{font-size:13px;line-height:1.5}.notes b{color:#123a5a}
 .warn{padding:12px 15px;font-size:12px;color:#53697b;background:#fff;border-top:1px solid var(--line)}
+.appHeader{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.lastUpdate{text-align:right;font-size:11px;line-height:1.35;opacity:.9;white-space:nowrap}.lastUpdate b{font-size:12px;color:#fff}.refreshOverlay{position:fixed;inset:0;background:rgba(5,20,32,.62);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}.refreshOverlay[hidden]{display:none}.refreshCard{width:min(430px,100%);background:#fff;border-radius:18px;padding:22px;box-shadow:0 15px 50px #0006;text-align:center}.refreshTitle{font-size:19px;font-weight:800;color:#123a5a}.refreshText{margin:7px 0 16px;color:#607487;font-size:13px}.progressTrack{height:14px;background:#e6edf3;border-radius:999px;overflow:hidden}.progressBar{height:100%;width:0;background:linear-gradient(90deg,#1d78c9,#37a6ef);border-radius:999px;transition:width .22s ease}.progressPct{margin-top:9px;font-weight:800;color:#123a5a;font-size:13px}
+@media(max-width:760px){.appHeader{align-items:center}.lastUpdate{font-size:10px}.lastUpdate b{font-size:11px}}
 @media(max-width:760px){main{padding:8px}header{border-radius:12px}.searchgrid{grid-template-columns:1fr 1fr}.formula{grid-template-columns:1fr 1fr}.formula button{grid-column:1/-1;width:100%}.tablewrap{max-height:66vh}.drawingbox{grid-template-columns:1fr}h1{font-size:21px}.appbar{position:sticky;bottom:0;z-index:10;flex-wrap:wrap}.appbar span{flex-basis:100%}.appbar button{flex:1}.toolbar{top:0}} @media(min-width:1200px){main{max-width:1500px}.sheet{min-height:80vh}.tablewrap{max-height:68vh}table{min-width:1250px}.formula{grid-template-columns:1.7fr 1fr 1fr 1fr 1fr auto}}
 .navtabs{display:flex;gap:6px;overflow:auto;margin:0 0 12px;padding:5px;background:#fff;border:1px solid var(--line);border-radius:12px;position:sticky;top:0;z-index:20}.navtab{white-space:nowrap;width:auto;padding:10px 14px;background:#eef4f8;color:#123a5a}.navtab.active{background:#123a5a;color:#fff}.page{display:none}.page.active{display:block}.calcgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.calc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 2px 12px #0001}.calc h2{margin-top:0;color:#123a5a}.calc label{display:block;font-weight:700;margin:9px 0}.calc label input{margin-top:5px}.formulaBox{background:#102f47;color:#fff;padding:14px;border-radius:10px;font-size:18px;font-weight:800;line-height:1.8}.result{margin-top:12px;padding:12px;background:#eaf2f8;border-radius:9px;font-weight:800;color:#123a5a}.modal{position:fixed;inset:0;background:#0008;z-index:100;display:flex;align-items:center;justify-content:center;padding:14px}.modal[hidden]{display:none}.modalCard{position:relative;background:#fff;border-radius:16px;width:min(760px,100%);max-height:90vh;overflow:auto;padding:20px}.closeModal{position:absolute;right:12px;top:12px;width:auto;background:#123a5a;padding:8px 12px}.modalImg{display:block;width:100%;max-height:420px;object-fit:contain;background:#f8fbfd;border-radius:10px;margin-top:12px}@media(max-width:760px){.navtabs{top:0}.calcgrid{grid-template-columns:1fr}.navtab{padding:9px 11px;font-size:13px}.modalCard{padding:14px}}
 .problemList{display:grid;gap:10px;margin-top:14px}.problemCard{border:1px solid var(--line);border-radius:12px;background:#f8fbfd;padding:12px}.problemCard h3{margin:0 0 6px;color:#123a5a;font-size:16px}.problemCard p{margin:5px 0;font-size:13px;line-height:1.45}.problemCard b{color:#123a5a}.problemCard .cause{color:#455b6d}.problemCard .solution{background:#fff;border-radius:8px;padding:8px;margin-top:7px}.recommendTitle{margin-top:18px;font-weight:800;color:#123a5a;font-size:17px}.recommend{display:grid;gap:10px;margin-top:10px}.recCard{display:grid;grid-template-columns:170px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#f8fbfd}.recDraw{width:160px;height:140px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:9px;padding:4px}.recMeta b{color:#123a5a}.recMeta .params{margin-top:7px;font-size:13px}.recMeta button{margin-top:8px;width:auto;padding:8px 12px}@media(max-width:760px){.recCard{grid-template-columns:1fr}.recDraw{width:100%;height:190px}}</style>
 </head>
 <body><main>
-<header><h1>🔧 CUTTING TOOLS LAB</h1><p>Foglio utensili · inserti · portautensili · velocità e parametri di taglio</p></header>
+<header class="appHeader"><div><h1>🔧 CUTTING TOOLS LAB</h1><p>Foglio utensili · inserti · portautensili · velocità e parametri di taglio</p></div><div class="lastUpdate">Ultimo aggiornamento<br><b id="lastUpdate">—</b></div></header>
 
 <nav class="navtabs" aria-label="Sezioni">
 <button class="navtab active" data-page="catalogo">📋 Utensili</button>
@@ -110,6 +112,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <div class="searchgrid"><input id="problemSearch" placeholder="Cerca problema, sintomo o soluzione…"><select id="problemArea"><option value="">Tutte le lavorazioni</option><option>Tornitura</option><option>Foratura</option><option>Fresatura</option><option>Generale</option></select></div>
 <div id="problemList" class="problemList"></div>
 </div></section>
+<div id="refreshOverlay" class="refreshOverlay" hidden><div class="refreshCard"><div class="refreshTitle">🔄 Aggiornamento dati</div><div class="refreshText" id="refreshText">Controllo dei dati più recenti…</div><div class="progressTrack"><div class="progressBar" id="progressBar"></div></div><div class="progressPct" id="progressPct">0%</div></div></div>
 <div id="toolModal" class="modal" hidden>
   <div class="modalCard">
     <button class="closeModal" id="closeModal" type="button">✕</button>
@@ -164,17 +167,23 @@ function render(){
 }
 function select(x){selected=x;document.getElementById("fc").textContent=x.code;document.getElementById("fm").textContent=x.material;document.getElementById("fv").textContent=x.vc;document.getElementById("ff").textContent=x.f;document.getElementById("fa").textContent=x.ap}
 [q,cat,mat,maker].forEach(e=>e.addEventListener("input",render));
-async function loadCatalog(){
+async function loadCatalog(options={}){
+ const manual=options.manual===true;
  try{
+  if(manual) showRefreshProgress(8,"Connessione al database…");
   const r=await fetch("./catalog.json?v="+Date.now(),{cache:"no-store"});
   if(!r.ok)throw new Error("HTTP "+r.status);
   const pack=await r.json();
+  if(manual) showRefreshProgress(48,"Download dei dati completato…");
   data=Array.isArray(pack)?pack:pack.items;
   if(!Array.isArray(data)||!data.length)throw new Error("catalogo vuoto");
   try{localStorage.setItem("ctl_catalog",JSON.stringify({updatedAt:pack.updatedAt||Date.now(),items:data}));}catch(_){}
   fillFilters();render();
-  document.getElementById("status").textContent=data.length+" righe · catalogo aggiornato: "+new Date(pack.updatedAt||Date.now()).toLocaleString("it-IT");
+  const updated=new Date(pack.updatedAt||Date.now());
+  document.getElementById("status").textContent=data.length+" righe · catalogo aggiornato: "+updated.toLocaleString("it-IT");
+  document.getElementById("lastUpdate").textContent=updated.toLocaleString("it-IT",{dateStyle:"short",timeStyle:"short"});
   document.getElementById("updateState").textContent="🟢 Dati aggiornati automaticamente";
+  if(manual) showRefreshProgress(78,"Aggiornamento completato…");
  }catch(e){
   let local=null;
   try{local=JSON.parse(localStorage.getItem("ctl_catalog")||"null")}catch(_){}
@@ -182,9 +191,13 @@ async function loadCatalog(){
   fillFilters();render();
   document.getElementById("status").textContent=data.length+" righe · modalità offline";
   document.getElementById("updateState").textContent="🟠 Catalogo locale disponibile";
+  if(manual) showRefreshProgress(100,"Modalità offline: dati locali caricati.");
  }
 }
-loadCatalog();setTimeout(()=>{runAllCalcs();calcFormulaPage()},1200);setInterval(loadCatalog,15*60*1000);document.getElementById("refreshData").onclick=loadCatalog;
+let refreshRunning=false;
+function showRefreshProgress(p,text){document.getElementById("refreshOverlay").hidden=false;document.getElementById("progressBar").style.width=Math.max(0,Math.min(100,p))+"%";document.getElementById("progressPct").textContent=Math.round(p)+"%";document.getElementById("refreshText").textContent=text||"Aggiornamento in corso…"}
+async function manualRefresh(){if(refreshRunning)return;refreshRunning=true;showRefreshProgress(2,"Avvio aggiornamento…");try{await loadCatalog({manual:true});showRefreshProgress(88,"Verifica della versione dell’app…");if("serviceWorker" in navigator){try{const reg=await navigator.serviceWorker.ready;await reg.update()}catch(_){} }showRefreshProgress(96,"Ricaricamento dell’app…");setTimeout(()=>{showRefreshProgress(100,"Aggiornamento completato.");setTimeout(()=>location.reload(),350)},350)}catch(e){showRefreshProgress(100,"Aggiornamento non riuscito.");setTimeout(()=>{document.getElementById("refreshOverlay").hidden=true;refreshRunning=false},1200)}}
+loadCatalog();setTimeout(()=>{runAllCalcs();calcFormulaPage()},1200);setInterval(loadCatalog,15*60*1000);document.getElementById("refreshData").onclick=manualRefresh;
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js?v=4").then(reg=>{reg.update();setInterval(()=>reg.update(),5*60*1000)}).catch(()=>{});}
 let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.getElementById("installApp").hidden=false});document.getElementById("installApp").onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById("installApp").hidden=true};
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
