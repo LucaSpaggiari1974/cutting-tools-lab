@@ -79,20 +79,8 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 
 
 </section>
-<section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura</h2>
-<div class="grid">
-<label>Materiale pezzo<select id="tc_mat"><option value="">Seleziona</option><option>P Acciai</option><option>M Inox</option><option>K Ghise</option><option>N Non ferrosi</option><option>S Superleghe/Titanio</option><option>H Temprati</option></select></label>
-<label>Operazione<select id="tc_op"><option value="rough">Sgrossatura</option><option value="finish">Finitura</option></select></label>
-<label>Geometria inserto<select id="tc_geom"><option value="">Automatica</option><option>CNMG</option><option>DNMG</option><option>WNMG</option><option>SNMG</option><option>VNMG</option><option>CCMT</option><option>DCMT</option></select></label>
-<label>Raggio punta (mm)<input id="tc_r" type="number" min="0.1" step="0.1" placeholder="es. 0.8"></label>
-<label>Diametro Dm (mm)<input id="tc_d" type="number" min="0" step="0.01" placeholder="richiesto"></label>
-<label>Vc produttore (m/min)<input id="tc_vc" type="number" min="0" step="0.1" placeholder="da scheda"></label>
-<label>fn produttore (mm/giro)<input id="tc_fn" type="number" min="0" step="0.001" placeholder="da scheda"></label>
-<label>ap (mm)<input id="tc_ap" type="number" min="0" step="0.01" placeholder="da scheda"></label>
-<label>kc (N/mm²)<input id="tc_kc" type="number" min="0" step="1" placeholder="opzionale"></label>
-</div><div id="tc_out" class="result">Compila i dati richiesti.</div><div class="recommendTitle">Inserto associato alla lavorazione e ai parametri</div><div id="tc_rec" class="recommend"></div></div></section>
 <section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura · formule e calcolo</h2>
-<p class="small">Inserisci i dati richiesti nella scheda. I risultati vengono calcolati automaticamente. Il valore Vc/f/fn deve essere quello previsto dalla scheda dell'inserto e del materiale.</p>
+<p class="small">Inserisci i dati richiesti. Le formule restano esclusivamente in questa pagina.</p>
 <div class="grid">
 <label>Materiale pezzo<select id="tc_mat"><option value="">Seleziona</option><option>P Acciai</option><option>M Inox</option><option>K Ghise</option><option>N Non ferrosi</option><option>S Superleghe/Titanio</option><option>H Temprati</option></select></label>
 <label>Operazione<select id="tc_op"><option value="rough">Sgrossatura</option><option value="finish">Finitura</option></select></label>
@@ -112,7 +100,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <div class="recommendTitle">Inserto associato alla lavorazione e ai parametri</div><div id="tc_rec" class="recommend"></div>
 </div></section>
 <section id="foratura" class="page"><div class="calc"><h2>🕳️ Foratura · formule e calcolo</h2>
-<p class="small">Inserisci diametro, Vc/fn e profondità. Il programma calcola giri, avanzamento, tempo, asportazione e potenza quando kc è disponibile.</p>
+<p class="small">Inserisci i dati richiesti. Le formule di foratura restano esclusivamente in questa pagina.</p>
 <div class="grid">
 <label>Materiale<select id="dr_mat"><option value="">Seleziona</option><option>P Acciai</option><option>M Inox</option><option>K Ghise</option><option>N Non ferrosi</option><option>S Superleghe/Titanio</option><option>H Temprati</option></select></label>
 <label>Tipo punta<select id="dr_type"><option value="">Seleziona</option><option>Metallo duro integrale</option><option>Punta a inserti</option><option>Testa intercambiabile</option><option>Foro profondo</option><option>Micro-punta</option></select></label>
@@ -120,36 +108,15 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <label>Vc (m/min)<input id="dr_vc" type="number" min="0" step="0.1" placeholder="da produttore"></label>
 <label>n · giri mandrino (rpm)<input id="dr_n" type="number" min="0" step="1" placeholder="alternativa a Vc"></label>
 <label>fn · avanzamento (mm/giro)<input id="dr_fn" type="number" min="0" step="0.001" placeholder="da produttore"></label>
-<label>Profondità foro lm (mm)<input id="dr_lm" type="number" min="0" step="0.1" placeholder="per Tc"></label>
+<label>lm · profondità foro (mm)<input id="dr_lm" type="number" min="0" step="0.1" placeholder="per Tc"></label>
 <label>kc · forza specifica (N/mm²)<input id="dr_kc" type="number" min="0" step="1" placeholder="da produttore"></label>
 </div>
 <div class="formulaBox"><b>FORMULE FORATURA</b><br>Vc = π × Dc × n / 1000<br>n = Vc × 1000 / (π × Dc)<br>Vf = fn × n<br>Tc = lm / Vf<br>Q = Vc × Dc × fn / 4<br>Pc = Vc × Dc × fn × kc / (240 × 10³)<br>Mc = Pc × 30 × 10³ / (π × n)</div>
 <div id="dr_out" class="result">Compila i dati richiesti.</div>
 <div class="recommendTitle">Punta associata al diametro, materiale e tipo</div><div id="dr_rec" class="recommend"></div>
 </div></section>
- min="0" step="1" placeholder="alternativa a Vc"></label>
-<label>fn · avanzamento (mm/giro)<input id="tc_fn" type="number" min="0" step="0.001" placeholder="da produttore"></label>
-<label>ap · profondità (mm)<input id="tc_ap" type="number" min="0" step="0.01" placeholder="da produttore"></label>
-<label>lm · lunghezza lavorata (mm)<input id="tc_lm" type="number" min="0" step="0.1" placeholder="per Tc"></label>
-<label>KAPR · angolo di registrazione (°)<input id="tc_kapr" type="number" min="0" max="180" step="0.1" placeholder="per hm"></label>
-<label>kc · forza specifica (N/mm²)<input id="tc_kc" type="number" min="0" step="1" placeholder="da produttore"></label>
-</div>
-<div class="formulaBox"><b>FORMULE TORNITURA</b><br>Vc = π × Dm × n / 1000<br>n = Vc × 1000 / (π × Dm)<br>Vf = fn × n<br>Q = Vc × ap × fn<br>Tc = lm / (fn × n)<br>Pc = Vc × ap × fn × kc / (60 × 10³)<br>hm = fn × sin(KAPR)</div>
-<div id="tc_out" class="result">Compila i dati richiesti.</div>
-<div class="recommendTitle">Inserto associato alla lavorazione e ai parametri</div><div id="tc_rec" class="recommend"></div>
-</div></section>
-<section id="foratura" class="page"><div class="calc"><h2>🕳️ Foratura</h2>
-<div class="grid">
-<label>Materiale<select id="dr_mat"><option value="">Seleziona</option><option>P Acciai</option><option>M Inox</option><option>K Ghise</option><option>N Non ferrosi</option><option>S Superleghe/Titanio</option><option>H Temprati</option></select></label>
-<label>Tipo punta<select id="dr_type"><option value="">Seleziona</option><option>Metallo duro integrale</option><option>Punta a inserti</option><option>Testa intercambiabile</option><option>Foro profondo</option><option>Micro-punta</option></select></label>
-<label>Dc · diametro (mm)<input id="dr_d" type="number" min="0" step="0.01" placeholder="richiesto"></label>
-<label>Vc (m/min)<input id="dr_vc" type="number" min="0" step="0.1" placeholder="da produttore"></label>
-<label>fn (mm/giro)<input id="dr_fn" type="number" min="0" step="0.001" placeholder="da produttore"></label>
-<label>Profondità foro (mm)<input id="dr_lm" type="number" min="0" step="0.1" placeholder="richiesto"></label>
-<label>kc (N/mm²)<input id="dr_kc" type="number" min="0" step="1" placeholder="opzionale"></label>
-</div><div id="dr_out" class="result">Compila i dati richiesti.</div><div class="recommendTitle">Punta associata al diametro, materiale e tipo</div><div id="dr_rec" class="recommend"></div></div></section>
 <section id="fresatura" class="page"><div class="calc"><h2>⚙️ Fresatura · formule e calcolo</h2>
-<p class="small">Inserisci diametro, Vc, fz, numero denti, ap e ae. I risultati vengono aggiornati automaticamente.</p>
+<p class="small">Inserisci i dati richiesti. Le formule di fresatura restano esclusivamente in questa pagina.</p>
 <div class="grid">
 <label>Materiale<select id="mi_mat"><option value="">Seleziona</option><option>P Acciai</option><option>M Inox</option><option>K Ghise</option><option>N Non ferrosi</option><option>S Superleghe/Titanio</option><option>H Temprati</option></select></label>
 <label>Tipo fresa<select id="mi_type"><option value="">Seleziona</option><option>Integrale metallo duro</option><option>Fresa a inserti</option><option>Spianatura</option><option>Scanalatura</option><option>Filettatura</option></select></label>
@@ -323,7 +290,7 @@ ADAPTER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?
 function toolPhoto(x){
  if(x && x.photoUrl){
    const src=esc(x.photoUrl), alt=esc((x.maker||'')+' '+(x.code||''));
-   const sourceLabel=x.photoSource==='manufacturer'?'Foto ufficiale del produttore':'Foto del prodotto da distributore';
+   const sourceLabel=(x.photoSource==='manufacturer'||String(x.photoSource||'').toUpperCase().includes('ISCAR'))?'Foto ufficiale/collegata al produttore':'Foto del prodotto da distributore';
    const link=x.drawingUrl?'<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>':(x.productUrl?'<a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda prodotto ufficiale</a>':'');
    return '<div><img class="recDraw" loading="lazy" src="'+src+'" alt="'+alt+'" onerror="this.style.display=\'none\'"><div class="photo-caption">'+sourceLabel+' · '+esc(x.maker||'')+'</div>'+link+'</div>';
  }
