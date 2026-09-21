@@ -1,0 +1,13 @@
+{
+  "updatedAt": null,
+  "run": "not-run-yet",
+  "changed": false,
+  "pagesChecked": 0,
+  "pagesFailed": 0,
+  "photosUpdated": 0,
+  "newProducts": 0,
+  "catalogItems": 555,
+  "backup": "backups/catalog-latest.json",
+  "sourcesChecked": 0,
+  "note": "Il primo aggiornamento automatico verrà eseguito dal workflow quotidiano."
+}
