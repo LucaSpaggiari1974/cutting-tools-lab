@@ -1,0 +1,29 @@
+name: Backup automatico della versione operativa
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Aggiorna il backup alla versione di main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sovrascrivi il backup con la versione appena resa operativa
+        env:
+          BACKUP_BRANCH: BACKUP-2026-09-21-CUTTING-TOOLS-LAB
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git push origin "origin/main:refs/heads/$BACKUP_BRANCH" --force
