@@ -257,7 +257,7 @@ async function checkForDatabaseUpdate(){
   }
  }catch(_){}
 }
-loadCatalog();
+setTimeout(()=>loadCatalog(),0);
 setInterval(checkForDatabaseUpdate,2*60*1000);
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkForDatabaseUpdate()});
 document.getElementById("refreshData").onclick=()=>manualRefresh();
