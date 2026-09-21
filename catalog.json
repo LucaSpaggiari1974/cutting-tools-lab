@@ -262,5 +262,110 @@
     "source": "https://www.iscar.com/Catalogs/Publication/english_1/ALUMINUM_MACHINING/ALUMINUM_MACHINING.pdf",
     "image": "https://smartinserts.net/cdn/shop/files/IMG_1795.png?v=1687288636&width=533",
     "image_note": "Foto di riferimento CNMG-PP; verificare codice e grado."
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "DNMG 11 04 04-MF",
+    "iso": "DNMG 110404",
+    "family": "T-Max P",
+    "geometry": "MF",
+    "operation": "Tornitura · finitura",
+    "corner_radius_mm": 0.4,
+    "source": "https://epublications.sandvik.coromant.com/frontend/catalogs/1151657/1/pdf/save/bk_23.pdf",
+    "image": "https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_dnmg_11_04_08_mf_1105_t_max_p_sorvaustera_pict3dview.jpg",
+    "image_note": "Foto di riferimento della famiglia DNMG T-Max P; verificare sempre codice e grado nel catalogo ufficiale."
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "DNMG 11 04 08-MF",
+    "iso": "DNMG 110408",
+    "family": "T-Max P",
+    "geometry": "MF",
+    "operation": "Tornitura · finitura",
+    "corner_radius_mm": 0.8,
+    "source": "https://epublications.sandvik.coromant.com/frontend/catalogs/1151657/1/pdf/save/bk_23.pdf",
+    "image": "https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_dnmg_11_04_08_mf_1105_t_max_p_sorvaustera_pict3dview.jpg",
+    "image_note": "Foto di riferimento del modello DNMG 11 04 08-MF; verificare codice e grado nel catalogo ufficiale."
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "DNMG 15 04 08-MF",
+    "iso": "DNMG 150408",
+    "family": "T-Max P",
+    "geometry": "MF",
+    "operation": "Tornitura · finitura",
+    "corner_radius_mm": 0.8,
+    "source": "https://epublications.sandvik.coromant.com/frontend/catalogs/1151657/1/pdf/save/bk_23.pdf",
+    "image": "https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_dnmg_11_04_08_mf_1105_t_max_p_sorvaustera_pict3dview.jpg",
+    "image_note": "Foto di riferimento della famiglia DNMG T-Max P; verificare sempre codice e grado nel catalogo ufficiale."
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "DNMG 15 06 12-MF",
+    "iso": "DNMG 150612",
+    "family": "T-Max P",
+    "geometry": "MF",
+    "operation": "Tornitura · finitura",
+    "corner_radius_mm": 1.2,
+    "source": "https://epublications.sandvik.coromant.com/frontend/catalogs/1151657/1/pdf/save/bk_23.pdf",
+    "image": "https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_dnmg_11_04_08_mf_1105_t_max_p_sorvaustera_pict3dview.jpg",
+    "image_note": "Foto di riferimento della famiglia DNMG T-Max P; verificare sempre codice e grado nel catalogo ufficiale."
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "VNMG 16 04 04-PF",
+    "iso": "VNMG 160404",
+    "family": "T-Max P",
+    "geometry": "PF",
+    "operation": "Tornitura · finitura",
+    "corner_radius_mm": 0.4,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
+    "image": "https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_vnmg_16_04_08_km_3210_t_max_p_sorvaustera_pict3dview.jpg",
+    "image_note": "Foto di riferimento della famiglia VNMG T-Max P; verificare sempre codice e grado nel catalogo ufficiale."
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "VNMG 16 04 08-PF",
+    "iso": "VNMG 160408",
+    "family": "T-Max P",
+    "geometry": "PF",
+    "operation": "Tornitura · finitura",
+    "corner_radius_mm": 0.8,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
+    "image": "https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_vnmg_16_04_08_km_3210_t_max_p_sorvaustera_pict3dview.jpg",
+    "image_note": "Foto di riferimento del modello VNMG 16 04 08; verificare sempre codice e grado nel catalogo ufficiale."
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "SNMG 12 04 08-QM",
+    "iso": "SNMG 120408",
+    "family": "T-Max P",
+    "geometry": "QM",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 0.8,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=34",
+    "image_note": "Inserto quadrato SNMG T-Max P; dati geometrici verificati nel catalogo ufficiale."
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "SNMG 12 04 12-QM",
+    "iso": "SNMG 120412",
+    "family": "T-Max P",
+    "geometry": "QM",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 1.2,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=34",
+    "image_note": "Inserto quadrato SNMG T-Max P; dati geometrici verificati nel catalogo ufficiale."
+  },
+  {
+    "manufacturer": "Sandvik Coromant",
+    "code": "SNMG 12 04 16-QM",
+    "iso": "SNMG 120416",
+    "family": "T-Max P",
+    "geometry": "QM",
+    "operation": "Tornitura · media",
+    "corner_radius_mm": 1.6,
+    "source": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=34",
+    "image_note": "Inserto quadrato SNMG T-Max P; dati geometrici verificati nel catalogo ufficiale."
   }
 ]
