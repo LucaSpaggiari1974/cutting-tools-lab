@@ -159,13 +159,8 @@ function getPreviewUrl(x){
  return x.photoUrl||x.genericPhotoUrl||null;
 }
 function getHoverPreviewUrl(x){
- const direct=getPreviewUrl(x);
- if(direct)return direct;
- try{
-   const kind=familyFor(x);
-   const p=photoMap&&photoMap[kind];
-   return p&&p[0]?p[0]:null;
- }catch(_){return null}
+ if(!x)return null;
+ return x.photoUrl||null;
 }
 function hideCodePreview(){
  const im=document.getElementById("codePreview"),cap=document.getElementById("codePreviewCaption");
