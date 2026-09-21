@@ -1,7 +1,7 @@
 {
-  "version": "2.3-full-family-expansion",
-  "updatedAt": "2026-09-21T10:37:21.300Z",
-  "source": "Cataloghi ufficiali produttori · famiglie e gamme senza inventare codici",
+  "version": "2.4-iscar-verified-insert-photos",
+  "updatedAt": "2026-09-21T11:53:17.285Z",
+  "source": "Cataloghi ufficiali ISCAR + ISCAR Italia webshop · foto collegate solo quando verificabili",
   "items": [
     {
       "category": "Tornitura · Sgrossatura",
@@ -21,7 +21,11 @@
       "vc": "140–230",
       "f": "0,15–0,45",
       "ap": "0,7–4,5",
-      "maker": "ISCAR"
+      "maker": "ISCAR",
+      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
+      "photoSource": "ISCAR Italia webshop",
+      "photoNote": "Foto prodotto ISCAR verificata per il codice 5566681.",
+      "drawingUrl": "https://webshop.iscar.de/catalogue/product/1907077"
     },
     {
       "category": "Tornitura · Finitura",
@@ -41,7 +45,11 @@
       "vc": "120–220",
       "f": "0,16–0,45",
       "ap": "1–4,5",
-      "maker": "ISCAR"
+      "maker": "ISCAR",
+      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/44.jpg",
+      "photoSource": "ISCAR Italia webshop",
+      "photoNote": "Foto prodotto ISCAR verificata per il codice 5503262.",
+      "drawingUrl": "https://webshop.iscaritalia.it/catalogue/product/1903426"
     },
     {
       "category": "Profilatura / finitura",
@@ -51,7 +59,9 @@
       "vc": "160–300",
       "f": "0,10–0,30",
       "ap": "0,4–2",
-      "maker": "ISCAR"
+      "maker": "ISCAR",
+      "drawingUrl": "https://www.iscar.com/eCatalog/Item.aspx?GFSTYP=M&mapp=IS&cat=CCMT%2009T304-WG%20IC807",
+      "photoNote": "Foto ISCAR ricercata; non inserita finché non è disponibile un URL immagine verificabile per questo codice."
     },
     {
       "category": "Profilatura / finitura",
@@ -61,7 +71,9 @@
       "vc": "120–220",
       "f": "0,20–0,38",
       "ap": "0,5–2,5",
-      "maker": "ISCAR"
+      "maker": "ISCAR",
+      "drawingUrl": "https://www.iscar.com/eCatalog/Item.aspx?GFSTYP=M&mapp=IS&cat=CCMT%2009T308-WG%20IC807",
+      "photoNote": "Foto ISCAR ricercata; non inserita finché non è disponibile un URL immagine verificabile per questo codice."
     },
     {
       "category": "Tornitura · Finitura",
