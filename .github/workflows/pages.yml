@@ -18,6 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Importa database memoria
+        run: python merge_catalog.py
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
