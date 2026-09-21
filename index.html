@@ -80,7 +80,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 
 
 </section>
-<section id="formule" class="page"><div class="calc"><h2>🧮 Formule e calcolo</h2><div class="formulaBox">n = (1000 × Vc) ÷ (π × D)<br>Vc = (π × D × n) ÷ 1000<br>Vf tornitura/foratura = f × n<br>Vf fresatura = fz × z × n</div><p><b>Inserisci il solo diametro.</b> Seleziona la lavorazione: il programma prende automaticamente Vc e avanzamento dal catalogo e calcola giri/min e Vf.</p><label>Lavorazione<select id="formulaType"><option value="turn">Tornitura</option><option value="drill">Foratura</option><option value="mill">Fresatura</option></select></label><label>Diametro D (mm)<input id="formulaD" type="number" value="50" min="0.1" step="0.1"></label><div id="formulaOut" class="result">Inserisci il diametro.</div></div></section>
+<section id="formule" class="page"><div class="calc"><h2>🧮 Formule e calcolo</h2><div class="formulaBox">n = (1000 × Vc) ÷ (π × D)<br>Vc = (π × D × n) ÷ 1000<br>Vf tornitura/foratura = f × n<br>Vf fresatura = fz × z × n</div><p><b>Inserisci il solo diametro.</b> Seleziona la lavorazione: il programma prende automaticamente Vc e avanzamento dal catalogo e calcola giri/min e Vf.</p><label>Lavorazione<select id="formulaType"><option value="turn">Tornitura</option><option value="drill">Foratura</option><option value="mill">Fresatura</option></select></label><label>Diametro D (mm)<input id="formulaD" type="number" value="50" min="0.1" step="0.1"></label><div id="formulaOut" class="result">Inserisci il diametro.</div><div id="formulaAvc" class="result" style="margin-top:8px">AVC / Vf tornitura: — mm/min</div></div></section>
 
 <section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura</h2>
 <div class="calcgrid">
@@ -408,11 +408,15 @@ function calcFormulaPage(){
  if(!x){out.textContent='Nessun utensile disponibile nel catalogo per questo diametro.';return}
  const toolD=mill?diameterOfTool(x):d;
  const vc=avgRange(x.vc),f=avgRange(x.f),n=calcN(vc,toolD),vf=calcFeed(f,n,mill,teethOfTool(x));
+ const avc=type==='turn'?vf:0;
+ const avcEl=document.getElementById('formulaAvc');
+ if(avcEl) avcEl.textContent=type==='turn'&&avc>0?'AVC / Vf tornitura: '+avc.toFixed(1)+' mm/min · calcolato automaticamente dal diametro '+d.toFixed(1)+' mm':'AVC / Vf tornitura: — mm/min';
  let note='';
  if(type==='drill' && Math.abs(toolD-d)>0.01) note=' · Foro richiesto '+d.toFixed(1)+' mm → punta disponibile più vicina Ø'+toolD.toFixed(1)+' mm';
  if(type==='mill') note=' · Fresa disponibile più vicina Ø'+toolD.toFixed(1)+' mm · '+teethOfTool(x)+' denti';
  if(type==='turn') note=' · '+(window.currentTurnOp==='rough'?'Sgrossatura':'Finitura')+' · R'+window.currentTurnRadius.toFixed(1).replace('.',',')+' · diametro pezzo '+d.toFixed(1)+' mm';
  out.textContent=label+' · '+x.code+note+' · Vc '+(vc?vc.toFixed(1):'—')+' m/min · n '+Math.round(n)+' giri/min · '+(mill?'fz':'f')+' '+(f?f.toFixed(3):'—')+' · Vf '+(vf?vf.toFixed(1):'—')+' mm/min';
+ if(type==='turn'){const tcOut=document.getElementById('tc_out'); if(tcOut) tcOut.textContent+=' · AVC/Vf automatico: '+vf.toFixed(1)+' mm/min';}
 }
 document.getElementById('formulaD').oninput=calcFormulaPage;
 document.getElementById('formulaType').onchange=calcFormulaPage;
