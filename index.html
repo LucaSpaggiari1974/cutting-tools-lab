@@ -271,15 +271,29 @@ async function manualRefresh(message="Avvio aggiornamento…"){
   setTimeout(()=>{document.getElementById("refreshOverlay").hidden=true;refreshRunning=false},1200);
  }
 }
+let currentBuildVersion=null;
 async function checkForDatabaseUpdate(){
  if(refreshRunning)return;
+ try{
+  const vr=await fetch("./build-version.json?check="+Date.now(),{cache:"no-store"});
+  if(vr.ok){
+   const build=await vr.json();
+   const remoteBuild=build.sha||build.updatedAt||"";
+   if(currentBuildVersion===null) currentBuildVersion=remoteBuild;
+   else if(remoteBuild && remoteBuild!==currentBuildVersion){
+    currentBuildVersion=remoteBuild;
+    await manualRefresh("Aggiornamento disponibile. Sto caricando l'ultima versione…");
+    return;
+   }
+  }
+ }catch(_){}
  try{
   const r=await fetch("./catalog.json?check="+Date.now(),{cache:"no-store"});
   if(!r.ok)return;
   const pack=await r.json();
   const remote=pack.updatedAt||"";
   if(currentCatalogUpdatedAt && remote && remote!==currentCatalogUpdatedAt){
-   await manualRefresh("Database in aggiornamento. Attendere, grazie.");
+   await manualRefresh("Aggiornamento disponibile. Sto caricando l'ultima versione…");
   }
  }catch(_){}
 }
@@ -303,7 +317,7 @@ async function verifyPhotoRuntime(){
  if(el && list.length) el.textContent=el.textContent+" · Foto verificate nel browser: "+loaded+"/"+list.length+(failed?" · errori "+failed:" ✓");
  window.dispatchEvent(new CustomEvent("photo-runtime-verified",{detail:photoRuntimeHealth}));
 }
-setInterval(checkForDatabaseUpdate,2*60*1000);
+setInterval(checkForDatabaseUpdate,30*1000);
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkForDatabaseUpdate()});
 document.getElementById("refreshData").onclick=()=>manualRefresh();
 
