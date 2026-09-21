@@ -1,6 +1,10 @@
 name: Smart Manufacturer Photo Sync
 
 on:
+  push:
+    paths:
+      - "scripts/sync_manufacturer_photos.py"
+      - ".github/workflows/manufacturer-photo-sync.yml"
   schedule:
     - cron: "47 3 * * 2"
   workflow_dispatch:
@@ -23,7 +27,21 @@ jobs:
         run: |
           git config user.name "cutting-tools-lab-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add catalog.json data/manufacturer-photo-sync-report.json
+          if git diff --quiet -- catalog.json; then
+            echo "No catalog photo changes detected."
+            exit 0
+          fi
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path("sw.js"); s=p.read_text(encoding="utf-8")
+          m=re.search(r'(cutting-tools-lab-v)(\\d+)',s)
+          if not m: raise SystemExit("SW cache version not found")
+          n=int(m.group(2))+1
+          p.write_text(s[:m.start(2)]+str(n)+s[m.end(2):],encoding="utf-8")
+          print("Bumped SW cache to",n)
+          PY
+          git add catalog.json data/manufacturer-photo-sync-report.json sw.js
           if git diff --cached --quiet; then
             echo "No photo database changes detected."
           else
