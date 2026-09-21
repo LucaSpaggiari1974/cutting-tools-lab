@@ -221,7 +221,10 @@ function toolPhoto(x){
    return '<div><img class="recDraw" loading="lazy" src="'+src+'" alt="'+alt+'" onerror="this.style.display=\'none\'"><div class="photo-caption">'+sourceLabel+' · '+esc(x.maker||'')+'</div>'+link+'</div>';
  }
  if(x && x.productUrl){
-   return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Foto non incorporabile direttamente. <a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener" style="color:#185b8f;font-weight:800">Apri la scheda ufficiale di '+esc(x.maker||'il produttore')+'</a>.</div>';
+   return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Foto ufficiale non incorporata direttamente. <a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener" style="color:#185b8f;font-weight:800">Apri la scheda/catalogo ufficiale '+esc(x.maker||'del produttore')+'</a>.</div>';
+ }
+ if(x && x.maker && x.maker!=='ISO'){
+   return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Nessuna foto ufficiale diretta associata a questo codice. Non viene mostrata una foto di un altro produttore.</div>';
  }
  return toolDrawing(familyFor(x));
 }
