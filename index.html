@@ -156,7 +156,7 @@ let selected=null;
 let previewTimer=null;
 function getPreviewUrl(x){
  if(!x)return null;
- return x.photoUrl||x.genericPhotoUrl||((photoMap[familyFor(x)]||[])[0])||null;
+ return x.photoUrl||x.genericPhotoUrl||null;
 }
 function hideCodePreview(){
  const im=document.getElementById("codePreview"),cap=document.getElementById("codePreviewCaption");
