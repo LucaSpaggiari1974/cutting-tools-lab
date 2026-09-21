@@ -47,7 +47,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <button class="navtab" data-page="tornitura">🔩 Tornitura</button>
 <button class="navtab" data-page="fresatura">⚙️ Fresatura</button>
 <button class="navtab" data-page="alesatura">🔩 Alesatura</button>
-<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="produttori">🏭 Produttori</button><button class="navtab" data-page="speciali">🧰 Utensili speciali Ellison</button>
+<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="produttori">🏭 Produttori</button><button class="navtab" data-page="speciali">🧰 Utensili speciali Allison</button>
 </nav>
 <section id="catalogo" class="page active"><section class="sheet">
 <div class="toolbar">
@@ -80,12 +80,12 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 
 </section>
 <section id="speciali" class="page"><div class="calc">
-<h2>🧰 Utensili speciali Ellison</h2>
+<h2>🧰 Utensili speciali Allison</h2>
 <p>Catalogo separato per gli utensili speciali presenti sulle nostre macchine. I dati, le quote e i disegni vengono inseriti manualmente.</p>
 <div class="result"><b>⚠️ Archivio locale del dispositivo</b><br>Gli utensili inseriti qui vengono salvati sul dispositivo/browser. Usa <b>Esporta archivio</b> per trasferirli o conservarli e <b>Importa archivio</b> per recuperarli.</div>
 <div class="calcgrid" style="margin-top:12px">
 <div class="calc"><b>Nuovo utensile speciale</b>
-<label>Codice / identificativo<input id="spCode" placeholder="ELLISON-001"></label>
+<label>Codice / identificativo<input id="spCode" placeholder="ALLISON-001"></label>
 <label>Nome utensile<input id="spName" placeholder="Nome o descrizione"></label>
 <label>Tipo / categoria<input id="spType" placeholder="Portautensile, inserto, barra, fresa…"></label>
 <label>Macchina<input id="spMachine" placeholder="Macchina / centro di lavoro"></label>
@@ -510,14 +510,14 @@ function renderProblems(){
 }
 document.getElementById('problemSearch').oninput=renderProblems;document.getElementById('problemArea').oninput=renderProblems;renderProblems();
 
-const SPECIAL_KEY="cuttingToolsLabEllisonSpecial";
+const SPECIAL_KEY="cuttingToolsLabAllisonSpecial";
 let specialTools=[];
 try{specialTools=JSON.parse(localStorage.getItem(SPECIAL_KEY)||"[]");if(!Array.isArray(specialTools))specialTools=[]}catch(_){specialTools=[]}
 function saveSpecialTools(){localStorage.setItem(SPECIAL_KEY,JSON.stringify(specialTools));}
 function renderSpecialTools(){
  const el=document.getElementById("specialList"),st=document.getElementById("specialStatus");
  if(!el)return;
- st.textContent=specialTools.length?specialTools.length+" utensile/i speciale/i Ellison presenti nell’archivio del dispositivo.":"Nessun utensile speciale inserito.";
+ st.textContent=specialTools.length?specialTools.length+" utensile/i speciale/i Allison presenti nell’archivio del dispositivo.":"Nessun utensile speciale inserito.";
  el.innerHTML=specialTools.length?specialTools.map((x,i)=>'<article class="problemCard"><h3>🧰 '+esc(x.code)+'</h3><p><b>Nome:</b> '+esc(x.name||"—")+' · <b>Tipo:</b> '+esc(x.type||"—")+'</p><p><b>Macchina:</b> '+esc(x.machine||"—")+' · <b>Materiale:</b> '+esc(x.material||"—")+'</p><p><b>Geometria:</b> '+esc(x.geom||"—")+'</p><p><b>Parametri:</b> '+esc(x.params||"—")+'</p><p><b>Note:</b> '+esc(x.notes||"—")+'</p>'+(x.fileData?(x.fileType&&x.fileType.includes("pdf")?'<a href="'+x.fileData+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:#185b8f;font-weight:800">📄 Apri disegno PDF</a>':'<img class="recDraw" src="'+x.fileData+'" alt="Disegno/foto '+esc(x.code)+'">'):'<div class="result">Anteprima non disponibile</div>')+'<br><button type="button" data-special-index="'+i+'" style="width:auto;margin-top:8px">Apri utensile</button> <button type="button" data-special-delete="'+i+'" style="width:auto;margin-top:8px;background:#8b2d2d">Elimina</button></article>').join(""):'<div class="result">Nessun utensile speciale presente.</div>';
  el.querySelectorAll("[data-special-index]").forEach(b=>b.onclick=()=>openSpecialTool(specialTools[+b.dataset.specialIndex]));
  el.querySelectorAll("[data-special-delete]").forEach(b=>b.onclick=()=>{if(confirm("Eliminare questo utensile speciale?")){specialTools.splice(+b.dataset.specialDelete,1);saveSpecialTools();renderSpecialTools();}});
@@ -532,10 +532,10 @@ document.getElementById("saveSpecial").onclick=async()=>{
  const file=document.getElementById("spFile").files[0];let fileData="",fileType="";
  if(file){if(file.size>3*1024*1024){alert("File troppo grande. Usa un file fino a 3 MB.");return}fileData=await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=rej;fr.readAsDataURL(file)});fileType=file.type}
  specialTools.push({id:Date.now(),code,name:document.getElementById("spName").value.trim(),type:document.getElementById("spType").value.trim(),machine:document.getElementById("spMachine").value.trim(),material:document.getElementById("spMaterial").value.trim(),geom:document.getElementById("spGeom").value.trim(),params:document.getElementById("spParams").value.trim(),notes:document.getElementById("spNotes").value.trim(),fileData,fileType,createdAt:new Date().toISOString()});
- saveSpecialTools();["spCode","spName","spType","spMachine","spMaterial","spGeom","spParams","spNotes","spFile"].forEach(id=>{const e=document.getElementById(id);if(e)e.value=""});renderSpecialTools();alert("Utensile speciale Ellison salvato.");
+ saveSpecialTools();["spCode","spName","spType","spMachine","spMaterial","spGeom","spParams","spNotes","spFile"].forEach(id=>{const e=document.getElementById(id);if(e)e.value=""});renderSpecialTools();alert("Utensile speciale Allison salvato.");
 };
 document.getElementById("exportSpecial").onclick=()=>{
- const blob=new Blob([JSON.stringify({version:1,category:"Utensili speciali Ellison",items:specialTools},null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="utensili-speciali-ellison.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+ const blob=new Blob([JSON.stringify({version:1,category:"Utensili speciali Allison",items:specialTools},null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="utensili-speciali-ellison.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 };
 document.getElementById("importSpecial").onclick=()=>document.getElementById("specialImportFile").click();
 document.getElementById("specialImportFile").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(!Array.isArray(j.items))throw new Error();specialTools=j.items;saveSpecialTools();renderSpecialTools();alert("Archivio importato.");}catch(_){alert("File archivio non valido.");}e.target.value=""};
