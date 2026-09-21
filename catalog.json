@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-09-21T09:18:51.906Z",
+  "updatedAt": "2026-09-21T09:19:03.734Z",
   "source": "Cutting Tools LAB",
   "items": [
     {
@@ -732,7 +732,8 @@
       "ap": "passate multiple",
       "maker": "ISO",
       "photoType": "official_product_page",
-      "photoNote": "Immagine ufficiale/prodotto: verificare sempre codice completo, passo, profilo e portautensile."
+      "photoNote": "Pagina prodotto ufficiale con immagine reale della serie/codice e dati dimensionali.",
+      "photoUrl": "https://www.ingersoll-imc.com/product?ecatProductId=51825"
     },
     {
       "category": "Filettatura",
@@ -744,7 +745,8 @@
       "ap": "passate multiple",
       "maker": "ISO",
       "photoType": "official_product_page",
-      "photoNote": "Immagine ufficiale/prodotto: verificare sempre codice completo, passo, profilo e portautensile."
+      "photoNote": "Pagina prodotto ufficiale con immagine reale della serie/codice e dati dimensionali.",
+      "photoUrl": "https://www.ingersoll-imc.com/product?ecatProductId=314824"
     },
     {
       "category": "Filettatura",
@@ -756,7 +758,8 @@
       "ap": "passate multiple",
       "maker": "ISO",
       "photoType": "official_product_page",
-      "photoNote": "Immagine ufficiale/prodotto: verificare sempre codice completo, passo, profilo e portautensile."
+      "photoNote": "Pagina prodotto ufficiale con immagine reale della serie/codice e dati dimensionali.",
+      "photoUrl": "https://www.ingersoll-imc.com/product?id=5901951"
     },
     {
       "category": "Filettatura",
@@ -768,7 +771,8 @@
       "ap": "passate multiple",
       "maker": "ISO",
       "photoType": "official_product_page",
-      "photoNote": "Immagine ufficiale/prodotto: verificare sempre codice completo, passo, profilo e portautensile."
+      "photoNote": "Pagina prodotto ufficiale con immagine reale della serie/codice e dati dimensionali.",
+      "photoUrl": "https://www.ingersoll-imc.com/product?ecatProductId=53334"
     },
     {
       "category": "Foratura",
@@ -938,7 +942,10 @@
       "vc": "—",
       "f": "—",
       "ap": "—",
-      "maker": "ISO"
+      "maker": "ISO",
+      "photoUrl": "https://www.ingersoll-imc.com/product?ecatProductId=316157",
+      "photoType": "official_product_page",
+      "photoNote": "Pagina prodotto ufficiale con immagine reale della serie/codice e dati dimensionali."
     },
     {
       "category": "Portautensili",
