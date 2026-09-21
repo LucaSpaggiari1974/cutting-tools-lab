@@ -66,7 +66,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 </div>
 </div>
 <div class="status" id="status">Caricamento foglio…</div>
-<div class="warn" style="border-top:0">🏭 Database fornitori: Walter · Sandvik Coromant · Kennametal · Ingersoll. Le righe mostrano codici/famiglie rappresentative; grado, rompitruciolo, raggio e dati di taglio vanno verificati sul catalogo del codice esatto.</div>
+<div class="warn" style="border-top:0">🏭 Database produttori: foto associate al marchio del record. Le foto ufficiali sono contrassegnate come “Foto ufficiale del produttore”; non vengono sostituite con foto di un altro marchio.</div>
 <div class="appbar"><span id="updateState">🔄 Aggiornamento automatico attivo</span><button id="refreshData" type="button">Aggiorna dati</button><button id="installApp" type="button" hidden>Installa app</button></div>
 <div class="tablewrap">
 <table><thead><tr>
@@ -214,7 +214,15 @@ HOLDER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?s
 ADAPTER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?set_id=880000500F","Foto reale mandrino/adattatore"]
 };
 function toolPhoto(x){
- if(x && x.photoUrl) return '<div><img class="recDraw" loading="lazy" src="'+x.photoUrl+'" alt="'+esc((x.maker||'')+' '+(x.code||''))+'" onerror="this.style.display=\'none\'"><div class="photo-caption">Foto reale · '+esc(x.maker||'')+'</div></div>';
+ if(x && x.photoUrl){
+   const src=esc(x.photoUrl), alt=esc((x.maker||'')+' '+(x.code||''));
+   const sourceLabel=x.photoSource==='manufacturer'?'Foto ufficiale del produttore':'Foto del prodotto da distributore';
+   const link=x.productUrl?'<a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda prodotto ufficiale</a>':'';
+   return '<div><img class="recDraw" loading="lazy" src="'+src+'" alt="'+alt+'" onerror="this.style.display=\'none\'"><div class="photo-caption">'+sourceLabel+' · '+esc(x.maker||'')+'</div>'+link+'</div>';
+ }
+ if(x && x.productUrl){
+   return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Foto non incorporabile direttamente. <a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener" style="color:#185b8f;font-weight:800">Apri la scheda ufficiale di '+esc(x.maker||'il produttore')+'</a>.</div>';
+ }
  return toolDrawing(familyFor(x));
 }
 function toolDrawing(kind){
