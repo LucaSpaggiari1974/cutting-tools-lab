@@ -263,11 +263,11 @@ function toolPhoto(x){
  if(x && x.photoUrl){
    const src=esc(x.photoUrl), alt=esc((x.maker||'')+' '+(x.code||''));
    const sourceLabel=x.photoSource==='manufacturer'?'Foto ufficiale del produttore':'Foto del prodotto da distributore';
-   const link=x.productUrl?'<a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda prodotto ufficiale</a>':'';
+   const link=x.drawingUrl?'<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>':(x.productUrl?'<a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda prodotto ufficiale</a>':'');
    return '<div><img class="recDraw" loading="lazy" src="'+src+'" alt="'+alt+'" onerror="this.style.display=\'none\'"><div class="photo-caption">'+sourceLabel+' · '+esc(x.maker||'')+'</div>'+link+'</div>';
  }
  if(x && x.productUrl){
-   return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Foto ufficiale non incorporata direttamente. <a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener" style="color:#185b8f;font-weight:800">Apri la scheda/catalogo ufficiale '+esc(x.maker||'del produttore')+'</a>.</div>';
+   return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Foto ufficiale non incorporata direttamente. <a href="'+esc(x.drawingUrl||x.productUrl)+'" target="_blank" rel="noopener" style="color:#185b8f;font-weight:800">Apri il disegno/codice ufficiale di '+esc(x.maker||'del produttore')+'</a>.</div>';
  }
  if(x && x.maker && x.maker!=='ISO'){
    return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Nessuna foto ufficiale diretta associata a questo codice. Non viene mostrata una foto di un altro produttore.</div>';
