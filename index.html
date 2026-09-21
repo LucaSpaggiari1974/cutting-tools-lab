@@ -161,6 +161,7 @@ function render(){
  tr.onclick=()=>select(data[+tr.dataset.i]);
 });
 rows.onclick=e=>{
+ if(e.target.closest(".codeLink")) return;
  const code=e.target.closest(".code");
  if(!code)return;
  const tr=code.closest("tr.data");
