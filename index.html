@@ -167,6 +167,7 @@ function render(){
 }
 function select(x){selected=x;document.getElementById("fc").textContent=x.code;document.getElementById("fm").textContent=x.material;document.getElementById("fv").textContent=x.vc;document.getElementById("ff").textContent=x.f;document.getElementById("fa").textContent=x.ap}
 [q,cat,mat,maker].forEach(e=>e.addEventListener("input",render));
+let currentCatalogUpdatedAt=null;
 async function loadCatalog(options={}){
  const manual=options.manual===true;
  try{
@@ -180,6 +181,7 @@ async function loadCatalog(options={}){
   try{localStorage.setItem("ctl_catalog",JSON.stringify({updatedAt:pack.updatedAt||Date.now(),items:data}));}catch(_){}
   fillFilters();render();
   const updated=new Date(pack.updatedAt||Date.now());
+  currentCatalogUpdatedAt=pack.updatedAt||updated.toISOString();
   document.getElementById("status").textContent=data.length+" righe · catalogo aggiornato: "+updated.toLocaleString("it-IT");
   document.getElementById("lastUpdate").textContent=updated.toLocaleString("it-IT",{dateStyle:"short",timeStyle:"short"});
   document.getElementById("updateState").textContent="🟢 Dati aggiornati automaticamente";
@@ -196,8 +198,38 @@ async function loadCatalog(options={}){
 }
 let refreshRunning=false;
 function showRefreshProgress(p,text){document.getElementById("refreshOverlay").hidden=false;document.getElementById("progressBar").style.width=Math.max(0,Math.min(100,p))+"%";document.getElementById("progressPct").textContent=Math.round(p)+"%";document.getElementById("refreshText").textContent=text||"Aggiornamento in corso…"}
-async function manualRefresh(){if(refreshRunning)return;refreshRunning=true;showRefreshProgress(2,"Avvio aggiornamento…");try{await loadCatalog({manual:true});showRefreshProgress(82,"Dati caricati e verificati…");showRefreshProgress(94,"Preparazione del ricaricamento…");setTimeout(()=>{showRefreshProgress(100,"Aggiornamento completato.");setTimeout(()=>location.reload(),450)},450)}catch(e){showRefreshProgress(100,"Aggiornamento non riuscito.");setTimeout(()=>{document.getElementById("refreshOverlay").hidden=true;refreshRunning=false},1200)}}
-loadCatalog();setTimeout(()=>{runAllCalcs();calcFormulaPage()},1200);setInterval(loadCatalog,15*60*1000);document.getElementById("refreshData").onclick=manualRefresh;
+async function manualRefresh(message="Avvio aggiornamento…"){
+ if(refreshRunning)return;
+ refreshRunning=true;
+ showRefreshProgress(2,message);
+ try{
+  await loadCatalog({manual:true});
+  showRefreshProgress(82,"Database caricato e verificato…");
+  showRefreshProgress(94,"Preparazione del ricaricamento…");
+  setTimeout(()=>{showRefreshProgress(100,"Database aggiornato. Attendere, grazie.");setTimeout(()=>location.reload(),650)},450);
+ }catch(e){
+  showRefreshProgress(100,"Aggiornamento non riuscito.");
+  setTimeout(()=>{document.getElementById("refreshOverlay").hidden=true;refreshRunning=false},1200);
+ }
+}
+async function checkForDatabaseUpdate(){
+ if(refreshRunning)return;
+ try{
+  const r=await fetch("./catalog.json?check="+Date.now(),{cache:"no-store"});
+  if(!r.ok)return;
+  const pack=await r.json();
+  const remote=pack.updatedAt||"";
+  if(currentCatalogUpdatedAt && remote && remote!==currentCatalogUpdatedAt){
+   await manualRefresh("Database in aggiornamento. Attendere, grazie.");
+  }
+ }catch(_){}
+}
+loadCatalog();
+setTimeout(()=>{runAllCalcs();calcFormulaPage()},1200);
+setInterval(checkForDatabaseUpdate,2*60*1000);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkForDatabaseUpdate()});
+document.getElementById("refreshData").onclick=()=>manualRefresh();
+
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").then(reg=>{reg.update();setInterval(()=>reg.update(),5*60*1000)}).catch(()=>{});}
 let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.getElementById("installApp").hidden=false});document.getElementById("installApp").onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById("installApp").hidden=true};
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
