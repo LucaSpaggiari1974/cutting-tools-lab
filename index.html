@@ -165,17 +165,27 @@ function hideCodePreview(){
 }
 function showCodePreview(x,el){
  const src=getPreviewUrl(x);
- if(!src){hideCodePreview();return;}
  const im=document.getElementById("codePreview"),cap=document.getElementById("codePreviewCaption");
  const r=el.getBoundingClientRect();
  const w=Math.min(360,window.innerWidth-20),h=Math.min(300,window.innerHeight*.5);
  let left=r.right+12,top=r.top;
  if(left+w>window.innerWidth-10)left=Math.max(10,r.left-w-12);
  if(top+h>window.innerHeight-10)top=Math.max(10,window.innerHeight-h-10);
- cap.textContent=x.code||"Inserto";cap.hidden=false;cap.style.left=left+"px";cap.style.top=Math.max(6,top-30)+"px";
+ cap.style.left=left+"px";cap.style.top=Math.max(6,top-30)+"px";
  im.style.width=w+"px";im.style.maxHeight=h+"px";im.style.left=left+"px";im.style.top=top+"px";
+ if(!src){
+   cap.textContent="Anteprima non disponibile";
+   cap.hidden=false;
+   im.hidden=true;
+   return;
+ }
+ cap.textContent=x.code||"Inserto";cap.hidden=false;
  im.alt="Anteprima "+(x.code||"inserto");
- im.onerror=function(){hideCodePreview()};
+ im.onerror=function(){
+   im.hidden=true;
+   cap.textContent="Anteprima non disponibile";
+   cap.hidden=false;
+ };
  im.src=src;im.hidden=false;
 }
 function bindCodePreview(){
