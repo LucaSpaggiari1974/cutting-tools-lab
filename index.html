@@ -158,13 +158,22 @@ function getPreviewUrl(x){
  if(!x)return null;
  return x.photoUrl||x.genericPhotoUrl||null;
 }
+function getHoverPreviewUrl(x){
+ const direct=getPreviewUrl(x);
+ if(direct)return direct;
+ try{
+   const kind=familyFor(x);
+   const p=photoMap&&photoMap[kind];
+   return p&&p[0]?p[0]:null;
+ }catch(_){return null}
+}
 function hideCodePreview(){
  const im=document.getElementById("codePreview"),cap=document.getElementById("codePreviewCaption");
  if(im){im.hidden=true;im.removeAttribute("src");im.onerror=null;}
  if(cap)cap.hidden=true;
 }
 function showCodePreview(x,el){
- const src=getPreviewUrl(x);
+ const src=getHoverPreviewUrl(x);
  const im=document.getElementById("codePreview"),cap=document.getElementById("codePreviewCaption");
  const r=el.getBoundingClientRect();
  const w=Math.min(360,window.innerWidth-20),h=Math.min(300,window.innerHeight*.5);
@@ -202,7 +211,7 @@ document.addEventListener("scroll",hideCodePreview,{passive:true});
 function render(){
  const t=q.value.toLowerCase(),c=cat.value,m=mat.value,k=maker.value;
  const a=data.filter(x=>(!t||Object.values(x).join(" ").toLowerCase().includes(t))&&(!c||x.category===c)&&(!m||x.material.includes(m))&&(!k||x.maker===k));
- rows.innerHTML=a.map((x,i)=>'<tr class="data" data-i="'+data.indexOf(x)+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code">'+(getPreviewUrl(x)?'<span class="codeLink" role="button" tabindex="0" title="Anteprima inserto">'+esc(x.code)+'</span>':esc(x.code))+'</td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>').join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
+ rows.innerHTML=a.map((x,i)=>'<tr class="data" data-i="'+data.indexOf(x)+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code"><span class="codeLink" role="button" tabindex="0" title="Passa con il mouse per vedere l’anteprima">'+esc(x.code)+'</span></td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>').join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
  document.getElementById("status").textContent=a.length+" righe · passa sul codice per vedere l'anteprima dell'inserto";
  rows.querySelectorAll("tr.data").forEach(tr=>tr.onclick=()=>select(data[+tr.dataset.i]));
  bindCodePreview();
