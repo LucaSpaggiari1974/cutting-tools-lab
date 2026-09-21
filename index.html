@@ -27,7 +27,7 @@ button{background:var(--blue);color:#fff;border:0;font-weight:700}
 .status{padding:8px 12px;color:#607487;font-size:13px}.appbar{display:flex;gap:8px;align-items:center;padding:8px 12px;background:#f8fbfd;border-top:1px solid var(--line);font-size:12px;color:#607487}.appbar span{flex:1}.appbar button{width:auto;padding:8px 12px}
 .tablewrap{overflow:auto;max-height:62vh}table{border-collapse:separate;border-spacing:0;width:100%;min-width:1050px}
 th,td{padding:9px 10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:top}
-th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{cursor:pointer}tr.data:hover{background:#f3f8fc}td.code{font-weight:800;color:#123a5a;text-decoration:underline;cursor:pointer}.codeLink{color:#123a5a;font-weight:800;text-decoration:underline;display:inline-block;padding:4px 2px}.codeLink:hover{color:#1d78c9}.tag{display:inline-block;padding:3px 7px;border-radius:999px;background:#e9f2fb;color:#185b8f;font-size:11px;font-weight:700}
+th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{cursor:pointer}tr.data:hover{background:#f3f8fc}td.code{font-weight:800;color:#123a5a;text-decoration:underline;cursor:pointer}.codeLink{color:#123a5a;font-weight:800;text-decoration:underline;display:inline-block;padding:4px 2px;position:relative;cursor:pointer}.codeLink:hover{color:#1d78c9}.codeHoverPreview{display:none;position:fixed;z-index:10000;width:300px;height:230px;object-fit:contain;background:#fff;border:2px solid #123a5a;border-radius:12px;box-shadow:0 14px 40px #0005;padding:6px;pointer-events:none}.codeLink:hover .codeHoverPreview{display:block}.codeHoverFallback{display:none;position:fixed;z-index:10001;background:#123a5a;color:#fff;padding:8px 10px;border-radius:8px;font-size:12px;font-weight:700;pointer-events:none}.tag{display:inline-block;padding:3px 7px;border-radius:999px;background:#e9f2fb;color:#185b8f;font-size:11px;font-weight:700}
 .drawings{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 12px #0001}
 .drawings>summary{list-style:none;cursor:pointer;background:#123a5a;color:#fff;padding:15px;font-size:17px;font-weight:800}.drawings>summary::-webkit-details-marker{display:none}
 .drawings .hint{padding:10px 15px;color:#607487;font-size:13px}.groups{padding:0 12px 12px}
@@ -156,35 +156,37 @@ let selected=null;
 let previewTimer=null;
 function getPreviewUrl(x){
  if(!x)return null;
- return x.photoUrl||x.genericPhotoUrl||null;
+ if(x.photoUrl)return x.photoUrl;
+ if(x.genericPhotoUrl)return x.genericPhotoUrl;
+ const p=photoMap[familyFor(x)];
+ return p&&p[0]||null;
 }
 function hideCodePreview(){
  const im=document.getElementById("codePreview"),cap=document.getElementById("codePreviewCaption");
- if(im){im.hidden=true;im.removeAttribute("src");im.onerror=null;}
+ if(im)im.hidden=true;
  if(cap)cap.hidden=true;
+ document.querySelectorAll(".codeHoverPreview").forEach(p=>p.style.display="none");
 }
 function showCodePreview(x,el){
- const src=getPreviewUrl(x);
- if(!src){hideCodePreview();return;}
- const im=document.getElementById("codePreview"),cap=document.getElementById("codePreviewCaption");
- const r=el.getBoundingClientRect();
- const w=Math.min(360,window.innerWidth-20),h=Math.min(300,window.innerHeight*.5);
+ const p=el.querySelector(".codeHoverPreview");
+ if(!p)return;
+ const r=el.getBoundingClientRect(),w=300,h=230;
  let left=r.right+12,top=r.top;
  if(left+w>window.innerWidth-10)left=Math.max(10,r.left-w-12);
  if(top+h>window.innerHeight-10)top=Math.max(10,window.innerHeight-h-10);
- cap.textContent=x.code||"Inserto";cap.hidden=false;cap.style.left=left+"px";cap.style.top=Math.max(6,top-30)+"px";
- im.style.width=w+"px";im.style.maxHeight=h+"px";im.style.left=left+"px";im.style.top=top+"px";
- im.alt="Anteprima "+(x.code||"inserto");
- im.onerror=function(){hideCodePreview()};
- im.src=src;im.hidden=false;
+ p.style.left=left+"px";p.style.top=top+"px";p.style.display="block";
 }
 function bindCodePreview(){
  rows.querySelectorAll(".codeLink").forEach(el=>{
   const tr=el.closest("tr.data"),x=tr?data[+tr.dataset.i]:null;
   if(!x)return;
   el.onmouseenter=()=>showCodePreview(x,el);
-  el.onmouseleave=hideCodePreview;
-  el.onclick=e=>{e.preventDefault();e.stopPropagation();showCodePreview(x,el)};
+  el.onmouseleave=()=>{el.querySelector(".codeHoverPreview")?.style.setProperty("display","none")};
+  el.onclick=e=>{
+   e.preventDefault();e.stopPropagation();
+   const p=el.querySelector(".codeHoverPreview");
+   if(p) p.style.display=p.style.display==="block"?"none":"block";
+  };
  });
 }
 window.addEventListener("resize",hideCodePreview);
@@ -192,8 +194,12 @@ document.addEventListener("scroll",hideCodePreview,{passive:true});
 function render(){
  const t=q.value.toLowerCase(),c=cat.value,m=mat.value,k=maker.value;
  const a=data.filter(x=>(!t||Object.values(x).join(" ").toLowerCase().includes(t))&&(!c||x.category===c)&&(!m||x.material.includes(m))&&(!k||x.maker===k));
- rows.innerHTML=a.map((x,i)=>'<tr class="data" data-i="'+data.indexOf(x)+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code">'+(getPreviewUrl(x)?'<span class="codeLink" role="button" tabindex="0" title="Anteprima inserto">'+esc(x.code)+'</span>':esc(x.code))+'</td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>').join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
- document.getElementById("status").textContent=a.length+" righe · passa sul codice per vedere l'anteprima dell'inserto";
+ rows.innerHTML=a.map((x,i)=>{
+  const src=getPreviewUrl(x), fallback=photoMap[familyFor(x)]?.[0]||"";
+  const preview=src?'<span class="codeLink" role="button" tabindex="0" title="Passa con il mouse per vedere l’anteprima">'+esc(x.code)+'<img class="codeHoverPreview" src="'+esc(src)+'" alt="Anteprima '+esc(x.code)+'" onerror="if(this.dataset.fallback!==\'1\'&&this.dataset.fallbackUrl){this.dataset.fallback=\'1\';this.src=this.dataset.fallbackUrl}else{this.style.display=\'none\'}" data-fallback-url="'+esc(fallback)+'"></span>':esc(x.code);
+  return '<tr class="data" data-i="'+data.indexOf(x)+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code">'+preview+'</td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>';
+ }).join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
+ document.getElementById("status").textContent=a.length+" righe · passa con il mouse sul codice per vedere l'anteprima";
  rows.querySelectorAll("tr.data").forEach(tr=>tr.onclick=()=>select(data[+tr.dataset.i]));
  bindCodePreview();
 }
