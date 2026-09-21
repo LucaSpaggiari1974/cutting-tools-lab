@@ -66,6 +66,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 </div>
 </div>
 <div class="status" id="status">Caricamento foglio…</div>
+<div class="warn" style="border-top:0">🏭 Database fornitori: Walter · Sandvik Coromant · Kennametal · Ingersoll. Le righe mostrano codici/famiglie rappresentative; grado, rompitruciolo, raggio e dati di taglio vanno verificati sul catalogo del codice esatto.</div>
 <div class="appbar"><span id="updateState">🔄 Aggiornamento automatico attivo</span><button id="refreshData" type="button">Aggiorna dati</button><button id="installApp" type="button" hidden>Installa app</button></div>
 <div class="tablewrap">
 <table><thead><tr>
@@ -211,6 +212,10 @@ DRILL_MOD:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42
 HOLDER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?set_id=880000500F","Foto reale portautensile"],
 ADAPTER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?set_id=880000500F","Foto reale mandrino/adattatore"]
 };
+function toolPhoto(x){
+ if(x && x.photoUrl) return '<div><img class="recDraw" loading="lazy" src="'+x.photoUrl+'" alt="'+esc((x.maker||'')+' '+(x.code||''))+'" onerror="this.style.display=\'none\'"><div class="photo-caption">Foto reale · '+esc(x.maker||'')+'</div></div>';
+ return toolDrawing(familyFor(x));
+}
 function toolDrawing(kind){
  const p=photoMap[kind]||photoMap.HOLDER;
  return '<div><img class="recDraw" loading="lazy" src="'+p[0]+'" alt="'+esc(p[1])+'" onerror="this.style.display=\'none\'"><div class="photo-caption">'+esc(p[1])+'</div></div>';
@@ -416,7 +421,7 @@ document.getElementById('problemSearch').oninput=renderProblems;document.getElem
 
 function openTool(x){
  const kind=familyFor(x), p=photoMap[kind]||photoMap.HOLDER;
- let body='<h2>'+esc(x.code)+'</h2><p><b>Categoria:</b> '+esc(x.category)+'</p><p>'+esc(x.geom)+'</p>'+toolDrawing(kind)+'<p><b>Materiale:</b> '+esc(x.material)+'</p><div class="formulaBox">Vc: '+esc(x.vc)+' m/min · f/fz: '+esc(x.f)+' · ap: '+esc(x.ap)+'</div><p class="photo-caption">Fotografia reale del prodotto/famiglia. Il codice preciso, grado e quote devono essere verificati sulla scheda del produttore.</p>';
+ let body='<h2>'+esc(x.code)+'</h2><p><b>Fornitore:</b> '+esc(x.maker||'—')+'</p><p><b>Categoria:</b> '+esc(x.category)+'</p><p>'+esc(x.geom)+'</p>'+toolPhoto(x)+'<p><b>Materiale:</b> '+esc(x.material)+'</p><div class="formulaBox">Vc: '+esc(x.vc)+' m/min · f/fz: '+esc(x.f)+' · ap: '+esc(x.ap)+'</div><p class="photo-caption">Fotografia reale del prodotto/famiglia. Il codice preciso, grado e quote devono essere verificati sulla scheda del produttore.</p>';
  modalBody.innerHTML=body;toolModal.hidden=false;
 }
 closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target===toolModal)toolModal.hidden=true};document.addEventListener("keydown",e=>{if(e.key==="Escape")toolModal.hidden=true});
