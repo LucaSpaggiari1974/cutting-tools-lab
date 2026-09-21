@@ -251,6 +251,25 @@ function render(){
 function select(x){selected=x;document.getElementById("fc").textContent=x.code;document.getElementById("fm").textContent=x.material;document.getElementById("fv").textContent=x.vc;document.getElementById("ff").textContent=x.f;document.getElementById("fa").textContent=x.ap}
 [q,cat,mat,maker].forEach(e=>e.addEventListener("input",render));
 let currentCatalogUpdatedAt=null;
+async function loadUpdateStatus(){
+ try{
+  const r=await fetch("./update-status.json?ts="+Date.now(),{cache:"no-store"});
+  if(!r.ok)return;
+  const s=await r.json();
+  const parts=[];
+  if(Number.isFinite(s.newProducts)&&s.newProducts>0)parts.push("nuovi "+s.newProducts);
+  if(Number.isFinite(s.photosUpdated)&&s.photosUpdated>0)parts.push("foto "+s.photosUpdated);
+  if(Number.isFinite(s.pagesChecked))parts.push("pagine verificate "+s.pagesChecked);
+  const state=document.getElementById("updateState");
+  if(state){
+   state.textContent=s.changed
+    ?"🟢 Aggiornamento automatico: "+(parts.join(" · ")||"controllo completato")
+    :"🟢 Controllo produttori completato"+(parts.length?" · "+parts.join(" · "):"");
+  }
+ }catch(_){}
+}
+loadUpdateStatus();
+
 async function loadCatalog(options={}){
  const manual=options.manual===true;
  try{
@@ -265,10 +284,10 @@ async function loadCatalog(options={}){
   fillFilters();render();
   const updated=new Date(pack.updatedAt||Date.now());
   currentCatalogUpdatedAt=pack.updatedAt||updated.toISOString();
-  const nowUpdate=new Date();
   document.getElementById("status").textContent=data.length+" righe · catalogo aggiornato: "+updated.toLocaleString("it-IT");
-  document.getElementById("lastUpdate").textContent=nowUpdate.toLocaleString("it-IT",{dateStyle:"short",timeStyle:"short"});
+  document.getElementById("lastUpdate").textContent=updated.toLocaleString("it-IT",{dateStyle:"short",timeStyle:"short"});
   document.getElementById("updateState").textContent="🟢 Dati aggiornati automaticamente";
+  loadUpdateStatus();
   if(manual) showRefreshProgress(78,"Aggiornamento completato…");
  }catch(e){
   let local=null;
