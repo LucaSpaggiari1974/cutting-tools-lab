@@ -203,7 +203,6 @@ async function checkForDatabaseUpdate(){
  }catch(_){}
 }
 loadCatalog();
-setTimeout(()=>{runAllCalcs();calcFormulaPage()},1200);
 setInterval(checkForDatabaseUpdate,2*60*1000);
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkForDatabaseUpdate()});
 document.getElementById("refreshData").onclick=()=>manualRefresh();
@@ -281,126 +280,6 @@ function renderRecommendations(target,filter){
  target.innerHTML=list.length?list.map(x=>'<div class="recCard">'+toolPhoto(x)+'<div class="recMeta"><b>'+esc(x.code)+'</b><br>'+esc(x.geom)+'<br><span>Materiale: '+esc(x.material)+'</span><div class="params"><b>Vc:</b> '+esc(x.vc)+' · <b>f/fz:</b> '+esc(x.f)+' · <b>ap:</b> '+esc(x.ap)+'</div><button type="button" data-code="'+esc(x.code)+'">Apri utensile</button></div></div>').join(''):'<div class="result">Nessun utensile del catalogo corrisponde ai criteri.</div>';
  target.querySelectorAll('button[data-code]').forEach(b=>b.onclick=()=>{const x=data.find(v=>v.code===b.dataset.code);if(x)openTool(x)});
 }
-function refreshRecommendations(){
- const td=+(document.getElementById('tc_d')?.value||0), dd=+(document.getElementById('dr_d')?.value||0), md=+(document.getElementById('mi_d')?.value||0);
- const turnOp=document.getElementById('tc_op')?.value||'rough', turnR=+(document.getElementById('tc_r')?.value||0.8);
- window.currentTurnOp=turnOp; window.currentTurnRadius=turnR;
- const turn=td?turnCandidates(td,turnOp,turnR):data.filter(x=>(x.category.includes('Tornitura')||x.category.includes('Profilatura'))&&Math.abs(insertRadius(x)-turnR)<0.01).slice(0,4);
- const drills=data.filter(x=>x.category==='Foratura'&&diameterOfTool(x)>0);
- const mills=data.filter(x=>(x.category.includes('Fresatura')||x.category==='Spianatura')&&diameterOfTool(x)>0);
- const drill=dd?[nearestTool(drills,dd)].filter(Boolean):drills.slice(0,4);
- const mill=md?[nearestTool(mills,md)].filter(Boolean):mills.slice(0,4);
- renderRecommendations(document.getElementById('tc_rec'),x=>turn.includes(x));
- renderRecommendations(document.getElementById('dr_rec'),x=>drill.includes(x));
- renderRecommendations(document.getElementById('mi_rec'),x=>mill.includes(x));
-}
-function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll(".navtab").forEach(b=>b.classList.toggle("active",b.dataset.page===id));window.scrollTo({top:0,behavior:"smooth"})}
-document.querySelectorAll(".navtab").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
-function avgRange(s){
- const raw=String(s||'').replace(/,/g,'.');
- const n=raw.match(/\d+(?:\.\d+)?/g)||[];
- const a=n.map(Number).filter(Number.isFinite);
- return a.length===1?a[0]:(a.length?((Math.min(...a)+Math.max(...a))/2):0);
-}
-function diameterOfTool(x){
- const m=String(x.code||'').match(/Ø\s*(\d+(?:\.\d+)?)/i);
- return m?Number(m[1]):0;
-}
-function insertSize(x){
- const m=String(x.code||'').match(/\b(?:CNMG|DNMG|SNMG|WNMG|VNMG|VBMT|DCMT|DCGT|CCMT|CCGT|TCMT|TCGT|RCMT)\s+\d+(?:\w)?(\d)(\d{2})/i);
- return m?Number(m[2])/100:0;
-}
-function teethOfTool(x){
- const m=String(x.geom||'').match(/(\d+)\s*[–-]\s*(\d+)\s*taglienti|(\d+)\s*taglienti/i);
- if(!m)return 4;
- return Number(m[3]||m[1]||4);
-}
-function nearestTool(list,d){
- return list.slice().sort((a,b)=>Math.abs(diameterOfTool(a)-d)-Math.abs(diameterOfTool(b)-d))[0]||null;
-}
-function calcN(vc,d){return d>0&&vc>0?(1000*vc)/(PI*d):0}
-function calcFeed(f,n,mill,z){return mill?n*f*(z||4):n*f}
-function insertRadius(x){
- const g=String(x.geom||'');
- const m=g.match(/R\s*(\d+(?:[,.]\d+)?)/i);
- return m?Number(m[1].replace(',','.')):insertSize(x)||0;
-}
-function materialMatches(x,mat){
- if(!mat)return true;
- return String(x.material||'').split(' · ').some(v=>v.toLowerCase().includes(String(mat).toLowerCase().split(' ')[0]));
-}
-function intelligentTool(list,mat,op,radius){
- const pool=list.filter(x=>materialMatches(x,mat));
- const source=pool.length?pool:list;
- return source.slice().sort((a,b)=>{
-   const ar=Math.abs(insertRadius(a)-radius), br=Math.abs(insertRadius(b)-radius);
-   const ao=String(a.geom||'').toLowerCase().includes(op==='rough'?'sgross':'finit');
-   const bo=String(b.geom||'').toLowerCase().includes(op==='rough'?'sgross':'finit');
-   return (bo?1:0)-(ao?1:0) || ar-br;
- }).slice(0,4);
-}
-function turnCandidates(d,op='rough',radius=0.8){
- const list=data.filter(x=>(x.category.includes('Tornitura')||x.category.includes('Profilatura'))&&x.vc&&x.f);
- if(!list.length)return [];
- const exact=list.filter(x=>{
-   const g=String(x.geom||'').toLowerCase();
-   const r=Math.abs(insertRadius(x)-radius)<0.01;
-   const work=op==='rough'?/sgrossatura|media/.test(g):/finitura|profilatura/.test(g);
-   return r&&work;
- });
- const pool=exact.length?exact:list.filter(x=>x.vc&&x.f);
- return pool.slice().sort((a,b)=>{
-   const ar=Math.abs(insertRadius(a)-radius), br=Math.abs(insertRadius(b)-radius);
-   return ar-br || avgRange(a.f)-avgRange(b.f);
- }).slice(0,4);
-}
-function selectToolFor(type,d){
- if(type==='drill'){
-   const list=data.filter(x=>x.category==='Foratura'&&diameterOfTool(x)>0);
-   return nearestTool(list,d)||null;
- }
- if(type==='mill'){
-   const list=data.filter(x=>(x.category.includes('Fresatura')||x.category==='Spianatura')&&diameterOfTool(x)>0);
-   return nearestTool(list,d)||null;
- }
- return turnCandidates(d,window.currentTurnOp||'rough',window.currentTurnRadius||0.8)[0]||null;
-}
-function num(id){return +(document.getElementById(id)?.value||0)}
-function autoCalc(id,out,filter,mill){
- const d=num(id),target=document.getElementById(out);
- if(!d){target.textContent='Inserisci il diametro richiesto.';refreshRecommendations();return}
- if(id==='tc_d'){
-   const vc=num('tc_vc'), nIn=num('tc_n'), f=num('tc_fn'), ap=num('tc_ap'), lm=num('tc_lm'), kapr=num('tc_kapr'), kc=num('tc_kc');
-   let n=nIn, vcUse=vc;
-   if(vcUse>0)n=calcN(vcUse,d); else if(n>0)vcUse=PI*d*n/1000;
-   const vf=f>0&&n>0?f*n:0, Q=vcUse>0&&ap>0&&f>0?vcUse*ap*f:0, Tc=lm>0&&vf>0?lm/vf:0, Pc=vcUse>0&&ap>0&&f>0&&kc>0?vcUse*ap*f*kc/(60e3):0, hm=f>0&&kapr>0?f*Math.sin(kapr*PI/180):0; const turnMat=document.getElementById('tc_mat')?.value||'';
-   const turnOp=document.getElementById('tc_op')?.value||'rough';
-   const turnRadius=num('tc_r')||0.8;
-   const turnList=data.filter(x=>(x.category.includes('Tornitura')||x.category.includes('Profilatura'))&&x.vc&&x.f);
-   const intelligent=intelligentTool(turnList,turnMat,turnOp,turnRadius);
-   const use=intelligent[0]||selectToolFor('turn',d);
-   if(use){const vcRec=avgRange(use.vc), fRec=avgRange(use.f), apRec=avgRange(use.ap); target.textContent='Inserto intelligente: '+use.code+' · Vc catalogo '+(vcRec?vcRec.toFixed(0):'—')+' m/min · f '+(fRec?fRec.toFixed(3):'—')+' mm/giro · ap '+(apRec?apRec.toFixed(2):'—')+' mm · calcolo: Vc '+(vcUse?vcUse.toFixed(1):'—')+' m/min · n '+(n?Math.round(n):'—')+' rpm · Vf '+(vf?vf.toFixed(1):'—')+' mm/min · Q '+(Q?Q.toFixed(2):'—')+' cm³/min · Tc '+(Tc?Tc.toFixed(2):'—')+' min · Pc '+(Pc?Pc.toFixed(2):'—')+' kW · hm '+(hm?hm.toFixed(3):'—')+' mm';}else{target.textContent='Nessun utensile compatibile trovato nel catalogo.';}
- }else if(id==='dr_d'){
-   const vc=num('dr_vc'), nIn=num('dr_n'), f=num('dr_fn'), lm=num('dr_lm'), kc=num('dr_kc');
-   let n=nIn, vcUse=vc;
-   if(vcUse>0)n=calcN(vcUse,d); else if(n>0)vcUse=PI*d*n/1000;
-   const vf=f>0&&n>0?f*n:0, Tc=lm>0&&vf>0?lm/vf:0, Q=vcUse>0&&f>0?vcUse*d*f/4:0, Pc=vcUse>0&&f>0&&kc>0?vcUse*d*f*kc/(240e3):0, Mc=Pc>0&&n>0?Pc*30e3/(PI*n):0; const use=selectToolFor('drill',d);
-   if(use){target.textContent='Punta: '+use.code+' · Vc '+(vcUse?vcUse.toFixed(1):'—')+' m/min · n '+(n?Math.round(n):'—')+' rpm · Vf '+(vf?vf.toFixed(1):'—')+' mm/min · Tc '+(Tc?Tc.toFixed(2):'—')+' min · Q '+(Q?Q.toFixed(2):'—')+' cm³/min · Pc '+(Pc?Pc.toFixed(2):'—')+' kW · Mc '+(Mc?Mc.toFixed(2):'—')+' Nm';}else{target.textContent='Nessuna punta compatibile trovata nel catalogo.';}
- }else{
-   const vc=num('mi_vc'), nIn=num('mi_n'), fz=num('mi_fz'), z=num('mi_zc'), ap=num('mi_ap'), ae=num('mi_ae'), kc=num('mi_kc');
-   let n=nIn, vcUse=vc;
-   if(vcUse>0)n=calcN(vcUse,d); else if(n>0)vcUse=PI*d*n/1000;
-   const vf=fz>0&&n>0&&z>0?fz*n*z:0, Q=ap>0&&ae>0&&vf>0?ap*ae*vf/1000:0, Pc=ap>0&&ae>0&&vf>0&&kc>0?ae*ap*vf*kc/(60e6):0, Mc=Pc>0&&n>0?Pc*30e3/(PI*n):0; const use=selectToolFor('mill',d);
-   if(use){target.textContent='Fresa: '+use.code+' · Vc '+(vcUse?vcUse.toFixed(1):'—')+' m/min · n '+(n?Math.round(n):'—')+' rpm · Vf '+(vf?vf.toFixed(1):'—')+' mm/min · Q '+(Q?Q.toFixed(2):'—')+' cm³/min · Pc '+(Pc?Pc.toFixed(2):'—')+' kW · Mc '+(Mc?Mc.toFixed(2):'—')+' Nm';}else{target.textContent='Nessuna fresa compatibile trovata nel catalogo.';}
- }
- refreshRecommendations();
-}
-function runAllCalcs(){
- autoCalc('tc_d','tc_out',null,false);
- autoCalc('dr_d','dr_out',null,false);
- autoCalc('mi_d','mi_out',null,true);
-}
-
 let manufacturers=[];
 async function loadManufacturers(){try{const r=await fetch("./manufacturers.json",{cache:"no-store"});manufacturers=await r.json();renderManufacturers()}catch(e){document.getElementById("manufacturerList").innerHTML="<div class=\"result\">Registro produttori non disponibile.</div>"}}
 function renderManufacturers(){const q=String(document.getElementById("manufacturerSearch")?.value||"").toLowerCase(),t=document.getElementById("manufacturerType")?.value||"";const list=(manufacturers.groups||[]).filter(x=>(!t||x.type===t)&&(!q||JSON.stringify(x).toLowerCase().includes(q)));document.getElementById("manufacturerList").innerHTML=list.map(x=>"<article class=\"problemCard\"><h3>"+esc(x.name)+"</h3><p><b>Tipo:</b> "+esc(x.type)+"</p><p><b>Assortimento:</b> "+esc(x.catalogScope||"—")+"</p><p><b>Disegni:</b> "+esc(x.drawings||"—")+"</p>"+(x.catalog?("<a href=\""+x.catalog+"\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block;margin-top:7px;color:#185b8f;font-weight:800\">📚 Apri catalogo / documentazione</a>"):"<p class=\"cause\">ISO: categoria standard separata, senza catalogo di un singolo produttore.</p>")+"</article>").join("")||"<div class=\"result\">Nessun produttore trovato.</div>"}
