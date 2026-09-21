@@ -79,60 +79,9 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 
 
 </section>
-<section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura · formule e calcolo</h2>
-<p class="small">Inserisci i dati richiesti. Le formule restano esclusivamente in questa pagina.</p>
-<div class="grid">
-<label>Materiale pezzo<select id="tc_mat"><option value="">Seleziona</option><option>P Acciai</option><option>M Inox</option><option>K Ghise</option><option>N Non ferrosi</option><option>S Superleghe/Titanio</option><option>H Temprati</option></select></label>
-<label>Operazione<select id="tc_op"><option value="rough">Sgrossatura</option><option value="finish">Finitura</option></select></label>
-<label>Geometria inserto<select id="tc_geom"><option value="">Automatica</option><option>CNMG</option><option>DNMG</option><option>WNMG</option><option>SNMG</option><option>VNMG</option><option>CCMT</option><option>DCMT</option></select></label>
-<label>Raggio punta (mm)<input id="tc_r" type="number" min="0.1" step="0.1" placeholder="es. 0.8"></label>
-<label>Dm · diametro lavorato (mm)<input id="tc_d" type="number" min="0" step="0.01" placeholder="richiesto"></label>
-<label>Vc (m/min)<input id="tc_vc" type="number" min="0" step="0.1" placeholder="da produttore"></label>
-<label>n · giri mandrino (rpm)<input id="tc_n" type="number" min="0" step="1" placeholder="alternativa a Vc"></label>
-<label>fn · avanzamento (mm/giro)<input id="tc_fn" type="number" min="0" step="0.001" placeholder="da produttore"></label>
-<label>ap · profondità (mm)<input id="tc_ap" type="number" min="0" step="0.01" placeholder="da produttore"></label>
-<label>lm · lunghezza lavorata (mm)<input id="tc_lm" type="number" min="0" step="0.1" placeholder="per Tc"></label>
-<label>KAPR · angolo di registrazione (°)<input id="tc_kapr" type="number" min="0" max="180" step="0.1" placeholder="per hm"></label>
-<label>kc · forza specifica (N/mm²)<input id="tc_kc" type="number" min="0" step="1" placeholder="da produttore"></label>
-</div>
-<div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>Vc = 3,14 × Dm × n / 1000<br>n = Vc × 1000 / (3,14 × Dm)<br>Vf = fn × n<br>Q = Vc × ap × fn <span class="unitNote">[cm³/min]</span><br>Tc = lm / Vf<br>Pc = Vc × ap × fn × kc / (60 × 10³)<br>hm = fn × sin(KAPR)</div>
-<div id="tc_out" class="result">Compila i dati richiesti.</div>
-<div class="recommendTitle">Inserto associato alla lavorazione e ai parametri</div><div id="tc_rec" class="recommend"></div>
-</div></section>
-<section id="foratura" class="page"><div class="calc"><h2>🕳️ Foratura · formule e calcolo</h2>
-<p class="small">Inserisci i dati richiesti. Le formule di foratura restano esclusivamente in questa pagina.</p>
-<div class="grid">
-<label>Materiale<select id="dr_mat"><option value="">Seleziona</option><option>P Acciai</option><option>M Inox</option><option>K Ghise</option><option>N Non ferrosi</option><option>S Superleghe/Titanio</option><option>H Temprati</option></select></label>
-<label>Tipo punta<select id="dr_type"><option value="">Seleziona</option><option>Metallo duro integrale</option><option>Punta a inserti</option><option>Testa intercambiabile</option><option>Foro profondo</option><option>Micro-punta</option></select></label>
-<label>Dc · diametro punta (mm)<input id="dr_d" type="number" min="0" step="0.01" placeholder="richiesto"></label>
-<label>Vc (m/min)<input id="dr_vc" type="number" min="0" step="0.1" placeholder="da produttore"></label>
-<label>n · giri mandrino (rpm)<input id="dr_n" type="number" min="0" step="1" placeholder="alternativa a Vc"></label>
-<label>fn · avanzamento (mm/giro)<input id="dr_fn" type="number" min="0" step="0.001" placeholder="da produttore"></label>
-<label>lm · profondità foro (mm)<input id="dr_lm" type="number" min="0" step="0.1" placeholder="per Tc"></label>
-<label>kc · forza specifica (N/mm²)<input id="dr_kc" type="number" min="0" step="1" placeholder="da produttore"></label>
-</div>
-<div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>Vc = 3,14 × Dc × n / 1000<br>n = Vc × 1000 / (3,14 × Dc)<br>Vf = fn × n<br>Tc = lm / Vf<br>Q = Vc × Dc × fn / 4<br>Pc = Vc × Dc × fn × kc / (240 × 10³)<br>Mc = Pc × 30 × 10³ / (3,14 × n)</div>
-<div id="dr_out" class="result">Compila i dati richiesti.</div>
-<div class="recommendTitle">Punta associata al diametro, materiale e tipo</div><div id="dr_rec" class="recommend"></div>
-</div></section>
-<section id="fresatura" class="page"><div class="calc"><h2>⚙️ Fresatura · formule e calcolo</h2>
-<p class="small">Inserisci i dati richiesti. Le formule di fresatura restano esclusivamente in questa pagina.</p>
-<div class="grid">
-<label>Materiale<select id="mi_mat"><option value="">Seleziona</option><option>P Acciai</option><option>M Inox</option><option>K Ghise</option><option>N Non ferrosi</option><option>S Superleghe/Titanio</option><option>H Temprati</option></select></label>
-<label>Tipo fresa<select id="mi_type"><option value="">Seleziona</option><option>Integrale metallo duro</option><option>Fresa a inserti</option><option>Spianatura</option><option>Scanalatura</option><option>Filettatura</option></select></label>
-<label>Dcap · diametro di taglio (mm)<input id="mi_d" type="number" min="0" step="0.01" placeholder="richiesto"></label>
-<label>Vc (m/min)<input id="mi_vc" type="number" min="0" step="0.1" placeholder="da produttore"></label>
-<label>n · giri mandrino (rpm)<input id="mi_n" type="number" min="0" step="1" placeholder="alternativa a Vc"></label>
-<label>fz · avanzamento/dente (mm)<input id="mi_fz" type="number" min="0" step="0.001" placeholder="da produttore"></label>
-<label>zc · denti efficaci<input id="mi_zc" type="number" min="1" step="1" placeholder="da utensile"></label>
-<label>ap · profondità assiale (mm)<input id="mi_ap" type="number" min="0" step="0.01" placeholder="da scheda"></label>
-<label>ae · impegno radiale (mm)<input id="mi_ae" type="number" min="0" step="0.01" placeholder="da scheda"></label>
-<label>kc · forza specifica (N/mm²)<input id="mi_kc" type="number" min="0" step="1" placeholder="da produttore"></label>
-</div>
-<div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>Vc = 3,14 × Dcap × n / 1000<br>n = Vc × 1000 / (3,14 × Dcap)<br>Vf = fz × n × zc<br>Q = ap × ae × Vf / 1000<br>Pc = ae × ap × Vf × kc / (60 × 10⁶)<br>Mc = Pc × 30 × 10³ / (3,14 × n)</div>
-<div id="mi_out" class="result">Compila i dati richiesti.</div>
-<div class="recommendTitle">Fresa associata al diametro, materiale e tipo</div><div id="mi_rec" class="recommend"></div>
-</div></section>
+<section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura · formule</h2><p class="small">Solo le formule fondamentali. I parametri Vc, f e ap sono riportati direttamente nella tabella utensili.</p><div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>Vc = 3,14 × Dm × n / 1000<br>n = Vc × 1000 / (3,14 × Dm)<br>Vf = fn × n<br>Q = Vc × ap × fn <span class="unitNote">[cm³/min]</span><br>Tc = lm / Vf<br>Pc = Vc × ap × fn × kc / (60 × 10³)<br>hm = fn × sin(KAPR)</div></div></section>
+<section id="foratura" class="page"><div class="calc"><h2>🕳️ Foratura · formule</h2><p class="small">Solo le formule fondamentali. I parametri di taglio sono riportati direttamente nella tabella utensili.</p><div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>Vc = 3,14 × Dc × n / 1000<br>n = Vc × 1000 / (3,14 × Dc)<br>Vf = fn × n<br>Tc = lm / Vf<br>Q = Vc × Dc × fn / 4<br>Pc = Vc × Dc × fn × kc / (240 × 10³)<br>Mc = Pc × 30 × 10³ / (3,14 × n)</div></div></section>
+<section id="fresatura" class="page"><div class="calc"><h2>⚙️ Fresatura · formule</h2><p class="small">Solo le formule fondamentali. I parametri Vc, fz, ap e ae sono riportati direttamente nella tabella utensili.</p><div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>Vc = 3,14 × Dcap × n / 1000<br>n = Vc × 1000 / (3,14 × Dcap)<br>Vf = fz × n × zc<br>Q = ap × ae × Vf / 1000<br>Pc = ae × ap × Vf × kc / (60 × 10⁶)<br>Mc = Pc × 30 × 10³ / (3,14 × n)</div></div></section>
 <section id="produttori" class="page"><div class="calc"><h2>🏭 Produttori, cataloghi e disegni</h2><p>Assortimento separato per produttore. <b>Sandvik Coromant</b>, <b>ISCAR</b> e <b>ISO</b> sono tre voci distinte. I cataloghi e i disegni restano collegati alle fonti ufficiali del produttore.</p><div class="searchgrid"><input id="manufacturerSearch" placeholder="Cerca produttore, catalogo o tecnologia…"><select id="manufacturerType"><option value="">Tutti</option><option value="Produttore">Produttori</option><option value="Standard / assortimento generico">ISO / standard</option></select></div><div id="manufacturerList" class="problemList"></div></div></section>
 <section id="problemi" class="page">
 <div class="calc"><h2>🛠️ Problemi di lavorazione · diagnosi e soluzioni</h2>
@@ -451,11 +400,6 @@ function runAllCalcs(){
  autoCalc('dr_d','dr_out',null,false);
  autoCalc('mi_d','mi_out',null,true);
 }
-document.getElementById('tc_op').onchange=()=>{window.currentTurnOp=document.getElementById('tc_op').value;autoCalc('tc_d','tc_out',null,false)};
-document.getElementById('tc_r').oninput=()=>{window.currentTurnRadius=num('tc_r')||0.8;autoCalc('tc_d','tc_out',null,false)};
-['tc_mat','tc_geom','tc_d','tc_vc','tc_n','tc_fn','tc_ap','tc_lm','tc_kapr','tc_kc'].forEach(id=>document.getElementById(id)?.addEventListener('input',()=>autoCalc('tc_d','tc_out',null,false)));
-['dr_mat','dr_type','dr_d','dr_vc','dr_n','dr_fn','dr_lm','dr_kc'].forEach(id=>document.getElementById(id)?.addEventListener('input',()=>autoCalc('dr_d','dr_out',null,false)));
-['mi_mat','mi_type','mi_d','mi_vc','mi_n','mi_fz','mi_zc','mi_ap','mi_ae','mi_kc'].forEach(id=>document.getElementById(id)?.addEventListener('input',()=>autoCalc('mi_d','mi_out',null,true)));
 
 let manufacturers=[];
 async function loadManufacturers(){try{const r=await fetch("./manufacturers.json",{cache:"no-store"});manufacturers=await r.json();renderManufacturers()}catch(e){document.getElementById("manufacturerList").innerHTML="<div class=\"result\">Registro produttori non disponibile.</div>"}}
