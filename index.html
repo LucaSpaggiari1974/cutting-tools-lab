@@ -219,9 +219,16 @@ function renderRecommendations(target,filter){
  target.querySelectorAll('button[data-code]').forEach(b=>b.onclick=()=>{const x=data.find(v=>v.code===b.dataset.code);if(x)openTool(x)});
 }
 function refreshRecommendations(){
- renderRecommendations(document.getElementById('tc_rec'),x=>x.category.includes('Tornitura')||x.category.includes('Profilatura')||x.category.includes('Filettatura'));
- renderRecommendations(document.getElementById('dr_rec'),x=>x.category==='Foratura');
- renderRecommendations(document.getElementById('mi_rec'),x=>x.category.includes('Fresatura')||x.category==='Spianatura');
+ const td=+(document.getElementById('tc_d')?.value||0), dd=+(document.getElementById('dr_d')?.value||0), md=+(document.getElementById('mi_d')?.value||0);
+ const turnList=data.filter(x=>x.category.includes('Tornitura')||x.category.includes('Profilatura'));
+ const drillList=data.filter(x=>x.category==='Foratura'&&diameterOfTool(x)>0);
+ const millList=data.filter(x=>(x.category.includes('Fresatura')||x.category==='Spianatura')&&diameterOfTool(x)>0);
+ const t=td?turnList.slice().sort((a,b)=>avgRange(a.f)-avgRange(b.f)).slice(0,4):turnList.slice(0,4);
+ const d=dd?[nearestTool(drillList,dd)].filter(Boolean):drillList.slice(0,4);
+ const m=md?[nearestTool(millList,md)].filter(Boolean):millList.slice(0,4);
+ renderRecommendations(document.getElementById('tc_rec'),x=>t.includes(x));
+ renderRecommendations(document.getElementById('dr_rec'),x=>d.includes(x));
+ renderRecommendations(document.getElementById('mi_rec'),x=>m.includes(x));
 }
 function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll(".navtab").forEach(b=>b.classList.toggle("active",b.dataset.page===id));window.scrollTo({top:0,behavior:"smooth"})}
 document.querySelectorAll(".navtab").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
@@ -231,30 +238,61 @@ function avgRange(s){
  const a=n.map(Number).filter(Number.isFinite);
  return a.length===1?a[0]:(a.length?((Math.min(...a)+Math.max(...a))/2):0);
 }
+function diameterOfTool(x){
+ const m=String(x.code||'').match(/Ø\s*(\d+(?:\.\d+)?)|(?:^|\s)D?\s*(\d+(?:\.\d+)?)\s*$/i);
+ return m?Number(m[1]||m[2]):0;
+}
+function teethOfTool(x){
+ const m=String(x.geom||'').match(/(\d+)\s*[–-]\s*(\d+)\s*taglienti|(\d+)\s*taglienti/i);
+ if(!m)return 4;
+ return Number(m[3]||m[2]||m[1]||4);
+}
+function nearestTool(list,d){
+ return list.slice().sort((a,b)=>Math.abs(diameterOfTool(a)-d)-Math.abs(diameterOfTool(b)-d))[0]||null;
+}
 function calcN(vc,d){return d>0&&vc>0?(1000*vc)/(Math.PI*d):0}
-function calcFeed(f,n,mill){return mill?n*f*4:n*f}
+function calcFeed(f,n,mill,z){return mill?n*f*(z||4):n*f}
+function selectToolFor(type,d){
+ let list=[];
+ if(type==='drill') list=data.filter(x=>x.category==='Foratura'&&diameterOfTool(x)>0);
+ else if(type==='mill') list=data.filter(x=>(x.category.includes('Fresatura')||x.category==='Spianatura')&&diameterOfTool(x)>0);
+ else list=data.filter(x=>(x.category.includes('Tornitura')||x.category.includes('Profilatura'))&&x.vc&&x.f);
+ return nearestTool(list,d)||list[0]||null;
+}
 function autoCalc(id,out,filter,mill){
  const d=+document.getElementById(id).value;
  if(!d||d<=0){document.getElementById(out).textContent='Inserisci un diametro valido.';return}
- const x=data.find(filter);
- if(!x){document.getElementById(out).textContent='Nessun utensile disponibile nel catalogo.';return}
- const vc=avgRange(x.vc),f=avgRange(x.f),n=calcN(vc,d),vf=calcFeed(f,n,mill);
- document.getElementById(out).textContent='Utensile: '+x.code+' · Vc '+(vc?vc.toFixed(1):'—')+' m/min · n '+Math.round(n)+' giri/min · '+(mill?'fz':'f')+' '+(f?f.toFixed(3):'—')+' · Vf '+(vf?vf.toFixed(1):'—')+' mm/min';
+ const list=data.filter(filter);
+ const x=mill||filter===undefined?nearestTool(list,d):list.find(filter);
+ const use=x||list[0];
+ if(!use){document.getElementById(out).textContent='Nessun utensile disponibile nel catalogo.';return}
+ const toolD=mill?diameterOfTool(use):d;
+ const vc=avgRange(use.vc),f=avgRange(use.f),n=calcN(vc,toolD),vf=calcFeed(f,n,mill,teethOfTool(use));
+ document.getElementById(out).textContent='Utensile: '+use.code+' · D '+(toolD?toolD.toFixed(1):d.toFixed(1))+' mm · Vc '+(vc?vc.toFixed(1):'—')+' m/min · n '+Math.round(n)+' giri/min · '+(mill?'fz':'f')+' '+(f?f.toFixed(3):'—')+' · Vf '+(vf?vf.toFixed(1):'—')+' mm/min';
  refreshRecommendations();
 }
-function runAllCalcs(){autoCalc('tc_d','tc_out',x=>x.category.includes('Tornitura')||x.category.includes('Profilatura'),false);autoCalc('dr_d','dr_out',x=>x.category==='Foratura',false);autoCalc('mi_d','mi_out',x=>x.category.includes('Fresatura')||x.category==='Spianatura',true)}
+function runAllCalcs(){
+ autoCalc('tc_d','tc_out',x=>x.category.includes('Tornitura')||x.category.includes('Profilatura'),false);
+ autoCalc('dr_d','dr_out',x=>x.category==='Foratura',false);
+ autoCalc('mi_d','mi_out',x=>x.category.includes('Fresatura')||x.category==='Spianatura',true);
+}
 function calcFormulaPage(){
  const d=+document.getElementById('formulaD').value, type=document.getElementById('formulaType').value, out=document.getElementById('formulaOut');
  if(!d||d<=0){out.textContent='Inserisci un diametro valido.';return}
- let filter,mill=false,label='';
- if(type==='turn'){filter=x=>x.category.includes('Tornitura')||x.category.includes('Profilatura');label='Tornitura'}
- else if(type==='drill'){filter=x=>x.category==='Foratura';label='Foratura'}
- else {filter=x=>x.category.includes('Fresatura')||x.category==='Spianatura';mill=true;label='Fresatura'}
- const x=data.find(filter);
- if(!x){out.textContent='Nessun utensile disponibile nel catalogo.';return}
- const vc=avgRange(x.vc),f=avgRange(x.f),n=calcN(vc,d),vf=calcFeed(f,n,mill);
- out.textContent=label+' · '+x.code+' · Vc '+(vc?vc.toFixed(1):'—')+' m/min · n '+Math.round(n)+' giri/min · '+(mill?'fz':'f')+' '+(f?f.toFixed(3):'—')+' · Vf '+(vf?vf.toFixed(1):'—')+' mm/min';
+ let label='',mill=false;
+ if(type==='turn')label='Tornitura';
+ else if(type==='drill')label='Foratura';
+ else {label='Fresatura';mill=true}
+ const x=selectToolFor(type,d);
+ if(!x){out.textContent='Nessun utensile disponibile nel catalogo per questo diametro.';return}
+ const toolD=(type==='turn')?d:diameterOfTool(x);
+ const vc=avgRange(x.vc),f=avgRange(x.f),n=calcN(vc,toolD),vf=calcFeed(f,n,mill,teethOfTool(x));
+ const delta=Math.abs(toolD-d);
+ const note=(type==='drill'&&delta>0.01)?' · Foro richiesto '+d.toFixed(1)+' mm → punta disponibile più vicina Ø'+toolD.toFixed(1)+' mm':'';
+ out.textContent=label+' · '+x.code+' · D '+toolD.toFixed(1)+' mm · Vc '+(vc?vc.toFixed(1):'—')+' m/min · n '+Math.round(n)+' giri/min · '+(mill?'fz':'f')+' '+(f?f.toFixed(3):'—')+' · Vf '+(vf?vf.toFixed(1):'—')+' mm/min'+note;
 }
+document.getElementById('formulaD').oninput=calcFormulaPage;
+document.getElementById('formulaType').onchange=calcFormulaPage;
 document.getElementById('formulaD').oninput=calcFormulaPage;
 document.getElementById('formulaType').onchange=calcFormulaPage;
 document.getElementById('tc_d').oninput=()=>autoCalc('tc_d','tc_out',x=>x.category.includes('Tornitura')||x.category.includes('Profilatura'),false);
