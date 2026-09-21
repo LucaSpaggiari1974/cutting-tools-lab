@@ -46,7 +46,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <button class="navtab" data-page="tornitura">🔩 Tornitura</button>
 <button class="navtab" data-page="foratura">🕳️ Foratura</button>
 <button class="navtab" data-page="fresatura">⚙️ Fresatura</button>
-<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button>
+<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="produttori">🏭 Produttori</button>
 </nav>
 <section id="catalogo" class="page active"><section class="sheet">
 <div class="toolbar">
@@ -103,6 +103,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <div class="recommendTitle">Frese consigliate · foto reale</div><div id="mi_rec" class="recommend"></div>
 </div></section>
 
+<section id="produttori" class="page"><div class="calc"><h2>🏭 Produttori, cataloghi e disegni</h2><p>Assortimento separato per produttore. <b>Sandvik Coromant</b>, <b>ISCAR</b> e <b>ISO</b> sono tre voci distinte. I cataloghi e i disegni restano collegati alle fonti ufficiali del produttore.</p><div class="searchgrid"><input id="manufacturerSearch" placeholder="Cerca produttore, catalogo o tecnologia…"><select id="manufacturerType"><option value="">Tutti</option><option value="Produttore">Produttori</option><option value="Standard / assortimento generico">ISO / standard</option></select></div><div id="manufacturerList" class="problemList"></div></div></section>
 <section id="problemi" class="page">
 <div class="calc"><h2>🛠️ Problemi di lavorazione · diagnosi e soluzioni</h2>
 <p>Guida pratica per tornitura, foratura e fresatura. Parti dal sintomo, controlla una variabile alla volta e modifica i parametri con piccoli incrementi. I valori sono indicativi: utensile, grado, materiale, macchina e fissaggio possono richiedere impostazioni diverse.</p>
@@ -362,6 +363,10 @@ document.getElementById('tc_r').onchange=()=>{window.currentTurnRadius=+document
 document.getElementById('tc_d').oninput=()=>autoCalc('tc_d','tc_out',null,false);
 document.getElementById('dr_d').oninput=()=>autoCalc('dr_d','dr_out',x=>x.category==='Foratura',false);
 document.getElementById('mi_d').oninput=()=>autoCalc('mi_d','mi_out',x=>x.category.includes('Fresatura')||x.category==='Spianatura',true);
+let manufacturers=[];
+async function loadManufacturers(){try{const r=await fetch("./manufacturers.json",{cache:"no-store"});manufacturers=await r.json();renderManufacturers()}catch(e){document.getElementById("manufacturerList").innerHTML="<div class=\"result\">Registro produttori non disponibile.</div>"}}
+function renderManufacturers(){const q=String(document.getElementById("manufacturerSearch")?.value||"").toLowerCase(),t=document.getElementById("manufacturerType")?.value||"";const list=(manufacturers.groups||[]).filter(x=>(!t||x.type===t)&&(!q||JSON.stringify(x).toLowerCase().includes(q)));document.getElementById("manufacturerList").innerHTML=list.map(x=>"<article class=\"problemCard\"><h3>"+esc(x.name)+"</h3><p><b>Tipo:</b> "+esc(x.type)+"</p><p><b>Assortimento:</b> "+esc(x.catalogScope||"—")+"</p><p><b>Disegni:</b> "+esc(x.drawings||"—")+"</p>"+(x.catalog?("<a href=\""+x.catalog+"\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block;margin-top:7px;color:#185b8f;font-weight:800\">📚 Apri catalogo / documentazione</a>"):"<p class=\"cause\">ISO: categoria standard separata, senza catalogo di un singolo produttore.</p>")+"</article>").join("")||"<div class=\"result\">Nessun produttore trovato.</div>"}
+document.getElementById("manufacturerSearch").oninput=renderManufacturers;document.getElementById("manufacturerType").onchange=renderManufacturers;loadManufacturers();
 const problems=[
 ['Tornitura','Vibrazioni / chatter','Utensile troppo sporgente, pezzo poco rigido, ap o f troppo elevati, inserto non adatto.','Riduci la sporgenza, aumenta la rigidità del serraggio, riduci ap o f del 10–20%, prova un tagliente più positivo o una geometria anti-vibrante.'],
 ['Tornitura','Superficie rugosa','Avanzamento elevato, inserto usurato, raggio punta inadatto o vibrazioni.','Controlla usura e serraggio; riduci f e stabilizza il sistema. Per finitura valuta un raggio punta adeguato alla profondità e alla rigidità.'],
