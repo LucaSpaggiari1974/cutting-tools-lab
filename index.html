@@ -80,7 +80,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 
 
 </section>
-<section id="formule" class="page"><div class="calc"><h2>🧮 Formule e calcolo</h2><div class="formulaBox">n = (1000 × Vc) ÷ (π × D)<br>Vc = (π × D × n) ÷ 1000<br>Vf tornitura/foratura = f × n<br>Vf fresatura = fz × z × n</div><p><b>Inserisci il solo diametro.</b> Seleziona la lavorazione: il programma prende automaticamente Vc e avanzamento dal catalogo e calcola giri/min e Vf.</p><label>Lavorazione<select id="formulaType"><option value="turn">Tornitura</option><option value="drill">Foratura</option><option value="mill">Fresatura</option></select></label><label>Diametro D (mm)<input id="formulaD" type="number" value="50" min="0.1" step="0.1"></label><div id="formulaOut" class="result">Inserisci il diametro.</div><div id="formulaAvc" class="result" style="margin-top:8px">AVC / Vf tornitura: — mm/min</div></div></section>
+<section id="formule" class="page"><div class="calc"><h2>🧮 Formule e calcolo</h2><div class="formulaBox">n = (1000 × Vc) ÷ (π × D)<br>Vc = (π × D × n) ÷ 1000<br>Vf tornitura/foratura = f × n<br>Vf fresatura = fz × z × n</div><p><b>Inserisci il solo diametro.</b> Seleziona la lavorazione: il programma prende automaticamente Vc e avanzamento dal catalogo e calcola giri/min e Vf.</p><label>Lavorazione<select id="formulaType"><option value="turn">Tornitura</option><option value="drill">Foratura</option><option value="mill">Fresatura</option></select></label><label>Diametro D (mm)<input id="formulaD" type="number" value="50" min="0.1" step="0.1"></label><label>Materiale<select id="formulaMaterial"><option value="P">P · Acciaio</option><option value="M">M · Inox</option><option value="K">K · Ghisa</option><option value="N">N · Alluminio/non ferrosi</option><option value="S">S · Superleghe/Titanio</option><option value="H">H · Temprati</option></select></label><div id="formulaVc" class="result">Vc consigliata: — m/min</div><div id="formulaOut" class="result">Inserisci il diametro.</div><div id="formulaAvc" class="result" style="margin-top:8px">AVC / Vf tornitura: — mm/min</div></div></section>
 
 <section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura</h2>
 <div class="calcgrid">
@@ -398,16 +398,23 @@ function runAllCalcs(){
  autoCalc('mi_d','mi_out',null,true);
 }
 function calcFormulaPage(){
- const d=+document.getElementById('formulaD').value, type=document.getElementById('formulaType').value, out=document.getElementById('formulaOut');
+ const d=+document.getElementById('formulaD').value, type=document.getElementById('formulaType').value, out=document.getElementById('formulaOut'), material=document.getElementById('formulaMaterial')?.value||'P';
  if(!d||d<=0){out.textContent='Inserisci un diametro valido.';return}
  let label='',mill=false;
  if(type==='turn'){label='Tornitura'; window.currentTurnOp=document.getElementById('tc_op')?.value||'rough'; window.currentTurnRadius=+(document.getElementById('tc_r')?.value||0.8);}
  else if(type==='drill')label='Foratura';
  else {label='Fresatura';mill=true}
- const x=selectToolFor(type,d);
+ let x=selectToolFor(type,d);
+ if(type==='turn'){
+   const candidates=turnCandidates(d,window.currentTurnOp||'rough',window.currentTurnRadius||0.8);
+   const mat=candidates.filter(v=>String(v.material||'').toUpperCase().includes(material));
+   if(mat.length)x=mat[0];
+ }
  if(!x){out.textContent='Nessun utensile disponibile nel catalogo per questo diametro.';return}
  const toolD=mill?diameterOfTool(x):d;
  const vc=avgRange(x.vc),f=avgRange(x.f),n=calcN(vc,toolD),vf=calcFeed(f,n,mill,teethOfTool(x));
+ const vcEl=document.getElementById('formulaVc');
+ if(vcEl) vcEl.textContent=type==='turn'&&vc>0?'Vc consigliata per '+x.code+' · '+material+': '+vc.toFixed(1)+' m/min':'Vc consigliata: '+(vc>0?vc.toFixed(1)+' m/min':'—');
  const avc=type==='turn'?vf:0;
  const avcEl=document.getElementById('formulaAvc');
  if(avcEl) avcEl.textContent=type==='turn'&&avc>0?'AVC / Vf tornitura: '+avc.toFixed(1)+' mm/min · calcolato automaticamente dal diametro '+d.toFixed(1)+' mm':'AVC / Vf tornitura: — mm/min';
@@ -420,6 +427,7 @@ function calcFormulaPage(){
 }
 document.getElementById('formulaD').oninput=calcFormulaPage;
 document.getElementById('formulaType').onchange=calcFormulaPage;
+document.getElementById('formulaMaterial').onchange=calcFormulaPage;
 document.getElementById('formulaD').oninput=calcFormulaPage;
 document.getElementById('formulaType').onchange=calcFormulaPage;
 document.getElementById('tc_op').onchange=()=>{window.currentTurnOp=document.getElementById('tc_op').value;autoCalc('tc_d','tc_out',null,false)};
