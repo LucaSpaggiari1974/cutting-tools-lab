@@ -143,7 +143,10 @@ def main():
         if not domains:
             url = str(item.get("productUrl", "")).strip()
             domains = [d for d in OFFICIAL_DOMAINS if host_ok(url, [d])]
-            if not domains: continue
+            if not domains:
+                item["photoStatus"] = "unavailable"
+                item["photoNote"] = "Anteprima non disponibile: nessuna fonte ufficiale verificabile associata al produttore."
+                continue
         source = str(item.get("photoSource", "")).lower(); warning = str(item.get("photoWarning", "")).lower()
         if "distributor" in source or warning or item.get("photoVerified") is False:
             for k in ("photoUrl","photoWarning","photoVerified","photoVerifiedAt","photoSource"): item.pop(k,None)
@@ -153,12 +156,14 @@ def main():
         result = verify_product_url(item, domains)
         if result:
             if item.get("photoUrl") != result["photoUrl"] or not item.get("photoVerified"): updated += 1
-            item.update(result); found += 1; time.sleep(0.10); continue
+            item.update(result); item["photoStatus"] = "available"; found += 1; time.sleep(0.10); continue
         result = search_official(code, domains)
         if result:
-            item.update(result); item["photoNote"] = "Foto ufficiale verificata tramite corrispondenza esatta del codice."; found += 1; updated += 1
+            item.update(result); item["photoStatus"] = "available"; item["photoNote"] = "Foto ufficiale verificata tramite corrispondenza esatta del codice."; found += 1; updated += 1
         else:
             for k in ("photoUrl","photoSource","photoVerified","photoVerifiedAt"): item.pop(k,None)
+            item["photoStatus"] = "unavailable"
+            item["photoNote"] = "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
         time.sleep(0.15)
 
     catalog["updatedAt"] = now
