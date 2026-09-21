@@ -95,11 +95,8 @@ module.exports = async (req, res) => {
       if (!result) return res.status(404).json({ error: "File non trovato." });
       res.setHeader("Content-Type", result.blob.contentType || "application/octet-stream");
       res.setHeader("Cache-Control", "private, max-age=300");
-      return result.stream.pipeTo(new WritableStream({
-        write(chunk) { res.write(Buffer.from(chunk)); },
-        close() { res.end(); },
-        abort() { res.end(); }
-      }));
+      const ab = await new Response(result.stream).arrayBuffer();
+      return res.end(Buffer.from(ab));
     }
 
     if (req.method === "GET") {
