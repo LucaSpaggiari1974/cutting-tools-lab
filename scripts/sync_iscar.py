@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json, os, re, urllib.request
+import json, os, re, urllib.request, urllib.parse, html
 from datetime import datetime, timezone
 
 CATALOG="catalog.json"
@@ -63,7 +63,8 @@ def main():
             "source":SOURCE_URL,
             "officialInsertDesignationsFound":len(official),
             "matchedExistingISCARRecords":verified,
-            "recordsChanged":changed}
+            "recordsChanged":changed,
+            "officialPhotosUpdated":photos}
     with open(OUT,"w",encoding="utf-8") as f:
         json.dump(report,f,ensure_ascii=False,indent=2)
         f.write("\n")
