@@ -1,4 +1,4 @@
-const { put, get, del } = require("@vercel/blob");
+const { put, get, del, issueSignedToken, presignUrl } = require("@vercel/blob");
 
 const ARCHIVE_PATH = "allison/special-tools.json";
 const MEDIA_PREFIX = "allison/media/";
@@ -24,6 +24,25 @@ async function getArchive() {
   } catch (_) {
     return emptyArchive();
   }
+}
+
+async function signedFileUrl(path) {
+  if (!path || !String(path).startsWith(MEDIA_PREFIX)) return "";
+  const token = await issueSignedToken({ operations: ["get"] });
+  const { presignedUrl } = await presignUrl(token, {
+    pathname: String(path),
+    operation: "get",
+    validUntil: Date.now() + 10 * 60 * 1000
+  });
+  return presignedUrl;
+}
+
+async function publicArchive(json) {
+  const items = await Promise.all((json.items || []).map(async (item) => ({
+    ...item,
+    fileUrl: item.filePath ? await signedFileUrl(item.filePath) : ""
+  })));
+  return { ...json, items };
 }
 
 async function saveArchive(json) {
@@ -78,74 +97,8 @@ function cleanItem(x) {
 }
 
 function setCors(res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "https://cutting-tools-lab.vercel.app");
+  res.setHeader("Vary", "Origin");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
-
-module.exports = async (req, res) => {
-  setCors(res);
-  if (req.method === "OPTIONS") return res.status(204).end();
-
-  try {
-    if (req.method === "GET" && req.query?.file) {
-      const path = String(req.query.file);
-      if (!path.startsWith(MEDIA_PREFIX) || path.includes("..")) return res.status(400).json({ error: "File non valido." });
-      const result = await get(path, { access: "private", useCache: false });
-      if (!result) return res.status(404).json({ error: "File non trovato." });
-      res.setHeader("Content-Type", result.blob.contentType || "application/octet-stream");
-      res.setHeader("Cache-Control", "private, max-age=300");
-      const ab = await new Response(result.stream).arrayBuffer();
-      return res.end(Buffer.from(ab));
-    }
-
-    if (req.method === "GET") {
-      return res.status(200).json(await getArchive());
-    }
-
-    if (req.method === "POST") {
-      const raw = req.body || {};
-      const incoming = cleanItem(raw);
-      if (!incoming.code || !incoming.machine || !incoming.pieceType) {
-        return res.status(400).json({ error: "Codice, macchina e tipologia di pezzo sono obbligatori." });
-      }
-
-      if (raw.fileData) {
-        const media = await uploadMedia({ ...incoming, fileData: raw.fileData, fileName: raw.fileName, fileType: raw.fileType });
-        incoming.filePath = media.filePath;
-        incoming.fileName = media.fileName;
-        incoming.fileType = media.fileType;
-        incoming.fileUrl = "/api/special-tools?file=" + encodeURIComponent(media.filePath);
-      }
-
-      const json = await getArchive();
-      const index = json.items.findIndex(x => String(x.id) === String(incoming.id));
-      if (index >= 0) json.items[index] = incoming;
-      else json.items.push(incoming);
-      await saveArchive(json);
-      return res.status(200).json({ ok: true, item: incoming, updatedAt: json.updatedAt });
-    }
-
-    if (req.method === "DELETE") {
-      const id = String((req.body || {}).id || req.query?.id || "");
-      if (!id) return res.status(400).json({ error: "ID mancante." });
-      const json = await getArchive();
-      const item = json.items.find(x => String(x.id) === id);
-      if (!item) return res.status(404).json({ error: "Utensile non trovato." });
-      json.items = json.items.filter(x => String(x.id) !== id);
-      if (item.filePath && item.filePath.startsWith(MEDIA_PREFIX)) {
-        try { await del(item.filePath, { access: "private" }); } catch (_) {}
-      }
-      await saveArchive(json);
-      return res.status(200).json({ ok: true, updatedAt: json.updatedAt });
-    }
-
-    return res.status(405).json({ error: "Metodo non supportato." });
-  } catch (e) {
-    const message = e && e.message ? e.message : "Errore server.";
-    if (/BLOB|token|store|configured/i.test(message)) {
-      return res.status(503).json({ error: "Archivio cloud Allison non configurato su Vercel. Collega un Vercel Blob Store al progetto." });
-    }
-    return res.status(500).json({ error: message });
-  }
-};
