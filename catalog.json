@@ -1,8 +1,68 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-09-21T08:58:12.563Z",
+  "updatedAt": "2026-09-21T09:16:53.032Z",
   "source": "Cutting Tools LAB",
   "items": [
+    {
+      "category": "Tornitura · Sgrossatura",
+      "code": "CNMG 120412-M3P IC8250",
+      "geom": "Rombo 80° · sgrossatura · R1,2",
+      "material": "P Acciaio · M Inox",
+      "vc": "120–210",
+      "f": "0,35–0,70",
+      "ap": "3–7",
+      "maker": "ISCAR"
+    },
+    {
+      "category": "Tornitura · Media",
+      "code": "CNMG 120408-M3P IC8250",
+      "geom": "Rombo 80° · media · R0,8",
+      "material": "P Acciaio · M Inox",
+      "vc": "140–230",
+      "f": "0,15–0,45",
+      "ap": "0,7–4,5",
+      "maker": "ISCAR"
+    },
+    {
+      "category": "Tornitura · Finitura",
+      "code": "CNMG 120404-F IC8250",
+      "geom": "Rombo 80° · finitura · R0,4",
+      "material": "P Acciaio · M Inox",
+      "vc": "160–260",
+      "f": "0,08–0,20",
+      "ap": "0,3–1,5",
+      "maker": "ISCAR"
+    },
+    {
+      "category": "Tornitura · Media",
+      "code": "WNMG 080408-GN IC20",
+      "geom": "Trigon 80° · media · R0,8",
+      "material": "P Acciaio · M Inox · K Ghisa",
+      "vc": "120–220",
+      "f": "0,16–0,45",
+      "ap": "1–4,5",
+      "maker": "ISCAR"
+    },
+    {
+      "category": "Profilatura / finitura",
+      "code": "CCMT 09T304-WG IC807",
+      "geom": "Rombo 80° · positivo · R0,4",
+      "material": "P Acciaio · N Alluminio",
+      "vc": "160–300",
+      "f": "0,10–0,30",
+      "ap": "0,4–2",
+      "maker": "ISCAR"
+    },
+    {
+      "category": "Profilatura / finitura",
+      "code": "CCMT 09T308-WG IC807",
+      "geom": "Rombo 80° · positivo · R0,8",
+      "material": "P Acciaio · M Inox",
+      "vc": "120–220",
+      "f": "0,20–0,38",
+      "ap": "0,5–2,5",
+      "maker": "ISCAR"
+    },
     {
       "category": "Tornitura · Finitura",
       "code": "VNMG332MT TT5080",
@@ -330,7 +390,7 @@
       "vc": "160–240",
       "f": "0,10–0,25",
       "ap": "0,5–2",
-      "maker": "Sandvik / ISO"
+      "maker": "ISO"
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -340,7 +400,7 @@
       "vc": "140–230",
       "f": "0,15–0,35",
       "ap": "0,8–4",
-      "maker": "Sandvik / ISO"
+      "maker": "ISO"
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -350,7 +410,7 @@
       "vc": "120–210",
       "f": "0,18–0,40",
       "ap": "1–5",
-      "maker": "Sandvik / ISO"
+      "maker": "ISO"
     },
     {
       "category": "Tornitura esterna",
@@ -360,7 +420,7 @@
       "vc": "160–240",
       "f": "0,10–0,25",
       "ap": "0,5–3",
-      "maker": "Sandvik / ISCAR"
+      "maker": "ISO"
     },
     {
       "category": "Tornitura esterna",
@@ -370,7 +430,7 @@
       "vc": "140–230",
       "f": "0,15–0,35",
       "ap": "0,8–4",
-      "maker": "Sandvik / ISCAR"
+      "maker": "ISO"
     },
     {
       "category": "Tornitura esterna",
@@ -380,7 +440,7 @@
       "vc": "120–210",
       "f": "0,18–0,40",
       "ap": "1–5",
-      "maker": "Sandvik / ISCAR"
+      "maker": "ISO"
     },
     {
       "category": "Tornitura esterna",
@@ -400,7 +460,7 @@
       "vc": "150–240",
       "f": "0,06–0,18",
       "ap": "0,3–1,5",
-      "maker": "Sandvik / ISCAR"
+      "maker": "ISO"
     },
     {
       "category": "Tornitura esterna",
@@ -410,7 +470,7 @@
       "vc": "120–210",
       "f": "0,08–0,22",
       "ap": "0,5–2,5",
-      "maker": "Sandvik / ISCAR"
+      "maker": "ISO"
     },
     {
       "category": "Tornitura esterna",
@@ -430,7 +490,7 @@
       "vc": "120–210",
       "f": "0,16–0,32",
       "ap": "1–4",
-      "maker": "Sandvik / ISCAR"
+      "maker": "ISO"
     },
     {
       "category": "Tornitura esterna",
@@ -460,7 +520,7 @@
       "vc": "130–220",
       "f": "0,12–0,30",
       "ap": "0,8–3",
-      "maker": "Sandvik / ISCAR"
+      "maker": "ISO"
     },
     {
       "category": "Tornitura esterna",
@@ -480,7 +540,7 @@
       "vc": "150–260",
       "f": "0,05–0,16",
       "ap": "0,2–1,2",
-      "maker": "Sandvik / ISCAR"
+      "maker": "ISO"
     },
     {
       "category": "Profilatura / finitura",
@@ -660,7 +720,7 @@
       "vc": "50–140",
       "f": "0,04–0,15",
       "ap": "fino a 3",
-      "maker": "Sandvik / ISO"
+      "maker": "ISO"
     },
     {
       "category": "Filettatura",
@@ -720,7 +780,7 @@
       "vc": "40–120",
       "f": "0,08–0,20 mm/giro",
       "ap": "—",
-      "maker": "Sandvik / ISO"
+      "maker": "ISO"
     },
     {
       "category": "Foratura",
