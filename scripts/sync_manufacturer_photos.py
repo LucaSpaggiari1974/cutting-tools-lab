@@ -38,6 +38,8 @@ MAKERS = {
     "ZCC Cutting Tools": ["zccct.com"],
     "TaeguTec": ["taegutec.com"],
     "Ceratizit": ["ceratizit.com"],
+    "ISO": [],
+    "ISO / produttore": [],
 }
 
 HEADERS = {"User-Agent": "Mozilla/5.0 cutting-tools-lab manufacturer-photo-sync/1.0"}
@@ -105,6 +107,25 @@ def search_official(code, domains):
             }
     return None
 
+
+OFFICIAL_DOMAINS = sorted({d for ds in MAKERS.values() for d in ds})
+
+def exact_code_in_page(code, page):
+    target = norm(code)
+    text = norm(html.unescape(re.sub("<[^>]+>", " ", page)))
+    return bool(target) and target in text
+
+def verify_product_url(item, domains):
+    url = str(item.get("productUrl", "")).strip()
+    if not url or not domains or not host_ok(url, domains): return None
+    try: final_url, page = fetch(url, timeout=25)
+    except Exception: return None
+    if not exact_code_in_page(item.get("code", ""), page): return None
+    image = meta_image(page, final_url)
+    if image and host_ok(image, domains):
+        return {"productUrl": final_url, "photoUrl": image, "photoSource": "manufacturer official website", "photoVerified": True, "photoVerifiedAt": datetime.now(timezone.utc).isoformat(), "photoNote": "Foto ufficiale verificata sulla pagina prodotto con corrispondenza esatta del codice."}
+    return None
+
 def main():
     with open(CATALOG, encoding="utf-8") as f:
         catalog = json.load(f)
@@ -118,36 +139,26 @@ def main():
     for item in items:
         maker = str(item.get("maker", "")).strip()
         domains = MAKERS.get(maker)
+        checked += 1 if maker in MAKERS else 0
         if not domains:
-            continue
-        checked += 1
-
-        # Never retain known distributor/generic imagery.
-        source = str(item.get("photoSource", "")).lower()
-        warning = str(item.get("photoWarning", "")).lower()
+            url = str(item.get("productUrl", "")).strip()
+            domains = [d for d in OFFICIAL_DOMAINS if host_ok(url, [d])]
+            if not domains: continue
+        source = str(item.get("photoSource", "")).lower(); warning = str(item.get("photoWarning", "")).lower()
         if "distributor" in source or warning or item.get("photoVerified") is False:
-            if item.get("photoUrl"):
-                item.pop("photoUrl", None)
-                cleared += 1
-            item.pop("photoWarning", None)
-            item.pop("photoVerified", None)
-            item.pop("photoVerifiedAt", None)
-
+            for k in ("photoUrl","photoWarning","photoVerified","photoVerifiedAt","photoSource"): item.pop(k,None)
+            cleared += 1
         code = str(item.get("code", "")).strip()
-        if not code:
-            continue
-
-        # Existing photo is retained only if it is already explicitly verified
-        # and hosted on the maker's official domain.
-        if item.get("photoVerified") and item.get("photoUrl") and host_ok(item["photoUrl"], domains):
-            continue
-
+        if not code: continue
+        result = verify_product_url(item, domains)
+        if result:
+            if item.get("photoUrl") != result["photoUrl"] or not item.get("photoVerified"): updated += 1
+            item.update(result); found += 1; time.sleep(0.10); continue
         result = search_official(code, domains)
         if result:
-            item.update(result)
-            item["photoNote"] = "Foto del produttore verificata tramite corrispondenza esatta del codice."
-            found += 1
-            updated += 1
+            item.update(result); item["photoNote"] = "Foto ufficiale verificata tramite corrispondenza esatta del codice."; found += 1; updated += 1
+        else:
+            for k in ("photoUrl","photoSource","photoVerified","photoVerifiedAt"): item.pop(k,None)
         time.sleep(0.15)
 
     catalog["updatedAt"] = now
