@@ -17,6 +17,16 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Crea versione build per aggiornamento automatico
+        env:
+          BUILD_SHA: ${{ github.sha }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          with open("build-version.json","w",encoding="utf-8") as f:
+              json.dump({"sha":os.environ.get("BUILD_SHA",""),"updatedAt":datetime.now(timezone.utc).isoformat()},f)
+          PY
       - uses: actions/configure-pages@v5
       - name: Verifica JavaScript applicazione
         run: |
