@@ -155,8 +155,11 @@ const mats=[...new Set(data.flatMap(x=>x.material.split(" · ")))].filter(x=>x&&
 let selected=null;
 let previewTimer=null;
 function getPreviewUrl(x){
- const u=toolImageUrl(x);
- return u||null;
+ if(!x)return null;
+ const u=x.photoUrl||x.genericPhotoUrl||null;
+ if(!u)return null;
+ if(!/^https?:\\/\\//i.test(u))return u;
+ return "https://images.weserv.nl/?url="+encodeURIComponent(u);
 }
 function hideCodePreview(){
  const im=document.getElementById("codePreview"),cap=document.getElementById("codePreviewCaption");
@@ -185,10 +188,8 @@ function bindCodePreview(){
   a.addEventListener("pointerenter",e=>{if(e.pointerType==="mouse")showCodePreview(x,a)});
   a.addEventListener("pointerleave",e=>{if(e.pointerType==="mouse")hideCodePreview()});
   a.addEventListener("click",e=>{
-   if(e.pointerType==="touch" || matchMedia("(hover: none)").matches){
-    e.preventDefault(); e.stopPropagation();
-    if(document.getElementById("codePreview").hidden) showCodePreview(x,a); else hideCodePreview();
-   }
+   e.preventDefault(); e.stopPropagation();
+   if(document.getElementById("codePreview").hidden) showCodePreview(x,a); else hideCodePreview();
   });
  });
 }
@@ -197,7 +198,7 @@ document.addEventListener("scroll",hideCodePreview,{passive:true});
 function render(){
  const t=q.value.toLowerCase(),c=cat.value,m=mat.value,k=maker.value;
  const a=data.filter(x=>(!t||Object.values(x).join(" ").toLowerCase().includes(t))&&(!c||x.category===c)&&(!m||x.material.includes(m))&&(!k||x.maker===k));
- rows.innerHTML=a.map((x,i)=>{const href=toolImageUrl(x);return '<tr class="data" data-i="'+data.indexOf(x)+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code">'+(href?'<a class="codeLink" href="'+esc(href)+'" target="_blank" rel="noopener noreferrer" title="Apri immagine utensile">'+esc(x.code)+'</a>':esc(x.code))+'</td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>'}).join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
+ rows.innerHTML=a.map((x,i)=>{const href=x.photoUrl||x.genericPhotoUrl||null;return '<tr class="data" data-i="'+data.indexOf(x)+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code">'+(href?'<a class="codeLink" href="#" role="button" title="Mostra anteprima inserto">'+esc(x.code)+'</a>':esc(x.code))+'</td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>'}).join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
  document.getElementById("status").textContent=a.length+" righe · tocca una riga per caricare i dati nella barra dei parametri";
  rows.querySelectorAll("tr.data").forEach(tr=>{
  tr.onclick=()=>select(data[+tr.dataset.i]);
