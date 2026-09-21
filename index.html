@@ -77,7 +77,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 
 
 </section>
-<section id="formule" class="page"><div class="calc"><h2>🧮 Formule e calcolo</h2><div class="formulaBox">n = (1000 × Vc) ÷ (π × D)<br>Vc = (π × D × n) ÷ 1000<br>Vf tornitura/foratura = f × n<br>Vf fresatura = fz × z × n</div><p><b>Le pagine Tornitura, Foratura e Fresatura richiedono solo il diametro.</b> Il catalogo fornisce il valore centrale dell’intervallo consigliato; il calcolo di giri e avanzamento viene aggiornato automaticamente.</p><div class="result">Esempio: D 50 mm e Vc 180 m/min → n ≈ 1146 giri/min.</div></div></section>
+<section id="formule" class="page"><div class="calc"><h2>🧮 Formule e calcolo</h2><div class="formulaBox">n = (1000 × Vc) ÷ (π × D)<br>Vc = (π × D × n) ÷ 1000<br>Vf tornitura/foratura = f × n<br>Vf fresatura = fz × z × n</div><p><b>Inserisci il solo diametro.</b> Seleziona la lavorazione: il programma prende automaticamente Vc e avanzamento dal catalogo e calcola giri/min e Vf.</p><label>Lavorazione<select id="formulaType"><option value="turn">Tornitura</option><option value="drill">Foratura</option><option value="mill">Fresatura</option></select></label><label>Diametro D (mm)<input id="formulaD" type="number" value="50" min="0.1" step="0.1"></label><div id="formulaOut" class="result">Inserisci il diametro.</div></div></section>
 
 <section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura</h2>
 <label>Diametro D (mm)<input id="tc_d" type="number" value="50" min="0.1" step="0.1"></label>
@@ -177,7 +177,7 @@ async function loadCatalog(){
   document.getElementById("updateState").textContent="🟠 Catalogo locale disponibile";
  }
 }
-loadCatalog();setTimeout(runAllCalcs,400);setInterval(loadCatalog,15*60*1000);document.getElementById("refreshData").onclick=loadCatalog;
+loadCatalog();setTimeout(()=>{runAllCalcs();calcFormulaPage()},700);setInterval(loadCatalog,15*60*1000);document.getElementById("refreshData").onclick=loadCatalog;
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js?v=4").then(reg=>{reg.update();setInterval(()=>reg.update(),5*60*1000)}).catch(()=>{});}
 let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.getElementById("installApp").hidden=false});document.getElementById("installApp").onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById("installApp").hidden=true};
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
@@ -243,6 +243,20 @@ function autoCalc(id,out,filter,mill){
  refreshRecommendations();
 }
 function runAllCalcs(){autoCalc('tc_d','tc_out',x=>x.category.includes('Tornitura')||x.category.includes('Profilatura'),false);autoCalc('dr_d','dr_out',x=>x.category==='Foratura',false);autoCalc('mi_d','mi_out',x=>x.category.includes('Fresatura')||x.category==='Spianatura',true)}
+function calcFormulaPage(){
+ const d=+document.getElementById('formulaD').value, type=document.getElementById('formulaType').value, out=document.getElementById('formulaOut');
+ if(!d||d<=0){out.textContent='Inserisci un diametro valido.';return}
+ let filter,mill=false,label='';
+ if(type==='turn'){filter=x=>x.category.includes('Tornitura')||x.category.includes('Profilatura');label='Tornitura'}
+ else if(type==='drill'){filter=x=>x.category==='Foratura';label='Foratura'}
+ else {filter=x=>x.category.includes('Fresatura')||x.category==='Spianatura';mill=true;label='Fresatura'}
+ const x=data.find(filter);
+ if(!x){out.textContent='Nessun utensile disponibile nel catalogo.';return}
+ const vc=avgRange(x.vc),f=avgRange(x.f),n=calcN(vc,d),vf=calcFeed(f,n,mill);
+ out.textContent=label+' · '+x.code+' · Vc '+(vc?vc.toFixed(1):'—')+' m/min · n '+Math.round(n)+' giri/min · '+(mill?'fz':'f')+' '+(f?f.toFixed(3):'—')+' · Vf '+(vf?vf.toFixed(1):'—')+' mm/min';
+}
+document.getElementById('formulaD').oninput=calcFormulaPage;
+document.getElementById('formulaType').onchange=calcFormulaPage;
 document.getElementById('tc_d').oninput=()=>autoCalc('tc_d','tc_out',x=>x.category.includes('Tornitura')||x.category.includes('Profilatura'),false);
 document.getElementById('dr_d').oninput=()=>autoCalc('dr_d','dr_out',x=>x.category==='Foratura',false);
 document.getElementById('mi_d').oninput=()=>autoCalc('mi_d','mi_out',x=>x.category.includes('Fresatura')||x.category==='Spianatura',true);
