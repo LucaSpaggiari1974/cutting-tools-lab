@@ -398,35 +398,33 @@ function runAllCalcs(){
  autoCalc('mi_d','mi_out',null,true);
 }
 function calcFormulaPage(){
- const d=+document.getElementById('formulaD').value, type=document.getElementById('formulaType').value, out=document.getElementById('formulaOut'), material=document.getElementById('formulaMaterial')?.value||'P';
+ const d=+document.getElementById('formulaD').value, type=document.getElementById('formulaType').value, out=document.getElementById('formulaOut');
  if(!d||d<=0){out.textContent='Inserisci un diametro valido.';return}
  let label='',mill=false;
  if(type==='turn'){label='Tornitura'; window.currentTurnOp=document.getElementById('tc_op')?.value||'rough'; window.currentTurnRadius=+(document.getElementById('tc_r')?.value||0.8);}
  else if(type==='drill')label='Foratura';
  else {label='Fresatura';mill=true}
- let x=selectToolFor(type,d);
- if(type==='turn'){
-   const candidates=turnCandidates(d,window.currentTurnOp||'rough',window.currentTurnRadius||0.8);
-   const mat=candidates.filter(v=>String(v.material||'').toUpperCase().includes(material));
-   if(mat.length)x=mat[0];
- }
+ const x=selectToolFor(type,d);
  if(!x){out.textContent='Nessun utensile disponibile nel catalogo per questo diametro.';return}
  const toolD=mill?diameterOfTool(x):d;
- const vc=avgRange(x.vc),f=avgRange(x.f),n=calcN(vc,toolD),vf=calcFeed(f,n,mill,teethOfTool(x));
- const vcEl=document.getElementById('formulaVc');
- if(vcEl) vcEl.textContent=type==='turn'&&vc>0?'Vc consigliata per '+x.code+' · '+material+': '+vc.toFixed(1)+' m/min':'Vc consigliata: '+(vc>0?vc.toFixed(1)+' m/min':'—');
+ const vc=avgRange(x.vc), n=calcN(vc,toolD);
+ const f=avgRange(x.f), vf=calcFeed(f,n,mill,teethOfTool(x));
  const avc=type==='turn'?vf:0;
+ const vcEl=document.getElementById('formulaVc');
+ if(vcEl) vcEl.textContent=vc>0?'Vc consigliata: '+vc.toFixed(1)+' m/min':'Vc consigliata: —';
  const avcEl=document.getElementById('formulaAvc');
- if(avcEl) avcEl.textContent=type==='turn'&&avc>0?'AVC / Vf tornitura: '+avc.toFixed(1)+' mm/min · calcolato automaticamente dal diametro '+d.toFixed(1)+' mm':'AVC / Vf tornitura: — mm/min';
+ if(avcEl) avcEl.textContent=type==='turn'&&avc>0?'AVC / Vf tornitura: '+avc.toFixed(1)+' mm/min':'AVC / Vf tornitura: — mm/min';
  let note='';
  if(type==='drill' && Math.abs(toolD-d)>0.01) note=' · Foro richiesto '+d.toFixed(1)+' mm → punta disponibile più vicina Ø'+toolD.toFixed(1)+' mm';
  if(type==='mill') note=' · Fresa disponibile più vicina Ø'+toolD.toFixed(1)+' mm · '+teethOfTool(x)+' denti';
  if(type==='turn') note=' · '+(window.currentTurnOp==='rough'?'Sgrossatura':'Finitura')+' · R'+window.currentTurnRadius.toFixed(1).replace('.',',')+' · diametro pezzo '+d.toFixed(1)+' mm';
  out.textContent=label+' · '+x.code+note+' · Vc '+(vc?vc.toFixed(1):'—')+' m/min · n '+Math.round(n)+' giri/min · '+(mill?'fz':'f')+' '+(f?f.toFixed(3):'—')+' · Vf '+(vf?vf.toFixed(1):'—')+' mm/min';
- if(type==='turn'){const tcOut=document.getElementById('tc_out'); if(tcOut) tcOut.textContent+=' · AVC/Vf automatico: '+vf.toFixed(1)+' mm/min';}
+ if(type==='turn'){const tcOut=document.getElementById('tc_out'); if(tcOut) tcOut.textContent='Vc '+(vc?vc.toFixed(1):'—')+' m/min · n '+Math.round(n)+' giri/min · f '+(f?f.toFixed(3):'—')+' mm/giro · AVC/Vf '+(vf?vf.toFixed(1):'—')+' mm/min';}
 }
+
 document.getElementById('formulaD').oninput=calcFormulaPage;
 document.getElementById('formulaType').onchange=calcFormulaPage;
+document.getElementById('formulaMaterial')?.addEventListener('change',calcFormulaPage);
 document.getElementById('formulaMaterial').onchange=calcFormulaPage;
 document.getElementById('formulaD').oninput=calcFormulaPage;
 document.getElementById('formulaType').onchange=calcFormulaPage;
