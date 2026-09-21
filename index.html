@@ -35,7 +35,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 .warn{padding:12px 15px;font-size:12px;color:#53697b;background:#fff;border-top:1px solid var(--line)}
 @media(max-width:760px){main{padding:8px}header{border-radius:12px}.searchgrid{grid-template-columns:1fr 1fr}.formula{grid-template-columns:1fr 1fr}.formula button{grid-column:1/-1;width:100%}.tablewrap{max-height:66vh}.drawingbox{grid-template-columns:1fr}h1{font-size:21px}.appbar{position:sticky;bottom:0;z-index:10;flex-wrap:wrap}.appbar span{flex-basis:100%}.appbar button{flex:1}.toolbar{top:0}} @media(min-width:1200px){main{max-width:1500px}.sheet{min-height:80vh}.tablewrap{max-height:68vh}table{min-width:1250px}.formula{grid-template-columns:1.7fr 1fr 1fr 1fr 1fr auto}}
 .navtabs{display:flex;gap:6px;overflow:auto;margin:0 0 12px;padding:5px;background:#fff;border:1px solid var(--line);border-radius:12px;position:sticky;top:0;z-index:20}.navtab{white-space:nowrap;width:auto;padding:10px 14px;background:#eef4f8;color:#123a5a}.navtab.active{background:#123a5a;color:#fff}.page{display:none}.page.active{display:block}.calcgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.calc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 2px 12px #0001}.calc h2{margin-top:0;color:#123a5a}.calc label{display:block;font-weight:700;margin:9px 0}.calc label input{margin-top:5px}.formulaBox{background:#102f47;color:#fff;padding:14px;border-radius:10px;font-size:18px;font-weight:800;line-height:1.8}.result{margin-top:12px;padding:12px;background:#eaf2f8;border-radius:9px;font-weight:800;color:#123a5a}.modal{position:fixed;inset:0;background:#0008;z-index:100;display:flex;align-items:center;justify-content:center;padding:14px}.modal[hidden]{display:none}.modalCard{position:relative;background:#fff;border-radius:16px;width:min(760px,100%);max-height:90vh;overflow:auto;padding:20px}.closeModal{position:absolute;right:12px;top:12px;width:auto;background:#123a5a;padding:8px 12px}.modalImg{display:block;width:100%;max-height:420px;object-fit:contain;background:#f8fbfd;border-radius:10px;margin-top:12px}@media(max-width:760px){.navtabs{top:0}.calcgrid{grid-template-columns:1fr}.navtab{padding:9px 11px;font-size:13px}.modalCard{padding:14px}}
-.recommendTitle{margin-top:18px;font-weight:800;color:#123a5a;font-size:17px}.recommend{display:grid;gap:10px;margin-top:10px}.recCard{display:grid;grid-template-columns:170px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#f8fbfd}.recDraw{width:160px;height:140px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:9px;padding:4px}.recMeta b{color:#123a5a}.recMeta .params{margin-top:7px;font-size:13px}.recMeta button{margin-top:8px;width:auto;padding:8px 12px}@media(max-width:760px){.recCard{grid-template-columns:1fr}.recDraw{width:100%;height:190px}}</style>
+.problemList{display:grid;gap:10px;margin-top:14px}.problemCard{border:1px solid var(--line);border-radius:12px;background:#f8fbfd;padding:12px}.problemCard h3{margin:0 0 6px;color:#123a5a;font-size:16px}.problemCard p{margin:5px 0;font-size:13px;line-height:1.45}.problemCard b{color:#123a5a}.problemCard .cause{color:#455b6d}.problemCard .solution{background:#fff;border-radius:8px;padding:8px;margin-top:7px}.recommendTitle{margin-top:18px;font-weight:800;color:#123a5a;font-size:17px}.recommend{display:grid;gap:10px;margin-top:10px}.recCard{display:grid;grid-template-columns:170px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#f8fbfd}.recDraw{width:160px;height:140px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:9px;padding:4px}.recMeta b{color:#123a5a}.recMeta .params{margin-top:7px;font-size:13px}.recMeta button{margin-top:8px;width:auto;padding:8px 12px}@media(max-width:760px){.recCard{grid-template-columns:1fr}.recDraw{width:100%;height:190px}}</style>
 </head>
 <body><main>
 <header><h1>🔧 CUTTING TOOLS LAB</h1><p>Foglio utensili · inserti · portautensili · velocità e parametri di taglio</p></header>
@@ -46,6 +46,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <button class="navtab" data-page="tornitura">🔩 Tornitura</button>
 <button class="navtab" data-page="foratura">🕳️ Foratura</button>
 <button class="navtab" data-page="fresatura">⚙️ Fresatura</button>
+<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button>
 </nav>
 <section id="catalogo" class="page active"><section class="sheet">
 <div class="toolbar">
@@ -75,11 +76,8 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 </section>
 
 
-</section>\n<section id="formule" class="page">
-<div class="calc"><h2>🧮 Calcolo automatico</h2>
-<div class="formulaBox">n = (1000 × Vc) ÷ (π × D)<br>Vc = (π × D × n) ÷ 1000<br>Vf = f × n<br>Vf fresatura = fz × z × n</div>
-<p><b>Inserisci solo il diametro D.</b> Il programma usa automaticamente i parametri consigliati del catalogo e calcola giri/min e avanzamento.</p>
-</div></section>
+</section>
+<section id="formule" class="page"><div class="calc"><h2>🧮 Formule e calcolo</h2><div class="formulaBox">n = (1000 × Vc) ÷ (π × D)<br>Vc = (π × D × n) ÷ 1000<br>Vf tornitura/foratura = f × n<br>Vf fresatura = fz × z × n</div><p><b>Le pagine Tornitura, Foratura e Fresatura richiedono solo il diametro.</b> Il catalogo fornisce il valore centrale dell’intervallo consigliato; il calcolo di giri e avanzamento viene aggiornato automaticamente.</p><div class="result">Esempio: D 50 mm e Vc 180 m/min → n ≈ 1146 giri/min.</div></div></section>
 
 <section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura</h2>
 <label>Diametro D (mm)<input id="tc_d" type="number" value="50" min="0.1" step="0.1"></label>
@@ -99,6 +97,12 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <div class="recommendTitle">Frese consigliate · foto reale</div><div id="mi_rec" class="recommend"></div>
 </div></section>
 
+<section id="problemi" class="page">
+<div class="calc"><h2>🛠️ Problemi di lavorazione · diagnosi e soluzioni</h2>
+<p>Guida pratica per tornitura, foratura e fresatura. Parti dal sintomo, controlla una variabile alla volta e modifica i parametri con piccoli incrementi. I valori sono indicativi: utensile, grado, materiale, macchina e fissaggio possono richiedere impostazioni diverse.</p>
+<div class="searchgrid"><input id="problemSearch" placeholder="Cerca problema, sintomo o soluzione…"><select id="problemArea"><option value="">Tutte le lavorazioni</option><option>Tornitura</option><option>Foratura</option><option>Fresatura</option><option>Generale</option></select></div>
+<div id="problemList" class="problemList"></div>
+</div></section>
 <div id="toolModal" class="modal" hidden>
   <div class="modalCard">
     <button class="closeModal" id="closeModal" type="button">✕</button>
@@ -173,7 +177,7 @@ async function loadCatalog(){
   document.getElementById("updateState").textContent="🟠 Catalogo locale disponibile";
  }
 }
-loadCatalog();setInterval(loadCatalog,15*60*1000);document.getElementById("refreshData").onclick=loadCatalog;
+loadCatalog();setTimeout(runAllCalcs,400);setInterval(loadCatalog,15*60*1000);document.getElementById("refreshData").onclick=loadCatalog;
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js?v=4").then(reg=>{reg.update();setInterval(()=>reg.update(),5*60*1000)}).catch(()=>{});}
 let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.getElementById("installApp").hidden=false});document.getElementById("installApp").onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById("installApp").hidden=true};
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
@@ -221,12 +225,84 @@ function refreshRecommendations(){
 }
 function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll(".navtab").forEach(b=>b.classList.toggle("active",b.dataset.page===id));window.scrollTo({top:0,behavior:"smooth"})}
 document.querySelectorAll(".navtab").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
-function avgRange(s){const n=String(s||'').replace(',','.').match(/\d+(?:[.,]\d+)?/g)||[];const a=n.map(v=>parseFloat(v.replace(',','.'))).filter(Number.isFinite);return a.length?(Math.min(...a)+Math.max(...a))/2:0}
-function calcN(vc,d){return d>0?(1000*vc)/(Math.PI*d):0}
-function autoCalc(id,out,filter,mill){const d=+document.getElementById(id).value;if(!d){document.getElementById(out).textContent='Inserisci un diametro valido.';return}const x=data.find(filter);if(!x)return;const vc=avgRange(x.vc),f=avgRange(x.f),n=calcN(vc,d);const z=mill?4:1;const vf=n*f*z;document.getElementById(out).textContent='Utensile: '+x.code+' · Vc '+vc.toFixed(0)+' m/min · n '+Math.round(n)+' giri/min · Vf '+vf.toFixed(1)+' mm/min';refreshRecommendations()}
+function avgRange(s){
+ const raw=String(s||'').replace(/,/g,'.');
+ const n=raw.match(/\\d+(?:\\.\\d+)?/g)||[];
+ const a=n.map(Number).filter(Number.isFinite);
+ return a.length===1?a[0]:(a.length?((Math.min(...a)+Math.max(...a))/2):0);
+}
+function calcN(vc,d){return d>0&&vc>0?(1000*vc)/(Math.PI*d):0}
+function calcFeed(f,n,mill){return mill?n*f*4:n*f}
+function autoCalc(id,out,filter,mill){
+ const d=+document.getElementById(id).value;
+ if(!d||d<=0){document.getElementById(out).textContent='Inserisci un diametro valido.';return}
+ const x=data.find(filter);
+ if(!x){document.getElementById(out).textContent='Nessun utensile disponibile nel catalogo.';return}
+ const vc=avgRange(x.vc),f=avgRange(x.f),n=calcN(vc,d),vf=calcFeed(f,n,mill);
+ document.getElementById(out).textContent='Utensile: '+x.code+' · Vc '+(vc?vc.toFixed(1):'—')+' m/min · n '+Math.round(n)+' giri/min · '+(mill?'fz':'f')+' '+(f?f.toFixed(3):'—')+' · Vf '+(vf?vf.toFixed(1):'—')+' mm/min';
+ refreshRecommendations();
+}
+function runAllCalcs(){autoCalc('tc_d','tc_out',x=>x.category.includes('Tornitura')||x.category.includes('Profilatura'),false);autoCalc('dr_d','dr_out',x=>x.category==='Foratura',false);autoCalc('mi_d','mi_out',x=>x.category.includes('Fresatura')||x.category==='Spianatura',true)}
 document.getElementById('tc_d').oninput=()=>autoCalc('tc_d','tc_out',x=>x.category.includes('Tornitura')||x.category.includes('Profilatura'),false);
 document.getElementById('dr_d').oninput=()=>autoCalc('dr_d','dr_out',x=>x.category==='Foratura',false);
 document.getElementById('mi_d').oninput=()=>autoCalc('mi_d','mi_out',x=>x.category.includes('Fresatura')||x.category==='Spianatura',true);
+const problems=[
+['Tornitura','Vibrazioni / chatter','Utensile troppo sporgente, pezzo poco rigido, ap o f troppo elevati, inserto non adatto.','Riduci la sporgenza, aumenta la rigidità del serraggio, riduci ap o f del 10–20%, prova un tagliente più positivo o una geometria anti-vibrante.'],
+['Tornitura','Superficie rugosa','Avanzamento elevato, inserto usurato, raggio punta inadatto o vibrazioni.','Controlla usura e serraggio; riduci f e stabilizza il sistema. Per finitura valuta un raggio punta adeguato alla profondità e alla rigidità.'],
+['Tornitura','Bava sul pezzo','Tagliente usurato, uscita utensile sfavorevole, f troppo basso/alto o materiale duttile.','Usa inserto affilato/positivo, correggi f e geometria, riduci il materiale residuo nell’uscita.'],
+['Tornitura','Usura sul fianco','Vc troppo alta, abrasione del materiale, raffreddamento insufficiente.','Riduci Vc, verifica grado/rivestimento e refrigerazione; controlla che il materiale corrisponda alla classe ISO prevista.'],
+['Tornitura','Usura a craterizzazione','Vc elevata e temperatura al tagliente, materiale che genera forte diffusione.','Riduci Vc, usa grado/rivestimento idoneo e migliora l’evacuazione del calore.'],
+['Tornitura','Intaglio / notch wear','Usura concentrata sulla linea di profondità di passata.','Varia leggermente ap, riduci Vc e usa una geometria/rivestimento più resistente alla tacca.'],
+['Tornitura','Inserto scheggiato','Taglio interrotto, urti, ap/f eccessivi, serraggio insufficiente.','Riduci ap/f, controlla battuta e portautensile, scegli un grado più tenace e verifica il percorso.'],
+['Tornitura','Inserto che si rompe subito','Sovraccarico, interferenza, quota utensile errata o materiale non previsto.','Ferma la macchina, verifica montaggio, altezza centro, verso di taglio e parametri prima di ripartire.'],
+['Tornitura','Truciolo lungo e incontrollato','F troppo basso o rompitruciolo non adatto al materiale.','Aumenta f entro il campo del rompitruciolo oppure scegli una geometria dedicata; verifica sicurezza e scarico truciolo.'],
+['Tornitura','Truciolo troppo corto / polvere','Taglio instabile o parametri troppo aggressivi.','Controlla inserto e tagliente; riduci il carico e verifica Vc/f con la tabella del produttore.'],
+['Tornitura','Diametro fuori quota','Usura utensile, compensazione errata, dilatazione termica o deflessione.','Misura a temperatura stabile, correggi l’usura/offset e riduci carico se il pezzo flette.'],
+['Tornitura','Conicità indesiderata','Pezzo non centrato, contropunta disallineata, flessione o utensile non in asse.','Controlla allineamento, serraggio e altezza utensile; riduci sporgenza e carico.'],
+['Tornitura','Finitura a onde','Vibrazione, gioco meccanico o variazione di carico.','Controlla mandrino/torretta, rigidità e cuscinetti; riduci il carico di taglio.'],
+['Tornitura','Materiale si incolla al tagliente','BUE su materiali duttili, Vc troppo bassa o geometria non adatta.','Aumenta Vc nel campo ammesso, usa tagliente affilato/positivo e refrigerazione appropriata.'],
+['Tornitura','Surriscaldamento pezzo','Vc troppo alta, asportazione eccessiva o refrigerazione insufficiente.','Riduci Vc/ap, migliora refrigerazione e controlla evacuazione truciolo.'],
+['Foratura','Punta che devia','Superficie inclinata, preforo non idoneo, punta usurata o serraggio debole.','Crea un invito stabile, controlla concentricità e usura, riduci lo sbalzo.'],
+['Foratura','Foro fuori centro','Punta non centrata, mandrino/portautensile con runout o superficie non preparata.','Controlla runout, portautensile e punta; usa una strategia di centratura quando necessaria.'],
+['Foratura','Foro sovradimensionato','Runout, punta usurata o geometria non corretta.','Misura il runout e sostituisci/controlla la punta; verifica il diametro nominale.'],
+['Foratura','Foro sottodimensionato','Usura, deflessione, materiale incrudito o parametri non adeguati.','Controlla usura e rigidità; verifica Vc e f del produttore per quel materiale.'],
+['Foratura','Punta si rompe','Truciolo bloccato, profondità eccessiva, refrigerazione insufficiente o carico elevato.','Interrompi, estrai il truciolo in sicurezza, controlla refrigerazione e riduci il carico secondo catalogo.'],
+['Foratura','Truciolo che intasa il foro','Evacuazione insufficiente o f non adatto.','Migliora refrigerazione, usa cicli/strategia di evacuazione appropriati e correggi f.'],
+['Foratura','Foro con rigature','Truciolo trascinato, punta usurata o evacuazione scarsa.','Controlla taglienti, refrigerazione e rimozione del truciolo.'],
+['Foratura','Surriscaldamento punta','Vc alta, refrigerazione insufficiente o truciolo che resta nel foro.','Riduci Vc, aumenta refrigerazione e migliora evacuazione.'],
+['Foratura','Foratura profonda instabile','Sbalzo elevato, evacuazione difficile e deviazione progressiva.','Riduci lo sbalzo, usa utensile specifico per profondità e ciclo consigliato dal produttore.'],
+['Foratura','Bava in uscita','Geometria e usura, materiale duttile o avanzamento non ottimizzato.','Riduci la bava con geometria appropriata, controllo dell’uscita e parametri corretti.'],
+['Foratura','Ingresso con colpo / vibrazione','Superficie non stabile o punta non adatta all’ingresso.','Riduci il carico iniziale, stabilizza la superficie e verifica il centraggio.'],
+['Fresatura','Vibrazioni durante la fresatura','Sbalzo utensile elevato, impegno radiale assiale sfavorevole o risonanza.','Riduci sbalzo, modifica ae/ap e velocità, usa passo/numero denti e geometria adatti alla rigidità.'],
+['Fresatura','Fresa che si rompe','Sovraccarico, profondità eccessiva, ingresso errato o serraggio insufficiente.','Controlla serraggio e percorso; riduci ae/ap e carico per dente, verificando i limiti del produttore.'],
+['Fresatura','Usura rapida dei denti','Vc alta, refrigerazione o evacuazione inadeguata, grado non adatto.','Riduci Vc, migliora evacuazione e scegli grado/rivestimento coerente con il materiale.'],
+['Fresatura','Tagliente scheggiato','Entrata brusca, interruzioni, vibrazioni o materiale duro.','Usa ingresso in rampa/arco quando previsto, riduci carico e valuta una geometria più tenace.'],
+['Fresatura','Superficie con righe','Runout, dente usurato, passo/numero denti non adatto o vibrazione.','Controlla concentricità e usura; stabilizza il sistema e verifica ae/ap.'],
+['Fresatura','Fondo non uniforme','Fresa non in quota, flessione o geometria non adatta.','Controlla planarità, lunghezza utensile e deflessione; verifica la strategia di passata.'],
+['Fresatura','Parete fuori misura','Deflessione, runout, usura o compensazione utensile errata.','Misura il runout, correggi offset e riduci il carico laterale.'],
+['Fresatura','Bava sulle pareti','Tagliente usurato, direzione di taglio eccessivamente aggressiva o materiale duttile.','Controlla tagliente, direzione/strategia e parametri; considera una passata di finitura.'],
+['Fresatura','Trucioli che ricircolano','Refrigerante/aria insufficienti o tasca troppo chiusa.','Migliora il flusso di refrigerante/aria e la strategia di evacuazione; evita il re-taglio dei trucioli.'],
+['Fresatura','Carico mandrino troppo alto','Vf, ae/ap o Vc non coerenti con utensile e macchina.','Riduci il carico modificando una variabile alla volta e controlla la potenza/coppia disponibile.'],
+['Fresatura','Mandrino surriscaldato','Regime elevato, sbilanciamento, carico o serraggio problematici.','Controlla bilanciamento, portautensile e carico; verifica il limite di giri del mandrino.'],
+['Fresatura','Runout elevato','Portautensile, cono, pinza o utensile sporchi/danneggiati.','Pulisci interfacce, controlla cono e pinza, misura il runout e sostituisci i componenti danneggiati.'],
+['Generale','Utensile dura troppo poco','Parametri troppo aggressivi, grado errato, instabilità o refrigerazione inadeguata.','Confronta materiale e grado, riduci Vc o carico e verifica rigidità/serraggio.'],
+['Generale','Utensile dura troppo','Taglio molto conservativo o utensile sovradimensionato rispetto al lavoro.','Verifica il campo consigliato del produttore e aumenta gradualmente il carico solo se macchina e fissaggio lo consentono.'],
+['Generale','Macchina va in sovraccarico','Carico di taglio eccessivo, f/ap/ae troppo alti o utensile non adatto.','Riduci il carico, controlla potenza/coppia e distribuisci l’asportazione in più passate.'],
+['Generale','Rumore anomalo','Vibrazione, componente allentato, utensile danneggiato o contatto indesiderato.','Ferma e controlla in sicurezza serraggi, utensile, pezzo e percorso prima di continuare.'],
+['Generale','Quota cambia durante la serie','Usura, temperatura, accumulo truciolo o variazione del materiale.','Stabilisci una routine di controllo dimensionale e compensazione usura; monitora temperatura e utensile.'],
+['Generale','Refrigerante non arriva al tagliente','Ugello mal posizionato, pressione/portata insufficienti o percorso ostruito.','Ripristina il flusso sul punto di taglio e pulisci il circuito/ugello secondo la procedura della macchina.'],
+['Generale','Truciolo pericoloso','Forma lunga, evacuazione scarsa o parametri non corretti.','Non rimuoverlo a mano durante il ciclo; ferma la macchina secondo procedura e correggi rompitruciolo, f e strategia.'],
+['Generale','Pezzo si muove nel serraggio','Forza o superficie di appoggio insufficienti, staffaggio errato.','Ferma la lavorazione, ripristina il serraggio e verifica battute/appoggi prima di ripartire.'],
+['Generale','Utensile non è in asse','Montaggio errato, portautensile danneggiato o offset errato.','Controlla altezza centro/orientamento e serraggio; verifica il portautensile.'],
+['Generale','Parametri non corrispondono alla tabella','La tabella appartiene a un altro grado, materiale, diametro o condizione di lavoro.','Usa sempre la scheda del codice/grado esatto come riferimento finale; tratta i valori dell’app come punto di partenza.']
+];
+function renderProblems(){
+ const q=String(document.getElementById('problemSearch').value||'').toLowerCase(),a=document.getElementById('problemArea').value;
+ const list=problems.filter(p=>(!a||p[0]===a)&&(!q||p.join(' ').toLowerCase().includes(q)));
+ document.getElementById('problemList').innerHTML=list.map(p=>'<article class="problemCard"><h3>'+esc(p[0])+' · '+esc(p[1])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(p[2])+'</p><div class="solution"><b>Soluzione:</b> '+esc(p[3])+'</div></article>').join('')||'<div class="result">Nessun problema trovato.</div>';
+}
+document.getElementById('problemSearch').oninput=renderProblems;document.getElementById('problemArea').oninput=renderProblems;renderProblems();
+
 function openTool(x){
  const kind=familyFor(x), p=photoMap[kind]||photoMap.HOLDER;
  let body='<h2>'+esc(x.code)+'</h2><p><b>Categoria:</b> '+esc(x.category)+'</p><p>'+esc(x.geom)+'</p>'+toolDrawing(kind)+'<p><b>Materiale:</b> '+esc(x.material)+'</p><div class="formulaBox">Vc: '+esc(x.vc)+' m/min · f/fz: '+esc(x.f)+' · ap: '+esc(x.ap)+'</div><p class="photo-caption">Fotografia reale del prodotto/famiglia. Il codice preciso, grado e quote devono essere verificati sulla scheda del produttore.</p>';
