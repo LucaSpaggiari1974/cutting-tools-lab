@@ -159,9 +159,16 @@ function render(){
  document.getElementById("status").textContent=a.length+" righe · tocca una riga per caricare i dati nella barra dei parametri";
  rows.querySelectorAll("tr.data").forEach(tr=>{
  tr.onclick=()=>select(data[+tr.dataset.i]);
- const code=tr.querySelector(".code");
- if(code)code.onclick=e=>{e.stopPropagation();openTool(data[+tr.dataset.i])};
 });
+rows.onclick=e=>{
+ const code=e.target.closest(".code");
+ if(!code)return;
+ const tr=code.closest("tr.data");
+ if(!tr)return;
+ e.preventDefault();
+ e.stopPropagation();
+ openTool(data[+tr.dataset.i]);
+};
 }
 function select(x){selected=x;document.getElementById("fc").textContent=x.code;document.getElementById("fm").textContent=x.material;document.getElementById("fv").textContent=x.vc;document.getElementById("ff").textContent=x.f;document.getElementById("fa").textContent=x.ap}
 [q,cat,mat,maker].forEach(e=>e.addEventListener("input",render));
@@ -256,19 +263,22 @@ DRILL_MOD:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42
 HOLDER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?set_id=880000500F","Foto reale portautensile"],
 ADAPTER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?set_id=880000500F","Foto reale mandrino/adattatore"]
 };
-function toolPhoto(x){
+function toolPhoto(x,modal=false){
  if(x && x.photoUrl){
    const src=esc(x.photoUrl), alt=esc((x.maker||'')+' '+(x.code||''));
    const sourceLabel=(x.photoSource==='manufacturer'||String(x.photoSource||'').toUpperCase().includes('ISCAR'))?'Foto ufficiale/collegata al produttore':'Foto del prodotto da distributore';
-   const link=x.drawingUrl?'<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>':(x.productUrl?'<a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda prodotto ufficiale</a>':'');
-   return '<div><img class="recDraw" loading="lazy" src="'+src+'" alt="'+alt+'" onerror="this.style.display=\'none\'"><div class="photo-caption">'+sourceLabel+' · '+esc(x.maker||'')+'</div>'+link+'</div>';
+   const direct='<a href="'+src+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">🖼️ Apri immagine originale</a>';
+   const link=x.drawingUrl?'<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>':(x.productUrl?'<a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda prodotto ufficiale</a>':'');
+   const loading=modal?'eager':'lazy';
+   return '<div><img class="recDraw" loading="'+loading+'" src="'+src+'" alt="'+alt+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><div class="photo-caption" style="display:none;padding:10px;background:#fff;border:1px solid var(--line);border-radius:9px">⚠️ Immagine non caricata nel browser. Usa il link diretto qui sotto.</div><div class="photo-caption">'+sourceLabel+' · '+esc(x.maker||'')+'</div>'+direct+(link?'<br>'+link:'')+'</div>';
  }
  if(x && x.productUrl){
-   return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Foto ufficiale non incorporata direttamente. <a href="'+esc(x.drawingUrl||x.productUrl)+'" target="_blank" rel="noopener" style="color:#185b8f;font-weight:800">Apri il disegno/codice ufficiale di '+esc(x.maker||'del produttore')+'</a>.</div>';
+   return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Foto ufficiale non incorporata direttamente. <a href="'+esc(x.drawingUrl||x.productUrl)+'" target="_blank" rel="noopener noreferrer" style="color:#185b8f;font-weight:800">Apri il disegno/codice ufficiale di '+esc(x.maker||'del produttore')+'</a>.</div>';
  }
  if(x && x.maker && x.maker!=='ISO' && x.maker!=='ISO / produttore'){
    if(x.genericPhotoUrl){
-     return '<div><img class="recDraw" loading="lazy" src="'+esc(x.genericPhotoUrl)+'" alt="'+esc((x.genericPhotoNote||'Immagine generica della tipologia')+' · '+(x.maker||''))+'" onerror="this.style.display=\'none\'"><div class="photo-caption">Immagine generica della tipologia · '+esc(x.maker||'')+'</div></div>';
+     const src=esc(x.genericPhotoUrl);
+     return '<div><img class="recDraw" loading="'+(modal?'eager':'lazy')+'" src="'+src+'" alt="'+esc((x.genericPhotoNote||'Immagine generica della tipologia')+' · '+(x.maker||''))+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><div class="photo-caption" style="display:none">⚠️ Immagine non caricata.</div><div class="photo-caption">Immagine generica della tipologia · '+esc(x.maker||'')+'</div><a href="'+src+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">🖼️ Apri immagine originale</a></div>';
    }
    return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Nessuna immagine affidabile associata. Il riquadro resta vuoto per evitare foto di un altro utensile o produttore.</div>';
  }
@@ -385,7 +395,7 @@ const closeModal=document.getElementById("closeModal");
 const modalBody=document.getElementById("modalBody");
 function openTool(x){
  const kind=familyFor(x), p=photoMap[kind]||photoMap.HOLDER;
- let body='<h2>'+esc(x.code)+'</h2><p><b>Fornitore:</b> '+esc(x.maker||'—')+'</p><p><b>Categoria:</b> '+esc(x.category)+'</p><p>'+esc(x.geom)+'</p>'+toolPhoto(x)+'<p><b>Materiale:</b> '+esc(x.material)+'</p><div class="formulaBox">Vc: '+esc(x.vc)+' m/min · f/fz: '+esc(x.f)+' · ap: '+esc(x.ap)+'</div><p class="photo-caption">'+esc(x.photoNote||x.photoSource||'Fonte fotografica non specificata')+'. Il codice preciso, grado e quote devono essere verificati sulla scheda del produttore.</p>';
+ let body='<h2>'+esc(x.code)+'</h2><p><b>Fornitore:</b> '+esc(x.maker||'—')+'</p><p><b>Categoria:</b> '+esc(x.category)+'</p><p>'+esc(x.geom)+'</p>'+toolPhoto(x,true)+'<p><b>Materiale:</b> '+esc(x.material)+'</p><div class="formulaBox">Vc: '+esc(x.vc)+' m/min · f/fz: '+esc(x.f)+' · ap: '+esc(x.ap)+'</div><p class="photo-caption">'+esc(x.photoNote||x.photoSource||'Fonte fotografica non specificata')+'. Il codice preciso, grado e quote devono essere verificati sulla scheda del produttore.</p>';
  modalBody.innerHTML=body;toolModal.hidden=false;
 }
 closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target===toolModal)toolModal.hidden=true};document.addEventListener("keydown",e=>{if(e.key==="Escape")toolModal.hidden=true});
