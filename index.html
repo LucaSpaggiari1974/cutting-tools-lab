@@ -269,8 +269,11 @@ function toolPhoto(x){
  if(x && x.productUrl){
    return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Foto ufficiale non incorporata direttamente. <a href="'+esc(x.drawingUrl||x.productUrl)+'" target="_blank" rel="noopener" style="color:#185b8f;font-weight:800">Apri il disegno/codice ufficiale di '+esc(x.maker||'del produttore')+'</a>.</div>';
  }
- if(x && x.maker && x.maker!=='ISO'){
-   return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Nessuna foto ufficiale diretta associata a questo codice. Non viene mostrata una foto di un altro produttore.</div>';
+ if(x && x.maker && x.maker!=='ISO' && x.maker!=='ISO / produttore'){
+   if(x.genericPhotoUrl){
+     return '<div><img class="recDraw" loading="lazy" src="'+esc(x.genericPhotoUrl)+'" alt="'+esc((x.genericPhotoNote||'Immagine generica della tipologia')+' · '+(x.maker||''))+'" onerror="this.style.display=\'none\'"><div class="photo-caption">Immagine generica della tipologia · '+esc(x.maker||'')+'</div></div>';
+   }
+   return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Nessuna immagine affidabile associata. Il riquadro resta vuoto per evitare foto di un altro utensile o produttore.</div>';
  }
  return toolDrawing(familyFor(x));
 }
