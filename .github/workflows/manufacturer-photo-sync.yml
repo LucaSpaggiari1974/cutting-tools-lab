@@ -23,13 +23,17 @@ jobs:
           python-version: "3.x"
       - name: Sync exact manufacturer photos
         run: python scripts/sync_manufacturer_photos.py
+      - name: Verify every catalog photo URL
+        id: verify
+        continue-on-error: true
+        run: python scripts/verify_catalog_photos.py
+
       - name: Commit photo database updates
         run: |
           git config user.name "cutting-tools-lab-bot"
           git config user.email "actions@users.noreply.github.com"
-          if git diff --quiet -- catalog.json; then
-            echo "No catalog photo changes detected."
-            exit 0
+          if git diff --quiet -- catalog.json data/photo-runtime-verification.json; then
+            echo "No catalog/photo verification changes detected."
           fi
           python - <<'PY'
           from pathlib import Path
@@ -41,10 +45,14 @@ jobs:
           p.write_text(s[:m.start(2)]+str(n)+s[m.end(2):],encoding="utf-8")
           print("Bumped SW cache to",n)
           PY
-          git add catalog.json data/manufacturer-photo-sync-report.json sw.js
+          git add catalog.json data/manufacturer-photo-sync-report.json data/photo-runtime-verification.json sw.js
           if git diff --cached --quiet; then
             echo "No photo database changes detected."
           else
-            git commit -m "Auto-sync exact manufacturer product photos"
+            git commit -m "Auto-sync and verify exact manufacturer product photos"
             git push
           fi
+
+      - name: Fail workflow if photo verification found errors
+        if: steps.verify.outcome == 'failure'
+        run: exit 1
