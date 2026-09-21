@@ -193,8 +193,12 @@ def main():
     new_count=len(seen)
 
     catalog["items"]=items
-    catalog["updatedAt"]=started
-    catalog["version"]=str(catalog.get("version","2.5"))+"-auto"
+    old_items=json.loads(old).get("items",[])
+    items_changed=(items!=old_items)
+    if items_changed:
+        catalog["updatedAt"]=started
+        if not str(catalog.get("version","")).endswith("-auto"):
+            catalog["version"]=str(catalog.get("version","2.5"))+"-auto"
     new=json.dumps(catalog,ensure_ascii=False,sort_keys=True)
     changed=(new!=old)
 
