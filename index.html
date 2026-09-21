@@ -81,67 +81,69 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 
 </section>
 <section id="formule" class="page">
-<h2>Formule di taglio — Tornitura</h2>
-<div class="card"><div class="grid">
-<label>Diametro lavorato Dm (mm)<input id="formulaD" type="number" min="0.1" step="0.1" placeholder="richiesto"></label>
-<label>Vc (m/min)<input id="formulaVcInput" type="number" min="0" step="0.1" placeholder="inserisci Vc"></label>
-<label>Giri n (rpm)<input id="formulaNInput" type="number" min="0" step="1" placeholder="oppure n"></label>
-<label>Avanzamento fn (mm/giro)<input id="formulaFnInput" type="number" min="0" step="0.001" placeholder="richiesto"></label>
-<label>Profondità ap (mm)<input id="formulaApInput" type="number" min="0" step="0.1" placeholder="richiesto"></label>
-<label>Lunghezza lavorata lm (mm)<input id="formulaLmInput" type="number" min="0" step="1" placeholder="per Tc"></label>
-<label>Angolo KAPR (°)<input id="formulaKaprInput" type="number" min="1" max="179" step="0.1" placeholder="per hm"></label>
-<label>Forza specifica kc (N/mm²)<input id="formulaKcInput" type="number" min="0" step="1" placeholder="per Pc"></label>
-<label>kc1 (N/mm²)<input id="formulaKc1Input" type="number" min="0" step="1" placeholder="per kc Kienzle"></label>
-<label>mc<input id="formulaMcInput" type="number" min="0" step="0.001" placeholder="per kc Kienzle"></label>
-<label>Angolo di spoglia efficace γ0 (°)<input id="formulaGammaInput" type="number" step="0.1" placeholder="per kc"></label>
-</div>
-<div id="formulaOut" class="result">Inserisci i dati richiesti.</div>
-<div id="formulaResults" class="result" style="margin-top:8px">Vc — · n — · Vf — · Q — · Tc — · kc — · Pc — · hm —</div>
-<div class="small">Formule metriche Sandvik: Vc=π·Dm·n/1000; n=Vc·1000/(π·Dm); Tc=lm/(fn·n); Q=Vc·ap·fn; hm=fn·sin(KAPR); kc=kc1·(1/hm)^mc·(1−γ0/100); Pc=Vc·ap·fn·kc/(60·10³). citeturn1search17turn0search15</div>
+<h2>📐 Formule — calcolo tecnico</h2>
+<div class="card"><div class="small">Tutti i campi partono vuoti. Inserisci i dati del manuale/scheda del produttore: il programma calcola solo quando i dati necessari sono presenti.</div>
+<h3>Tornitura</h3><div class="grid">
+<label>Dm · diametro lavorato (mm)<input id="formulaD" type="number" min="0" step="0.01" placeholder="es. 50"></label>
+<label>Vc (m/min)<input id="formulaVcInput" type="number" min="0" step="0.1" placeholder="da produttore"></label>
+<label>n · giri (rpm)<input id="formulaNInput" type="number" min="0" step="1" placeholder="alternativa a Vc"></label>
+<label>fn · avanzamento (mm/giro)<input id="formulaFnInput" type="number" min="0" step="0.001" placeholder="da produttore"></label>
+<label>ap · profondità (mm)<input id="formulaApInput" type="number" min="0" step="0.01" placeholder="da produttore"></label>
+<label>lm · lunghezza lavorata (mm)<input id="formulaLmInput" type="number" min="0" step="1" placeholder="per Tc"></label>
+<label>KAPR · angolo di registrazione (°)<input id="formulaKaprInput" type="number" min="0" max="180" step="0.1" placeholder="per hm/forza"></label>
+<label>kc · forza specifica (N/mm²)<input id="formulaKcInput" type="number" min="0" step="1" placeholder="da produttore"></label>
+</div><div id="formulaOut" class="result">Inserisci i dati richiesti.</div><div id="formulaResults" class="result">Vc — · n — · Vf — · Q — · Tc — · Pc — · hm —</div>
+<h3>Foratura</h3><div class="grid">
+<label>Dc · diametro punta (mm)<input id="formulaDrD" type="number" min="0" step="0.01" placeholder="richiesto"></label>
+<label>Vc (m/min)<input id="formulaDrVc" type="number" min="0" step="0.1" placeholder="da produttore"></label>
+<label>fn · avanzamento (mm/giro)<input id="formulaDrFn" type="number" min="0" step="0.001" placeholder="da produttore"></label>
+<label>ap · profondità (mm)<input id="formulaDrAp" type="number" min="0" step="0.1" placeholder="es. profondità foro"></label>
+<label>kc (N/mm²)<input id="formulaDrKc" type="number" min="0" step="1" placeholder="opzionale"></label>
+</div><div id="formulaDrOut" class="result">Inserisci i dati richiesti.</div>
+<h3>Fresatura</h3><div class="grid">
+<label>Dcap · diametro di taglio (mm)<input id="formulaMiD" type="number" min="0" step="0.01" placeholder="richiesto"></label>
+<label>Vc (m/min)<input id="formulaMiVc" type="number" min="0" step="0.1" placeholder="da produttore"></label>
+<label>fz · avanzamento/dente (mm)<input id="formulaMiFz" type="number" min="0" step="0.001" placeholder="da produttore"></label>
+<label>zc · denti efficaci<input id="formulaMiZc" type="number" min="1" step="1" placeholder="richiesto"></label>
+<label>ap · profondità (mm)<input id="formulaMiAp" type="number" min="0" step="0.01" placeholder="da produttore"></label>
+<label>ae · impegno radiale (mm)<input id="formulaMiAe" type="number" min="0" step="0.01" placeholder="da produttore"></label>
+<label>kc (N/mm²)<input id="formulaMiKc" type="number" min="0" step="1" placeholder="opzionale"></label>
+</div><div id="formulaMiOut" class="result">Inserisci i dati richiesti.</div>
 </div></section>
-<section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura — calcolo completo</h2>
-<div class="calcgrid">
+<section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura</h2>
+<div class="grid">
+<label>Materiale pezzo<select id="tc_mat"><option value="">Seleziona</option><option>P Acciai</option><option>M Inox</option><option>K Ghise</option><option>N Non ferrosi</option><option>S Superleghe/Titanio</option><option>H Temprati</option></select></label>
 <label>Operazione<select id="tc_op"><option value="rough">Sgrossatura</option><option value="finish">Finitura</option></select></label>
-<label>Raggio punta<select id="tc_r"><option value="1.2">R1,2 mm</option><option value="0.8">R0,8 mm</option><option value="0.4">R0,4 mm</option></select></label>
-<label>Materiale<select id="tc_mat"><option value="">Seleziona</option><option>P Acciaio</option><option>M Inox</option><option>K Ghisa</option><option>N Non ferrosi</option><option>S Superleghe/Titanio</option><option>H Temprati</option></select></label>
-</div>
-<div class="grid">
-<label>Diametro Dm (mm)<input id="tc_d" type="number" min="0.1" step="0.1" placeholder="richiesto"></label>
-<label>Vc consigliata (m/min)<input id="tc_vc" type="number" min="0" step="0.1" placeholder="da produttore"></label>
-<label>fn (mm/giro)<input id="tc_fn" type="number" min="0" step="0.001" placeholder="da produttore"></label>
-<label>ap (mm)<input id="tc_ap" type="number" min="0" step="0.1" placeholder="richiesto"></label>
-<label>lm (mm)<input id="tc_lm" type="number" min="0" step="1" placeholder="per tempo"></label>
+<label>Geometria inserto<select id="tc_geom"><option value="">Automatica</option><option>CNMG</option><option>DNMG</option><option>WNMG</option><option>SNMG</option><option>VNMG</option><option>CCMT</option><option>DCMT</option></select></label>
+<label>Raggio punta (mm)<input id="tc_r" type="number" min="0.1" step="0.1" placeholder="es. 0.8"></label>
+<label>Diametro Dm (mm)<input id="tc_d" type="number" min="0" step="0.01" placeholder="richiesto"></label>
+<label>Vc produttore (m/min)<input id="tc_vc" type="number" min="0" step="0.1" placeholder="da scheda"></label>
+<label>fn produttore (mm/giro)<input id="tc_fn" type="number" min="0" step="0.001" placeholder="da scheda"></label>
+<label>ap (mm)<input id="tc_ap" type="number" min="0" step="0.01" placeholder="da scheda"></label>
 <label>kc (N/mm²)<input id="tc_kc" type="number" min="0" step="1" placeholder="opzionale"></label>
-</div>
-<div id="tc_out" class="result">Compila i dati richiesti.</div>
-<div class="recommendTitle">Inserti consigliati · foto reale · selezione per lavorazione e raggio</div><div id="tc_rec" class="recommend"></div>
-</div></section>
-<section id="foratura" class="page"><div class="calc"><h2>🕳️ Foratura — calcolo completo</h2>
+</div><div id="tc_out" class="result">Compila i dati richiesti.</div><div class="recommendTitle">Inserto associato alla lavorazione e ai parametri</div><div id="tc_rec" class="recommend"></div></div></section>
+<section id="foratura" class="page"><div class="calc"><h2>🕳️ Foratura</h2>
 <div class="grid">
-<label>Diametro punta Dc (mm)<input id="dr_d" type="number" min="0.1" step="0.1" placeholder="richiesto"></label>
+<label>Materiale<select id="dr_mat"><option value="">Seleziona</option><option>P Acciai</option><option>M Inox</option><option>K Ghise</option><option>N Non ferrosi</option><option>S Superleghe/Titanio</option><option>H Temprati</option></select></label>
+<label>Tipo punta<select id="dr_type"><option value="">Seleziona</option><option>Metallo duro integrale</option><option>Punta a inserti</option><option>Testa intercambiabile</option><option>Foro profondo</option><option>Micro-punta</option></select></label>
+<label>Dc · diametro (mm)<input id="dr_d" type="number" min="0" step="0.01" placeholder="richiesto"></label>
 <label>Vc (m/min)<input id="dr_vc" type="number" min="0" step="0.1" placeholder="da produttore"></label>
 <label>fn (mm/giro)<input id="dr_fn" type="number" min="0" step="0.001" placeholder="da produttore"></label>
-<label>kc (N/mm²)<input id="dr_kc" type="number" min="0" step="1" placeholder="per potenza/forza"></label>
-<label>KAPR (°)<input id="dr_kapr" type="number" min="1" max="179" step="0.1" placeholder="per forza"></label>
-<label>Profondità foro (mm)<input id="dr_lm" type="number" min="0" step="0.1" placeholder="per tempo"></label>
-</div>
-<div id="dr_out" class="result">Compila i dati richiesti.</div>
-<div class="recommendTitle">Punte consigliate · foto reale</div><div id="dr_rec" class="recommend"></div>
-</div></section>
-<section id="fresatura" class="page"><div class="calc"><h2>⚙️ Fresatura — calcolo completo</h2>
+<label>Profondità foro (mm)<input id="dr_lm" type="number" min="0" step="0.1" placeholder="richiesto"></label>
+<label>kc (N/mm²)<input id="dr_kc" type="number" min="0" step="1" placeholder="opzionale"></label>
+</div><div id="dr_out" class="result">Compila i dati richiesti.</div><div class="recommendTitle">Punta associata al diametro, materiale e tipo</div><div id="dr_rec" class="recommend"></div></div></section>
+<section id="fresatura" class="page"><div class="calc"><h2>⚙️ Fresatura</h2>
 <div class="grid">
-<label>Diametro di taglio Dcap (mm)<input id="mi_d" type="number" min="0.1" step="0.1" placeholder="richiesto"></label>
+<label>Materiale<select id="mi_mat"><option value="">Seleziona</option><option>P Acciai</option><option>M Inox</option><option>K Ghise</option><option>N Non ferrosi</option><option>S Superleghe/Titanio</option><option>H Temprati</option></select></label>
+<label>Tipo fresa<select id="mi_type"><option value="">Seleziona</option><option>Integrale metallo duro</option><option>Fresa a inserti</option><option>Spianatura</option><option>Scanalatura</option><option>Filettatura</option></select></label>
+<label>Dcap · diametro (mm)<input id="mi_d" type="number" min="0" step="0.01" placeholder="richiesto"></label>
 <label>Vc (m/min)<input id="mi_vc" type="number" min="0" step="0.1" placeholder="da produttore"></label>
 <label>fz (mm/dente)<input id="mi_fz" type="number" min="0" step="0.001" placeholder="da produttore"></label>
-<label>Numero denti efficaci zc<input id="mi_zc" type="number" min="1" step="1" placeholder="richiesto"></label>
-<label>ap (mm)<input id="mi_ap" type="number" min="0" step="0.1" placeholder="richiesto"></label>
-<label>ae (mm)<input id="mi_ae" type="number" min="0" step="0.1" placeholder="richiesto"></label>
-<label>kc (N/mm²)<input id="mi_kc" type="number" min="0" step="1" placeholder="per potenza"></label>
-<label>lm (mm)<input id="mi_lm" type="number" min="0" step="1" placeholder="per tempo"></label>
-</div>
-<div id="mi_out" class="result">Compila i dati richiesti.</div>
-<div class="recommendTitle">Frese consigliate · foto reale</div><div id="mi_rec" class="recommend"></div>
-</div></section>
+<label>zc · denti efficaci<input id="mi_zc" type="number" min="1" step="1" placeholder="da utensile"></label>
+<label>ap (mm)<input id="mi_ap" type="number" min="0" step="0.01" placeholder="da scheda"></label>
+<label>ae (mm)<input id="mi_ae" type="number" min="0" step="0.01" placeholder="da scheda"></label>
+<label>kc (N/mm²)<input id="mi_kc" type="number" min="0" step="1" placeholder="opzionale"></label>
+</div><div id="mi_out" class="result">Compila i dati richiesti.</div><div class="recommendTitle">Fresa associata al diametro, materiale e tipo</div><div id="mi_rec" class="recommend"></div></div></section>
 <section id="produttori" class="page"><div class="calc"><h2>🏭 Produttori, cataloghi e disegni</h2><p>Assortimento separato per produttore. <b>Sandvik Coromant</b>, <b>ISCAR</b> e <b>ISO</b> sono tre voci distinte. I cataloghi e i disegni restano collegati alle fonti ufficiali del produttore.</p><div class="searchgrid"><input id="manufacturerSearch" placeholder="Cerca produttore, catalogo o tecnologia…"><select id="manufacturerType"><option value="">Tutti</option><option value="Produttore">Produttori</option><option value="Standard / assortimento generico">ISO / standard</option></select></div><div id="manufacturerList" class="problemList"></div></div></section>
 <section id="problemi" class="page">
 <div class="calc"><h2>🛠️ Problemi di lavorazione · diagnosi e soluzioni</h2>
@@ -412,26 +414,13 @@ function selectToolFor(type,d){
  return turnCandidates(d,window.currentTurnOp||'rough',window.currentTurnRadius||0.8)[0]||null;
 }
 function autoCalc(id,out,filter,mill){
- const el=id==='tc_d'?'tc_d':id, d=+document.getElementById(el).value;
- const target=document.getElementById(out);
- if(!d||d<=0){target.textContent='Inserisci il diametro richiesto.';return}
+ const d=+document.getElementById(id).value,target=document.getElementById(out);
+ if(!d){target.textContent='Inserisci il diametro richiesto.';return}
  let use=mill?selectToolFor('mill',d):(id==='dr_d'?selectToolFor('drill',d):selectToolFor('turn',d));
- if(!use){target.textContent='Nessun utensile disponibile per questa lavorazione.';return}
- if(id==='tc_d'){
-   const vc=+document.getElementById('tc_vc').value, f=+document.getElementById('tc_fn').value, ap=+document.getElementById('tc_ap').value, lm=+document.getElementById('tc_lm').value;
-   if(!vc||!f||!ap){target.textContent='Inserisci Vc, fn e ap per completare il calcolo.';return}
-   const n=calcN(vc,d),vf=f*n,Q=vc*ap*f,Tc=lm>0?lm/vf:0,kc=+document.getElementById('tc_kc').value,Pc=kc>0?vc*ap*f*kc/(60e3):0;
-   target.textContent='Utensile: '+use.code+' · Vc '+vc.toFixed(1)+' m/min · n '+Math.round(n)+' rpm · Vf '+vf.toFixed(1)+' mm/min · Q '+Q.toFixed(2)+' cm³/min'+(Tc?' · Tc '+Tc.toFixed(2)+' min':'')+(Pc?' · Pc '+Pc.toFixed(2)+' kW':'');
- }else if(id==='dr_d'){
-   const vc=+document.getElementById('dr_vc').value, f=+document.getElementById('dr_fn').value, kc=+document.getElementById('dr_kc').value, kapr=+document.getElementById('dr_kapr').value, lm=+document.getElementById('dr_lm').value;
-   if(!vc||!f){target.textContent='Inserisci Vc e fn per completare il calcolo.';return}
-   const n=calcN(vc,d),vf=f*n,Q=vc*d*f/4,Pc=kc>0?vc*d*f*kc/(240e3):0,Ff=kc>0&&kapr>0?0.5*kc*(d/2)*f*Math.sin(kapr*Math.PI/180):0,Mc=Pc>0?n>0?Pc*30e3/(Math.PI*n):0:0,Tc=lm>0?lm/vf:0;
-   target.textContent='Utensile: '+use.code+' · Vc '+vc.toFixed(1)+' m/min · n '+Math.round(n)+' rpm · Vf '+vf.toFixed(1)+' mm/min · Q '+Q.toFixed(2)+' cm³/min'+(Tc?' · Tc '+Tc.toFixed(2)+' min':'')+(Pc?' · Pc '+Pc.toFixed(2)+' kW':'')+(Mc?' · Mc '+Mc.toFixed(1)+' Nm':'')+(Ff?' · Ff '+Ff.toFixed(0)+' N':'');
- }else{
-   const vc=+document.getElementById('mi_vc').value,fz=+document.getElementById('mi_fz').value,zc=+document.getElementById('mi_zc').value,ap=+document.getElementById('mi_ap').value,ae=+document.getElementById('mi_ae').value,kc=+document.getElementById('mi_kc').value,dc=d,n=vc>0?calcN(vc,dc):0,vf=vc>0&&fz>0&&zc>0?fz*n*zc:0,Q=ap>0&&ae>0&&vf>0?ap*ae*vf/1000:0,Pc=kc>0&&ae>0&&ap>0&&vf>0?ae*ap*vf*kc/(60e6):0,Mc=Pc>0&&n>0?Pc*30e3/(Math.PI*n):0;
-   if(!vc||!fz||!zc||!ap||!ae){target.textContent='Inserisci Vc, fz, zc, ap e ae per completare il calcolo.';return}
-   target.textContent='Utensile: '+use.code+' · Vc '+vc.toFixed(1)+' m/min · n '+Math.round(n)+' rpm · Vf '+vf.toFixed(1)+' mm/min · Q '+Q.toFixed(2)+' cm³/min'+(Pc?' · Pc '+Pc.toFixed(2)+' kW':'')+(Mc?' · Mc '+Mc.toFixed(1)+' Nm':'');
- }
+ if(!use){target.textContent='Nessun utensile compatibile trovato nel catalogo.';return}
+ if(id==='tc_d'){const vc=+tc_vc.value,f=+tc_fn.value,ap=+tc_ap.value,kc=+tc_kc.value;if(!vc||!f||!ap){target.textContent='Inserisci Vc, fn e ap.';return}const n=calcN(vc,d),vf=f*n,Q=vc*ap*f,Pc=kc>0?vc*ap*f*kc/(60e3):0;target.textContent='Inserto: '+use.code+' · '+vc.toFixed(1)+' m/min · '+Math.round(n)+' rpm · Vf '+vf.toFixed(1)+' mm/min · Q '+Q.toFixed(2)+' cm³/min'+(Pc?' · Pc '+Pc.toFixed(2)+' kW':'');}
+ else if(id==='dr_d'){const vc=+dr_vc.value,f=+dr_fn.value,l=+dr_lm.value;if(!vc||!f){target.textContent='Inserisci Vc e fn.';return}const n=calcN(vc,d),vf=f*n,Tc=l>0?l/vf:0;target.textContent='Punta: '+use.code+' · '+vc.toFixed(1)+' m/min · '+Math.round(n)+' rpm · Vf '+vf.toFixed(1)+' mm/min'+(Tc?' · Tc '+Tc.toFixed(2)+' min':'');}
+ else {const vc=+mi_vc.value,fz=+mi_fz.value,z=+mi_zc.value,ap=+mi_ap.value,ae=+mi_ae.value,kc=+mi_kc.value;if(!vc||!fz||!z||!ap||!ae){target.textContent='Inserisci Vc, fz, zc, ap e ae.';return}const n=calcN(vc,d),vf=fz*n*z,Q=ap*ae*vf/1000,Pc=kc>0?ae*ap*vf*kc/(60e6):0;target.textContent='Fresa: '+use.code+' · '+vc.toFixed(1)+' m/min · '+Math.round(n)+' rpm · Vf '+vf.toFixed(1)+' mm/min · Q '+Q.toFixed(2)+' cm³/min'+(Pc?' · Pc '+Pc.toFixed(2)+' kW':'');}
  refreshRecommendations();
 }
 
@@ -450,11 +439,11 @@ function calcFormulaPage(){
  document.getElementById('formulaResults').textContent='Vc '+(vc?vc.toFixed(1):'—')+' m/min · n '+(n?Math.round(n):'—')+' rpm · Vf '+(vf?vf.toFixed(1):'—')+' mm/min · Q '+(Q?Q.toFixed(2):'—')+' cm³/min · Tc '+(Tc?Tc.toFixed(2):'—')+' min · Pc '+(Pc?Pc.toFixed(2):'—')+' kW · hm '+(hm?hm.toFixed(3):'—')+' mm';
 }
 \n['formulaD','formulaVcInput','formulaNInput','formulaFnInput','formulaApInput','formulaLmInput','formulaKaprInput','formulaKcInput'].forEach(id=>document.getElementById(id)?.addEventListener('input',calcFormulaPage));\n
-document.getElementById('tc_op').onchange=()=>{window.currentTurnOp=document.getElementById('tc_op').value;autoCalc('tc_d','tc_out',null,false)};
-document.getElementById('tc_r').onchange=()=>{window.currentTurnRadius=+document.getElementById('tc_r').value;autoCalc('tc_d','tc_out',null,false)};
-['tc_mat','tc_d','tc_vc','tc_fn','tc_ap','tc_lm','tc_kc'].forEach(id=>document.getElementById(id)?.addEventListener('input',()=>autoCalc('tc_d','tc_out',null,false)));
-['dr_d','dr_vc','dr_fn','dr_kc','dr_kapr','dr_lm'].forEach(id=>document.getElementById(id)?.addEventListener('input',()=>autoCalc('dr_d','dr_out',null,false)));
-['mi_d','mi_vc','mi_fz','mi_zc','mi_ap','mi_ae','mi_kc','mi_lm'].forEach(id=>document.getElementById(id)?.addEventListener('input',()=>autoCalc('mi_d','mi_out',null,true)));
+document.getElementById('tc_op').onchange=()=>{window.currentTurnOp=tc_op.value;autoCalc('tc_d','tc_out',null,false)};
+document.getElementById('tc_r').oninput=()=>{window.currentTurnRadius=+tc_r.value||0.8;autoCalc('tc_d','tc_out',null,false)};
+['tc_mat','tc_geom','tc_d','tc_vc','tc_fn','tc_ap','tc_kc'].forEach(id=>document.getElementById(id)?.addEventListener('input',()=>autoCalc('tc_d','tc_out',null,false)));
+['dr_mat','dr_type','dr_d','dr_vc','dr_fn','dr_lm','dr_kc'].forEach(id=>document.getElementById(id)?.addEventListener('input',()=>autoCalc('dr_d','dr_out',null,false)));
+['mi_mat','mi_type','mi_d','mi_vc','mi_fz','mi_zc','mi_ap','mi_ae','mi_kc'].forEach(id=>document.getElementById(id)?.addEventListener('input',()=>autoCalc('mi_d','mi_out',null,true)));
 
 let manufacturers=[];
 async function loadManufacturers(){try{const r=await fetch("./manufacturers.json",{cache:"no-store"});manufacturers=await r.json();renderManufacturers()}catch(e){document.getElementById("manufacturerList").innerHTML="<div class=\"result\">Registro produttori non disponibile.</div>"}}
