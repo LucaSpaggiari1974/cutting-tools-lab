@@ -18,6 +18,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Verifica JavaScript applicazione
+        run: |
+          python - <<'PY'
+          import re
+          s=open("index.html",encoding="utf-8").read()
+          scripts=re.findall(r"<script[^>]*>(.*?)</script>",s,re.I|re.S)
+          assert scripts, "Nessun blocco JavaScript trovato"
+          open("/tmp/app.js","w",encoding="utf-8").write(scripts[-1])
+          PY
+          node --check /tmp/app.js
+          node --check sw.js
       - name: Importa database memoria
         run: python merge_catalog.py
       - uses: actions/upload-pages-artifact@v3
