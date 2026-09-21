@@ -298,7 +298,7 @@ function familyFor(x){
 }
 function renderRecommendations(target,filter){
  const list=data.filter(x=>filter(x)).slice(0,4);
- target.innerHTML=list.length?list.map(x=>'<div class="recCard">'+toolDrawing(familyFor(x))+'<div class="recMeta"><b>'+esc(x.code)+'</b><br>'+esc(x.geom)+'<br><span>Materiale: '+esc(x.material)+'</span><div class="params"><b>Vc:</b> '+esc(x.vc)+' · <b>f/fz:</b> '+esc(x.f)+' · <b>ap:</b> '+esc(x.ap)+'</div><button type="button" data-code="'+esc(x.code)+'">Apri utensile</button></div></div>').join(''):'<div class="result">Nessun utensile del catalogo corrisponde ai criteri.</div>';
+ target.innerHTML=list.length?list.map(x=>'<div class="recCard">'+toolPhoto(x)+'<div class="recMeta"><b>'+esc(x.code)+'</b><br>'+esc(x.geom)+'<br><span>Materiale: '+esc(x.material)+'</span><div class="params"><b>Vc:</b> '+esc(x.vc)+' · <b>f/fz:</b> '+esc(x.f)+' · <b>ap:</b> '+esc(x.ap)+'</div><button type="button" data-code="'+esc(x.code)+'">Apri utensile</button></div></div>').join(''):'<div class="result">Nessun utensile del catalogo corrisponde ai criteri.</div>';
  target.querySelectorAll('button[data-code]').forEach(b=>b.onclick=()=>{const x=data.find(v=>v.code===b.dataset.code);if(x)openTool(x)});
 }
 function refreshRecommendations(){
