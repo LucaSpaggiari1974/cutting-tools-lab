@@ -1,0 +1,179 @@
+{
+  "version": "1.0",
+  "updatedAt": "2026-09-21T09:16:55.459Z",
+  "scope": "Registro mondiale iniziale dei principali produttori di inserti e sistemi di utensili da taglio. Non è una lista legalmente esaustiva di ogni produttore esistente.",
+  "groups": [
+    {
+      "name": "Sandvik Coromant",
+      "type": "Produttore",
+      "catalog": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=5",
+      "catalogLabel": "Catalogo Cutting Tools 26-1",
+      "catalogScope": "Tornitura, scanalatura, filettatura, foratura, fresatura, portautensili",
+      "drawings": "Catalogo ufficiale + pagine prodotto/CAD",
+      "note": "Gruppo separato da ISO e da ISCAR."
+    },
+    {
+      "name": "ISCAR",
+      "type": "Produttore",
+      "catalog": "https://www.iscar.com/ecat/it/toolshopmanual.pdf",
+      "catalogLabel": "eCatalog / Toolshop manual",
+      "catalogScope": "Tornitura ISO, grooving, filettatura, foratura, fresatura, CBN/PCD",
+      "drawings": "eCatalog e pagine prodotto ufficiali",
+      "note": "Gruppo separato da Sandvik Coromant e dalla categoria ISO generica."
+    },
+    {
+      "name": "ISO",
+      "type": "Standard / assortimento generico",
+      "catalog": "",
+      "catalogLabel": "Famiglie ISO generiche",
+      "catalogScope": "CNMG, DNMG, SNMG, WNMG, VNMG, VBMT, CCMT, DCMT, TCMT, RCMT, grooving e threading",
+      "drawings": "Disegni geometrici ISO e quote di riferimento",
+      "note": "Non è un produttore: è una categoria separata per codici/famiglie standard non attribuiti a un marchio."
+    },
+    {
+      "name": "Walter",
+      "type": "Produttore",
+      "catalog": "https://elibrary.walter-tools.com/frontend/getcatalog.do?catalogId=944350&catalogVersion=2&lang=en-gb",
+      "catalogLabel": "Programme and Innovations 2025",
+      "catalogScope": "Tornitura, foratura, fresatura, filettatura, adattatori",
+      "drawings": "Pagine prodotto Walter con DXF/PDF/ISO 13399",
+      "note": "Il Technical Compendium Turning contiene anche chiavi geometriche e disegni."
+    },
+    {
+      "name": "Kennametal",
+      "type": "Produttore",
+      "catalog": "https://www.kennametal.com/it/it/products/metalworking-tools/turning.html",
+      "catalogLabel": "Turning / Metalworking Tools",
+      "catalogScope": "Tornitura, foratura, fresatura, grooving, materiali avanzati",
+      "drawings": "Pagine prodotto e documentazione tecnica ufficiale"
+    },
+    {
+      "name": "Ingersoll Cutting Tools",
+      "type": "Produttore",
+      "catalog": "https://www.ingersoll-imc.com/catalogs",
+      "catalogLabel": "Cataloghi Ingersoll",
+      "catalogScope": "Turning, grooving, threading, milling, drilling, PCD/CBN",
+      "drawings": "Cataloghi e pagine prodotto ufficiali"
+    },
+    {
+      "name": "Seco Tools",
+      "type": "Produttore",
+      "catalog": "https://www.secotools.com/article/homepage?language=it",
+      "catalogLabel": "Seco Catalogs",
+      "catalogScope": "Tornitura, fresatura, foratura, filettatura, sistemi utensile",
+      "drawings": "Cataloghi interattivi e documentazione ufficiale"
+    },
+    {
+      "name": "Mitsubishi Materials",
+      "type": "Produttore",
+      "catalog": "https://www.mmtc.co.jp/en/support/catalog/",
+      "catalogLabel": "General Catalog / Catalog Download",
+      "catalogScope": "Utensili e inserti per asportazione truciolo",
+      "drawings": "Cataloghi ufficiali"
+    },
+    {
+      "name": "Sumitomo Electric Hardmetal",
+      "type": "Produttore",
+      "catalog": "https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/",
+      "catalogLabel": "Cutting Tools General Catalog 2025-2026",
+      "catalogScope": "Inserti, portainserti, grooving, threading, milling, drilling, CBN/PCD",
+      "drawings": "Cataloghi ufficiali"
+    },
+    {
+      "name": "Tungaloy",
+      "type": "Produttore",
+      "catalog": "https://tungaloy.com/it/publications/catalog/",
+      "catalogLabel": "Cataloghi Tungaloy",
+      "catalogScope": "Tornitura, grooving, fresatura, foratura, tooling system",
+      "drawings": "e-Catalog con disegni CAD e modelli 3D"
+    },
+    {
+      "name": "Kyocera Cutting Tools",
+      "type": "Produttore",
+      "catalog": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
+      "catalogLabel": "General Catalog 2024-2026",
+      "catalogScope": "Inserti, tornitura, grooving, threading, drilling, milling",
+      "drawings": "Cataloghi e servizio CAD ufficiale"
+    },
+    {
+      "name": "Ceratizit",
+      "type": "Produttore",
+      "catalog": "https://ceratizit.com/int/it/news-and-media/downloads.html",
+      "catalogLabel": "Downloads / Cutting Tool Solutions",
+      "catalogScope": "Tornitura, fresatura, foratura, materiali duri e avanzati",
+      "drawings": "Download e documentazione ufficiale"
+    },
+    {
+      "name": "TaeguTec",
+      "type": "Produttore",
+      "catalog": "https://www.taegutec.com/pages/vi/publications/industrial-products-catalogs/",
+      "catalogLabel": "Industrial Products Catalogs",
+      "catalogScope": "Tornitura, fresatura, foratura, filettatura, tooling",
+      "drawings": "Cataloghi ufficiali"
+    },
+    {
+      "name": "YG-1",
+      "type": "Produttore",
+      "catalog": "https://www.yg1usa.com/litera/indexable-catalogs.asp",
+      "catalogLabel": "YG-1 Indexable Inserts Catalog",
+      "catalogScope": "ISO turning, parting/grooving, milling, drilling, PCBN",
+      "drawings": "Cataloghi e famiglie prodotto ufficiali"
+    },
+    {
+      "name": "NTK Cutting Tools",
+      "type": "Produttore",
+      "catalog": "https://www.ntkcuttingtools.com/",
+      "catalogLabel": "NTK Cutting Tools",
+      "catalogScope": "Ceramica, CBN/PCD e lavorazioni speciali",
+      "drawings": "Documentazione ufficiale"
+    },
+    {
+      "name": "Dormer Pramet",
+      "type": "Produttore",
+      "catalog": "https://www.dormerpramet.com/",
+      "catalogLabel": "Dormer Pramet",
+      "catalogScope": "Tornitura, fresatura, foratura e utensili rotanti",
+      "drawings": "Catalogo/documentazione ufficiale"
+    },
+    {
+      "name": "WIDIA",
+      "type": "Produttore",
+      "catalog": "https://www.widia.com/",
+      "catalogLabel": "WIDIA Metal Cutting",
+      "catalogScope": "Inserti e utensili per tornitura, fresatura e foratura",
+      "drawings": "Documentazione e pagine prodotto ufficiali"
+    },
+    {
+      "name": "ZCC Cutting Tools",
+      "type": "Produttore",
+      "catalog": "https://www.zccct.com/",
+      "catalogLabel": "ZCC-CT",
+      "catalogScope": "Inserti, tornitura, fresatura, foratura e tooling",
+      "drawings": "Cataloghi e documentazione ufficiale"
+    },
+    {
+      "name": "Guhring",
+      "type": "Produttore",
+      "catalog": "https://www.guhring.com/",
+      "catalogLabel": "Guhring Cutting Tools",
+      "catalogScope": "Foratura, fresatura, tornitura e tooling",
+      "drawings": "Cataloghi e CAD secondo prodotto"
+    },
+    {
+      "name": "MAPAL",
+      "type": "Produttore",
+      "catalog": "https://mapal.com/en/catalogs",
+      "catalogLabel": "MAPAL documentation",
+      "catalogScope": "Utensili di precisione, alesatura, foratura, fresatura e inserti",
+      "drawings": "Documentazione tecnica e CAD"
+    },
+    {
+      "name": "Paul Horn",
+      "type": "Produttore",
+      "catalog": "https://www.horn-group.com/",
+      "catalogLabel": "HORN Cutting Tools",
+      "catalogScope": "Scanalatura, troncatura, tornitura, fresatura, filettatura",
+      "drawings": "Cataloghi e documentazione ufficiale"
+    }
+  ]
+}
