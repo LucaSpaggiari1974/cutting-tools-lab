@@ -47,7 +47,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <button class="navtab" data-page="tornitura">🔩 Tornitura</button>
 <button class="navtab" data-page="fresatura">⚙️ Fresatura</button>
 <button class="navtab" data-page="alesatura">🔩 Alesatura</button>
-<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="produttori">🏭 Produttori</button></nav>
+<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="produttori">🏭 Produttori</button><button class="navtab" data-page="speciali">🔐 Gestione utensili interni</button></nav>
 <section id="catalogo" class="page active"><section class="sheet">
 <div class="toolbar">
 <div class="searchgrid">
@@ -78,7 +78,32 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 
 
 </section>
-<section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura</h2><p>Calcola ogni parametro separatamente. Inserisci solo i dati richiesti dalla tabella.</p><div class="result" style="margin-bottom:10px;text-align:center;font-size:18px"><b>π = 3,14</b><br><span style="font-size:12px;font-weight:600">Valore fisso usato automaticamente in tutti i calcoli</span></div>
+<section id="speciali" class="page"><div class="calc">
+<h2>🧰 Gestione utensili interni</h2>
+<p>Catalogo separato per gli utensili speciali presenti sulle nostre macchine. I dati, le quote e i disegni vengono inseriti manualmente.</p>
+<div class="result"><b>☁️ Archivio centrale online</b><br>Gli utensili speciali Gestione utensili interni vengono conservati in un <b>archivio cloud dedicato</b>, così sono disponibili da iPhone, Windows e dagli altri dispositivi. Il catalogo principale, invece, continua a usare GitHub.</div>
+<div class="calcgrid" style="margin-top:12px">
+<div class="calc"><b>Nuovo utensile speciale</b>
+<label>Codice / identificativo<input id="spCode" placeholder="ALLISON-001"></label>
+<label>Nome utensile<input id="spName" placeholder="Nome o descrizione"></label>
+<label>Tipo / categoria<input id="spType" placeholder="Portautensile, inserto, barra, fresa…"></label>
+<label>Macchina *<input id="spMachine" placeholder="Nome macchina / centro di lavoro" required></label><label>Tipologia di pezzo lavorato *<input id="spPieceType" placeholder="Albero, flangia, boccola, corpo..." required></label>
+<label>Materiale / impiego<input id="spMaterial" placeholder="Materiale e lavorazione"></label>
+<label>Geometria / caratteristiche<textarea id="spGeom" rows="4" style="width:100%;font:inherit;border:1px solid #cbd7e1;border-radius:9px;padding:10px"></textarea></label>
+<label>Parametri di taglio<input id="spParams" placeholder="Vc, f/fz, ap, n, ecc."></label>
+<label>Note<input id="spNotes" placeholder="Note interne"></label>
+<label>Foto o disegno (JPG/PNG/PDF)<input id="spFile" type="file" accept="image/*,.pdf"></label><small style="display:block;margin-top:6px;color:#5f7180">Il file viene salvato nel Blob privato e collegato automaticamente alla scheda.</small>
+<button type="button" id="saveSpecial">💾 Salva utensile speciale</button>
+</div>
+<div class="calc"><b>Gestione archivio</b>
+<p>Gli utensili speciali restano separati dal catalogo dei produttori.</p>
+<button type="button" id="exportSpecial" style="margin-top:8px">⬇️ Esporta archivio</button>
+<button type="button" id="importSpecial" style="margin-top:8px">⬆️ Importa archivio</button>
+<input id="specialImportFile" type="file" accept=".json" hidden>
+<div class="result" id="specialStatus">Nessun utensile speciale inserito.</div>
+</div></div>
+<div class="calcgrid" style="margin-top:12px"><div class="calc"><b>Catalogazione</b><label>Macchina<select id="specialMachineFilter"><option value="">Tutte le macchine</option></select></label><label>Tipologia di pezzo<select id="specialPieceFilter"><option value="">Tutte le tipologie</option></select></label></div></div><div id="specialList" class="problemList"></div>
+</div></section><section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura</h2><p>Calcola ogni parametro separatamente. Inserisci solo i dati richiesti dalla tabella.</p><div class="result" style="margin-bottom:10px;text-align:center;font-size:18px"><b>π = 3,14</b><br><span style="font-size:12px;font-weight:600">Valore fisso usato automaticamente in tutti i calcoli</span></div>
 <div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>Vc = (3,14 × Dm × n) / 1000<br>n = (Vc × 1000) / (3,14 × Dm)<br>f = Vf / n<br>Vf = f × n<br>Q = Vc × ap × f<br><span class="unitNote">Dm, ap = mm · n = rpm · Vc = m/min · f = mm/giro · Vf = mm/min</span></div>
 <div class="calcgrid" style="margin-top:12px">
 <div class="calc"><b>Tabella 1 · CALCOLA Vc</b><label>Dm (mm)<input id="turnDm" type="number" step="0.01" inputmode="decimal" placeholder="50"></label><label>n (rpm)<input id="turnN" type="number" step="1" inputmode="numeric" placeholder="1200"></label><button type="button" id="calcTurnVc">Calcola Vc</button><div class="result" id="turnVcResult">—</div></div>
@@ -445,7 +470,7 @@ function renderRecommendations(target,filter){
 let manufacturers=[];
 async function loadManufacturers(){try{const r=await fetch("./manufacturers.json",{cache:"no-store"});manufacturers=await r.json();renderManufacturers()}catch(e){document.getElementById("manufacturerList").innerHTML="<div class=\"result\">Registro produttori non disponibile.</div>"}}
 function renderManufacturers(){const q=String((document.getElementById("manufacturerSearch")||{}).value||"").toLowerCase(),t=(document.getElementById("manufacturerType")||{}).value||"";const list=(manufacturers.groups||[]).filter(x=>(!t||x.type===t)&&(!q||JSON.stringify(x).toLowerCase().includes(q)));document.getElementById("manufacturerList").innerHTML=list.map(x=>"<article class=\"problemCard\"><h3>"+esc(x.name)+"</h3><p><b>Tipo:</b> "+esc(x.type)+"</p><p><b>Assortimento:</b> "+esc(x.catalogScope||"—")+"</p><p><b>Disegni:</b> "+esc(x.drawings||"—")+"</p>"+(x.catalog?("<a href=\""+x.catalog+"\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block;margin-top:7px;color:#185b8f;font-weight:800\">📚 Apri catalogo / documentazione</a>"):"<p class=\"cause\">ISO: categoria standard separata, senza catalogo di un singolo produttore.</p>")+"</article>").join("")||"<div class=\"result\">Nessun produttore trovato.</div>"}
-document.getElementById("manufacturerSearch").oninput=renderManufacturers;document.getElementById("manufacturerType").onchange=renderManufacturers;loadManufacturers();document.querySelectorAll(".navtab").forEach(btn=>{btn.addEventListener("click",()=>{const page=btn.dataset.page;document.querySelectorAll(".navtab").forEach(b=>b.classList.toggle("active",b===btn));document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===page));document.getElementById("formula").style.display="none";document.querySelectorAll(".formulaBox").forEach(box=>{const owner=box.closest(".page");box.style.display=owner&&owner.id===page?"block":"none";});window.scrollTo({top:0,behavior:"smooth"});});});document.querySelectorAll(".formulaBox").forEach(box=>{const owner=box.closest(".page");box.style.display=owner&&owner.classList.contains("active")?"block":"none";});
+document.getElementById("manufacturerSearch").oninput=renderManufacturers;document.getElementById("manufacturerType").onchange=renderManufacturers;loadManufacturers();document.querySelectorAll(".navtab").forEach(btn=>{btn.addEventListener("click",()=>{const page=btn.dataset.page;if(page==="speciali"&&!sessionStorage.getItem("cuttingToolsSpecialPassword")){document.querySelector(".navtab[data-page=\"catalogo\"]")?.click();document.getElementById("specialLock")?.scrollIntoView({behavior:"smooth",block:"center"});return;}document.querySelectorAll(".navtab").forEach(b=>b.classList.toggle("active",b===btn));document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===page));document.getElementById("formula").style.display="none";document.querySelectorAll(".formulaBox").forEach(box=>{const owner=box.closest(".page");box.style.display=owner&&owner.id===page?"block":"none";});window.scrollTo({top:0,behavior:"smooth"});});});document.querySelectorAll(".formulaBox").forEach(box=>{const owner=box.closest(".page");box.style.display=owner&&owner.classList.contains("active")?"block":"none";});
 function val(id){const v=parseFloat((document.getElementById(id)||{}).value);return Number.isFinite(v)?v:null}
 function showCalc(id,html){document.getElementById(id).innerHTML=html}
 function positive(...ids){const a=ids.map(val);return a.every(v=>v!==null&&v>0)?a:null}
@@ -520,6 +545,108 @@ function renderProblems(){
  document.getElementById('problemList').innerHTML=list.map(p=>'<article class="problemCard"><h3>'+esc(p[0])+' · '+esc(p[1])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(p[2])+'</p><div class="solution"><b>Soluzione:</b> '+esc(p[3])+'</div></article>').join('')||'<div class="result">Nessun problema trovato.</div>';
 }
 document.getElementById('problemSearch').oninput=renderProblems;document.getElementById('problemArea').oninput=renderProblems;renderProblems();
+
+const SPECIAL_API_BASE=window.CUTTING_TOOLS_API_BASE||"https://cutting-tools-lab.vercel.app";
+let specialTools=[];
+let specialOnlineReady=false;
+function specialPassword(){return sessionStorage.getItem("cuttingToolsSpecialPassword")||"";}
+async function specialApi(path="",options={}){
+  const pw=specialPassword();
+  if(!pw) throw new Error("Accesso protetto: inserisci la password.");
+  const r=await fetch(SPECIAL_API_BASE+"/api/special-tools"+path,{...options,headers:{"Content-Type":"application/json","x-special-tools-password":pw,...(options.headers||{})}});
+  let j={};try{j=await r.json()}catch(_){}
+  if(!r.ok)throw new Error(j.error||"Archivio Gestione utensili interni non disponibile.");
+  return j;
+}
+async function loadOnlineSpecialTools(silent=false){
+  try{
+    const j=await specialApi("?ts="+Date.now());
+    specialTools=Array.isArray(j.items)?j.items.map(x=>{
+      const item={...x};
+      // I file privati Gestione utensili interni vengono serviti dal backend: così Windows e iPhone
+      // non devono accedere direttamente al Vercel Blob privato.
+      if(item.filePath) item.fileUrl=SPECIAL_API_BASE+"/api/special-tools?file="+encodeURIComponent(item.filePath);
+      return item;
+    }):[];
+    specialOnlineReady=true;
+    window.__specialUpdatedAt=j.updatedAt||null;
+    renderSpecialTools();
+    return true;
+  }catch(e){
+    specialOnlineReady=false;
+    const st=document.getElementById("specialStatus");
+    if(st)st.textContent="⚠️ Archivio online Gestione utensili interni non raggiungibile.";
+    if(!silent)alert("Archivio online Gestione utensili interni non raggiungibile. Verifica il collegamento Vercel.");
+    renderSpecialTools();
+    return false;
+  }
+}
+function renderSpecialTools(){
+ const el=document.getElementById("specialList"),st=document.getElementById("specialStatus");
+ if(!el)return;
+ const mf=document.getElementById("specialMachineFilter"),pf=document.getElementById("specialPieceFilter"),mv=mf?mf.value:"",pv=pf?pf.value:"";
+ if(mf){const vals=[...new Set(specialTools.map(x=>x.machine).filter(Boolean))].sort();mf.innerHTML="<option value=\"\">Tutte le macchine</option>"+vals.map(v=>"<option value=\""+esc(v)+"\""+(v===mv?" selected":"")+">"+esc(v)+"</option>").join("");}
+ if(pf){const vals=[...new Set(specialTools.map(x=>x.pieceType).filter(Boolean))].sort();pf.innerHTML="<option value=\"\">Tutte le tipologie</option>"+vals.map(v=>"<option value=\""+esc(v)+"\""+(v===pv?" selected":"")+">"+esc(v)+"</option>").join("");}
+ const visible=specialTools.filter(x=>(!mv||x.machine===mv)&&(!pv||x.pieceType===pv));
+ st.textContent=specialOnlineReady?(specialTools.length?specialTools.length+" utensile/i speciale/i Gestione utensili interni presenti nell’archivio centrale online.":"Nessun utensile interno Gestione utensili interni nell’archivio centrale online."):"⚠️ Archivio online Gestione utensili interni non disponibile.";
+ el.innerHTML=visible.length?visible.map(x=>'<article class="problemCard"><h3>🧰 '+esc(x.code)+'</h3><p><b>Nome:</b> '+esc(x.name||"—")+' · <b>Tipo:</b> '+esc(x.type||"—")+'</p><p><b>Macchina:</b> '+esc(x.machine||"—")+' · <b>Tipologia pezzo:</b> '+esc(x.pieceType||"—")+'</p><p><b>Materiale:</b> '+esc(x.material||"—")+'</p><p><b>Geometria:</b> '+esc(x.geom||"—")+'</p><p><b>Parametri:</b> '+esc(x.params||"—")+'</p><p><b>Note:</b> '+esc(x.notes||"—")+'</p>'+(x.fileUrl?(x.fileType&&x.fileType.includes("pdf")?'<a href="'+esc(x.fileUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:#185b8f;font-weight:800">📄 Apri disegno PDF</a>':'<img class="recDraw" src="'+esc(x.fileUrl)+'" alt="Disegno/foto '+esc(x.code)+'">'):'<div class="result">Anteprima non disponibile</div>')+'<br><button type="button" data-special-id="'+esc(String(x.id))+'" style="width:auto;margin-top:8px">Apri utensile</button> <button type="button" data-special-delete-id="'+esc(String(x.id))+'" style="width:auto;margin-top:8px;background:#8b2d2d">Elimina</button></article>').join(""):'<div class="result">Nessun utensile interno presente.</div>';
+ el.querySelectorAll("[data-special-id]").forEach(b=>b.onclick=()=>{const x=specialTools.find(v=>String(v.id)===String(b.dataset.specialId));if(x)openSpecialTool(x)});
+ el.querySelectorAll("[data-special-delete-id]").forEach(b=>b.onclick=async()=>{
+   const x=specialTools.find(v=>String(v.id)===String(b.dataset.specialDeleteId));
+   if(!x||!confirm("Eliminare questo utensile interno dall’archivio centrale?"))return;
+   try{await specialApi("",{method:"DELETE",body:JSON.stringify({id:x.id})});await loadOnlineSpecialTools(true);alert("Utensile interno eliminato.");}
+   catch(e){alert(e.message||"Errore durante l’eliminazione.");}
+ });
+}
+function openSpecialTool(x){
+ const m=document.getElementById("toolModal"),body=document.getElementById("modalBody");
+ body.innerHTML='<h2>🧰 '+esc(x.code)+'</h2><p><b>Nome:</b> '+esc(x.name||"—")+'</p><p><b>Tipo:</b> '+esc(x.type||"—")+'</p><p><b>Macchina:</b> '+esc(x.machine||"—")+'</p><p><b>Tipologia pezzo:</b> '+esc(x.pieceType||"—")+'</p><p><b>Materiale / impiego:</b> '+esc(x.material||"—")+'</p><p><b>Geometria:</b> '+esc(x.geom||"—")+'</p><p><b>Parametri:</b> '+esc(x.params||"—")+'</p><p><b>Note:</b> '+esc(x.notes||"—")+'</p>'+(x.fileUrl?(x.fileType&&x.fileType.includes("pdf")?'<a href="'+esc(x.fileUrl)+'" target="_blank" rel="noopener" style="display:block;margin-top:10px;color:#185b8f;font-weight:800">📄 Apri disegno PDF</a>':'<img class="modalImg" src="'+esc(x.fileUrl)+'" alt="Disegno/foto '+esc(x.code)+'">'):'<div class="result">Anteprima non disponibile</div>');
+ m.hidden=false;
+}
+document.getElementById("saveSpecial").onclick=async()=>{
+ const code=document.getElementById("spCode").value.trim();if(!code){alert("Inserisci almeno il codice / identificativo.");return}
+ const file=document.getElementById("spFile").files[0];let fileData="",fileType="",fileName="";
+ if(file){if(file.size>3*1024*1024){alert("File troppo grande. Usa un file fino a 3 MB.");return}fileName=file.name;fileData=await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=rej;fr.readAsDataURL(file)});fileType=file.type}
+ const machine=document.getElementById("spMachine").value.trim(),pieceType=document.getElementById("spPieceType").value.trim();if(!machine||!pieceType){alert("Inserisci sempre il nome della macchina e la tipologia di pezzo lavorato.");return}
+ const item={id:Date.now(),code,name:document.getElementById("spName").value.trim(),type:document.getElementById("spType").value.trim(),machine,pieceType,material:document.getElementById("spMaterial").value.trim(),geom:document.getElementById("spGeom").value.trim(),params:document.getElementById("spParams").value.trim(),notes:document.getElementById("spNotes").value.trim(),fileData,fileType,fileName,createdAt:new Date().toISOString()};
+ const b=document.getElementById("saveSpecial");b.disabled=true;b.textContent="☁️ Salvataggio online…";
+ try{
+   const saved=await specialApi("",{method:"POST",body:JSON.stringify(item)});
+   await loadOnlineSpecialTools(true);
+   ["spCode","spName","spType","spMachine","spPieceType","spMaterial","spGeom","spParams","spNotes","spFile"].forEach(id=>{const e=document.getElementById(id);if(e)e.value=""});
+   alert(saved.action==="updated" ? "Utensile interno aggiornato e sovrascritto nell’archivio centrale online." : "Utensile interno salvato nell’archivio centrale online.");
+ }catch(e){alert(e.message||"Errore durante il salvataggio online.");}
+ finally{b.disabled=false;b.textContent="💾 Salva utensile interno";}
+};
+document.getElementById("exportSpecial").onclick=()=>{
+ const blob=new Blob([JSON.stringify({version:1,category:"Utensili speciali Gestione utensili interni",items:specialTools},null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="utensili-speciali-allison.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+};
+document.getElementById("importSpecial").onclick=()=>document.getElementById("specialImportFile").click();
+document.getElementById("specialImportFile").onchange=async e=>{
+ const f=e.target.files[0];if(!f)return;
+ try{
+   const j=JSON.parse(await f.text());if(!Array.isArray(j.items))throw new Error();
+   for(const item of j.items){
+     await specialApi("",{method:"POST",body:JSON.stringify(item)});
+   }
+   await loadOnlineSpecialTools(true);alert("Archivio importato nell’archivio centrale online.");
+ }catch(_){alert("File archivio non valido o errore di salvataggio online.");}
+ e.target.value="";
+};
+if(specialPassword()) loadOnlineSpecialTools(true);
+setInterval(async()=>{
+  if(document.visibilityState!=="visible")return;
+  try{
+    const j=await specialApi("?ts="+Date.now());
+    if(j.updatedAt&&window.__specialUpdatedAt&&j.updatedAt!==window.__specialUpdatedAt){
+      specialTools=Array.isArray(j.items)?j.items:[];window.__specialUpdatedAt=j.updatedAt;specialOnlineReady=true;renderSpecialTools();
+    }
+  }catch(_){}
+},30000);
+document.getElementById("specialMachineFilter")?.addEventListener("change",renderSpecialTools);
+document.getElementById("specialPieceFilter")?.addEventListener("change",renderSpecialTools);
+function unlockSpecial(){const input=document.getElementById("specialPassword"),status=document.getElementById("specialLockStatus"),pw=input.value;if(!pw){status.textContent="Inserisci la password.";return;}sessionStorage.setItem("cuttingToolsSpecialPassword",pw);document.getElementById("specialLock").hidden=true;document.getElementById("specialProtected").hidden=false;loadOnlineSpecialTools(false).then(ok=>{if(!ok){sessionStorage.removeItem("cuttingToolsSpecialPassword");document.getElementById("specialLock").hidden=false;document.getElementById("specialProtected").hidden=true;}})}
+document.getElementById("unlockSpecial")?.addEventListener("click",unlockSpecial);document.getElementById("specialPassword")?.addEventListener("keydown",e=>{if(e.key==="Enter")unlockSpecial();});
 
 const toolModal=document.getElementById("toolModal");
 const closeModal=document.getElementById("closeModal");
