@@ -449,12 +449,24 @@ function toolImageUrl(x){
 function toolPhoto(x,modal=false){
  const kind=previewFamily(x);
  const fallback=localInsertPreview(kind);
- const src=(x&&x.photoUrl)||realPhotoUrl(kind)||fallback;
+ const real=(x&&x.photoUrl)||realPhotoUrl(kind)||"";
  const alt=esc(((x&&x.maker)||"")+" "+((x&&x.code)||"")+" · foto reale rappresentativa della geometria "+kind);
  const label='Foto reale · geometria ISO '+esc(kind);
- const note='Foto reale del tipo di utensile. Se la foto precisa del produttore/codice non è disponibile, viene usata una foto generica che rispetta la geometria ISO. Se anche la foto non è raggiungibile, viene mostrata una geometria locale di sicurezza.';
- const img='<img class="recDraw" src="'+src+'" alt="'+alt+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\''+fallback.replace(/'/g,"\\'")+'\'">';
+ const note='Foto reale del tipo di utensile. Se la foto precisa non è raggiungibile, viene mantenuta una geometria locale di sicurezza.';
+ const src=modal?fallback:(real||fallback);
+ const dataReal=modal&&real?' data-real-src="'+String(real).replace(/"/g,"&quot;")+'"':"";
+ const img='<img class="recDraw'+(modal?' modalToolPreview':'')+'" src="'+src+'" data-fallback-src="'+String(fallback).replace(/"/g,"&quot;")+'"'+dataReal+' alt="'+alt+'" loading="eager" decoding="async" referrerpolicy="no-referrer">';
  return '<div><div style="position:relative">'+img+'</div><div class="photo-caption">'+label+'</div><div class="photo-caption">'+note+'</div></div>';
+}
+function upgradeModalToolImage(root){
+ const img=root&&root.querySelector?root.querySelector(".modalToolPreview"):null;
+ if(!img)return;
+ const real=img.dataset.realSrc, fallback=img.dataset.fallbackSrc;
+ if(!real)return;
+ const probe=new Image();
+ probe.onload=()=>{img.src=real;};
+ probe.onerror=()=>{img.src=fallback;};
+ probe.src=real;
 }
 function toolDrawing(kind){
  const p=photoMap[kind]||photoMap.HOLDER;
@@ -698,9 +710,10 @@ const toolModal=document.getElementById("toolModal");
 const closeModal=document.getElementById("closeModal");
 const modalBody=document.getElementById("modalBody");
 function openTool(x){
- const kind=familyFor(x), p=photoMap[kind]||photoMap.HOLDER;
  let body='<h2>'+esc(x.code)+'</h2><p><b>Fornitore:</b> '+esc(x.maker||'—')+'</p><p><b>Categoria:</b> '+esc(x.category)+'</p><p>'+esc(x.geom)+'</p>'+toolPhoto(x,true)+'<p><b>Materiale:</b> '+esc(x.material)+'</p><div class="formulaBox">Vc: '+esc(x.vc)+' m/min · f/fz: '+esc(x.f)+' · ap: '+esc(x.ap)+'</div><p class="photo-caption">'+esc(x.photoNote||x.photoSource||'Fonte fotografica non specificata')+'. Il codice preciso, grado e quote devono essere verificati sulla scheda del produttore.</p>';
- modalBody.innerHTML=body;toolModal.hidden=false;
+ modalBody.innerHTML=body;
+ toolModal.hidden=false;
+ upgradeModalToolImage(modalBody);
 }
 closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target===toolModal)toolModal.hidden=true};document.addEventListener("keydown",e=>{if(e.key==="Escape")toolModal.hidden=true});
 </script>
