@@ -5,6 +5,28 @@ const crypto = require("crypto");
 const ARCHIVE_PATH = "allison/special-tools.json";
 const MEDIA_PREFIX = "allison/media/";
 
+const CATALOG_IMAGE_URLS = {
+  CNMG:"https://www.mscdirect.co.uk/media/catalog/product/i/5/i55-07754l.jpg?bg-color=255&optimize=medium",
+  DNMG:"https://image.made-in-china.com/202f0j00juUckAtqbIpC/Speed-Tungsten-Carbide-Metal-Cutting-Dnmg150404-08-12-150608-12-PVC-CVD-Coating-CNC-Turning-Insert-for-Tool-Holder.webp",
+  SNMG:"https://assets.hoffmann-group.com/2/5/c/9/25c912f9-c272-44f1-9a46-7ec60822e380/jpg_600_b251224_hb7010-1.jpg",
+  WNMG:"https://image.made-in-china.com/2f0j00uewoNhPnLEqD/High-Quality-External-Turning-Tool-Bright-Finishing-CNC-Blades-Wnmg-080408-Ha-Solid-Carbide-Insert-for-Stainless-Steel-2085965165.webp",
+  VNMG:"https://irrorwxhmnjqlo5m-static.micyjz.com/cloud/lmBpjKnjlmSRqkrnnjlrjo/Carbide-insert.jpg",
+  VBMT:"https://www.shop-apt.co.uk/user/products/large/VBMT-MX-1125.jpg",
+  DCMT:"https://cdn.hoffmann-group.com/derivatives/3799/jpg_1200/jpg_1200_b260488_pv720.jpg",
+  CCMT:"https://cnchome-beyond.com/cdn/shop/files/TaeguTec_CCMT120408PC_TT9225_CVD_Coated_Carbide_Turning_Insert_with_0.8mm_Radius_for_Steel_and_Stainless_Steel..jpg?v=1776220101&width=600",
+  TCMT:"https://static1.industrybuying.com/products/tooling-and-cutting/inserts/turning-inserts/TOO.TUR.435130212_1757480798499.webp",
+  RCMT:"https://webshop.iscar.com.mx/images/Fittings/hq/System_Images/ISC/Prod_Pic/310/310_Enlarge.jpg",
+  CCGT:"https://osnasteel.ru/upload/iblock/47e/vk599fkzg0w311joyw776dlfy7bdaho8.png",
+  TCGT:"https://webshop.taegutec-india.com/images/Fittings/hq/System_Images/TTK/Prod_Pic/234/234_Enlarge.jpg",
+  GROOVING:"https://image.made-in-china.com/202f0j00dLMqcBmZNAbV/CNC-Lathe-Cutting-Tools-Grooving-Insert-Mgmn-Carbide-Turning-Insert-Mggn300-Mrmn300.webp",
+  DRILL:"https://i.ebayimg.com/images/g/sDkAAOSwoHVbavEj/s-l1600.jpg",
+  MILL:"https://cdn.mscdirect.com/global/images/ProductImages/0103252-21.jpg",
+  HOLDER:"https://tiimg.tistatic.com/fp/1/008/522/black-coating-hard-alloy-cnc-turning-tool-holder-794.jpg",
+  ADAPTER:"https://www.haastooling.com/content/dam/haas-tooling/ecommerce/products/04/0674/gallery/04-0674-2.jpg/_jcr_content/renditions/original./04-0674-2.jpg",
+  THREADING:"https://i.ebayimg.com/images/g/DTEAAOSwd7FmG2J0/s-l1200.jpg"
+};
+
+
 function emptyArchive() {
   return { version: 1, category: "Gestione utensili interni", updatedAt: null, items: [] };
 }
@@ -151,6 +173,23 @@ function setCors(res) {
 module.exports = async (req, res) => {
   setCors(res);
   if (req.method === "OPTIONS") return res.status(204).end();
+  if (req.method === "GET" && req.query?.image) {
+    const key = String(req.query.image || "").toUpperCase();
+    const remote = CATALOG_IMAGE_URLS[key];
+    if (!remote) return res.status(404).json({ error: "Immagine catalogo non trovata." });
+    try {
+      const r = await fetch(remote, { headers: { "User-Agent": "Cutting-Tools-LAB/1.0" } });
+      if (!r.ok) return res.status(502).json({ error: "Immagine catalogo non disponibile." });
+      const ab = await r.arrayBuffer();
+      const ct = r.headers.get("content-type") || "image/jpeg";
+      res.setHeader("Content-Type", ct);
+      res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400");
+      return res.status(200).send(Buffer.from(ab));
+    } catch (_) {
+      return res.status(502).json({ error: "Errore nel recupero immagine catalogo." });
+    }
+  }
+
 
   try {
     if (req.method === "GET" && req.query?.file) {
