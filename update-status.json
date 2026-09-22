@@ -1,13 +1,16 @@
 {
-  "updatedAt": null,
-  "run": "not-run-yet",
-  "changed": false,
-  "pagesChecked": 0,
-  "pagesFailed": 0,
-  "photosUpdated": 0,
+  "updatedAt": "2026-09-22T01:28:00Z",
+  "run": "daily",
+  "changed": true,
+  "pagesChecked": 468,
+  "pagesFailed": 8,
+  "photosUpdated": 43,
   "newProducts": 0,
   "catalogItems": 555,
   "backup": "backups/catalog-latest.json",
-  "sourcesChecked": 0,
-  "note": "Il primo aggiornamento automatico verrà eseguito dal workflow quotidiano."
+  "sourcesChecked": 21,
+  "note": "Gli aggiornamenti automatici usano solo dati rilevati da pagine/cataloghi ufficiali. Parametri di taglio non verificati non vengono inventati.",
+  "errors": [
+    "HTTP Error 404: "
+  ]
 }
