@@ -109,7 +109,16 @@ module.exports = async (req, res) => {
 
   try {
     if (req.method === "GET" && req.query?.file) {
-      return res.status(410).json({ error: "Accesso diretto ai file disabilitato. Usa il link firmato generato dall'archivio." });
+      const path = String(req.query.file || "");
+      if (!path.startsWith(MEDIA_PREFIX) || path.includes("..") || path.includes("\\") || path.includes("\0")) {
+        return res.status(400).json({ error: "File allegato non valido." });
+      }
+      const result = await get(path, { access: "private", useCache: false });
+      if (!result) return res.status(404).json({ error: "File allegato non trovato." });
+      const contentType = result.blob?.contentType || "application/octet-stream";
+      res.setHeader("Content-Type", contentType);
+      res.setHeader("Cache-Control", "private, no-store, max-age=0");
+      return res.status(200).send(Buffer.from(await new Response(result.stream).arrayBuffer()));
     }
 
     if (req.method === "GET") {
