@@ -4,7 +4,7 @@ const ARCHIVE_PATH = "allison/special-tools.json";
 const MEDIA_PREFIX = "allison/media/";
 
 function emptyArchive() {
-  return { version: 1, category: "Utensili speciali Allison", updatedAt: null, items: [] };
+  return { version: 1, category: "Gestione utensili interni", updatedAt: null, items: [] };
 }
 
 async function readBlobText(path) {
@@ -95,6 +95,14 @@ function cleanItem(x) {
   };
 }
 
+function requireSpecialPassword(req) {
+  const expected = String(process.env.SPECIAL_TOOLS_PASSWORD || "");
+  const received = String(req.headers["x-special-tools-password"] || "");
+  if (!expected) return { ok:false, status:503, error:"Password Gestione utensili interni non configurata su Vercel." };
+  if (!received || received !== expected) return { ok:false, status:401, error:"Password Gestione utensili interni non valida." };
+  return { ok:true };
+}
+
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "https://lucaspaggiari1974.github.io");
   res.setHeader("Vary", "Origin");
@@ -106,6 +114,9 @@ function setCors(res) {
 module.exports = async (req, res) => {
   setCors(res);
   if (req.method === "OPTIONS") return res.status(204).end();
+
+  const auth = requireSpecialPassword(req);
+  if (!auth.ok) return res.status(auth.status).json({ error: auth.error });
 
   try {
     if (req.method === "GET" && req.query?.file) {
@@ -193,7 +204,7 @@ module.exports = async (req, res) => {
   } catch (e) {
     const message = e && e.message ? e.message : "Errore server.";
     if (/BLOB|token|store|configured/i.test(message)) {
-      return res.status(503).json({ error: "Archivio cloud Allison non configurato su Vercel. Collega un Vercel Blob Store al progetto." });
+      return res.status(503).json({ error: "Archivio cloud Gestione utensili interni non configurato su Vercel. Collega un Vercel Blob Store al progetto." });
     }
     return res.status(500).json({ error: message });
   }
