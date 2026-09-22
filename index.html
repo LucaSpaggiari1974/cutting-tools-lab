@@ -215,7 +215,7 @@ function showCodePreview(x,el){
  if(top+h>window.innerHeight-10)top=Math.max(10,window.innerHeight-h-10);
  cap.style.left=left+"px";cap.style.top=Math.max(6,top-30)+"px";
  im.style.width=w+"px";im.style.height=h+"px";im.style.maxHeight=h+"px";im.style.left=left+"px";im.style.top=top+"px";
- im.innerHTML=insertPreviewSvg(kind);
+ im.innerHTML=insertPreviewSvg(kind,x);
  im.dataset.kind=kind;
  im.hidden=false;
  cap.textContent=x.code||"Inserto";cap.hidden=false;
@@ -225,8 +225,13 @@ function showCodePreview(x,el){
    close.hidden=!(/iphone|ipad|ipod/i.test(navigator.userAgent));
  }
 }
-function insertPreviewSvg(kind){
+function insertPreviewSvg(kind,x){
  let k=String(kind||"HOLDER").toUpperCase();
+ const photo=(x&&x.photoUrl)||((photoMap[k]&&photoMap[k][0])||null);
+ if(photo){
+   const fb=localInsertPreview(k);
+   return "<img src='"+String(photo).replace(/'/g,"&#39;")+"' alt='Foto reale "+k+"' style='width:100%;height:100%;object-fit:contain;display:block' onerror=\"this.onerror=null;this.outerHTML='"+String(fb).replace(/'/g,"&#39;").replace(/"/g,"&quot;")+"'>"; 
+ }
  if(k==="CNMG"||k==="TURN_R04"||k==="TURN_R08"||k==="TURN_R12"){
    const p=photoMap.CNMG&&photoMap.CNMG[0];
    const fallback="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100%' height='100%' preserveAspectRatio='xMidYMid meet'><rect width='100' height='100' fill='white'/><path d='M50 8 L92 32 L92 68 L50 92 L8 68 L8 32 Z' fill='#d9e1e7' stroke='#123a5a' stroke-width='3'/><circle cx='50' cy='50' r='8' fill='white' stroke='#123a5a' stroke-width='3'/><text x='50' y='97' text-anchor='middle' font-family='Arial,sans-serif' font-size='7' fill='#123a5a'>CNMG</text></svg>";
@@ -256,14 +261,15 @@ function bindCodePreview(){
  rows.querySelectorAll(".codeLink").forEach(el=>{
   const tr=el.closest("tr.data"),x=tr?data[+tr.dataset.i]:null;
   if(!x)return;
-  el.onmouseenter=()=>showCodePreview(x,el);
-  el.onmouseleave=hideCodePreview;
+  const touch=window.matchMedia && window.matchMedia("(hover:none), (pointer:coarse)").matches;
+  el.onmouseenter=()=>{if(!touch)showCodePreview(x,el)};
+  el.onmouseleave=()=>{if(!touch)hideCodePreview()};
   el.onclick=e=>{e.preventDefault();e.stopPropagation();showCodePreview(x,el)};
  });
 }
 document.getElementById("codePreviewClose").onclick=e=>{e.preventDefault();e.stopPropagation();hideCodePreview();};
 window.addEventListener("resize",hideCodePreview);
-document.addEventListener("scroll",hideCodePreview,{passive:true});
+document.addEventListener("scroll",()=>{if(!(window.matchMedia&&window.matchMedia("(hover:none), (pointer:coarse)").matches))hideCodePreview()},{passive:true});
 function render(){
  const t=q.value.toLowerCase(),c=cat.value,m=mat.value,k=maker.value;
  const a=data.filter(x=>(!t||Object.values(x).join(" ").toLowerCase().includes(t))&&(!c||categoryGroup(x.category)===c)&&(!m||x.material.includes(m))&&(!k||x.maker===k));
@@ -463,7 +469,7 @@ function toolImageUrl(x){
 function toolPhoto(x,modal=false){
  const kind=previewFamily(x);
  const fallback=localInsertPreview(kind);
- const src=realPhotoUrl(kind)||fallback;
+ const src=(x&&x.photoUrl)||realPhotoUrl(kind)||fallback;
  const alt=esc(((x&&x.maker)||"")+" "+((x&&x.code)||"")+" · foto reale rappresentativa della geometria "+kind);
  const label='Foto reale · geometria ISO '+esc(kind);
  const note='Foto reale del tipo di utensile. Se la foto precisa del produttore/codice non è disponibile, viene usata una foto generica che rispetta la geometria ISO. Se anche la foto non è raggiungibile, viene mostrata una geometria locale di sicurezza.';
