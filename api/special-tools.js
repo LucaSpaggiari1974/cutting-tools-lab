@@ -15,15 +15,11 @@ async function readBlobText(path) {
 }
 
 async function getArchive() {
-  try {
-    const text = await readBlobText(ARCHIVE_PATH);
-    if (!text) return emptyArchive();
-    const json = JSON.parse(text);
-    if (!Array.isArray(json.items)) json.items = [];
-    return json;
-  } catch (_) {
-    return emptyArchive();
-  }
+  const text = await readBlobText(ARCHIVE_PATH);
+  if (!text) return emptyArchive();
+  const json = JSON.parse(text);
+  if (!Array.isArray(json.items)) json.items = [];
+  return json;
 }
 
 async function signedFileUrl(path) {
