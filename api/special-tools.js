@@ -135,9 +135,6 @@ module.exports = async (req, res) => {
   setCors(res);
   if (req.method === "OPTIONS") return res.status(204).end();
 
-  const auth = requireSpecialPassword(req);
-  if (!auth.ok) return res.status(auth.status).json({ error: auth.error });
-
   try {
     if (req.method === "GET" && req.query?.file) {
       const path = String(req.query.file || "");
@@ -155,6 +152,9 @@ module.exports = async (req, res) => {
       res.setHeader("Cache-Control", "private, no-store, max-age=0");
       return res.status(200).send(Buffer.from(await new Response(result.stream).arrayBuffer()));
     }
+
+    const auth = requireSpecialPassword(req);
+    if (!auth.ok) return res.status(auth.status).json({ error: auth.error });
 
     if (req.method === "GET") {
       return res.status(200).json(await publicArchive(await getArchive()));
