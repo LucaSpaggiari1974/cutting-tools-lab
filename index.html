@@ -161,6 +161,9 @@ function getPreviewUrl(x){
 }
 function getHoverPreviewUrl(x){
  if(!x)return null;
+ // CNMG: usa sempre una foto reale CNMG stabile, indipendentemente da produttore/raggio.
+ const raw=String((x.code||"")+" "+(x.geom||"")).toUpperCase();
+ if(raw.includes("CNMG"))return photoMap.CNMG[0];
  // Windows hover: ONLY the generic real-product photo mapped by geometry/family.
  // Never use catalog drawings, drawingUrl, productUrl or record photoUrl.
  const kind=familyFor(x);
@@ -201,7 +204,9 @@ function showCodePreview(x,el){
    cap.textContent="Anteprima non disponibile";
    cap.hidden=false;
  };
- im.src=src;im.hidden=false;
+ im.hidden=false;
+ im.src="";
+ requestAnimationFrame(()=>{im.src=src;});
  if(close){
    close.style.left=Math.min(window.innerWidth-52,left+w-44)+"px";
    close.style.top=Math.max(8,top+8)+"px";
@@ -367,10 +372,10 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent) && !(window.matchMedia("(displa
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
 const photoMap={
-CNMG:["https://images.weserv.nl/?url=i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale CNMG 120412"],
-TURN_R12:["https://i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale CNMG 120412"],
-TURN_R08:["https://i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale CNMG 120412"],
-TURN_R04:["https://i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale CNMG 120412"],
+CNMG:["https://www.mscdirect.co.uk/media/catalog/product/i/5/i55-07754l.jpg?bg-color=255&optimize=medium","Foto reale CNMG 120408 ISCAR"],
+TURN_R12:["https://www.mscdirect.co.uk/media/catalog/product/i/5/i55-07754l.jpg?bg-color=255&optimize=medium","Foto reale CNMG 120408 ISCAR"],
+TURN_R08:["https://www.mscdirect.co.uk/media/catalog/product/i/5/i55-07754l.jpg?bg-color=255&optimize=medium","Foto reale CNMG 120408 ISCAR"],
+TURN_R04:["https://www.mscdirect.co.uk/media/catalog/product/i/5/i55-07754l.jpg?bg-color=255&optimize=medium","Foto reale CNMG 120408 ISCAR"],
 DNMG:["https://image.made-in-china.com/202f0j00juUckAtqbIpC/Speed-Tungsten-Carbide-Metal-Cutting-Dnmg150404-08-12-150608-12-PVC-CVD-Coating-CNC-Turning-Insert-for-Tool-Holder.webp","Foto reale DNMG"],
 SNMG:["https://assets.hoffmann-group.com/2/5/c/9/25c912f9-c272-44f1-9a46-7ec60822e380/jpg_600_b251224_hb7010-1.jpg","Foto reale SNMG"],
 WNMG:["https://image.made-in-china.com/2f0j00uewoNhPnLEqD/High-Quality-External-Turning-Tool-Bright-Finishing-CNC-Blades-Wnmg-080408-Ha-Solid-Carbide-Insert-for-Stainless-Steel-2085965165.webp","Foto reale WNMG"],
