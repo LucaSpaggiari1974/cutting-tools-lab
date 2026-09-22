@@ -367,7 +367,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent) && !(window.matchMedia("(displa
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
 const photoMap={
-CNMG:["https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg","Foto reale di inserto CNMG"],
+CNMG:["https://www.cuttinginsert.com/UploadFiles/faces/Original-Iscar-tungsten-carbide-inserts-CNMG120412-GN-IC9015-1.jpg","Foto reale di inserto CNMG"],
 DNMG:["https://image.made-in-china.com/202f0j00juUckAtqbIpC/Speed-Tungsten-Carbide-Metal-Cutting-Dnmg150404-08-12-150608-12-PVC-CVD-Coating-CNC-Turning-Insert-for-Tool-Holder.webp","Foto reale di inserto DNMG"],
 SNMG:["https://assets.hoffmann-group.com/2/5/c/9/25c912f9-c272-44f1-9a46-7ec60822e380/jpg_600_b251224_hb7010-1.jpg","Foto reale di inserto SNMG"],
 WNMG:["https://image.made-in-china.com/2f0j00uewoNhPnLEqD/High-Quality-External-Turning-Tool-Bright-Finishing-CNC-Blades-Wnmg-080408-Ha-Solid-Carbide-Insert-for-Stainless-Steel-2085965165.webp","Foto reale di inserto WNMG"],
@@ -389,9 +389,9 @@ MILL:["https://cdn.mscdirect.com/global/images/ProductImages/0103252-21.jpg","Fo
 FACE:["https://cdn.mscdirect.com/global/images/ProductImages/0103252-21.jpg","Foto reale di fresa a spianare"],
 THREADING:["https://i.ebayimg.com/images/g/DTEAAOSwd7FmG2J0/s-l1200.jpg","Foto reale di inserti per filettatura"],
 GROOVING:["https://image.made-in-china.com/202f0j00dLMqcBmZNAbV/CNC-Lathe-Cutting-Tools-Grooving-Insert-Mgmn-Carbide-Turning-Insert-Mggn300-Mrmn300.webp","Foto reale di inserti per scanalatura/troncatura"],
-TURN_R12:["https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg","Foto reale di inserto CNMG"],
-TURN_R08:["https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg","Foto reale di inserto CNMG"],
-TURN_R04:["https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg","Foto reale di inserto CNMG"],
+TURN_R12:["https://www.cuttinginsert.com/UploadFiles/faces/Original-Iscar-tungsten-carbide-inserts-CNMG120412-GN-IC9015-1.jpg","Foto reale di inserto CNMG"],
+TURN_R08:["https://www.cuttinginsert.com/UploadFiles/faces/Original-Iscar-tungsten-carbide-inserts-CNMG120412-GN-IC9015-1.jpg","Foto reale di inserto CNMG"],
+TURN_R04:["https://www.cuttinginsert.com/UploadFiles/faces/Original-Iscar-tungsten-carbide-inserts-CNMG120412-GN-IC9015-1.jpg","Foto reale di inserto CNMG"],
 HOLDER:["https://tiimg.tistatic.com/fp/1/008/522/black-coating-hard-alloy-cnc-turning-tool-holder-794.jpg","Foto reale di portautensile"],
 ADAPTER:["https://www.haastooling.com/content/dam/haas-tooling/ecommerce/products/04/0674/gallery/04-0674-2.jpg/_jcr_content/renditions/original./04-0674-2.jpg","Foto reale di mandrino/adattatore"]
 };
