@@ -66,7 +66,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 </div>
 </div>
 <div class="status" id="status">Caricamento foglio…</div>
-<div class="warn" style="border-top:0">🏭 Database produttori: foto associate al marchio del record. Le foto ufficiali sono contrassegnate come “Foto ufficiale del produttore”; non vengono sostituite con foto di un altro marchio.</div>
+<div class="warn" style="border-top:0">🏭 Foto catalogo: quando la foto ufficiale del produttore non è disponibile o è un disegno, viene mostrata una foto reale di un inserto/utensile della stessa geometria e dimensione ISO, anche di un’altra marca. Il codice e il grado restano quelli del catalogo e vanno verificati sulla scheda produttore.</div>
 <div class="appbar"><span id="updateState">🔄 Aggiornamento automatico attivo</span><button id="refreshData" type="button">Aggiorna dati</button><button id="installApp" type="button" hidden>Installa app</button></div>
 <div class="tablewrap">
 <table><thead><tr>
@@ -404,20 +404,14 @@ function toolImageUrl(x){
  return p?p[0]:null;
 }
 function toolPhoto(x,modal=false){
- const official=(x&&x.photoUrl&&x.photoSource==="ISCAR Italia webshop")?String(x.photoUrl):"";
  const kind=familyFor(x);
  const fallback=photoMap[kind]||photoMap.HOLDER;
- const src=official||fallback[0];
- const alt=esc(((x&&x.maker)||"")+" "+((x&&x.code)||"")+" · "+(official?"foto del prodotto":"immagine esemplificativa della geometria"));
- const label=official
-   ? 'Foto associata al prodotto/codice'
-   : 'Foto reale esemplificativa · '+esc(fallback[1]);
- const note=official
-   ? 'La foto è associata al record del catalogo.'
-   : '⚠️ Non è disponibile una foto originale verificata del produttore per questo codice. La foto mostrata è un inserto reale della stessa geometria/tipologia; non identifica marca, grado o codice esatto.';
- const direct='';
- const link=x&&x.drawingUrl?'<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>':(x&&x.productUrl?'<a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda prodotto ufficiale</a>':'');
- return '<div><img class="recDraw" loading="'+(modal?'eager':'lazy')+'" src="'+esc(src)+'" alt="'+alt+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><div class="photo-caption" style="display:none;padding:10px;background:#fff;border:1px solid var(--line);border-radius:9px">⚠️ Immagine non caricata. <strong>Anteprima non disponibile.</strong></div><div class="photo-caption">'+label+'<br>'+note+'</div>'+direct+(link?'<br>'+link:'')+'</div>';
+ const src=fallback[0];
+ const alt=esc(((x&&x.maker)||"")+" "+((x&&x.code)||"")+" · foto reale rappresentativa della geometria");
+ const label='Foto reale rappresentativa · '+esc(fallback[1]);
+ const note='⚠️ Foto reale della stessa geometria/tipologia quando disponibile; se il produttore del record non ha una foto utilizzabile, viene mostrato un equivalente di altra marca. Non identifica necessariamente marca, grado o codice esatto.';
+ const img='<img class="recDraw" src="'+src+'" alt="'+alt+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=(photoMap.CNMG&&photoMap.CNMG[0])||src">';
+ return '<div><div style="position:relative">'+img+'</div><div class="photo-caption">'+label+'</div><div class="photo-caption">'+note+'</div></div>';
 }
 function toolDrawing(kind){
  const p=photoMap[kind]||photoMap.HOLDER;
