@@ -557,6 +557,13 @@ function renderProblems(){
 document.getElementById('problemSearch').oninput=renderProblems;document.getElementById('problemArea').oninput=renderProblems;renderProblems();
 
 const SPECIAL_API_BASE=window.CUTTING_TOOLS_API_BASE||"https://cutting-tools-lab.vercel.app";
+function normalizeSpecialItem(x){
+  const rawUrl=String(x?.fileUrl||"");
+  const fileUrl=rawUrl.startsWith("/")?(SPECIAL_API_BASE+rawUrl):rawUrl;
+  const preview=String(x?.fileDataUrl||fileUrl||x?.filePath||"");
+  return {...x,fileUrl,filePreview:preview};
+}
+
 let specialTools=[];
 let specialOnlineReady=false;
 function specialPassword(){return sessionStorage.getItem("cuttingToolsSpecialPasswordV2")||"";}
@@ -592,6 +599,7 @@ async function loadOnlineSpecialTools(silent=false){
 async function hydrateSpecialImage(img){
   const src=img?.dataset?.specialSrc||img?.src||"";
   if(!src||img.dataset.hydrated==="1")return;
+  if(/^data:image\\//i.test(src)){img.src=src;img.dataset.hydrated="1";return;}
   img.dataset.specialSrc=src;
   try{
     const r=await fetch(src,{cache:"no-store",mode:"cors"});
@@ -609,6 +617,7 @@ async function hydrateSpecialImage(img){
   }
 }
 function renderSpecialTools(){
+  specialTools=specialTools.map(normalizeSpecialItem);
  const el=document.getElementById("specialList"),st=document.getElementById("specialStatus");
  if(!el)return;
  const mf=document.getElementById("specialMachineFilter"),pf=document.getElementById("specialPieceFilter"),mv=mf?mf.value:"",pv=pf?pf.value:"";
@@ -668,7 +677,7 @@ setInterval(async()=>{
   try{
     const j=await specialApi("?ts="+Date.now());
     if(j.updatedAt&&window.__specialUpdatedAt&&j.updatedAt!==window.__specialUpdatedAt){
-      specialTools=Array.isArray(j.items)?j.items.map(x=>({...x,fileUrl:(x.fileUrl&&String(x.fileUrl).startsWith("/"))?(SPECIAL_API_BASE+String(x.fileUrl)):x.fileUrl})):[];specialTools.forEach(x=>{if(x.fileUrl)x.fileUrl=x.fileUrl+(x.fileUrl.includes("?")?"&":"?")+"ctimg="+encodeURIComponent(String(x.id||Date.now()));});window.__specialUpdatedAt=j.updatedAt;specialOnlineReady=true;renderSpecialTools();
+      specialTools=Array.isArray(j.items)?j.items.map(normalizeSpecialItem):[];specialTools.forEach(x=>{if(x.fileUrl)x.fileUrl=x.fileUrl+(x.fileUrl.includes("?")?"&":"?")+"ctimg="+encodeURIComponent(String(x.id||Date.now()));});window.__specialUpdatedAt=j.updatedAt;specialOnlineReady=true;renderSpecialTools();
     }
   }catch(_){}
 },30000);
