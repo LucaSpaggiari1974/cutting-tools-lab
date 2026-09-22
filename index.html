@@ -226,14 +226,14 @@ function showCodePreview(x,el){
  }
 }
 function insertPreviewSvg(kind,x){
- let k=String(kind||"HOLDER").toUpperCase();
+ const k=String(kind||"HOLDER").toUpperCase();
  const fallback=localInsertPreview(k);
- const photo=(x&&x.photoUrl)||null;
+ const photo=(x&&x.photoUrl)?String(x.photoUrl):"";
  if(photo){
-   return "<img src='"+String(photo).replace(/'/g,"&#39;")+"' alt='Foto reale "+k+"' style='width:100%;height:100%;object-fit:contain;display:block;background:#fff' onerror="this.onerror=null;this.outerHTML='"+String(fallback).replace(/'/g,"&#39;").replace(/"/g,"&quot;")+"'">";
+   return '<img src="'+photo.replace(/"/g,"&quot;")+'" alt="Foto reale '+esc(k)+'" style="width:100%;height:100%;object-fit:contain;display:block;background:#fff" onerror="this.onerror=null;this.replaceWith(document.createRange().createContextualFragment('+JSON.stringify(fallback)+'))">';
  }
- if(k==="CNMG"||k==="TURN_R04"||k==="TURN_R08"||k==="TURN_R12"){
-   return "<img src='./assets/previews/CNMG.svg' alt='Anteprima CNMG' style='width:100%;height:100%;object-fit:contain;display:block;background:#fff' onerror="this.onerror=null;this.outerHTML='"+String(fallback).replace(/'/g,"&#39;").replace(/"/g,"&quot;")+"'">";
+ if(k==="CNMG"){
+   return '<img src="./assets/previews/CNMG.svg" alt="Anteprima CNMG" style="width:100%;height:100%;object-fit:contain;display:block;background:#fff" onerror="this.onerror=null;this.replaceWith(document.createRange().createContextualFragment('+JSON.stringify(fallback)+'))">';
  }
  return fallback;
 }
