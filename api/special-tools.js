@@ -6,7 +6,7 @@ const ARCHIVE_PATH = "allison/special-tools.json";
 const MEDIA_PREFIX = "allison/media/";
 
 const CATALOG_IMAGE_URLS = {
-  CNMG:"https://www.mscdirect.co.uk/media/catalog/product/i/5/i55-07754l.jpg?bg-color=255&optimize=medium",
+  CNMG:"https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
   DNMG:"https://image.made-in-china.com/202f0j00juUckAtqbIpC/Speed-Tungsten-Carbide-Metal-Cutting-Dnmg150404-08-12-150608-12-PVC-CVD-Coating-CNC-Turning-Insert-for-Tool-Holder.webp",
   SNMG:"https://assets.hoffmann-group.com/2/5/c/9/25c912f9-c272-44f1-9a46-7ec60822e380/jpg_600_b251224_hb7010-1.jpg",
   WNMG:"https://image.made-in-china.com/2f0j00uewoNhPnLEqD/High-Quality-External-Turning-Tool-Bright-Finishing-CNC-Blades-Wnmg-080408-Ha-Solid-Carbide-Insert-for-Stainless-Steel-2085965165.webp",
