@@ -27,3 +27,32 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
           git push origin "origin/main:refs/heads/$BACKUP_BRANCH" --force
+
+      - name: Recupera l'archivio online degli utensili speciali Allison
+        env:
+          ALLISON_API: https://cutting-tools-lab.vercel.app/api/special-tools
+        run: |
+          set -e
+          git fetch origin "$BACKUP_BRANCH"
+          git checkout -B "$BACKUP_BRANCH" "origin/$BACKUP_BRANCH"
+          curl --fail --silent --show-error --location --retry 3 "$ALLISON_API?backup=$(date +%s)" -o special-tools-allison.json
+          python - <<'PY'
+          import json
+          with open("special-tools-allison.json","r",encoding="utf-8") as f:
+              data=json.load(f)
+          if not isinstance(data.get("items"), list):
+              raise SystemExit("Archivio Allison non valido: manca items[]")
+          with open("special-tools-allison.json","w",encoding="utf-8") as f:
+              json.dump(data,f,ensure_ascii=False,indent=2)
+              f.write("\n")
+          print(f"Backup Allison: {len(data['items'])} utensili")
+          PY
+          git add special-tools-allison.json
+          if git diff --cached --quiet; then
+            echo "Nessuna variazione nell'archivio Allison."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "backup: archivio utensili speciali Allison"
+            git push origin "$BACKUP_BRANCH"
+          fi
