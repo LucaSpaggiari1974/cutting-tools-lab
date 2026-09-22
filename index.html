@@ -227,8 +227,8 @@ function showCodePreview(x,el){
 }
 function insertPreviewSvg(kind){
  let k=String(kind||"HOLDER").toUpperCase();
- // CNMG può essere classificato internamente come TURN_R04/R08/R12 in base al raggio: l’anteprima deve comunque usare la geometria CNMG.
- if(k==="TURN_R04"||k==="TURN_R08"||k==="TURN_R12")k="CNMG";
+ // CNMG usa un file locale per evitare qualsiasi problema Safari/iPhone con data-URI SVG.
+ if(k==="TURN_R04"||k==="TURN_R08"||k==="TURN_R12"||k.includes("CNMG"))return "<img src='./assets/previews/CNMG.svg' alt='Anteprima CNMG' style='width:100%;height:100%;object-fit:contain;display:block'>";
  const shapes={
   CNMG:"<path d='M50 8 L92 32 L92 68 L50 92 L8 68 L8 32 Z'/>",
   DNMG:"<path d='M50 8 L92 50 L50 92 L8 50 Z'/>",
@@ -409,8 +409,8 @@ document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[s
 
 function localInsertPreview(kind){
  let k=String(kind||"HOLDER").toUpperCase();
- // CNMG può essere classificato internamente come TURN_R04/R08/R12 in base al raggio: l’anteprima deve comunque usare la geometria CNMG.
- if(k==="TURN_R04"||k==="TURN_R08"||k==="TURN_R12")k="CNMG";
+ // Tutte le varianti CNMG usano un file immagine locale reale del progetto, senza data-URI e senza siti esterni.
+ if(k==="TURN_R04"||k==="TURN_R08"||k==="TURN_R12"||k.includes("CNMG"))return "./assets/previews/CNMG.svg";
  const shapes={
   CNMG:"<path d='M50 8 L92 32 L92 68 L50 92 L8 68 L8 32 Z'/>",DNMG:"<path d='M50 8 L92 50 L50 92 L8 50 Z'/>",SNMG:"<rect x='9' y='9' width='82' height='82' rx='4'/>",WNMG:"<path d='M10 18 L34 8 L66 8 L90 18 L82 82 L50 92 L18 82 Z'/>",VNMG:"<path d='M12 18 L50 8 L88 18 L58 92 L42 92 Z'/>",VBMT:"<path d='M14 22 L78 8 L92 22 L78 78 L22 92 L8 78 Z'/>",DCMT:"<path d='M18 8 L92 8 L78 92 L8 92 Z'/>",CCMT:"<path d='M50 8 L92 50 L50 92 L8 50 Z'/>",TCMT:"<path d='M50 8 L92 84 L8 84 Z'/>",RCMT:"<circle cx='50' cy='50' r='42'/>",CCGT:"<path d='M50 8 L92 50 L50 92 L8 50 Z'/>",TCGT:"<path d='M50 8 L92 84 L8 84 Z'/>",GROOVING:"<rect x='12' y='22' width='76' height='56' rx='5'/>",THREADING:"<path d='M12 78 L88 78 L72 22 L28 22 Z'/>"};
  const shape=shapes[k]||"<rect x='12' y='12' width='76' height='76' rx='8'/>";
