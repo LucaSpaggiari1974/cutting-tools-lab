@@ -159,10 +159,11 @@ function getPreviewUrl(x){
 }
 function getHoverPreviewUrl(x){
  if(!x)return null;
- // Windows hover: never use drawingUrl/productUrl or an unverified catalog graphic.
- // Use only a verified product photo, otherwise the real-photo geometry fallback.
- if(x.photoUrl && x.photoSource==="ISCAR Italia webshop") return x.photoUrl;
- return toolImageUrl(x);
+ // Windows hover: ONLY the generic real-product photo mapped by geometry/family.
+ // Never use catalog drawings, drawingUrl, productUrl or record photoUrl.
+ const kind=familyFor(x);
+ const p=photoMap[kind]||photoMap.HOLDER;
+ return p&&p[0]?p[0]:null;
 }
 function hideCodePreview(){
  const im=document.getElementById("codePreview"),cap=document.getElementById("codePreviewCaption"),close=document.getElementById("codePreviewClose");
@@ -394,7 +395,7 @@ ADAPTER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/$_57.JPG?se
 };
 function toolImageUrl(x){
  if(!x)return null;
- if(x.photoUrl && x.photoSource==="ISCAR Italia webshop")return x.photoUrl;
+ // Generic real-product photo only. Record/catalog images are never used as preview.
  const kind=familyFor(x);
  const p=photoMap[kind]||photoMap.HOLDER;
  return p?p[0]:null;
