@@ -227,8 +227,11 @@ function showCodePreview(x,el){
 }
 function insertPreviewSvg(kind){
  let k=String(kind||"HOLDER").toUpperCase();
- // CNMG usa un file locale per evitare qualsiasi problema Safari/iPhone con data-URI SVG.
- if(k==="CNMG"||k==="TURN_R04"||k==="TURN_R08"||k==="TURN_R12")return "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100%' height='100%' preserveAspectRatio='xMidYMid meet'><rect width='100' height='100' fill='white'/><path d='M50 8 L92 32 L92 68 L50 92 L8 68 L8 32 Z' fill='#d9e1e7' stroke='#123a5a' stroke-width='3'/><circle cx='50' cy='50' r='8' fill='white' stroke='#123a5a' stroke-width='3'/><text x='50' y='97' text-anchor='middle' font-family='Arial,sans-serif' font-size='7' fill='#123a5a'>CNMG</text></svg>";
+ if(k==="CNMG"||k==="TURN_R04"||k==="TURN_R08"||k==="TURN_R12"){
+   const p=photoMap.CNMG&&photoMap.CNMG[0];
+   const fallback="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100%' height='100%' preserveAspectRatio='xMidYMid meet'><rect width='100' height='100' fill='white'/><path d='M50 8 L92 32 L92 68 L50 92 L8 68 L8 32 Z' fill='#d9e1e7' stroke='#123a5a' stroke-width='3'/><circle cx='50' cy='50' r='8' fill='white' stroke='#123a5a' stroke-width='3'/><text x='50' y='97' text-anchor='middle' font-family='Arial,sans-serif' font-size='7' fill='#123a5a'>CNMG</text></svg>";
+   return p?"<img src='"+p+"' alt='Foto reale CNMG' style='width:100%;height:100%;object-fit:contain;display:block' onerror=\"this.onerror=null;this.outerHTML='"+fallback.replace(/"/g,"&quot;").replace(/'/g,"&#39;")+"'\">":fallback;
+ }
  const shapes={
   CNMG:"<path d='M50 8 L92 32 L92 68 L50 92 L8 68 L8 32 Z'/>",
   DNMG:"<path d='M50 8 L92 50 L50 92 L8 50 Z'/>",
@@ -450,18 +453,19 @@ ADAPTER:[IMAGE_PROXY_BASE+"ADAPTER","Foto reale adattatore"]
 
 function toolImageUrl(x){
  if(!x)return null;
- const u=String((x.code||"")+" "+(x.geom||"")).toUpperCase();
- if(u.includes("CNMG"))return localInsertPreview("CNMG");
- return localInsertPreview(familyFor(x));
+ const kind=previewFamily(x);
+ const p=photoMap[kind]||photoMap.HOLDER;
+ return p&&p[0]?p[0]:localInsertPreview(kind);
 }
 function toolPhoto(x,modal=false){
  const kind=previewFamily(x);
- const fallback=photoMap[kind]||photoMap.HOLDER;
- const src=localInsertPreview(kind);
+ const fallback=localInsertPreview(kind);
+ const p=photoMap[kind]||photoMap.HOLDER;
+ const src=p&&p[0]?p[0]:fallback;
  const alt=esc(((x&&x.maker)||"")+" "+((x&&x.code)||"")+" · foto reale rappresentativa della geometria");
- const label='Anteprima geometria ISO · '+esc(kind);
- const note='Anteprima grafica locale della geometria ISO: funziona senza collegamenti a siti esterni ed è identica su iPhone e Windows. Non rappresenta marca, grado o codice esatto.';
- const img='<img class="recDraw" src="'+src+'" alt="'+alt+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=(photoMap.CNMG&&photoMap.CNMG[0])||src">';
+ const label='Foto reale · geometria ISO '+esc(kind);
+ const note='Foto reale del tipo di inserto. Quando la foto esatta del produttore/codice non è disponibile, viene usata una foto generica che rispetta la geometria ISO; il codice e il grado restano quelli del catalogo.';
+ const img='<img class="recDraw" src="'+src+'" alt="'+alt+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\''+fallback.replace(/'/g,"\\'")+'\'">';
  return '<div><div style="position:relative">'+img+'</div><div class="photo-caption">'+label+'</div><div class="photo-caption">'+note+'</div></div>';
 }
 function toolDrawing(kind){
