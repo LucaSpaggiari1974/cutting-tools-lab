@@ -196,7 +196,7 @@ function getPreviewUrl(x){
 }
 function getHoverPreviewUrl(x){
  if(!x)return null;
- // CNMG: usa sempre una foto reale CNMG stabile, indipendentemente da produttore/raggio.
+ // CNMG usa una preview locale stabile, indipendente dal produttore/raggio.
  const raw=String((x.code||"")+" "+(x.geom||"")).toUpperCase();
  if(raw.includes("CNMG"))return photoMap.CNMG[0];
  // Windows hover: ONLY the generic real-product photo mapped by geometry/family.
@@ -406,6 +406,14 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent) && !(window.matchMedia("(displa
 }
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
+function localInsertPreview(kind){
+ const k=String(kind||"HOLDER").toUpperCase();
+ const shapes={
+  CNMG:"<path d='M50 8 L92 32 L92 68 L50 92 L8 68 L8 32 Z'/>",DNMG:"<path d='M50 8 L92 50 L50 92 L8 50 Z'/>",SNMG:"<rect x='9' y='9' width='82' height='82' rx='4'/>",WNMG:"<path d='M10 18 L34 8 L66 8 L90 18 L82 82 L50 92 L18 82 Z'/>",VNMG:"<path d='M12 18 L50 8 L88 18 L58 92 L42 92 Z'/>",VBMT:"<path d='M14 22 L78 8 L92 22 L78 78 L22 92 L8 78 Z'/>",DCMT:"<path d='M18 8 L92 8 L78 92 L8 92 Z'/>",CCMT:"<path d='M50 8 L92 50 L50 92 L8 50 Z'/>",TCMT:"<path d='M50 8 L92 84 L8 84 Z'/>",RCMT:"<circle cx='50' cy='50' r='42'/>",CCGT:"<path d='M50 8 L92 50 L50 92 L8 50 Z'/>",TCGT:"<path d='M50 8 L92 84 L8 84 Z'/>",GROOVING:"<rect x='12' y='22' width='76' height='56' rx='5'/>",THREADING:"<path d='M12 78 L88 78 L72 22 L28 22 Z'/>"};
+ const shape=shapes[k]||"<rect x='12' y='12' width='76' height='76' rx='8'/>";
+ const svg="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='white'/><g fill='#d9e1e7' stroke='#123a5a' stroke-width='3'>"+shape+"</g><circle cx='50' cy='50' r='8' fill='white' stroke='#123a5a' stroke-width='3'/><text x='50' y='97' text-anchor='middle' font-family='Arial' font-size='7' fill='#123a5a'>"+k+"</text></svg>";
+ return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
+}
 const IMAGE_PROXY_BASE="https://cutting-tools-lab.vercel.app/api/special-tools?image=";
 const photoMap={
 CNMG:[IMAGE_PROXY_BASE+"CNMG","Foto reale CNMG 120408 ISCAR"],
@@ -440,18 +448,16 @@ ADAPTER:[IMAGE_PROXY_BASE+"ADAPTER","Foto reale adattatore"]
 function toolImageUrl(x){
  if(!x)return null;
  const u=String((x.code||"")+" "+(x.geom||"")).toUpperCase();
- if(u.includes("CNMG"))return photoMap.CNMG[0];
- const kind=familyFor(x);
- const p=photoMap[kind]||photoMap.HOLDER;
- return p?p[0]:null;
+ if(u.includes("CNMG"))return localInsertPreview("CNMG");
+ return localInsertPreview(familyFor(x));
 }
 function toolPhoto(x,modal=false){
  const kind=familyFor(x);
  const fallback=photoMap[kind]||photoMap.HOLDER;
- const src=fallback[0];
+ const src=localInsertPreview(kind);
  const alt=esc(((x&&x.maker)||"")+" "+((x&&x.code)||"")+" · foto reale rappresentativa della geometria");
- const label='Foto reale rappresentativa · '+esc(fallback[1]);
- const note='⚠️ Foto reale della stessa geometria/tipologia quando disponibile; se il produttore del record non ha una foto utilizzabile, viene mostrato un equivalente di altra marca. Non identifica necessariamente marca, grado o codice esatto.';
+ const label='Anteprima geometria ISO · '+esc(kind);
+ const note='Anteprima grafica locale della geometria ISO: funziona senza collegamenti a siti esterni ed è identica su iPhone e Windows. Non rappresenta marca, grado o codice esatto.';
  const img='<img class="recDraw" src="'+src+'" alt="'+alt+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=(photoMap.CNMG&&photoMap.CNMG[0])||src">';
  return '<div><div style="position:relative">'+img+'</div><div class="photo-caption">'+label+'</div><div class="photo-caption">'+note+'</div></div>';
 }
