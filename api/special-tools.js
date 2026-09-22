@@ -57,10 +57,26 @@ function signedFileUrl(path) {
 }
 
 async function publicArchive(json) {
-  const items = await Promise.all((json.items || []).map(async (item) => ({
-    ...item,
-    fileUrl: item.filePath ? await signedFileUrl(item.filePath) : ""
-  })));
+  const items = await Promise.all((json.items || []).map(async (item) => {
+    let fileUrl = item.filePath ? await signedFileUrl(item.filePath) : "";
+    let fileDataUrl = "";
+    // Per le immagini usiamo anche una copia inline: su iPhone evita del tutto
+    // problemi di CORS, redirect, cache PWA e scadenza del link firmato.
+    if (item.filePath && /^image\//i.test(String(item.fileType || ""))) {
+      try {
+        const result = await get(String(item.filePath), { access: "private", useCache: false });
+        if (result) {
+          const ab = await new Response(result.stream).arrayBuffer();
+          const buffer = Buffer.from(ab);
+          if (buffer.length) {
+            const mime = String(item.fileType || result.blob?.contentType || "image/jpeg");
+            fileDataUrl = "data:" + mime + ";base64," + buffer.toString("base64");
+          }
+        }
+      } catch (_) {}
+    }
+    return { ...item, fileUrl, fileDataUrl };
+  }));
   return { ...json, items };
 }
 
