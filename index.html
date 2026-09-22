@@ -196,14 +196,9 @@ function getPreviewUrl(x){
 }
 function getHoverPreviewUrl(x){
  if(!x)return null;
- // CNMG usa una preview locale stabile, indipendente dal produttore/raggio.
  const raw=String((x.code||"")+" "+(x.geom||"")).toUpperCase();
- if(raw.includes("CNMG"))return photoMap.CNMG[0];
- // Windows hover: ONLY the generic real-product photo mapped by geometry/family.
- // Never use catalog drawings, drawingUrl, productUrl or record photoUrl.
- const kind=familyFor(x);
- const p=photoMap[kind]||photoMap.HOLDER;
- return p&&p[0]?p[0]:null;
+ if(raw.includes("CNMG"))return localInsertPreview("CNMG");
+ return localInsertPreview(familyFor(x));
 }
 function hideCodePreview(){
  const im=document.getElementById("codePreview"),cap=document.getElementById("codePreviewCaption"),close=document.getElementById("codePreviewClose");
