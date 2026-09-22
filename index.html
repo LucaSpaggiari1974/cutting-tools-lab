@@ -155,7 +155,9 @@ let selected=null;
 let previewTimer=null;
 function getPreviewUrl(x){
  if(!x)return null;
- return x.photoUrl||x.genericPhotoUrl||null;
+ // Qualsiasi anteprima usa esclusivamente la foto reale rappresentativa della geometria.
+ // Mai usare photoUrl/genericPhotoUrl del record, che possono essere immagini catalogo/disegni.
+ return toolImageUrl(x);
 }
 function getHoverPreviewUrl(x){
  if(!x)return null;
@@ -365,11 +367,11 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent) && !(window.matchMedia("(displa
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
 const photoMap={
-CNMG:["https://www.jat-carbide.com/content/uploads/CNMG-TURNING-INSERTS.webp","Foto reale di inserti CNMG"],
-DNMG:["https://www.jat-carbide.com/content/uploads/DNMG-JAT-Carbide-Insert-Machinery-Cutting-Tool-Holder-CNC-Lathe-External-Turning-Inserts-for-Tungsten-Carbide-Insert-Carbide-Insert-for-External-Turning-1.webp","Foto reale di inserti DNMG"],
-SNMG:["https://www.jat-carbide.com/content/uploads/SNMG120404-SNMG120408-Carbide-Insert-for-MSDNN-MSSNR-External-Turning-Tool-SNMG-R-S-L-S-1.webp","Foto reale di inserti SNMG"],
-WNMG:["https://www.jat-carbide.com/content/uploads/wnmg-1.webp","Foto reale di inserti WNMG"],
-VNMG:["https://www.jat-carbide.com/content/uploads/Carbide-Inserts-for-turning-VNMG-for-CNC-Machine.webp","Foto reale di inserti VNMG"],
+CNMG:["https://www.kovonastrojecz.com/content/images/product/original/3861628.jpg","Foto reale di inserto CNMG"],
+DNMG:["https://i.ebayimg.com/images/g/2H8AAOSwDAtjpMXA/s-l1600.jpg","Foto reale di inserti DNMG ISCAR"],
+SNMG:["https://static.brw.ch/images800x800/F_ISCAR_2501.jpg","Foto reale di inserto SNMG ISCAR"],
+WNMG:["https://webshop.iscar.de/images/Fittings/hq/System_Images/ISC/Prod_Pic/493/493_Enlarge.jpg","Foto reale di inserto WNMG ISCAR"],
+VNMG:["https://www.travers.com/media/catalog/product/1/9/19-167-064.jpg?canvas=700%3A700&fit=bounds&height=700&optimize=high&width=700","Foto reale di inserto VNMG ISCAR"],
 VBMT:["https://www.jat-carbide.com/content/uploads/Carbide-Inserts-for-turning-VNMG-for-CNC-Machine.webp","Foto reale di inserto positivo di geometria simile"],
 DCMT:["https://www.jat-carbide.com/content/uploads/DCMT-TURNING-INSERT-1.webp","Foto reale di inserti DCMT"],
 CCMT:["https://www.jat-carbide.com/content/uploads/DCMT-TURNING-INSERT-1.webp","Foto reale di inserto positivo di geometria simile"],
@@ -412,7 +414,7 @@ function toolPhoto(x,modal=false){
  const note=official
    ? 'La foto è associata al record del catalogo.'
    : '⚠️ Non è disponibile una foto originale verificata del produttore per questo codice. La foto mostrata è un inserto reale della stessa geometria/tipologia; non identifica marca, grado o codice esatto.';
- const direct=official?'<a href="'+esc(official)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">🖼️ Apri immagine originale</a>':'';
+ const direct='';
  const link=x&&x.drawingUrl?'<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>':(x&&x.productUrl?'<a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda prodotto ufficiale</a>':'');
  return '<div><img class="recDraw" loading="'+(modal?'eager':'lazy')+'" src="'+esc(src)+'" alt="'+alt+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><div class="photo-caption" style="display:none;padding:10px;background:#fff;border:1px solid var(--line);border-radius:9px">⚠️ Immagine non caricata. <strong>Anteprima non disponibile.</strong></div><div class="photo-caption">'+label+'<br>'+note+'</div>'+direct+(link?'<br>'+link:'')+'</div>';
 }
