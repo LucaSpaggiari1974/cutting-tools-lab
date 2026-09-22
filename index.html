@@ -386,7 +386,10 @@ ADAPTER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?
 };
 function toolImageUrl(x){
  if(!x)return null;
- return x.photoUrl||null;
+ if(x.photoUrl)return x.photoUrl;
+ const kind=familyFor(x);
+ const p=photoMap[kind]||photoMap.HOLDER;
+ return p?p[0]:null;
 }
 function toolPhoto(x,modal=false){
  const official=x&&x.photoUrl?String(x.photoUrl):"";
