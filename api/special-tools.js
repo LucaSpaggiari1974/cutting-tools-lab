@@ -24,11 +24,14 @@ async function getArchive() {
 
 async function signedFileUrl(path) {
   if (!path || !String(path).startsWith(MEDIA_PREFIX)) return "";
-  const token = await issueSignedToken({ operations: ["get"] });
+  const token = await issueSignedToken({
+    pathname: String(path),
+    operations: ["get"]
+  });
   const { presignedUrl } = await presignUrl(token, {
     pathname: String(path),
     operation: "get",
-    validUntil: Date.now() + 10 * 60 * 1000
+    validUntil: Date.now() + 24 * 60 * 60 * 1000
   });
   return presignedUrl;
 }
