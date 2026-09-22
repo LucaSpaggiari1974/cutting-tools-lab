@@ -361,38 +361,43 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent) && !(window.matchMedia("(displa
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
 const photoMap={
-CNMG:["https://www.iskrextools.com/images/products/CNMG120408-MP.jpg","Foto reale inserto CNMG"],
-DNMG:["https://www.haastooling.com/images/products/02-0156.jpg","Foto reale inserto DNMG"],
-SNMG:["https://www.kyocera-unimerco.com/-/media/Images/Kyocera/Products/Turning-Inserts/SNMG120412-CA530.jpg","Foto reale inserto SNMG"],
-WNMG:["https://jetedge-cutting.com/wp-content/uploads/2024/06/WNMG-carbide-turning-inserts.jpg","Foto reale inserto WNMG"],
-VNMG:["https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_vnmg_16_04_08_mf_2220_t_max_p_sorvaustera_pict3dview.jpg","Foto reale inserto VNMG"],
-VBMT:["https://www.shop-apt.co.uk/user/products/large/VBMT-MX-1125.jpg","Foto reale inserto VBMT"],
-DCMT:["https://www.tilltools.de/media/fd/b2/49/1758270534/dcmt-wendeschneidplatte-stahl.jpg?ts=1758270534","Foto reale inserto DCMT"],
-CCMT:["https://cdn.mscdirect.com/global/images/ProductImages/7526076-24.jpg","Foto reale inserto CCMT"],
-TCMT:["https://webshop.tungaloycanada.com/images/Fittings/hq/System_Images/TUN/Prod_Pic/884/884_Enlarge.jpg","Foto reale inserto TCMT"],
-RCMT:["https://artykulytechniczne.pl/114739-largeretina_default/plytka-rcmt-1606-mo-st-ph-5125-palbit.jpg","Foto reale inserto RCMT"],
+CNMG:["https://www.jat-carbide.com/content/uploads/CNMG-TURNING-INSERTS.webp","Foto reale di inserti CNMG"],
+DNMG:["https://www.jat-carbide.com/content/uploads/DNMG-JAT-Carbide-Insert-Machinery-Cutting-Tool-Holder-CNC-Lathe-External-Turning-Inserts-for-Tungsten-Carbide-Insert-Carbide-Insert-for-External-Turning-1.webp","Foto reale di inserti DNMG"],
+SNMG:["https://www.jat-carbide.com/content/uploads/SNMG120404-SNMG120408-Carbide-Insert-for-MSDNN-MSSNR-External-Turning-Tool-SNMG-R-S-L-S-1.webp","Foto reale di inserti SNMG"],
+WNMG:["https://www.jat-carbide.com/content/uploads/wnmg-1.webp","Foto reale di inserti WNMG"],
+VNMG:["https://www.jat-carbide.com/content/uploads/Carbide-Inserts-for-turning-VNMG-for-CNC-Machine.webp","Foto reale di inserti VNMG"],
+VBMT:["https://www.jat-carbide.com/content/uploads/Carbide-Inserts-for-turning-VNMG-for-CNC-Machine.webp","Foto reale di inserto positivo di geometria simile"],
+DCMT:["https://www.jat-carbide.com/content/uploads/DCMT-TURNING-INSERT-1.webp","Foto reale di inserti DCMT"],
+CCMT:["https://www.jat-carbide.com/content/uploads/DCMT-TURNING-INSERT-1.webp","Foto reale di inserto positivo di geometria simile"],
+TCMT:["https://www.jat-carbide.com/content/uploads/DCMT-TURNING-INSERT-1.webp","Foto reale di inserto positivo di geometria simile"],
+RCMT:["https://www.jat-carbide.com/content/uploads/CNMG-TURNING-INSERTS.webp","Foto reale di inserto indicizzabile di geometria simile"],
+CCGT:["https://www.jat-carbide.com/content/uploads/Ccgt060202-Ccgt060204-Ccgt09t304-Ccgt120402-Carbide-Aluminum-Insert.webp","Foto reale di inserti CCGT"],
+TCGT:["https://www.jat-carbide.com/content/uploads/DCMT-TURNING-INSERT-1.webp","Foto reale di inserto positivo di geometria simile"],
+DCGT:["https://www.jat-carbide.com/content/uploads/DCMT-TURNING-INSERT-1.webp","Foto reale di inserto positivo di geometria simile"],
 G:["https://www.gen3industrial.com/cdn/shop/files/83cebe6f-dde6-414a-9a46-6b301af44980.jpg?v=1760043945&width=4096","Foto reale utensile per scanalatura/troncatura"],
 L:["https://i.ebayimg.com/images/g/GGEAAOSwwYVk9qGC/s-l1600.jpg","Foto reale portautensile per filettatura"],
-DRILL:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta a inserti"],
-DRILL_INDEX:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta a inserti"],
-DRILL_MOD:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta modulare"],
-MILL:["https://cdn11.bigcommerce.com/s-kvzeeygcn8/images/stencil/1280x1280/products/28579/131031/smt40917-sandvik-coromill-plura-20mm-carbide-endmill-5-flutes-rm-300re-24748-loc1884b__22210.1662992430.jpg?c=1","Foto reale fresa"],
-FACE:["https://i.ebayimg.com/images/g/~g4AAOSwUfdjoOwq/s-l960.jpg","Foto reale fresa a spianare"],
-TURN_R12:["https://www.haastooling.com/images/products/02-0145.jpg","Foto reale inserto CNMG raggio R1,2"],
-TURN_R08:["https://www.haastooling.com/images/products/02-0082.jpg","Foto reale inserto CNMG raggio R0,8"],
-TURN_R04:["https://www.haastooling.com/images/products/02-0135.jpg","Foto reale inserto CNMG raggio R0,4"],
+DRILL:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale utensile di foratura"],
+DRILL_INDEX:["https://www.jat-carbide.com/content/uploads/JAT-Carbide-Drilling-Inserts.webp","Foto reale di utensili/inserti per foratura"],
+DRILL_MOD:["https://www.jat-carbide.com/content/uploads/JAT-Carbide-Drilling-Inserts.webp","Foto reale di utensili/inserti per foratura"],
+MILL:["https://www.jat-carbide.com/content/uploads/End-mill.webp","Foto reale di frese integrali"],
+FACE:["https://www.jat-carbide.com/content/uploads/End-mill.webp","Foto reale di fresa"],
+THREADING:["https://www.jat-carbide.com/content/uploads/threading-insert.png","Foto reale di inserti per filettatura"],
+GROOVING:["https://www.jat-carbide.com/content/uploads/JAT-Parting-Grooving-Inserts-1.webp","Foto reale di inserti per scanalatura/troncatura"],
+TURN_R12:["https://www.jat-carbide.com/content/uploads/CNMG-TURNING-INSERTS.webp","Foto reale di inserto CNMG"],
+TURN_R08:["https://www.jat-carbide.com/content/uploads/CNMG-TURNING-INSERTS.webp","Foto reale di inserto CNMG"],
+TURN_R04:["https://www.jat-carbide.com/content/uploads/CNMG-TURNING-INSERTS.webp","Foto reale di inserto CNMG"],
 HOLDER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/$_57.JPG?set_id=880000500F","Foto reale portautensile"],
 ADAPTER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/$_57.JPG?set_id=880000500F","Foto reale mandrino/adattatore"]
 };
 function toolImageUrl(x){
  if(!x)return null;
- if(x.photoUrl)return x.photoUrl;
+ if(x.photoUrl && x.photoSource==="ISCAR Italia webshop")return x.photoUrl;
  const kind=familyFor(x);
  const p=photoMap[kind]||photoMap.HOLDER;
  return p?p[0]:null;
 }
 function toolPhoto(x,modal=false){
- const official=x&&x.photoUrl?String(x.photoUrl):"";
+ const official=(x&&x.photoUrl&&x.photoSource==="ISCAR Italia webshop")?String(x.photoUrl):"";
  const kind=familyFor(x);
  const fallback=photoMap[kind]||photoMap.HOLDER;
  const src=official||fallback[0];
@@ -412,22 +417,18 @@ function toolDrawing(kind){
  return '<div><img class="recDraw" loading="lazy" src="'+p[0]+'" alt="'+esc(p[1])+'" onerror="this.style.display=\'none\'"><div class="photo-caption">'+esc(p[1])+'</div></div>';
 }
 function familyFor(x){
- const k=(x.code+' '+x.category+' '+x.geom).toUpperCase();
- if(k.includes('FORATURA')){
-   if(k.includes('INSERTI')) return 'DRILL_INDEX';
-   if(k.includes('MODULARE')) return 'DRILL_MOD';
-   return 'DRILL';
- }
- if(k.includes('FRESATURA')) return 'MILL';
- if(k.includes('SPIANATURA')) return 'FACE';
- if(k.includes('CNMG')){
-   const r=insertRadius(x);
-   if(r===1.2) return 'TURN_R12';
-   if(r===0.8) return 'TURN_R08';
-   if(r===0.4) return 'TURN_R04';
- }
- for(const f of Object.keys(photoMap)) if(k.includes(f)) return f;
- return 'HOLDER';
+ const k=((x&&x.code)||"")+" "+((x&&x.category)||"")+" "+((x&&x.geom)||"");
+ const u=k.toUpperCase();
+ if(u.includes("FORATURA")){if(u.includes("INSERTI"))return "DRILL_INDEX";if(u.includes("MODULARE"))return "DRILL_MOD";return "DRILL";}
+ if(u.includes("FRESATURA"))return "MILL";
+ if(u.includes("SPIANATURA"))return "FACE";
+ if(u.includes("FILETTATURA")||/\b(11IR|11ER|16IR|16ER|22IR|22ER)\b/.test(u))return "THREADING";
+ if(u.includes("SCANALATURA")||u.includes("TRONCATURA")||u.includes("GROOV"))return "GROOVING";
+ if(u.includes("PORTAUTENSILI"))return "HOLDER";
+ if(u.includes("MANDRINI")||u.includes("ADATTATORI")||u.includes("ER32")||u.includes("ER40"))return "ADAPTER";
+ if(u.includes("CNMG")){const r=insertRadius(x);if(r===1.2)return "TURN_R12";if(r===0.8)return "TURN_R08";if(r===0.4)return "TURN_R04";return "CNMG";}
+ for(const f of ["DNMG","SNMG","WNMG","VNMG","VBMT","DCMT","CCMT","TCMT","RCMT","CCGT","TCGT","DCGT"])if(u.includes(f))return f;
+ return "HOLDER";
 }
 function renderRecommendations(target,filter){
  const list=data.filter(x=>filter(x)).slice(0,4);
