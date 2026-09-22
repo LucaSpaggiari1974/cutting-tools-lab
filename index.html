@@ -393,7 +393,7 @@ function toolPhoto(x,modal=false){
  const kind=familyFor(x);
  const fallback=photoMap[kind]||photoMap.HOLDER;
  const src=official||fallback[0];
- const alt=esc((x?.maker||"")+" "+(x?.code||"")+" · "+(official?"foto del prodotto":"immagine esemplificativa della geometria"));
+ const alt=esc(((x&&x.maker)||"")+" "+((x&&x.code)||"")+" · "+(official?"foto del prodotto":"immagine esemplificativa della geometria"));
  const label=official
    ? 'Foto associata al prodotto/codice'
    : 'Immagine esemplificativa · '+esc(fallback[1]);
