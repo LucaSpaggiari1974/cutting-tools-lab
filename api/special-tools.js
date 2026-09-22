@@ -1,4 +1,6 @@
-const { put, get, del, issueSignedToken, presignUrl } = require("@vercel/blob");
+const { put, get, del } = require("@vercel/blob");
+const crypto = require("crypto");
+
 
 const ARCHIVE_PATH = "allison/special-tools.json";
 const MEDIA_PREFIX = "allison/media/";
@@ -22,18 +24,36 @@ async function getArchive() {
   return json;
 }
 
-async function signedFileUrl(path) {
+function mediaViewToken(path, expiresAt) {
+  const secret = String(process.env.SPECIAL_TOOLS_PASSWORD || "");
+  const payload = String(path) + "|" + String(expiresAt);
+  const sig = crypto.createHmac("sha256", secret).update(payload).digest("base64url");
+  return Buffer.from(payload).toString("base64url") + "." + sig;
+}
+
+function verifyMediaViewToken(token, expectedPath) {
+  try {
+    const parts = String(token || "").split(".");
+    if (parts.length !== 2) return false;
+    const payload = Buffer.from(parts[0], "base64url").toString("utf8");
+    const sig = parts[1];
+    const sep = payload.lastIndexOf("|");
+    if (sep < 1) return false;
+    const path = payload.slice(0, sep);
+    const expiresAt = Number(payload.slice(sep + 1));
+    if (path !== expectedPath || !Number.isFinite(expiresAt) || Date.now() > expiresAt) return false;
+    const expected = crypto.createHmac("sha256", String(process.env.SPECIAL_TOOLS_PASSWORD || "")).update(payload).digest("base64url");
+    return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));
+  } catch (_) {
+    return false;
+  }
+}
+
+function signedFileUrl(path) {
   if (!path || !String(path).startsWith(MEDIA_PREFIX)) return "";
-  const token = await issueSignedToken({
-    pathname: String(path),
-    operations: ["get"]
-  });
-  const { presignedUrl } = await presignUrl(token, {
-    pathname: String(path),
-    operation: "get",
-    validUntil: Date.now() + 24 * 60 * 60 * 1000
-  });
-  return presignedUrl;
+  const expiresAt = Date.now() + 24 * 60 * 60 * 1000;
+  const token = mediaViewToken(String(path), expiresAt);
+  return "/api/special-tools?file=" + encodeURIComponent(String(path)) + "&view=1&token=" + encodeURIComponent(token);
 }
 
 async function publicArchive(json) {
@@ -123,6 +143,10 @@ module.exports = async (req, res) => {
       const path = String(req.query.file || "");
       if (!path.startsWith(MEDIA_PREFIX) || path.includes("..") || path.includes("\\") || path.includes("\0")) {
         return res.status(400).json({ error: "File allegato non valido." });
+      }
+      const viewToken = String(req.query?.token || "");
+      if (!viewToken || !verifyMediaViewToken(viewToken, path)) {
+        return res.status(401).json({ error: "Link allegato non valido o scaduto." });
       }
       const result = await get(path, { access: "private", useCache: false });
       if (!result) return res.status(404).json({ error: "File allegato non trovato." });
