@@ -529,7 +529,7 @@ function renderProblems(){
 }
 document.getElementById('problemSearch').oninput=renderProblems;document.getElementById('problemArea').oninput=renderProblems;renderProblems();
 
-const SPECIAL_API_BASE=window.CUTTING_TOOLS_API_BASE||"";
+const SPECIAL_API_BASE=window.CUTTING_TOOLS_API_BASE||"https://cutting-tools-lab.vercel.app";
 let specialTools=[];
 let specialOnlineReady=false;
 async function specialApi(path="",options={}){
