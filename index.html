@@ -451,20 +451,22 @@ HOLDER:[IMAGE_PROXY_BASE+"HOLDER","Foto reale portautensile"],
 ADAPTER:[IMAGE_PROXY_BASE+"ADAPTER","Foto reale adattatore"]
 };
 
+function realPhotoUrl(kind){
+ const p=photoMap[kind]||photoMap.HOLDER;
+ return p&&p[0]?p[0]:null;
+}
 function toolImageUrl(x){
  if(!x)return null;
  const kind=previewFamily(x);
- const p=photoMap[kind]||photoMap.HOLDER;
- return p&&p[0]?p[0]:localInsertPreview(kind);
+ return realPhotoUrl(kind)||localInsertPreview(kind);
 }
 function toolPhoto(x,modal=false){
  const kind=previewFamily(x);
  const fallback=localInsertPreview(kind);
- const p=photoMap[kind]||photoMap.HOLDER;
- const src=p&&p[0]?p[0]:fallback;
- const alt=esc(((x&&x.maker)||"")+" "+((x&&x.code)||"")+" · foto reale rappresentativa della geometria");
+ const src=realPhotoUrl(kind)||fallback;
+ const alt=esc(((x&&x.maker)||"")+" "+((x&&x.code)||"")+" · foto reale rappresentativa della geometria "+kind);
  const label='Foto reale · geometria ISO '+esc(kind);
- const note='Foto reale del tipo di inserto. Quando la foto esatta del produttore/codice non è disponibile, viene usata una foto generica che rispetta la geometria ISO; il codice e il grado restano quelli del catalogo.';
+ const note='Foto reale del tipo di utensile. Se la foto precisa del produttore/codice non è disponibile, viene usata una foto generica che rispetta la geometria ISO. Se anche la foto non è raggiungibile, viene mostrata una geometria locale di sicurezza.';
  const img='<img class="recDraw" src="'+src+'" alt="'+alt+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\''+fallback.replace(/'/g,"\\'")+'\'">';
  return '<div><div style="position:relative">'+img+'</div><div class="photo-caption">'+label+'</div><div class="photo-caption">'+note+'</div></div>';
 }
