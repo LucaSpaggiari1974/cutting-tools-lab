@@ -541,7 +541,13 @@ async function specialApi(path="",options={}){
 async function loadOnlineSpecialTools(silent=false){
   try{
     const j=await specialApi("?ts="+Date.now());
-    specialTools=Array.isArray(j.items)?j.items:[];
+    specialTools=Array.isArray(j.items)?j.items.map(x=>{
+      const item={...x};
+      // I file privati Allison vengono serviti dal backend: così Windows e iPhone
+      // non devono accedere direttamente al Vercel Blob privato.
+      if(item.filePath) item.fileUrl=SPECIAL_API_BASE+"/api/special-tools?file="+encodeURIComponent(item.filePath);
+      return item;
+    }):[];
     specialOnlineReady=true;
     window.__specialUpdatedAt=j.updatedAt||null;
     renderSpecialTools();
