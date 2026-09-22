@@ -133,9 +133,34 @@ module.exports = async (req, res) => {
       }
 
       const json = await getArchive();
-      const index = json.items.findIndex(x => String(x.id) === String(incoming.id));
-      if (index >= 0) json.items[index] = incoming;
-      else json.items.push(incoming);
+
+      // Salvataggio in modalità UPSERT:
+      // - se arriva lo stesso ID, aggiorna quella scheda;
+      // - se lo stesso codice + macchina + tipologia pezzo esiste già,
+      //   sovrascrive la scheda esistente invece di creare un duplicato.
+      // Se non viene scelto un nuovo file, conserva l'eventuale allegato già presente.
+      let index = json.items.findIndex(x => String(x.id) === String(incoming.id));
+      if (index < 0) {
+        index = json.items.findIndex(x =>
+          String(x.code || "").trim().toLowerCase() === incoming.code.toLowerCase() &&
+          String(x.machine || "").trim().toLowerCase() === incoming.machine.toLowerCase() &&
+          String(x.pieceType || "").trim().toLowerCase() === incoming.pieceType.toLowerCase()
+        );
+      }
+      if (index >= 0) {
+        const previous = json.items[index];
+        incoming.id = previous.id;
+        if (!raw.fileData) {
+          incoming.filePath = previous.filePath || "";
+          incoming.fileName = previous.fileName || "";
+          incoming.fileType = previous.fileType || "";
+          incoming.fileUrl = "";
+        }
+        incoming.createdAt = previous.createdAt || incoming.createdAt;
+        json.items[index] = incoming;
+      } else {
+        json.items.push(incoming);
+      }
       await saveArchive(json);
       return res.status(200).json({ ok: true, item: incoming, updatedAt: json.updatedAt });
     }
