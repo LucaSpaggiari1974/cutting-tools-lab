@@ -571,7 +571,7 @@ async function specialApi(path="",options={}){
 async function loadOnlineSpecialTools(silent=false){
   try{
     const j=await specialApi("?ts="+Date.now());
-    specialTools=Array.isArray(j.items)?j.items.map(x=>({...x})):[];
+    specialTools=Array.isArray(j.items)?j.items.map(x=>({...x,fileUrl:(x.fileUrl&&String(x.fileUrl).startsWith("/"))?(SPECIAL_API_BASE+String(x.fileUrl)):x.fileUrl})):[];
     specialOnlineReady=true;
     window.__specialUpdatedAt=j.updatedAt||null;
     renderSpecialTools();
