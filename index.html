@@ -361,24 +361,24 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent) && !(window.matchMedia("(displa
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
 const photoMap={
-CNMG:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale Sandvik Coromant CNMG 12 04 08"],
-DNMG:["https://static1.industrybuying.com/products/tooling-and-cutting/inserts/turning-inserts/TOO.TUR.332971358_1747837688878.webp","Foto reale Sandvik Coromant DNMG"],
-SNMG:["https://c.cdnmp.net/713071415/p/m/0/placuta-strunjire-inveio-sandvik-coromant-snmg-15-06-12-pm-4425~5110.jpg","Foto reale Sandvik Coromant SNMG"],
-WNMG:["https://www.tomcnc.com/upload/202306/m_20230626164014351.jpg","Foto reale Sandvik Coromant WNMG"],
+CNMG:["https://www.izartool.com/images/stories/virtuemart/product/8510_zfm_web.jpg","Foto reale inserto CNMG"],
+DNMG:["https://hoffmannshopxpprd.oss-cn-shanghai.aliyuncs.com/images/202106/goods_img/15820_thumb_P_1623562160589.jpg","Foto reale inserto DNMG"],
+SNMG:["https://www.cutwel.co.uk/media/catalog/product/S/N/SNMG-RK-KORLOY-1_1_31.jpg","Foto reale inserto SNMG"],
+WNMG:["https://image.made-in-china.com/2f0j00uewoNhPnLEqD/High-Quality-External-Turning-Tool-Bright-Finishing-CNC-Blades-Wnmg-080408-Ha-Solid-Carbide-Insert-for-Stainless-Steel.webp","Foto reale inserto WNMG"],
 VNMG:["https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_vnmg_16_04_08_mf_2220_t_max_p_sorvaustera_pict3dview.jpg","Foto reale Sandvik Coromant VNMG"],
-VBMT:["https://darxton.ru/files/_images/60/6029e45a-864a-11eb-9ea2-000c29fafacd_fa11638e-5c20-11ec-a91a-000c2925a1b1.jpg","Foto reale inserto VBMT"],
-DCMT:["https://img2.tradewheel.com/uploads/images/products/6/9/cnc-lathe-tool-carbide-twist-drill2-0183441001627070172.jpg","Foto reale inserto DCMT"],
-CCMT:["https://cdn.dgisupply.ca/img/product-images/Asset_URL/Sandvik_Coromant_7080694.jpg","Foto reale Sandvik Coromant CCMT"],
-TCMT:["https://twineagleimports.co.uk/cdn/shop/files/sandvik-insert-10pc-sandvik-tcmt-16-t3-04-mm-1125-turning-insert-for-stainless-steel-7448723385838-1227468990.jpg?v=1773877431","Foto reale Sandvik Coromant TCMT"],
-RCMT:["https://cdn11.bigcommerce.com/s-4s9liwcv/images/stencil/original/products/670336/819830/6088861-24__48554.1682537263.jpg?c=2&imbypass=on","Foto reale inserto RCMT"],
+VBMT:["https://www.shop-apt.co.uk/user/products/large/VBMT-MX-1125.jpg","Foto reale inserto VBMT"],
+DCMT:["https://www.tilltools.de/media/fd/b2/49/1758270534/dcmt-wendeschneidplatte-stahl.jpg?ts=1758270534","Foto reale inserto DCMT"],
+CCMT:["https://cdn.mscdirect.com/global/images/ProductImages/7526076-24.jpg","Foto reale inserto CCMT"],
+TCMT:["https://webshop.tungaloycanada.com/images/Fittings/hq/System_Images/TUN/Prod_Pic/884/884_Enlarge.jpg","Foto reale inserto TCMT"],
+RCMT:["https://artykulytechniczne.pl/114739-largeretina_default/plytka-rcmt-1606-mo-st-ph-5125-palbit.jpg","Foto reale inserto RCMT"],
 G:["https://www.gen3industrial.com/cdn/shop/files/83cebe6f-dde6-414a-9a46-6b301af44980.jpg?v=1760043945&width=4096","Foto reale utensile Sandvik per scanalatura/troncatura"],
 L:["https://i.ebayimg.com/images/g/GGEAAOSwwYVk9qGC/s-l1600.jpg","Foto reale portautensile per filettatura"],
 DRILL:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale Sandvik CoroDrill 460-XM"],
 MILL:["https://cdn11.bigcommerce.com/s-kvzeeygcn8/images/stencil/1280x1280/products/28579/131031/smt40917-sandvik-coromill-plura-20mm-carbide-endmill-5-flutes-rm-300re-24748-loc1884b__22210.1662992430.jpg?c=1","Foto reale Sandvik CoroMill Plura"],
 FACE:["https://i.ebayimg.com/images/g/~g4AAOSwUfdjoOwq/s-l960.jpg","Foto reale Sandvik CoroMill 245"],
-TURN_R12:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale inserto CNMG · raggio R1,2 · riferimento famiglia"],
-TURN_R08:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale inserto CNMG · raggio R0,8 · riferimento famiglia"],
-TURN_R04:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale inserto CNMG · raggio R0,4 · riferimento famiglia"],
+TURN_R12:["https://www.izartool.com/images/stories/virtuemart/product/8510_zfm_web.jpg","Foto reale inserto CNMG · raggio R1,2 · riferimento famiglia"],
+TURN_R08:["https://www.izartool.com/images/stories/virtuemart/product/8510_zfm_web.jpg","Foto reale inserto CNMG · raggio R0,8 · riferimento famiglia"],
+TURN_R04:["https://www.izartool.com/images/stories/virtuemart/product/8510_zfm_web.jpg","Foto reale inserto CNMG · raggio R0,4 · riferimento famiglia"],
 DRILL_INDEX:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta a inserti"],
 DRILL_MOD:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta modulare"],
 HOLDER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?set_id=880000500F","Foto reale portautensile"],
@@ -399,10 +399,10 @@ function toolPhoto(x,modal=false){
  const alt=esc(((x&&x.maker)||"")+" "+((x&&x.code)||"")+" · "+(official?"foto del prodotto":"immagine esemplificativa della geometria"));
  const label=official
    ? 'Foto associata al prodotto/codice'
-   : 'Immagine esemplificativa · '+esc(fallback[1]);
+   : 'Foto reale esemplificativa · '+esc(fallback[1]);
  const note=official
    ? 'La foto è associata al record del catalogo.'
-   : '⚠️ Non è disponibile una foto originale verificata del produttore per questo codice. L’immagine mostrata è solo un esempio visivo della stessa geometria/tipologia e non identifica marca, grado o codice esatto.';
+   : '⚠️ Non è disponibile una foto originale verificata del produttore per questo codice. La foto mostrata è un inserto reale della stessa geometria/tipologia; non identifica marca, grado o codice esatto.';
  const direct=official?'<a href="'+esc(official)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">🖼️ Apri immagine originale</a>':'';
  const link=x&&x.drawingUrl?'<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>':(x&&x.productUrl?'<a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda prodotto ufficiale</a>':'');
  return '<div><img class="recDraw" loading="'+(modal?'eager':'lazy')+'" src="'+esc(src)+'" alt="'+alt+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><div class="photo-caption" style="display:none;padding:10px;background:#fff;border:1px solid var(--line);border-radius:9px">⚠️ Immagine non caricata. <strong>Anteprima non disponibile.</strong></div><div class="photo-caption">'+label+'<br>'+note+'</div>'+direct+(link?'<br>'+link:'')+'</div>';
