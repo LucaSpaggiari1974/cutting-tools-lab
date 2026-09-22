@@ -573,7 +573,7 @@ async function loadOnlineSpecialTools(silent=false){
     const j=await specialApi("?ts="+Date.now());
     specialTools=Array.isArray(j.items)?j.items.map(x=>({...x,
       fileUrl:(x.fileUrl&&String(x.fileUrl).startsWith("/"))?(SPECIAL_API_BASE+String(x.fileUrl)):x.fileUrl,
-      filePreview:x.fileDataUrl||x.fileUrl||""
+      filePreview:x.fileDataUrl||x.fileUrl||x.filePath||""
     })):[];
     specialTools.forEach(x=>{if(x.filePreview&&/^https?:/i.test(String(x.filePreview)))x.filePreview=x.filePreview+(x.filePreview.includes("?")?"&":"?")+"ctimg="+encodeURIComponent(String(x.id||Date.now()));});
     specialOnlineReady=true;
