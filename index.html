@@ -389,13 +389,20 @@ function toolImageUrl(x){
  return x.photoUrl||null;
 }
 function toolPhoto(x,modal=false){
- if(x && x.photoUrl){
-   const src=esc(x.photoUrl), alt=esc((x.maker||'')+' '+(x.code||''));
-   const direct='<a href="'+src+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">🖼️ Apri immagine originale</a>';
-   const link=x.drawingUrl?'<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>':(x.productUrl?'<a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda prodotto ufficiale</a>':'');
-   return '<div><img class="recDraw" loading="'+(modal?'eager':'lazy')+'" src="'+src+'" alt="'+alt+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><div class="photo-caption" style="display:none;padding:10px;background:#fff;border:1px solid var(--line);border-radius:9px">⚠️ Foto non caricata. <strong>Anteprima non disponibile.</strong></div><div class="photo-caption">Foto ufficiale verificata · '+esc(x.maker||'')+'</div>'+direct+(link?'<br>'+link:'')+'</div>';
- }
- return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 <strong>Anteprima non disponibile</strong><br><small>Nessuna foto ufficiale verificata per questo codice.</small></div>';
+ const official=x&&x.photoUrl?String(x.photoUrl):"";
+ const kind=familyFor(x);
+ const fallback=photoMap[kind]||photoMap.HOLDER;
+ const src=official||fallback[0];
+ const alt=esc((x?.maker||"")+" "+(x?.code||"")+" · "+(official?"foto del prodotto":"immagine esemplificativa della geometria"));
+ const label=official
+   ? 'Foto associata al prodotto/codice'
+   : 'Immagine esemplificativa · '+esc(fallback[1]);
+ const note=official
+   ? 'La foto è associata al record del catalogo.'
+   : '⚠️ Non è disponibile una foto originale verificata del produttore per questo codice. L’immagine mostrata è solo un esempio visivo della stessa geometria/tipologia e non identifica marca, grado o codice esatto.';
+ const direct=official?'<a href="'+esc(official)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">🖼️ Apri immagine originale</a>':'';
+ const link=x&&x.drawingUrl?'<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>':(x&&x.productUrl?'<a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda prodotto ufficiale</a>':'');
+ return '<div><img class="recDraw" loading="'+(modal?'eager':'lazy')+'" src="'+esc(src)+'" alt="'+alt+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><div class="photo-caption" style="display:none;padding:10px;background:#fff;border:1px solid var(--line);border-radius:9px">⚠️ Immagine non caricata. <strong>Anteprima non disponibile.</strong></div><div class="photo-caption">'+label+'<br>'+note+'</div>'+direct+(link?'<br>'+link:'')+'</div>';
 }
 function toolDrawing(kind){
  const p=photoMap[kind]||photoMap.HOLDER;
