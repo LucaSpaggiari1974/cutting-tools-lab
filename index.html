@@ -206,7 +206,7 @@ function hideCodePreview(){
  if(close)close.hidden=true;
 }
 function showCodePreview(x,el){
- const kind=familyFor(x);
+ const kind=previewFamily(x);
  const im=document.getElementById("codePreview"),cap=document.getElementById("codePreviewCaption"),close=document.getElementById("codePreviewClose");
  const r=el.getBoundingClientRect();
  const w=Math.min(360,window.innerWidth-20),h=Math.min(300,window.innerHeight*.5);
@@ -228,7 +228,7 @@ function showCodePreview(x,el){
 function insertPreviewSvg(kind){
  let k=String(kind||"HOLDER").toUpperCase();
  // CNMG usa un file locale per evitare qualsiasi problema Safari/iPhone con data-URI SVG.
- if(k==="TURN_R04"||k==="TURN_R08"||k==="TURN_R12"||k.includes("CNMG"))return "<img src='./assets/previews/CNMG.svg' alt='Anteprima CNMG' style='width:100%;height:100%;object-fit:contain;display:block'>";
+ if(k==="CNMG"||k==="TURN_R04"||k==="TURN_R08"||k==="TURN_R12")return "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100%' height='100%' preserveAspectRatio='xMidYMid meet'><rect width='100' height='100' fill='white'/><path d='M50 8 L92 32 L92 68 L50 92 L8 68 L8 32 Z' fill='#d9e1e7' stroke='#123a5a' stroke-width='3'/><circle cx='50' cy='50' r='8' fill='white' stroke='#123a5a' stroke-width='3'/><text x='50' y='97' text-anchor='middle' font-family='Arial,sans-serif' font-size='7' fill='#123a5a'>CNMG</text></svg>";
  const shapes={
   CNMG:"<path d='M50 8 L92 32 L92 68 L50 92 L8 68 L8 32 Z'/>",
   DNMG:"<path d='M50 8 L92 50 L50 92 L8 50 Z'/>",
@@ -455,7 +455,7 @@ function toolImageUrl(x){
  return localInsertPreview(familyFor(x));
 }
 function toolPhoto(x,modal=false){
- const kind=familyFor(x);
+ const kind=previewFamily(x);
  const fallback=photoMap[kind]||photoMap.HOLDER;
  const src=localInsertPreview(kind);
  const alt=esc(((x&&x.maker)||"")+" "+((x&&x.code)||"")+" · foto reale rappresentativa della geometria");
