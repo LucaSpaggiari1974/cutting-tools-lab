@@ -586,6 +586,25 @@ async function loadOnlineSpecialTools(silent=false){
     return false;
   }
 }
+async function hydrateSpecialImage(img){
+  const src=img?.dataset?.specialSrc||img?.src||"";
+  if(!src||img.dataset.hydrated==="1")return;
+  img.dataset.specialSrc=src;
+  try{
+    const r=await fetch(src,{cache:"no-store",mode:"cors"});
+    if(!r.ok)throw new Error("image "+r.status);
+    const blob=await r.blob();
+    if(!blob.size)throw new Error("empty image");
+    const objectUrl=URL.createObjectURL(blob);
+    img.dataset.hydrated="1";
+    img.dataset.objectUrl=objectUrl;
+    img.src=objectUrl;
+    img.addEventListener("load",()=>img.style.visibility="visible",{once:true});
+  }catch(_){
+    img.dataset.directFallback="1";
+    img.src=src+(src.includes("?")?"&":"?")+"iosretry="+Date.now();
+  }
+}
 function renderSpecialTools(){
  const el=document.getElementById("specialList"),st=document.getElementById("specialStatus");
  if(!el)return;
@@ -594,8 +613,8 @@ function renderSpecialTools(){
  if(pf){const vals=[...new Set(specialTools.map(x=>x.pieceType).filter(Boolean))].sort();pf.innerHTML="<option value=\"\">Tutte le tipologie</option>"+vals.map(v=>"<option value=\""+esc(v)+"\""+(v===pv?" selected":"")+">"+esc(v)+"</option>").join("");}
  const visible=specialTools.filter(x=>(!mv||x.machine===mv)&&(!pv||x.pieceType===pv));
  st.textContent=specialOnlineReady?(specialTools.length?specialTools.length+" utensile/i speciale/i Gestione utensili interni presenti nell’archivio centrale online.":"Nessun utensile interno Gestione utensili interni nell’archivio centrale online."):"⚠️ Archivio online Gestione utensili interni non disponibile.";
- el.innerHTML=visible.length?visible.map(x=>'<article class="problemCard"><h3>🧰 '+esc(x.code)+'</h3><p><b>Nome:</b> '+esc(x.name||"—")+' · <b>Tipo:</b> '+esc(x.type||"—")+'</p><p><b>Macchina:</b> '+esc(x.machine||"—")+' · <b>Tipologia pezzo:</b> '+esc(x.pieceType||"—")+'</p><p><b>Materiale:</b> '+esc(x.material||"—")+'</p><p><b>Geometria:</b> '+esc(x.geom||"—")+'</p><p><b>Parametri:</b> '+esc(x.params||"—")+'</p><p><b>Note:</b> '+esc(x.notes||"—")+'</p>'+(x.fileUrl?(x.fileType&&x.fileType.includes("pdf")?'<a href="'+esc(x.fileUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:#185b8f;font-weight:800">📄 Apri disegno PDF</a>':'<img class="recDraw specialPreviewImage" src="'+esc(x.fileUrl)+'" data-special-img-id="'+esc(String(x.id))+'" alt="Disegno/foto '+esc(x.code)+'" loading="eager" decoding="async">'):'<div class="result">Anteprima non disponibile</div>')+'<br><button type="button" data-special-id="'+esc(String(x.id))+'" style="width:auto;margin-top:8px">Apri utensile</button> <button type="button" data-special-delete-id="'+esc(String(x.id))+'" style="width:auto;margin-top:8px;background:#8b2d2d">Elimina</button></article>').join(""):'<div class="result">Nessun utensile interno presente.</div>';
- el.querySelectorAll(".specialPreviewImage").forEach(img=>{img.addEventListener("error",async()=>{if(img.dataset.retried==="1")return;img.dataset.retried="1";try{const ok=await loadOnlineSpecialTools(true);if(ok){const fresh=specialTools.find(v=>String(v.id)===String(img.dataset.specialImgId));if(fresh&&fresh.fileUrl)img.src=fresh.fileUrl+(fresh.fileUrl.includes("?")?"&":"?")+"retry="+Date.now();}}catch(_){} });});
+ el.innerHTML=visible.length?visible.map(x=>'<article class="problemCard"><h3>🧰 '+esc(x.code)+'</h3><p><b>Nome:</b> '+esc(x.name||"—")+' · <b>Tipo:</b> '+esc(x.type||"—")+'</p><p><b>Macchina:</b> '+esc(x.machine||"—")+' · <b>Tipologia pezzo:</b> '+esc(x.pieceType||"—")+'</p><p><b>Materiale:</b> '+esc(x.material||"—")+'</p><p><b>Geometria:</b> '+esc(x.geom||"—")+'</p><p><b>Parametri:</b> '+esc(x.params||"—")+'</p><p><b>Note:</b> '+esc(x.notes||"—")+'</p>'+(x.fileUrl?(x.fileType&&x.fileType.includes("pdf")?'<a href="'+esc(x.fileUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:#185b8f;font-weight:800">📄 Apri disegno PDF</a>':'<img class="recDraw specialPreviewImage" src="" data-special-src="'+esc(x.fileUrl)+'" data-special-img-id="'+esc(String(x.id))+'" alt="Disegno/foto '+esc(x.code)+'" loading="eager" decoding="async">'):'<div class="result">Anteprima non disponibile</div>')+'<br><button type="button" data-special-id="'+esc(String(x.id))+'" style="width:auto;margin-top:8px">Apri utensile</button> <button type="button" data-special-delete-id="'+esc(String(x.id))+'" style="width:auto;margin-top:8px;background:#8b2d2d">Elimina</button></article>').join(""):'<div class="result">Nessun utensile interno presente.</div>';
+ el.querySelectorAll(".specialPreviewImage").forEach(img=>{hydrateSpecialImage(img);img.addEventListener("error",async()=>{if(img.dataset.retried==="1")return;img.dataset.retried="1";try{const ok=await loadOnlineSpecialTools(true);if(ok){const fresh=specialTools.find(v=>String(v.id)===String(img.dataset.specialImgId));if(fresh&&fresh.fileUrl)img.src=fresh.fileUrl+(fresh.fileUrl.includes("?")?"&":"?")+"retry="+Date.now();}}catch(_){} });});
 el.querySelectorAll("[data-special-id]").forEach(b=>b.onclick=()=>{const x=specialTools.find(v=>String(v.id)===String(b.dataset.specialId));if(x)openSpecialTool(x)});
  el.querySelectorAll("[data-special-delete-id]").forEach(b=>b.onclick=async()=>{
    const x=specialTools.find(v=>String(v.id)===String(b.dataset.specialDeleteId));
@@ -606,9 +625,9 @@ el.querySelectorAll("[data-special-id]").forEach(b=>b.onclick=()=>{const x=speci
 }
 function openSpecialTool(x){
  const m=document.getElementById("toolModal"),body=document.getElementById("modalBody");
- body.innerHTML='<h2>🧰 '+esc(x.code)+'</h2><p><b>Nome:</b> '+esc(x.name||"—")+'</p><p><b>Tipo:</b> '+esc(x.type||"—")+'</p><p><b>Macchina:</b> '+esc(x.machine||"—")+'</p><p><b>Tipologia pezzo:</b> '+esc(x.pieceType||"—")+'</p><p><b>Materiale / impiego:</b> '+esc(x.material||"—")+'</p><p><b>Geometria:</b> '+esc(x.geom||"—")+'</p><p><b>Parametri:</b> '+esc(x.params||"—")+'</p><p><b>Note:</b> '+esc(x.notes||"—")+'</p>'+(x.fileUrl?(x.fileType&&x.fileType.includes("pdf")?'<a href="'+esc(x.fileUrl)+'" target="_blank" rel="noopener" style="display:block;margin-top:10px;color:#185b8f;font-weight:800">📄 Apri disegno PDF</a>':'<img class="modalImg specialPreviewImage" src="'+esc(x.fileUrl)+'" data-special-img-id="'+esc(String(x.id))+'" alt="Disegno/foto '+esc(x.code)+'" loading="eager" decoding="async">'):'<div class="result">Anteprima non disponibile</div>');
+ body.innerHTML='<h2>🧰 '+esc(x.code)+'</h2><p><b>Nome:</b> '+esc(x.name||"—")+'</p><p><b>Tipo:</b> '+esc(x.type||"—")+'</p><p><b>Macchina:</b> '+esc(x.machine||"—")+'</p><p><b>Tipologia pezzo:</b> '+esc(x.pieceType||"—")+'</p><p><b>Materiale / impiego:</b> '+esc(x.material||"—")+'</p><p><b>Geometria:</b> '+esc(x.geom||"—")+'</p><p><b>Parametri:</b> '+esc(x.params||"—")+'</p><p><b>Note:</b> '+esc(x.notes||"—")+'</p>'+(x.fileUrl?(x.fileType&&x.fileType.includes("pdf")?'<a href="'+esc(x.fileUrl)+'" target="_blank" rel="noopener" style="display:block;margin-top:10px;color:#185b8f;font-weight:800">📄 Apri disegno PDF</a>':'<img class="modalImg specialPreviewImage" src="" data-special-src="'+esc(x.fileUrl)+'" data-special-img-id="'+esc(String(x.id))+'" alt="Disegno/foto '+esc(x.code)+'" loading="eager" decoding="async">'):'<div class="result">Anteprima non disponibile</div>');
  m.hidden=false;
- const im=m.querySelector(".specialPreviewImage"); if(im){im.addEventListener("error",async()=>{if(im.dataset.retried==="1")return;im.dataset.retried="1";try{const ok=await loadOnlineSpecialTools(true);if(ok){const fresh=specialTools.find(v=>String(v.id)===String(x.id));if(fresh&&fresh.fileUrl)im.src=fresh.fileUrl+(fresh.fileUrl.includes("?")?"&":"?")+"retry="+Date.now();}}catch(_){} });}
+ const im=m.querySelector(".specialPreviewImage"); if(im){hydrateSpecialImage(im);im.addEventListener("error",async()=>{if(im.dataset.retried==="1")return;im.dataset.retried="1";try{const ok=await loadOnlineSpecialTools(true);if(ok){const fresh=specialTools.find(v=>String(v.id)===String(x.id));if(fresh&&fresh.fileUrl)im.src=fresh.fileUrl+(fresh.fileUrl.includes("?")?"&":"?")+"retry="+Date.now();}}catch(_){} });}
 }
 document.getElementById("saveSpecial").onclick=async()=>{
  const code=document.getElementById("spCode").value.trim();if(!code){alert("Inserisci almeno il codice / identificativo.");return}
@@ -646,7 +665,7 @@ setInterval(async()=>{
   try{
     const j=await specialApi("?ts="+Date.now());
     if(j.updatedAt&&window.__specialUpdatedAt&&j.updatedAt!==window.__specialUpdatedAt){
-      specialTools=Array.isArray(j.items)?j.items:[];window.__specialUpdatedAt=j.updatedAt;specialOnlineReady=true;renderSpecialTools();
+      specialTools=Array.isArray(j.items)?j.items.map(x=>({...x,fileUrl:(x.fileUrl&&String(x.fileUrl).startsWith("/"))?(SPECIAL_API_BASE+String(x.fileUrl)):x.fileUrl})):[];specialTools.forEach(x=>{if(x.fileUrl)x.fileUrl=x.fileUrl+(x.fileUrl.includes("?")?"&":"?")+"ctimg="+encodeURIComponent(String(x.id||Date.now()));});window.__specialUpdatedAt=j.updatedAt;specialOnlineReady=true;renderSpecialTools();
     }
   }catch(_){}
 },30000);
