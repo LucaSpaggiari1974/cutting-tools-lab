@@ -468,6 +468,12 @@ function toolDrawing(kind){
  const p=photoMap[kind]||photoMap.HOLDER;
  return '<div><img class="recDraw" loading="lazy" src="'+p[0]+'" alt="'+esc(p[1])+'" onerror="this.style.display=\'none\'"><div class="photo-caption">'+esc(p[1])+'</div></div>';
 }
+function previewFamily(x){
+ const u=String(((x&&x.code)||"")+" "+((x&&x.category)||"")+" "+((x&&x.geom)||"")).toUpperCase();
+ const families=["CNMG","DNMG","SNMG","WNMG","VNMG","VBMT","DCMT","CCMT","TCMT","RCMT","CCGT","TCGT","DCGT"];
+ for(const f of families)if(u.includes(f))return f;
+ return familyFor(x);
+}
 function familyFor(x){
  const k=((x&&x.code)||"")+" "+((x&&x.category)||"")+" "+((x&&x.geom)||"");
  const u=k.toUpperCase();
@@ -478,7 +484,7 @@ function familyFor(x){
  if(u.includes("SCANALATURA")||u.includes("TRONCATURA")||u.includes("GROOV"))return "GROOVING";
  if(u.includes("PORTAUTENSILI"))return "HOLDER";
  if(u.includes("MANDRINI")||u.includes("ADATTATORI")||u.includes("ER32")||u.includes("ER40"))return "ADAPTER";
- if(u.includes("CNMG")){const r=insertRadius(x);if(r===1.2)return "TURN_R12";if(r===0.8)return "TURN_R08";if(r===0.4)return "TURN_R04";return "CNMG";}
+ if(u.includes("CNMG"))return "CNMG";
  for(const f of ["DNMG","SNMG","WNMG","VNMG","VBMT","DCMT","CCMT","TCMT","RCMT","CCGT","TCGT","DCGT"])if(u.includes(f))return f;
  return "HOLDER";
 }
