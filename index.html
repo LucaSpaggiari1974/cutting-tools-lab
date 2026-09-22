@@ -585,10 +585,10 @@ document.getElementById("saveSpecial").onclick=async()=>{
  const item={id:Date.now(),code,name:document.getElementById("spName").value.trim(),type:document.getElementById("spType").value.trim(),machine,pieceType,material:document.getElementById("spMaterial").value.trim(),geom:document.getElementById("spGeom").value.trim(),params:document.getElementById("spParams").value.trim(),notes:document.getElementById("spNotes").value.trim(),fileData,fileType,fileName,createdAt:new Date().toISOString()};
  const b=document.getElementById("saveSpecial");b.disabled=true;b.textContent="☁️ Salvataggio online…";
  try{
-   await specialApi("",{method:"POST",body:JSON.stringify(item)});
+   const saved=await specialApi("",{method:"POST",body:JSON.stringify(item)});
    await loadOnlineSpecialTools(true);
    ["spCode","spName","spType","spMachine","spPieceType","spMaterial","spGeom","spParams","spNotes","spFile"].forEach(id=>{const e=document.getElementById(id);if(e)e.value=""});
-   alert("Utensile speciale Allison salvato nell’archivio centrale online.");
+   alert(saved.action==="updated" ? "Utensile speciale Allison aggiornato e sovrascritto nell’archivio centrale online." : "Utensile speciale Allison salvato nell’archivio centrale online.");
  }catch(e){alert(e.message||"Errore durante il salvataggio online.");}
  finally{b.disabled=false;b.textContent="💾 Salva utensile speciale";}
 };
