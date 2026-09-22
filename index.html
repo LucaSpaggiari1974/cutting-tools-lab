@@ -159,7 +159,10 @@ function getPreviewUrl(x){
 }
 function getHoverPreviewUrl(x){
  if(!x)return null;
- return x.photoUrl||null;
+ // Windows hover: never use drawingUrl/productUrl or an unverified catalog graphic.
+ // Use only a verified product photo, otherwise the real-photo geometry fallback.
+ if(x.photoUrl && x.photoSource==="ISCAR Italia webshop") return x.photoUrl;
+ return toolImageUrl(x);
 }
 function hideCodePreview(){
  const im=document.getElementById("codePreview"),cap=document.getElementById("codePreviewCaption"),close=document.getElementById("codePreviewClose");
