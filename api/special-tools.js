@@ -60,6 +60,7 @@ async function publicArchive(json) {
   const items = await Promise.all((json.items || []).map(async (item) => {
     let fileUrl = item.filePath ? await signedFileUrl(item.filePath) : String(item.fileUrl || "");
     let fileDataUrl = "";
+    let fileType = String(item.fileType || "");
     // Per le immagini usiamo anche una copia inline: su iPhone evita del tutto
     // problemi di CORS, redirect, cache PWA e scadenza del link firmato.
     if (item.filePath && /^image\//i.test(String(item.fileType || ""))) {
@@ -75,7 +76,7 @@ async function publicArchive(json) {
         }
       } catch (_) {}
     }
-    return { ...item, fileUrl, fileDataUrl };
+    return { ...item, fileUrl, fileDataUrl, fileType };
   }));
   return { ...json, items };
 }
