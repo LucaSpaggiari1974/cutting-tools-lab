@@ -197,7 +197,6 @@ function getPreviewUrl(x){
 function getHoverPreviewUrl(x){
  if(!x)return null;
  const raw=String((x.code||"")+" "+(x.geom||"")).toUpperCase();
- if(raw.includes("CNMG"))return localInsertPreview("CNMG");
  return localInsertPreview(familyFor(x));
 }
 function hideCodePreview(){
