@@ -147,7 +147,9 @@ module.exports = async (req, res) => {
           String(x.pieceType || "").trim().toLowerCase() === incoming.pieceType.toLowerCase()
         );
       }
+      let action = "created";
       if (index >= 0) {
+        action = "updated";
         const previous = json.items[index];
         incoming.id = previous.id;
         if (!raw.fileData) {
@@ -162,7 +164,7 @@ module.exports = async (req, res) => {
         json.items.push(incoming);
       }
       await saveArchive(json);
-      return res.status(200).json({ ok: true, item: incoming, updatedAt: json.updatedAt });
+      return res.status(200).json({ ok: true, action, item: incoming, updatedAt: json.updatedAt });
     }
 
     if (req.method === "DELETE") {
