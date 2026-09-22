@@ -367,7 +367,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent) && !(window.matchMedia("(displa
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
 const photoMap={
-CNMG:["https://i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale CNMG 120412"],
+CNMG:["https://images.weserv.nl/?url=i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale CNMG 120412"],
 TURN_R12:["https://i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale CNMG 120412"],
 TURN_R08:["https://i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale CNMG 120412"],
 TURN_R04:["https://i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale CNMG 120412"],
