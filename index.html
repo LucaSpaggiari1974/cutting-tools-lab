@@ -228,7 +228,9 @@ function showCodePreview(x,el){
 function insertPreviewSvg(kind,x){
  const k=String(kind||"HOLDER").toUpperCase();
  const fallback=localInsertPreview(k);
- const photo=(x&&x.photoUrl)?String(x.photoUrl):"";
+ // WINDOWS: anteprima stabile basata sulla foto reale della famiglia ISO.
+ // Non dipendere da photoUrl del catalogo, che il job quotidiano può sostituire con un disegno.
+ const photo=isWindowsPreview() ? (realPhotoUrl(k)||"") : ((x&&x.photoUrl)?String(x.photoUrl):"");
  if(photo){
    return '<img src="'+photo.replace(/"/g,"&quot;")+'" alt="Foto reale '+esc(k)+'" style="width:100%;height:100%;object-fit:contain;display:block;background:#fff" onerror="this.onerror=null;this.replaceWith(document.createRange().createContextualFragment('+JSON.stringify(fallback)+'))">';
  }
@@ -446,10 +448,16 @@ function toolImageUrl(x){
  const kind=previewFamily(x);
  return realPhotoUrl(kind)||localInsertPreview(kind);
 }
+function isWindowsPreview(){
+ return !(/iphone|ipad|ipod|android/i.test(navigator.userAgent));
+}
 function toolPhoto(x,modal=false){
  const kind=previewFamily(x);
  const fallback=localInsertPreview(kind);
- const real=(x&&x.photoUrl)||realPhotoUrl(kind)||"";
+ // WINDOWS: non usare le photoUrl del catalogo, che possono essere disegni/cataloghi.
+ // Usare sempre la foto reale rappresentativa della famiglia, con fallback locale.
+ // iPHONE/iPAD: manteniamo invariato il percorso precedente.
+ const real=isWindowsPreview() ? (realPhotoUrl(kind)||"") : ((x&&x.photoUrl)||realPhotoUrl(kind)||"");
  const alt=esc(((x&&x.maker)||"")+" "+((x&&x.code)||"")+" · foto reale rappresentativa della geometria "+kind);
  const label='Foto reale · geometria ISO '+esc(kind);
  const note='Foto reale del tipo di utensile. Se la foto precisa non è raggiungibile, viene mantenuta una geometria locale di sicurezza.';
@@ -461,7 +469,8 @@ function toolPhoto(x,modal=false){
 function upgradeModalToolImage(root){
  const img=root&&root.querySelector?root.querySelector(".modalToolPreview"):null;
  if(!img)return;
- const real=img.dataset.realSrc, fallback=img.dataset.fallbackSrc;
+ const fallback=img.dataset.fallbackSrc;
+ const real=isWindowsPreview() ? (realPhotoUrl(previewFamily(window.__cuttingToolModalItem||{}))||"") : img.dataset.realSrc;
  if(!real)return;
  const probe=new Image();
  probe.onload=()=>{img.src=real;};
@@ -710,6 +719,7 @@ const toolModal=document.getElementById("toolModal");
 const closeModal=document.getElementById("closeModal");
 const modalBody=document.getElementById("modalBody");
 function openTool(x){
+ window.__cuttingToolModalItem=x;
  let body='<h2>'+esc(x.code)+'</h2><p><b>Fornitore:</b> '+esc(x.maker||'—')+'</p><p><b>Categoria:</b> '+esc(x.category)+'</p><p>'+esc(x.geom)+'</p>'+toolPhoto(x,true)+'<p><b>Materiale:</b> '+esc(x.material)+'</p><div class="formulaBox">Vc: '+esc(x.vc)+' m/min · f/fz: '+esc(x.f)+' · ap: '+esc(x.ap)+'</div><p class="photo-caption">'+esc(x.photoNote||x.photoSource||'Fonte fotografica non specificata')+'. Il codice preciso, grado e quote devono essere verificati sulla scheda del produttore.</p>';
  modalBody.innerHTML=body;
  toolModal.hidden=false;
