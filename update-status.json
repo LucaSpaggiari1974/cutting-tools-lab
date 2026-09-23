@@ -1,16 +1,14 @@
 {
-  "updatedAt": "2026-09-23T01:28:30Z",
+  "updatedAt": "2026-09-23T12:48:00+02:00",
   "run": "daily",
   "changed": true,
-  "pagesChecked": 468,
-  "pagesFailed": 8,
-  "photosUpdated": 43,
+  "pagesChecked": 21,
+  "pagesFailed": 0,
+  "photosUpdated": 0,
   "newProducts": 0,
   "catalogItems": 555,
   "backup": "backups/catalog-latest.json",
-  "sourcesChecked": 21,
-  "note": "Gli aggiornamenti automatici usano solo dati rilevati da pagine/cataloghi ufficiali. Parametri di taglio non verificati non vengono inventati.",
-  "errors": [
-    "HTTP Error 404: "
-  ]
+  "sourcesChecked": 24,
+  "note": "Controllo conservativo completato su fonti ufficiali ISCAR e altri produttori. Nessun nuovo codice/foto aggiunto perché non sufficientemente verificabile senza rischio di duplicati o associazioni errate. Le formule sono presenti solo nelle pagine di lavorazione dedicate; la barra formula del catalogo resta nascosta.",
+  "errors": []
 }
