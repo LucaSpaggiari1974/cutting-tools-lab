@@ -1,18 +1,16 @@
 {
-  "updatedAt": "2026-09-23T12:50:00+02:00",
+  "updatedAt": "2026-09-24T01:28:22Z",
   "run": "daily",
   "changed": true,
-  "pagesChecked": 21,
-  "pagesFailed": 0,
-  "photosUpdated": 0,
+  "pagesChecked": 468,
+  "pagesFailed": 8,
+  "photosUpdated": 5,
   "newProducts": 0,
   "catalogItems": 555,
   "backup": "backups/catalog-latest.json",
-  "sourcesChecked": 24,
-  "note": "Controllo conservativo completato su fonti ufficiali ISCAR e altri produttori. Nessun nuovo codice o foto aggiunto perché non sufficientemente verificabile senza rischio di duplicati o associazioni errate. La barra formula del catalogo è nascosta.",
-  "uiIssues": [
-    "Nel markup attuale la voce Foratura non compare nella barra di navigazione.",
-    "Le formule sono presenti nelle sezioni Tornitura e Fresatura; la sezione Alesatura mantiene formule proprie. Serve una modifica successiva per riallineare Foratura e la visibilità delle formule esattamente come richiesto."
-  ],
-  "errors": []
+  "sourcesChecked": 21,
+  "note": "Gli aggiornamenti automatici usano solo dati rilevati da pagine/cataloghi ufficiali. Parametri di taglio non verificati non vengono inventati.",
+  "errors": [
+    "HTTP Error 404: "
+  ]
 }

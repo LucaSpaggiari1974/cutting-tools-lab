@@ -1,6 +1,6 @@
 {
-  "version": "2.6-real-photo-audit",
-  "updatedAt": "2026-09-22T04:30:00Z",
+  "version": "2.6-real-photo-audit-auto",
+  "updatedAt": "2026-09-23T01:28:30Z",
   "source": "Cataloghi ufficiali ISCAR + ISCAR Italia webshop · foto collegate quando la scheda prodotto consente la verifica del codice",
   "items": [
     {
@@ -236,7 +236,10 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=29",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=29",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248927",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -249,7 +252,10 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248927",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Tornitura · Media",
@@ -262,7 +268,10 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248927",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -286,7 +295,10 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=19",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=19",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248927",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -299,7 +311,10 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=14",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=14",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248927",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -312,7 +327,10 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248936",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Tornitura · Media",
@@ -325,7 +343,10 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248936",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -338,7 +359,10 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248936",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -1060,7 +1084,10 @@
       "ap": "1–5",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/product/turning/t505/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/product_logo_t505.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -1072,7 +1099,10 @@
       "ap": "1–5",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/product/turning/t505/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/product_logo_t505.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Tornitura · Media",
@@ -1084,7 +1114,10 @@
       "ap": "1–4",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/product/turning/turninga/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/product_Turning_TurningA.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -5441,7 +5474,10 @@
       "ap": "—",
       "maker": "Kennametal",
       "productUrl": "https://www.kennametal.com/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://images.kennametal.com/is/image/Kennametal/imts-2026-home-hero-banner-1280?$HomeHeroMobile$&amp;align=-1,0",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5453,7 +5489,10 @@
       "ap": "—",
       "maker": "Kennametal",
       "productUrl": "https://www.kennametal.com/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://images.kennametal.com/is/image/Kennametal/imts-2026-home-hero-banner-1280?$HomeHeroMobile$&amp;align=-1,0",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5465,7 +5504,10 @@
       "ap": "—",
       "maker": "Kennametal",
       "productUrl": "https://www.kennametal.com/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://images.kennametal.com/is/image/Kennametal/imts-2026-home-hero-banner-1280?$HomeHeroMobile$&amp;align=-1,0",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5477,7 +5519,10 @@
       "ap": "—",
       "maker": "Kennametal",
       "productUrl": "https://www.kennametal.com/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://images.kennametal.com/is/image/Kennametal/imts-2026-home-hero-banner-1280?$HomeHeroMobile$&amp;align=-1,0",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5489,7 +5534,10 @@
       "ap": "—",
       "maker": "Kennametal",
       "productUrl": "https://www.kennametal.com/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://images.kennametal.com/is/image/Kennametal/imts-2026-home-hero-banner-1280?$HomeHeroMobile$&amp;align=-1,0",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5501,7 +5549,10 @@
       "ap": "—",
       "maker": "Kyocera",
       "productUrl": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tool-global.kyocera.com/_assets2/img/ogp.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5513,7 +5564,10 @@
       "ap": "—",
       "maker": "Kyocera",
       "productUrl": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tool-global.kyocera.com/_assets2/img/ogp.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5525,7 +5579,10 @@
       "ap": "—",
       "maker": "Kyocera",
       "productUrl": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tool-global.kyocera.com/_assets2/img/ogp.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5537,7 +5594,10 @@
       "ap": "—",
       "maker": "Kyocera",
       "productUrl": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tool-global.kyocera.com/_assets2/img/ogp.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5549,7 +5609,10 @@
       "ap": "—",
       "maker": "Kyocera",
       "productUrl": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tool-global.kyocera.com/_assets2/img/ogp.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5561,7 +5624,10 @@
       "ap": "—",
       "maker": "Kyocera",
       "productUrl": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tool-global.kyocera.com/_assets2/img/ogp.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Fresatura",
@@ -5573,7 +5639,10 @@
       "ap": "—",
       "maker": "Kyocera",
       "productUrl": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tool-global.kyocera.com/_assets2/img/ogp.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Fresatura",
@@ -5585,7 +5654,10 @@
       "ap": "—",
       "maker": "Kyocera",
       "productUrl": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tool-global.kyocera.com/_assets2/img/ogp.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Fresatura",
@@ -5597,7 +5669,10 @@
       "ap": "—",
       "maker": "Kyocera",
       "productUrl": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tool-global.kyocera.com/_assets2/img/ogp.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Fresatura",
@@ -5609,7 +5684,10 @@
       "ap": "—",
       "maker": "Kyocera",
       "productUrl": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tool-global.kyocera.com/_assets2/img/ogp.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Fresatura",
@@ -5621,7 +5699,10 @@
       "ap": "—",
       "maker": "Kyocera",
       "productUrl": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tool-global.kyocera.com/_assets2/img/ogp.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Fresatura",
@@ -5633,7 +5714,10 @@
       "ap": "—",
       "maker": "Kyocera",
       "productUrl": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tool-global.kyocera.com/_assets2/img/ogp.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Fresatura",
@@ -5645,7 +5729,10 @@
       "ap": "—",
       "maker": "Kyocera",
       "productUrl": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tool-global.kyocera.com/_assets2/img/ogp.png",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5712,7 +5799,10 @@
       "ap": "—",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5724,7 +5814,10 @@
       "ap": "—",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5736,7 +5829,10 @@
       "ap": "—",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
@@ -5748,7 +5844,10 @@
       "ap": "—",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Filettatura",
@@ -5760,7 +5859,10 @@
       "ap": "—",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Fresatura",
@@ -5772,7 +5874,10 @@
       "ap": "—",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Fresatura",
@@ -5784,7 +5889,10 @@
       "ap": "—",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Fresatura",
@@ -5796,7 +5904,10 @@
       "ap": "—",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Tornitura",
@@ -5808,7 +5919,10 @@
       "ap": "—",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Tornitura",
@@ -5820,7 +5934,10 @@
       "ap": "—",
       "maker": "NTK Cutting Tools",
       "productUrl": "https://ntkcuttingtools.com/catalogs/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://ntkcuttingtools.com/wpdata/wp-content/uploads/2025/07/All_general_inch2025.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Fresatura",
@@ -5832,7 +5949,10 @@
       "ap": "—",
       "maker": "NTK Cutting Tools",
       "productUrl": "https://ntkcuttingtools.com/catalogs/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://ntkcuttingtools.com/wpdata/wp-content/uploads/2025/07/All_general_inch2025.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Fresatura",
@@ -5844,7 +5964,10 @@
       "ap": "—",
       "maker": "NTK Cutting Tools",
       "productUrl": "https://ntkcuttingtools.com/catalogs/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://ntkcuttingtools.com/wpdata/wp-content/uploads/2025/07/All_general_inch2025.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Filettatura",
@@ -5856,7 +5979,10 @@
       "ap": "—",
       "maker": "NTK Cutting Tools",
       "productUrl": "https://ntkcuttingtools.com/catalogs/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://ntkcuttingtools.com/wpdata/wp-content/uploads/2025/07/All_general_inch2025.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Fresatura",
@@ -5868,7 +5994,10 @@
       "ap": "—",
       "maker": "NTK Cutting Tools",
       "productUrl": "https://ntkcuttingtools.com/catalogs/",
-      "photoUpdatedAt": "2026-09-22T01:28:00Z"
+      "photoUpdatedAt": "2026-09-23T01:28:30Z",
+      "photoUrl": "https://ntkcuttingtools.com/wpdata/wp-content/uploads/2025/07/All_general_inch2025.jpg",
+      "photoSource": "manufacturer",
+      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto."
     },
     {
       "category": "Foratura",
