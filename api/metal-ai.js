@@ -46,7 +46,8 @@ export default async function handler(req, res) {
       ok: true,
       service: "Metal AI",
       openaiConfigured: Boolean(process.env.OPENAI_API_KEY),
-      model: process.env.METAL_AI_MODEL || "gpt-5.6-luna",
+      gatewayConfigured: Boolean(process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN),
+      model,
       endpoint: "/api/metal-ai",
       methods: ["GET", "POST", "OPTIONS"]
     });
@@ -60,9 +61,14 @@ export default async function handler(req, res) {
     });
   }
 
-  if (!process.env.OPENAI_API_KEY) {
+  const useGateway = Boolean(process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN);
+  const apiKey = process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN || process.env.OPENAI_API_KEY;
+  const baseUrl = useGateway ? "https://ai-gateway.vercel.sh/v1" : "https://api.openai.com/v1";
+  const model = process.env.METAL_AI_MODEL || (useGateway ? "openai/gpt-5.6-luna" : "gpt-5.6-luna");
+
+  if (!apiKey) {
     return sendJson(res, 503, {
-      error: "OPENAI_API_KEY non configurata sul server."
+      error: "Metal AI non ha una credenziale disponibile. Configurare AI Gateway/OIDC o OPENAI_API_KEY sul progetto Vercel."
     });
   }
 
@@ -103,7 +109,7 @@ ${JSON.stringify(localCalculations).slice(0, 8000)}
 RICHIESTA OPERATORE:
 ${question.slice(0, 8000)}`;
 
-    const openaiResponse = await fetch("https://api.openai.com/v1/responses", {
+    const openaiResponse = await fetch(`${baseUrl}/responses`, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
