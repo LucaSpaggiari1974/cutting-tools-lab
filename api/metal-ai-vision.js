@@ -1,5 +1,9 @@
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');\n  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');\n  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');\n  if (req.method === 'OPTIONS') return res.status(204).end();\n  if (req.method !== "POST") return res.status(405).json({ error: "Metodo non consentito" });
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  if (req.method === 'OPTIONS') return res.status(204).end();
+  if (req.method !== "POST") return res.status(405).json({ error: "Metodo non consentito" });
   if (!process.env.OPENAI_API_KEY) return res.status(503).json({ error: "OPENAI_API_KEY non configurata sul server." });
 
   try {
