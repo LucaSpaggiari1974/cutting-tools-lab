@@ -54,8 +54,23 @@ ${String(question).slice(0,8000)}`;
       })
     });
 
-    const data = await r.json();
-    if (!r.ok) return res.status(r.status).json({ error: data?.error?.message || "Errore del motore IA.", openai_status: r.status });
+    const raw = await r.text();
+    let data;
+    try {
+      data = raw ? JSON.parse(raw) : {};
+    } catch {
+      return res.status(502).json({
+        error: "OpenAI ha restituito una risposta non JSON.",
+        openai_status: r.status,
+        response_preview: raw.slice(0, 1000)
+      });
+    }
+    if (!r.ok) return res.status(r.status).json({
+      error: data?.error?.message || "Errore del motore IA.",
+      openai_status: r.status,
+      openai_type: data?.error?.type || null,
+      openai_code: data?.error?.code || null
+    });
 
     const sources = [];
     for (const item of (data.output || [])) {
