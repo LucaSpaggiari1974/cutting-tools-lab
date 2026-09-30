@@ -109,7 +109,7 @@
     $('aiAnswer').innerHTML='<div class="aiBox"><b>Metal AI sta analizzando…</b><br><span>Controllo calcoli locali, catalogo e, quando utile, fonti tecniche aggiornate.</span></div>';
     try {
       const controller=new AbortController();
-      const timer=setTimeout(()=>controller.abort(),45000);
+      const timer=setTimeout(()=>controller.abort(),90000);
       const systemInstruction="Sei Metal AI di Cutting Tools LAB, un assistente tecnico per officina metalmeccanica. Rispondi sempre in italiano, in modo concreto e operativo. Il tuo compito è RISOLVERE problemi, non solo parlare. Devi distinguere chiaramente: dati verificati da fonti esterne; dati del catalogo locale; calcoli matematici; ipotesi diagnostiche. Per problemi di lavorazione struttura: 1) diagnosi; 2) cause da verificare in ordine pratico; 3) soluzione passo-passo; 4) parametri/calcoli con unità e formule; 5) controlli finali; 6) fonti. Per utensili, materiali, gradi, rivestimenti, parametri, norme, produttori e tecnologie aggiornate usa la ricerca web disponibile e privilegia fonti tecniche primarie (produttori, documentazione tecnica, enti normativi). Se le fonti divergono, indica l'intervallo e la ragione. Non inventare dati mancanti. Per rettifica tratta quando pertinenti rettifica esterna, interna, piana, evolvente, ingranaggi, mole a vite e ravvivatura. Considera anche tornitura, fresatura, foratura, alesatura, CNC, refrigerazione, vibrazioni/chatter, usura, rotture, bruciature, errori dimensionali e finitura. Se mancano dati indispensabili, chiedili esplicitamente invece di inventarli.";
       const catalogContext=result.hits.map(x=>x.r.code+' | '+x.r.maker+' | '+x.r.category+' | '+x.r.material+' | Vc '+x.r.vc+' | f/fz '+x.r.f+' | ap '+x.r.ap).join('\\n');
       const r=await fetch('/api/metal-ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:question,catalogContext,systemInstruction,localCalculations:result.calculations}),signal:controller.signal});
@@ -122,7 +122,7 @@
       $('aiAnswer').innerHTML=html;
       return j;
     } catch(e) {
-      const msg=e&&e.name==='AbortError'?'Tempo massimo superato.':(e.message||'Errore di collegamento al motore Metal AI.');
+      const msg=e&&e.name==='AbortError'?'Tempo massimo superato dopo 90 secondi.':(e.message||'Errore di collegamento al motore Metal AI.');
       $('aiAnswer').innerHTML='<div class="aiBox"><b>Metal AI non ha completato la ricerca.</b><br>'+esc(msg)+'<br><span>Restano disponibili i calcoli verificabili e il catalogo locale.</span></div>';
       return null;
     }
