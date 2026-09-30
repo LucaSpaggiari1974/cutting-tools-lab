@@ -99,14 +99,12 @@
     if(result.research) return 'Per questa domanda serve una verifica tecnica su dati esterni aggiornati. Non invento il parametro.';
     return 'Ho analizzato la richiesta. Servono ulteriori dati tecnici per produrre un calcolo verificabile.';
   }
-  function speak(text){
-    try{if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='it-IT';u.rate=.95;window.speechSynthesis.speak(u)}catch(_){}
-  }
   async function answerAndSpeak(text){
     const result=render(text);
     if(result.research){
       try{
-        const catalogContext=result.hits.map(x=>x.r.code+' | '+x.r.maker+' | '+x.r.material+' | Vc '+x.r.vc+' | f/fz '+x.r.f+' | ap '+x.r.ap).join('\\n');
+        const systemInstruction="Sei l'IA Metalmeccanica di Cutting Tools LAB. Non limitarti a fare calcoli. Quando l'utente descrive un problema, devi DIAGNOSTICARE il problema, cercare informazioni aggiornate sul web quando servono, confrontare fonti tecniche affidabili e proporre una soluzione operativa. Dai priorità a manuali e documentazione dei costruttori, norme e fonti tecniche riconosciute. Non inventare parametri: se mancano dati indispensabili, chiedili oppure dichiara chiaramente le assunzioni. Rispondi in italiano. Struttura: 1) diagnosi probabile, 2) cause da verificare, 3) soluzione passo-passo, 4) parametri/calcoli solo se utili, 5) controlli finali e sicurezza, 6) fonti con link. Puoi affrontare problemi di tornitura, fresatura, foratura, alesatura, rettifica, ingranaggi, utensili, CNC, refrigerazione, vibrazioni, finitura, usura, rotture, errori dimensionali e altri problemi tecnici di lavorazione meccanica.";
+      const catalogContext=result.hits.map(x=>x.r.code+' | '+x.r.maker+' | '+x.r.material+' | Vc '+x.r.vc+' | f/fz '+x.r.f+' | ap '+x.r.ap).join('\\n');
         const r=await fetch('https://cutting-tools-lab.vercel.app/api/metal-ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:text,catalogContext})});
         const j=await r.json();
         if(!r.ok) throw new Error(j.error||'Ricerca tecnica non disponibile');
@@ -114,7 +112,7 @@
         if(Array.isArray(j.sources)&&j.sources.length) html+='<div class="aiSources"><b>Fonti consultate</b>'+j.sources.map(s=>'<div class="aiSource"><a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.title||s.url)+'</a></div>').join('')+'</div>';
         html+='</div>';
         $('aiAnswer').innerHTML=html;
-        speak(j.answer);
+        
       }catch(e){
         $('aiAnswer').innerHTML='<div class="aiBox"><b>Ricerca tecnica non disponibile</b><br>'+esc(e.message||'Errore')+'<br><span>Il catalogo locale e i calcoli verificabili restano disponibili.</span></div>';
         speak('La ricerca tecnica esterna non è disponibile. Posso comunque usare il catalogo locale e i calcoli verificabili.');
@@ -148,7 +146,7 @@
       const r=await fetch('https://cutting-tools-lab.vercel.app/api/metal-ai-vision',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:data,question:$('aiInput')?.value||''})});
       const j=await r.json(); if(!r.ok) throw new Error(j.error||'Errore server');
       box.innerHTML='<div class="aiBox"><b>Diagnosi da immagine</b><div class="aiHit" style="white-space:pre-wrap">'+esc(j.answer)+'</div><small>La diagnosi visiva è un supporto tecnico: prima di modificare parametri o utensili, verificare misure, macchina e condizioni reali.</small></div>';
-      speak(j.answer);
+      
     }catch(e){
       box.innerHTML='<div class="aiBox"><b>Analisi foto non disponibile.</b><br>'+esc(e.message||'Errore')+'</div>';
     }
