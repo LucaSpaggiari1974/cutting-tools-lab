@@ -65,7 +65,7 @@
 
   function needsResearch(text){
     const q=norm(text);
-    return /norma|iso\b|en\b|din\b|materiale|acciaio|inox|inconel|titanio|ghisa|superlega|nuovo inserto|ultimo|aggiornato|produttore|catalogo|mola|rettifica|evolvente|vite|problema|vibraz|rottura|usura|finitura|temperatura|forza/.test(q);
+    return /norma|iso\\b|en\\b|din\\b|materiale|acciaio|inox|inconel|titanio|ghisa|superlega|nuovo inserto|ultimo|aggiornato|produttore|catalogo|mola|rettifica|evolvente|vite|problema|vibraz|rottura|usura|finitura|temperatura|forza|parametri/.test(q);
   }
 
   function render(text){
@@ -102,9 +102,27 @@
   function speak(text){
     try{if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='it-IT';u.rate=.95;window.speechSynthesis.speak(u)}catch(_){}
   }
-  function answerAndSpeak(text){
+  async function answerAndSpeak(text){
     const result=render(text);
-    if(String(text||'').trim()) speak(spoken(text,result));
+    if(result.research){
+      try{
+        const catalogContext=result.hits.map(x=>x.r.code+' | '+x.r.maker+' | '+x.r.material+' | Vc '+x.r.vc+' | f/fz '+x.r.f+' | ap '+x.r.ap).join('\\n');
+        const r=await fetch('https://cutting-tools-lab.vercel.app/api/metal-ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:text,catalogContext})});
+        const j=await r.json();
+        if(!r.ok) throw new Error(j.error||'Ricerca tecnica non disponibile');
+        let html='<div class="aiBox"><b>Analisi tecnica aggiornata</b><div class="aiHit" style="white-space:pre-wrap">'+esc(j.answer)+'</div>';
+        if(Array.isArray(j.sources)&&j.sources.length) html+='<div class="aiSources"><b>Fonti consultate</b>'+j.sources.map(s=>'<div class="aiSource"><a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.title||s.url)+'</a></div>').join('')+'</div>';
+        html+='</div>';
+        $('aiAnswer').innerHTML=html;
+        speak(j.answer);
+      }catch(e){
+        $('aiAnswer').innerHTML='<div class="aiBox"><b>Ricerca tecnica non disponibile</b><br>'+esc(e.message||'Errore')+'<br><span>Il catalogo locale e i calcoli verificabili restano disponibili.</span></div>';
+        speak('La ricerca tecnica esterna non è disponibile. Posso comunque usare il catalogo locale e i calcoli verificabili.');
+      }
+    }else{
+      speak(spoken(text,result));
+    }
+    return result;
   }
 
   async function compressImage(file){
