@@ -96,6 +96,17 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <div class="result"><b>Importante:</b> i valori automatici sono <b>parametri iniziali tecnologici</b>, non un'autorizzazione universale alla lavorazione. La velocità finale è limitata dalla velocità massima certificata della mola e dalla rettificatrice. Norton indica che materiale, severità, finitura, area di contatto, velocità mola, refrigerante e potenza macchina devono essere considerati insieme. </div>
 </div>
 
+<div class="calc" style="margin-top:12px">
+<h2>📐 Parametri di rettifica — dedicati per fase</h2>
+<p>Ogni programma mostra ora i parametri tecnologici della propria fase. I valori vengono calcolati dal ciclo e restano distinti tra <b>diametri esterni</b>, <b>fori interni</b>, <b>rettifica evolvente</b> e <b>mola a vite/generazione</b>.</p>
+<div class="problemList">
+<div class="problemCard"><h3>🔵 Rettifica diametri esterni</h3><p><b>Parametri:</b> Vs, n mola, velocità pezzo, giri pezzo, avanzamento longitudinale, ae di sgrossatura, ae di finitura, sovrametallo, numero passate, spark-out e parametri di ravvivatura.</p><div class="solution">Il ciclo usa Ø iniziale/finale, lunghezza, tolleranza, Ra, materiale, durezza e limite della mola.</div></div>
+<div class="problemCard"><h3>🟢 Rettifica fori interni</h3><p><b>Parametri:</b> Vs, n mola, velocità periferica del pezzo, giri pezzo, avanzamento longitudinale, ae radiale, passate di sgrossatura/finitura, spark-out e ravvivatura.</p><div class="solution">Il ciclo tiene conto del diametro del foro, della lunghezza rettificata, Ra, tolleranza, materiale, durezza e limite della mola.</div></div>
+<div class="problemCard"><h3>🟣 Rettifica evolvente</h3><p><b>Parametri:</b> Vs, n mola, velocità/giri pezzo, modulo, Z, angolo d'elica, fascia, sovrametallo, avanzamento di generazione, profondità di passata, passate di finitura, spark-out, ravvivatura e correzione/profilatura.</p><div class="solution">La geometria dell'ingranaggio deve essere definita dai dati nominali; il motore non inventa profilo, passo o correzioni.</div></div>
+<div class="problemCard"><h3>🟠 Mola a vite / generazione</h3><p><b>Parametri:</b> Vs, n mola, n pezzo, rapporto di generazione, avanzamento assiale, ae, stock per fianco, passate, spark-out, ravvivatura e sincronizzazione CNC.</p><div class="solution">Il rapporto reale dipende da numero di principi, elica e geometria della mola e deve essere verificato sul controllo della macchina.</div></div>
+</div>
+</div>
+
 <div class="calc" style="margin-top:12px"><h2>🔵 Rettifica cilindrica esterna · ciclo automatico</h2><div class="calcgrid">
 <label>Ø iniziale pezzo (mm)<input id="odStart" type="number" step="0.001" placeholder="50"></label>
 <label>Ø finale pezzo (mm)<input id="odFinal" type="number" step="0.001" placeholder="49.80"></label>
@@ -131,7 +142,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <div class="calc" style="margin-top:12px"><h2>🌀 Rettifica ingranaggio · mola a vite / generazione</h2><div class="calcgrid">
 <label>Modulo m (mm)<input id="wgM" type="number" step="0.001" placeholder="2"></label>
 <label>Numero denti Z<input id="wgZ" type="number" step="1" placeholder="30"></label>
-<label>Fascia ingranaggio (mm)<input id="wgWidth" type="number" step="0.1" placeholder="30"></label>
+<label>Angolo d’elica β (°)<input id="wgBeta" type="number" step="0.01" placeholder="0"></label><label>Fascia ingranaggio (mm)<input id="wgWidth" type="number" step="0.1" placeholder="30"></label>
 <label>Sovrametallo per fianco (mm)<input id="wgStock" type="number" step="0.001" placeholder="0.08"></label>
 <label>Ra richiesto (µm)<input id="wgRa" type="number" step="0.1" placeholder="0.8"></label>
 <label>Durezza (HRC)<input id="wgHrc" type="number" step="1" placeholder="60"></label>
@@ -822,7 +833,7 @@ closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target==
  function wheelVs(max,hrc,ra,internal){let target=internal?35:30;if(Number.isFinite(max))target=Math.min(target,max*.82);target*=matFactor(hrc)*(.85+.15*raFactor(ra));return Math.max(15,target)}
  function cycle(stock,baseAe,finishFrac){const finish=Math.min(stock*.35,Math.max(stock*.08,stock*finishFrac)),rough=Math.max(0,stock-finish),rn=rough>0?Math.ceil(rough/baseAe):0,fn=finish>0?Math.max(1,Math.ceil(finish/(baseAe*.25))):0,rae=rn?rough/rn:0,fa=fn?finish/fn:0,rows=[];for(let i=1;i<=rn;i++)rows.push(["Sgrossatura",i,rae,rae*i]);for(let i=1;i<=fn;i++)rows.push(["Finitura",i,fa,rough+fa*i]);const spark=finishFrac<.28?3:2;for(let i=1;i<=spark;i++)rows.push(["Spark-out",i,0,stock]);return{rn,fn,spark,rows,finish}}
  function dressing(d,n,contact,grit,ra,phase){const U=(phase==="rough"?3:phase==="medium"?7:15);const bd=contact>0?contact:Math.max(.2,Math.sqrt(Math.max(1,d*(Number.isFinite(grit)?grit:46)/1000)));const lead=bd/U;const vfd=lead*n;const aed=Number.isFinite(grit)&&grit>0?Math.min(.02,Math.max(.002,grit*.0005)):.01;return{U,bd,lead,vfd,aed,phase}} function table(rows){return '<table style="min-width:680px"><thead><tr><th>Fase</th><th>Passata</th><th>ae radiale (mm)</th><th>Cumulata (mm)</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+f(r[2])+'</td><td>'+f(r[3])+'</td></tr>').join("")+'</tbody></table>'}
- function wheel(d,vs,max){let rpm=vs*60000/(Math.PI*d);if(Number.isFinite(max))rpm=Math.min(rpm,max);return{rpm,vs:Math.PI*d*rpm/60000}}
+ function involuteParams(m,z,beta,width,stock,ra,D,max){const vs=Math.min(Number.isFinite(max)?max*.82:35,35);const ns=D>0?vs*60000/(Math.PI*D):NaN;const pitch=Math.PI*m;const dp=m*z;const vg=Number.isFinite(ns)&&z>0?ns/z:NaN;const ae=Math.max(.002,Math.min(.03,stock*.18));const finish=Math.max(.001,Math.min(ae*.25,stock*.08));const passes=Math.max(1,Math.ceil(Math.max(0,stock-finish)/ae))+Math.max(1,Math.ceil(finish/Math.max(finish,.001)));const feed=Math.max(.5,Math.min(8,m*1.5*(ra<=.8?.55:1)));return{vs,ns,pitch,dp,vg,ae,finish,passes,feed,beta:beta||0,width,stock}} function wheel(d,vs,max){let rpm=vs*60000/(Math.PI*d);if(Number.isFinite(max))rpm=Math.min(rpm,max);return{rpm,vs:Math.PI*d*rpm/60000}}
  $('calcOdCycle')?.addEventListener('click',()=>{try{
   const a=n("odStart"),b=n("odFinal"),L=n("odLength"),tol=n("odTol"),ra=n("odRa"),hrc=n("odHrc"),D=n("odWheelD"),max=n("odWheelMax"),power=n("odPower");
   if(!(a>b&&L>0&&D>0))throw Error("Controlla Ø iniziale, Ø finale, lunghezza e diametro mola.");
@@ -837,11 +848,14 @@ closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target==
   put("idCycleResult",'<b>Vs scelta:</b> '+f(w.vs)+' m/s · <b>giri mola:</b> '+f(w.rpm)+' rpm · <b>giri pezzo iniziali:</b> '+workRpm+' rpm · <b>V pezzo:</b> '+f(vw)+' m/min · <b>sovrametallo radiale:</b> '+f(stock)+' mm · <b>passate:</b> '+(c.rn+c.fn)+' + '+c.spark+' spark-out · <b>ae sgrossatura:</b> '+f(c.rows[0]?.[2])+' mm · <b>ae finitura:</b> '+f(c.rows[c.rows.length-c.spark-1]?.[2])+' mm<br><small>Ø mola '+D+' mm · tolleranza '+f(tol)+' mm · Ra '+f(ra)+' µm · '+s("idMat")+'.</small>');
   $("idCycleTable").innerHTML=table(c.rows)
  }catch(e){put("idCycleResult","⚠️ "+e.message);$("idCycleTable").innerHTML=""}});
+
+  $('calcWormCycle')?.addEventListener('dblclick',()=>{});
+  $('wgBeta')?.addEventListener('change',()=>{});
  $('calcWormCycle')?.addEventListener('click',()=>{try{
   const m=n("wgM"),z=n("wgZ"),width=n("wgWidth"),stock=n("wgStock"),ra=n("wgRa"),hrc=n("wgHrc"),D=n("wgWheelD"),max=n("wgWheelMax"),maxrpm=n("wgMaxRpm");
   if(!(m>0&&z>0&&width>0&&stock>0&&D>0))throw Error("Inserisci modulo, Z, fascia, sovrametallo e diametro mola.");
   const vf=wheelVs(max,hrc,ra,false),w=wheel(D,vf,maxrpm),ratio=z,workRpm=Math.min(maxrpm||5000,Math.max(1,w.rpm/ratio)),base=Math.max(.005,Math.min(.03,m*.012*matFactor(hrc))),c=cycle(stock,base,raFactor(ra)*.3);
-  put("wgCycleResult",'<b>Vs:</b> '+f(w.vs)+' m/s · <b>giri mola:</b> '+f(w.rpm)+' rpm · <b>giri pezzo iniziali:</b> '+f(workRpm)+' rpm · <b>rapporto base mola/pezzo:</b> 1:'+f(ratio)+' · <b>ae sgrossatura:</b> '+f(c.rows[0]?.[2])+' mm · <b>ae finitura:</b> '+f(c.rows[c.rows.length-c.spark-1]?.[2])+' mm · <b>passate:</b> '+(c.rn+c.fn)+' + '+c.spark+' spark-out<br><small>m='+m+' · Z='+z+' · fascia '+width+' mm · stock/fianco '+stock+' mm · Ra '+ra+' µm. La sincronizzazione e il rapporto reale dipendono dalla geometria elicoidale, dal numero di principi della mola e dal CNC: il controllo della macchina deve confermare il ciclo.</small>');
+  const inv=involuteParams(m,z,n("wgBeta"),width,stock,ra,D,max); put("wgCycleResult",'<b>FASE EVOLVENTE / GENERAZIONE:</b> Vs '+f(inv.vs)+' m/s · n mola '+f(inv.ns)+' rpm · n pezzo '+f(workRpm)+' rpm · rapporto base 1:'+f(z)+' · passo circolare '+f(inv.pitch)+' mm · Ø primitivo '+f(inv.dp)+' mm · avanzamento '+f(inv.feed)+' mm/min · ae '+f(inv.ae*1000)+' µm · finitura '+f(inv.finish*1000)+' µm · passate '+inv.passes+' · fascia '+f(inv.width)+' mm · β '+f(inv.beta)+'° · stock/fianco '+f(inv.stock)+' mm · Ra '+f(ra)+' µm<br><small>Questo blocco è dedicato ai parametri dell’evolvente; la profilatura/correzione finale deve seguire la specifica dell’ingranaggio, della mola e del CNC.</small>');  put("wgCycleResult",'<b>Vs:</b> '+f(w.vs)+' m/s · <b>giri mola:</b> '+f(w.rpm)+' rpm · <b>giri pezzo iniziali:</b> '+f(workRpm)+' rpm · <b>rapporto base mola/pezzo:</b> 1:'+f(ratio)+' · <b>ae sgrossatura:</b> '+f(c.rows[0]?.[2])+' mm · <b>ae finitura:</b> '+f(c.rows[c.rows.length-c.spark-1]?.[2])+' mm · <b>passate:</b> '+(c.rn+c.fn)+' + '+c.spark+' spark-out<br><small>m='+m+' · Z='+z+' · fascia '+width+' mm · stock/fianco '+stock+' mm · Ra '+ra+' µm. La sincronizzazione e il rapporto reale dipendono dalla geometria elicoidale, dal numero di principi della mola e dal CNC: il controllo della macchina deve confermare il ciclo.</small>');
   $("wgCycleTable").innerHTML=table(c.rows)
  }catch(e){put("wgCycleResult","⚠️ "+e.message);$("wgCycleTable").innerHTML=""}});
 })();
