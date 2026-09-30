@@ -57,7 +57,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <button class="navtab active" data-page="catalogo">📋 Utensili</button>
 <button class="navtab" data-page="tornitura">🔩 Tornitura</button>
 <button class="navtab" data-page="fresatura">⚙️ Fresatura</button>
-<button class="navtab" data-page="alesatura">🔩 Alesatura</button>
+<button class="navtab" data-page="alesatura">🔩 Alesatura</button><button class="navtab" data-page="rettifica">🌀 Rettifica</button>
 <button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="produttori">🏭 Produttori</button><button class="navtab" data-page="speciali">🔐 Gestione utensili interni</button><button class="navtab" data-page="ia">🤖 IA Metalmeccanica</button></nav>
 <section id="catalogo" class="page active"><section class="sheet">
 <div class="toolbar">
@@ -88,6 +88,73 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 </section>
 
 
+</section>
+<section id="rettifica" class="page">
+<div class="calc">
+<h2>🌀 Rettifica · diametri, interni, evolvente e mola a vite</h2>
+<p>Modulo dedicato alla rettifica. I calcoli geometrici sono deterministici; i parametri di processo vengono trattati come <b>valori iniziali da verificare</b> sulla specifica della mola, macchina, refrigerante, materiale e ciclo. La velocità massima ammessa della mola non deve mai essere superata.</p>
+<div class="result"><b>Regola di sicurezza:</b> la specifica della mola e la sua velocità massima dichiarata dal produttore prevalgono sempre sui valori calcolati.</div>
+<div class="calcgrid" style="margin-top:12px">
+<div class="calc"><h3>Rettifica cilindrica esterna · diametro</h3>
+<label>Diametro mola Ds (mm)<input id="grindDs" type="number" step="0.1" placeholder="400"></label>
+<label>Giri mola ns (rpm)<input id="grindNs" type="number" step="1" placeholder="1800"></label>
+<label>Diametro pezzo Dw (mm)<input id="grindDw" type="number" step="0.1" placeholder="80"></label>
+<label>Giri pezzo nw (rpm)<input id="grindNw" type="number" step="1" placeholder="200"></label>
+<label>Infeed radiale per passata ae (mm)<input id="grindAe" type="number" step="0.001" placeholder="0.02"></label>
+<label>Avanzamento longitudinale Vw (mm/min)<input id="grindVw" type="number" step="1" placeholder="500"></label>
+<button type="button" id="calcGrindExt">Calcola parametri</button><div class="result" id="grindExtResult">—</div>
+</div>
+<div class="calc"><h3>Rettifica interna · foro</h3>
+<label>Diametro mola Di (mm)<input id="idDi" type="number" step="0.1" placeholder="20"></label>
+<label>Giri mola ni (rpm)<input id="idNi" type="number" step="1" placeholder="30000"></label>
+<label>Diametro foro Dw (mm)<input id="idDw" type="number" step="0.1" placeholder="40"></label>
+<label>Giri pezzo nw (rpm)<input id="idNw" type="number" step="1" placeholder="300"></label>
+<label>Infeed radiale per passata ae (mm)<input id="idAe" type="number" step="0.001" placeholder="0.01"></label>
+<label>Avanzamento assiale Vf (mm/min)<input id="idVf" type="number" step="1" placeholder="200"></label>
+<button type="button" id="calcGrindId">Calcola rettifica interna</button><div class="result" id="grindIdResult">—</div>
+</div>
+<div class="calc"><h3>Rettifica · velocità periferica mola</h3>
+<label>Diametro mola D (mm)<input id="wheelD" type="number" step="0.1" placeholder="400"></label>
+<label>Giri mola n (rpm)<input id="wheelN" type="number" step="1" placeholder="1800"></label>
+<button type="button" id="calcWheelSpeed">Calcola Vc mola</button><div class="result" id="wheelSpeedResult">—</div>
+</div>
+<div class="calc"><h3>Rettifica · giri mola da velocità</h3>
+<label>Diametro mola D (mm)<input id="wheelDN" type="number" step="0.1" placeholder="400"></label>
+<label>Velocità periferica Vs (m/s)<input id="wheelVs" type="number" step="0.1" placeholder="30"></label>
+<button type="button" id="calcWheelRpm">Calcola giri</button><div class="result" id="wheelRpmResult">—</div>
+</div>
+</div>
+<div class="calc" style="margin-top:12px"><h3>⚙️ Rettifica evolvente</h3>
+<p>Area per impostare il calcolo in base a modulo, numero denti, angolo di pressione e diametri. La cinematica finale dipende dal metodo (mola profilata, generatrice, ecc.) e dalla rettificatrice.</p>
+<div class="calcgrid">
+<label>Modulo m (mm)<input id="invM" type="number" step="0.001" placeholder="2"></label>
+<label>Numero denti z<input id="invZ" type="number" step="1" placeholder="30"></label>
+<label>Angolo di pressione α (°)<input id="invAlpha" type="number" step="0.01" placeholder="20"></label>
+<label>Diametro primitivo d (mm)<input id="invD" type="number" step="0.01" placeholder="60"></label>
+</div>
+<button type="button" id="calcInvolute">Calcola geometria evolvente</button><div class="result" id="invResult">—</div>
+</div>
+<div class="calc" style="margin-top:12px"><h3>🌀 Rettifica con mola a vite</h3>
+<p>Per la mola a vite vengono raccolti modulo, numero denti, diametro di riferimento e angolo d'elica. Il rapporto cinematico di generazione deve essere impostato secondo la macchina e la specifica della mola; il modulo non basta da solo a determinare un ciclo universale.</p>
+<div class="calcgrid">
+<label>Modulo m (mm)<input id="wormM" type="number" step="0.001" placeholder="2"></label>
+<label>Numero denti z<input id="wormZ" type="number" step="1" placeholder="30"></label>
+<label>Diametro primitivo d (mm)<input id="wormD" type="number" step="0.01" placeholder="60"></label>
+<label>Angolo d'elica β (°)<input id="wormBeta" type="number" step="0.01" placeholder="15"></label>
+<label>Numero principi mola vite k<input id="wormK" type="number" step="1" placeholder="1"></label>
+<label>Giri mola nₛ (rpm)<input id="wormNs" type="number" step="1" placeholder="1000"></label>
+</div>
+<button type="button" id="calcWorm">Calcola dati cinematici di base</button><div class="result" id="wormResult">—</div>
+</div>
+<div class="calc" style="margin-top:12px"><h3>🛠️ Scelta mola e problemi tipici</h3>
+<div class="problemList">
+<article class="problemCard"><h3>Acciai temprati</h3><p><b>Scelta iniziale:</b> abrasivo allumina adatto all'acciaio; per applicazioni specifiche possono essere indicati CBN e relative specifiche del produttore.</p><p class="solution"><b>Controllare:</b> grana, durezza, struttura, legante, velocità periferica, refrigerazione e ravvivatura.</p></article>
+<article class="problemCard"><h3>Rettifica interna</h3><p>Le operazioni ID possono essere a passata longitudinale o a tuffo. La mola deve essere dimensionata per il foro e la velocità deve rispettare la specifica della mola.</p><p class="solution"><b>Per finitura:</b> controllare ravvivatura, avanzamento, profondità per giro, refrigerazione e spark-out.</p></article>
+<article class="problemCard"><h3>Bruciature / finitura scadente</h3><p>Cause possibili: mola troppo dura o vetrificata in modo non adatto, ravvivatura errata, infeed eccessivo, refrigerazione insufficiente o velocità/avanzamenti non adatti.</p><p class="solution"><b>Diagnosi:</b> modificare una sola variabile alla volta e verificare la specifica del produttore della mola.</p></article>
+</div>
+</div>
+<div class="warn" style="margin-top:12px">Riferimenti tecnici iniziali: Norton/Saint-Gobain. La selezione della mola considera materiale, severità, finitura/form accuracy, area di contatto, velocità mola, refrigerante e potenza macchina; ravvivatura e truing sono operazioni distinte. I parametri di produzione devono essere verificati sulla documentazione della mola e della macchina.</div>
+</div>
 </section>
 <section id="ia" class="page"><div class="aiPanel"><h2>🤖 IA Metalmeccanica</h2><p>Assistente collegato al catalogo: ricerca utensili e parametri presenti nel progetto e svolge i calcoli di base senza uscire dal catalogo.</p><div class="aiInputRow"><input id="aiInput" placeholder="Scrivi oppure parla: es. CNMG acciaio, diametro 50 e 1200 giri"><button id="aiVoice" type="button">🎙️ Parla</button><button id="aiAsk" type="button">Analizza</button></div><div class="aiImageRow" style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin-top:8px"><label style="display:flex;align-items:center;gap:8px;border:1px solid #cbd7e1;border-radius:9px;padding:9px;background:#fff;cursor:pointer">📷 <span id="aiImageName">Carica foto del problema</span><input id="aiImage" type="file" accept="image/*" capture="environment" hidden></label><button id="aiImageAnalyze" type="button">🔎 Analizza foto</button></div><div id="aiImagePreview" style="display:none;margin-top:8px"></div><div id="aiExamples" class="aiExamples"><button type="button" data-q="CNMG tornitura acciaio">CNMG + acciaio</button><button type="button" data-q="diametro 50 rpm 1200 calcola Vc">Calcola Vc</button><button type="button" data-q="Walter tornitura">Walter tornitura</button></div><div id="aiAnswer" class="aiBox">Inserisci una richiesta per interrogare il catalogo e il motore di calcolo.</div></div></section>
 <section id="speciali" class="page">
@@ -744,6 +811,21 @@ function openTool(x){
 closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target===toolModal)toolModal.hidden=true};document.addEventListener("keydown",e=>{if(e.key==="Escape")toolModal.hidden=true});
 </script>
 <script src="ai-assistant.js"></script>
+<script id="grinding-calculators">
+(function(){
+ const n=id=>parseFloat(document.getElementById(id)?.value);
+ const out=(id,s)=>{const e=document.getElementById(id);if(e)e.innerHTML=s};
+ const fmt=x=>Number.isFinite(x)?x.toFixed(3):"—";
+ function wheelSpeed(d,rpm){return Math.PI*d*rpm/60000}
+ document.getElementById("calcWheelSpeed")?.addEventListener("click",()=>{const v=wheelSpeed(n("wheelD"),n("wheelN"));out("wheelSpeedResult","Vs = <b>"+fmt(v)+" m/s</b> · formula Vs = π × D × n / 60000");});
+ document.getElementById("calcWheelRpm")?.addEventListener("click",()=>{const d=n("wheelDN"),v=n("wheelVs"),r=(v*60000)/(Math.PI*d);out("wheelRpmResult","n = <b>"+fmt(r)+" rpm</b> · verificare sempre la velocità massima ammessa dalla mola.");});
+ document.getElementById("calcGrindExt")?.addEventListener("click",()=>{const ds=n("grindDs"),ns=n("grindNs"),dw=n("grindDw"),nw=n("grindNw"),ae=n("grindAe"),vw=n("grindVw");out("grindExtResult","Vs = <b>"+fmt(wheelSpeed(ds,ns))+" m/s</b> · Vw = <b>"+fmt(Math.PI*dw*nw/1000)+" m/min</b> · ae/passata = <b>"+fmt(ae)+" mm</b> · avanzamento = <b>"+fmt(vw)+" mm/min</b><br><small>Valori di ciclo da validare con mola, macchina e materiale.</small>");});
+ document.getElementById("calcGrindId")?.addEventListener("click",()=>{const di=n("idDi"),ni=n("idNi"),dw=n("idDw"),nw=n("idNw"),ae=n("idAe"),vf=n("idVf");out("grindIdResult","Vs = <b>"+fmt(wheelSpeed(di,ni))+" m/s</b> · velocità pezzo = <b>"+fmt(Math.PI*dw*nw/1000)+" m/min</b> · ae/passata = <b>"+fmt(ae)+" mm</b> · Vf = <b>"+fmt(vf)+" mm/min</b><br><small>Per ID, scegliere diametro/legante/grana e velocità in base alla specifica della mola.</small>");});
+ document.getElementById("calcInvolute")?.addEventListener("click",()=>{const m=n("invM"),z=n("invZ"),a=n("invAlpha"),d=n("invD");const dp=m*z;const alpha=a*Math.PI/180;const rb=dp*Math.cos(alpha);out("invResult","d primitivo teorico = <b>"+fmt(dp)+" mm</b> · raggio di base = <b>"+fmt(rb/2)+" mm</b> · α = <b>"+fmt(a)+"°</b>"+(Math.abs(dp-d)>0.01?"<br><small>Attenzione: m×z e il diametro inserito non coincidono; verificare modulo/numero denti e sistema di riferimento.</small>":""));});
+ document.getElementById("calcWorm")?.addEventListener("click",()=>{const m=n("wormM"),z=n("wormZ"),d=n("wormD"),b=n("wormBeta"),k=n("wormK"),ns=n("wormNs");const dp=m*z;const beta=b*Math.PI/180;const lead=Math.PI*d*Math.tan(beta);const toothRatio=z/k;out("wormResult","d primitivo teorico = <b>"+fmt(dp)+" mm</b> · passo assiale teorico = <b>"+fmt(Math.PI*m)+" mm</b> · avanzamento elicoidale per giro mola = <b>"+fmt(lead)+" mm/giro</b> · rapporto cinematico base z/k = <b>"+fmt(toothRatio)+"</b> · n mola = <b>"+fmt(ns)+" rpm</b><br><small>La cinematica reale della rettifica a mola a vite dipende da macchina, mola, numero principi e metodo di generazione: non usare questi valori come ciclo produttivo senza la documentazione specifica.</small>");});
+})();
+</script>
+
 <script id="windows-empty-value-cleanup">
 (function(){
   function clean(){
