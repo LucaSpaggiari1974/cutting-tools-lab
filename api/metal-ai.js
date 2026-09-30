@@ -3,6 +3,18 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   if (req.method === "OPTIONS") return res.status(204).end();
+
+  // Endpoint di diagnostica: permette di verificare dal browser che la funzione
+  // sia pubblicata e che la chiave server sia configurata, senza esporla.
+  if (req.method === "GET") {
+    return res.status(200).json({
+      ok: true,
+      service: "Metal AI",
+      openaiConfigured: Boolean(process.env.OPENAI_API_KEY),
+      model: process.env.METAL_AI_MODEL || "gpt-5.6-luna"
+    });
+  }
+
   if (req.method !== "POST") return res.status(405).json({ error: "Metodo non consentito" });
   if (!process.env.OPENAI_API_KEY) return res.status(503).json({ error: "OPENAI_API_KEY non configurata sul server." });
 
