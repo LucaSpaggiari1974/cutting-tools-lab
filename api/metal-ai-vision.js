@@ -48,7 +48,23 @@ Richiesta dell'operatore: ${String(question).slice(0,4000)}`;
 
     const data = await r.json();
     if (!r.ok) return res.status(r.status).json({ error: data?.error?.message || "Errore del motore IA." });
-    return res.status(200).json({ answer: data.output_text || "Nessuna analisi testuale restituita.", response_id: data.id || null });
+
+    const sources = [];
+    for (const item of (data.output || [])) {
+      for (const content of (item.content || [])) {
+        for (const annotation of (content.annotations || [])) {
+          if (annotation.type === "url_citation" && annotation.url) {
+            sources.push({ title: annotation.title || annotation.url, url: annotation.url });
+          }
+        }
+      }
+    }
+
+    return res.status(200).json({
+      answer: data.output_text || "Nessuna analisi testuale restituita.",
+      sources: sources.filter((x,i,a)=>a.findIndex(y=>y.url===x.url)===i).slice(0,12),
+      response_id: data.id || null
+    });
   } catch (e) {
     return res.status(500).json({ error: "Errore durante l'analisi dell'immagine." });
   }
