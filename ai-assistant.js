@@ -127,7 +127,7 @@
       const data=await compressImage(file);
       preview.style.display='block';preview.innerHTML='<img src="'+esc(data)+'" alt="Foto problema" style="max-width:100%;max-height:320px;border-radius:10px;border:1px solid #cbd7e1">';
       box.innerHTML='<div class="aiBox"><b>Analisi visiva in corso…</b><br>Sto confrontando gli indizi visibili con le cause tipiche di lavorazione.</div>';
-      const r=await fetch('/api/metal-ai-vision.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:data,question:$('aiInput')?.value||''})});
+      const r=await fetch('https://cutting-tools-lab.vercel.app/api/metal-ai-vision',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:data,question:$('aiInput')?.value||''})});
       const j=await r.json(); if(!r.ok) throw new Error(j.error||'Errore server');
       box.innerHTML='<div class="aiBox"><b>Diagnosi da immagine</b><div class="aiHit" style="white-space:pre-wrap">'+esc(j.answer)+'</div><small>La diagnosi visiva è un supporto tecnico: prima di modificare parametri o utensili, verificare misure, macchina e condizioni reali.</small></div>';
       speak(j.answer);
