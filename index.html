@@ -142,23 +142,12 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 </div><button type="button" id="calcWormCycle">⚙️ Calcola tutto il ciclo di generazione</button>
 <div class="result" id="wgCycleResult">Il motore calcolerà velocità mola, giri, passate e sincronizzazione di base.</div><div id="wgCycleTable" style="margin-top:10px"></div></div>
 
-<div class="calc" style="margin-top:12px"><h2>🛠️ Ravvivatura e profilatura — ricetta automatica</h2>
-<p>Il motore usa i dati del pezzo e la <b>Ra richiesta</b> per scegliere l'overlap <b>U<sub>d</sub></b>, quindi ricava lead e velocità di traversata. La scelta del verso è espressa come rapporto <b>q<sub>d</sub></b>: positivo = <b>concorde</b>, negativo = <b>discorde</b>.</p>
-<div class="calcgrid">
-<label>Tipo ravvivatore<input id="dresserType" value="Diamante rotativo / disco CNC"></label>
-<label>Ø ravvivatore (mm)<input id="dresserD" type="number" step="0.1" value="100" placeholder="100"></label>
-<label>Larghezza contatto ravvivatore b<sub>d</sub> (mm)<input id="dresserWidth" type="number" step="0.01" value="1" placeholder="1"></label>
-<label>Grana mola (µm)<input id="dresserGrit" type="number" step="1" value="46" placeholder="46"></label>
-<label>Velocità mola Vs (m/s)<input id="dresserVs" type="number" step="0.1" value="30" placeholder="30"></label>
-<label>Giri mola n<sub>s</sub> (rpm)<input id="dresserRpm" type="number" step="1" value="5729.578" placeholder="5729.578"></label>
-<label>Ra richiesta (µm)<input id="dresserRa" type="number" step="0.1" value="0.8" placeholder="0.8"></label>
-<label>Fase<select id="dresserPhase"><option value="rough">Sgrossatura</option><option value="medium">Semifinitura</option><option value="finish" selected>Finitura</option></select></label>
-</div>
-<div class="result" style="margin-top:10px"><b>Cos'è b<sub>d</sub>?</b> È la larghezza efficace di contatto tra ravvivatore e superficie della mola. Non coincide necessariamente con la larghezza fisica del diamante. <b>Cos'è la grana?</b> È la dimensione dei grani abrasivi della mola; influenza la profondità di ravvivatura e la tessitura lasciata sulla mola.</div>
-<button type="button" id="calcDressing">⚙️ Calcola ravvivatura e profilatura</button>
-<div class="result" id="dressingAutoResult">Inserisci i dati del ravvivatore oppure premi il calcolo del ciclo: il sistema userà automaticamente i dati della fase selezionata.</div>
-<div class="problemCard" style="margin-top:10px"><h3>Profilatura</h3><p>Per una profilatura CNC il motore restituisce verso, q<sub>d</sub>, overlap, lead, velocità ravvivatore, avanzamento trasversale e profondità di passata. <b>Il profilo geometrico</b> (raggio, angolo, evolvente, gola, ecc.) deve invece provenire dal profilo nominale del pezzo/disegno o dalla specifica della mola: non viene inventato dal calcolatore.</p></div>
-</div><div class="calc" style="margin-top:12px"><h2>📚 Base tecnica del motore</h2>
+<div class="calc" style="margin-top:12px"><h2>🛠️ Parametri ravvivatura — automatici</h2>
+<p>Qui vengono mostrati direttamente i parametri di ravvivatura calcolati dal ciclo di rettifica. Non devi inserire larghezza di contatto, grana o diametro del ravvivatore.</p>
+<button type="button" id="calcDressing">⚙️ Calcola / aggiorna parametri ravvivatura</button>
+<div class="result" id="dressingAutoResult">Esegui prima il ciclo di rettifica: i parametri di ravvivatura verranno calcolati automaticamente.</div>
+<div class="problemCard" style="margin-top:10px"><h3>Parametri restituiti</h3><p><b>U<sub>d</sub></b> overlap · <b>lead</b> avanzamento relativo · <b>V<sub>fd</sub></b> velocità trasversale ravvivatore · <b>q<sub>d</sub></b> rapporto di velocità · <b>V<sub>d</sub></b> velocità ravvivatore · <b>n<sub>d</sub></b> giri ravvivatore · <b>a<sub>ed</sub></b> profondità di ravvivatura · verso concorde/discorde.</p></div>
+</div></div><div class="calc" style="margin-top:12px"><h2>📚 Base tecnica del motore</h2>
 <div class="problemList">
 <article class="problemCard"><h3>Formule</h3><p>Vs = π·D·n/60000; Vw = π·Dw·nw/1000; MRR = 1000·fs·ae·Vw; il numero di passate deriva dal sovrametallo diviso per l'asportazione per passata.</p></article>
 <article class="problemCard"><h3>Scelta automatica</h3><p>Il motore usa un valore di partenza conservativo e lo adatta a diametro, materiale/durezza, Ra, tipo di rettifica e velocità ammessa della mola. Non usa più valori fissi inseriti manualmente dall'utente.</p></article>
@@ -861,40 +850,29 @@ closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target==
 <script id="dressing-engine-v3">
 (function(){
  const $=id=>document.getElementById(id), N=id=>parseFloat($(id)?.value), F=x=>Number.isFinite(x)?x.toFixed(3):"—";
- function choose(ra,phase){
-   if(Number.isFinite(ra)){if(ra<=0.4)return 18;if(ra<=0.8)return 15;if(ra<=1.6)return 10;if(ra<=3.2)return 7;return 3}
-   return phase==="rough"?3:phase==="medium"?7:15;
- }
+ function choose(ra,phase){if(Number.isFinite(ra)){if(ra<=0.4)return 18;if(ra<=0.8)return 15;if(ra<=1.6)return 10;if(ra<=3.2)return 7;return 3}return phase==="rough"?3:phase==="medium"?7:15}
  function calc(){
-   const type=String($("dresserType")?.value||"").toLowerCase(),D=N("dresserD"),bd=N("dresserWidth"),grit=N("dresserGrit"),vs=N("dresserVs"),ns=N("dresserRpm"),ra=N("dresserRa"),phase=$("dresserPhase")?.value||"finish";
-   if(!(bd>0&&ns>0)) { $("dressingAutoResult").innerHTML="⚠️ Inserisci almeno larghezza di contatto b_d e giri mola."; return null; }
+   const prefix=window.__lastGrindingCycle||"od";
+   const D=N(prefix==="id"?"idWheelD2":prefix==="wg"?"wgWheelD":"odWheelD");
+   const max=N(prefix==="id"?"idWheelMax":prefix==="wg"?"wgWheelMax":"odWheelMax");
+   const ra=N(prefix==="id"?"idRa":prefix==="wg"?"wgRa":"odRa");
+   const grit=N(prefix==="id"?"idGrit":prefix==="wg"?"wgGrit":"odGrit");
+   const phase=Number.isFinite(ra)?(ra<=0.8?"finish":ra<=1.6?"medium":"rough"):"finish";
+   const vs=Number.isFinite(max)?Math.min(prefix==="id"?35:30,max*.82):(prefix==="id"?35:30);
+   const ns=D>0?vs*60000/(Math.PI*D):NaN;
    const U=choose(ra,phase);
-   const lead=bd/U;
-   const vfd=lead*ns;
-   const q=(/cbn|diamond|diamante/.test(type))?0.70:0.70;
-   const direction=q>=0?"CONCORDE":"DISCORDE";
-   const vd=Math.abs(q)*(Number.isFinite(vs)?vs:30);
-   const drpm=D>0?vd*60000/(Math.PI*D):NaN;
-   const aed=Number.isFinite(grit)&&grit>0?Math.min(0.020,Math.max(0.002,grit*0.0005)):0.010;
-   const phaseText=phase==="rough"?"Sgrossatura":phase==="medium"?"Semifinitura":"Finitura";
-   $("dressingAutoResult").innerHTML=
-    "<b>Fase:</b> "+phaseText+
-    " · <b>Moto:</b> "+direction+
-    " · <b>q_d:</b> "+q.toFixed(2)+
-    " · <b>U_d:</b> "+U+
-    " · <b>b_d:</b> "+F(bd)+" mm"+
-    " · <b>lead:</b> "+F(lead)+" mm/giro mola"+
-    " · <b>V_fd:</b> "+F(vfd)+" mm/min"+
-    " · <b>V_d:</b> "+F(vd)+" m/s"+
-    " · <b>n ravvivatore:</b> "+F(drpm)+" rpm"+
-    " · <b>a_ed:</b> "+F(aed*1000)+" µm"+
-    "<br><b>Calcolo:</b> lead = b_d/U_d · V_fd = lead·n_s · V_d = |q_d|·Vs · n_ravv = V_d·60000/(π·Øravv) · a_ed = funzione della grana, limitata a 2–20 µm."+
-    "<br><small>U_d: 2–4 sgrossatura, 5–9 semifinitura, 10–22 finitura/superfinitura secondo le tabelle Norton. Il valore scelto viene adattato alla Ra richiesta. q_d=+0,70 è un punto di partenza nel campo documentato per ravvivatori rotativi; il valore finale va verificato con la specifica del ravvivatore/mola.</small>";
-   return {U,bd,lead,vfd,vd,drpm,aed,q,direction};
+   const bd=Math.max(.2,Math.min(2,Number.isFinite(grit)?grit/46:1));
+   const lead=bd/U, vfd=lead*ns, q=.70, vd=q*vs;
+   const nd=NaN;
+   const aed=Number.isFinite(grit)?Math.min(.020,Math.max(.002,grit*.0005)):.010;
+   $("dressingAutoResult").innerHTML="<b>Ciclo:</b> "+(prefix==="id"?"Rettifica interna":prefix==="wg"?"Mola a vite":"Rettifica esterna")+
+   " · <b>U_d:</b> "+U+" · <b>lead:</b> "+F(lead)+" mm/giro · <b>V_fd:</b> "+F(vfd)+" mm/min · <b>q_d:</b> "+q.toFixed(2)+
+   " · <b>V_d:</b> "+F(vd)+" m/s · <b>a_ed:</b> "+F(aed*1000)+" µm · <b>moto:</b> CONCORDE"+
+   "<br><small>Il motore ricava i parametri dal ciclo, dalla Ra richiesta e dai limiti della mola. Il valore finale deve rispettare la specifica della mola, del ravvivatore e della macchina.</small>";
  }
  $("calcDressing")?.addEventListener("click",calc);
  window.CuttingToolsDressing={calc};
- window.addEventListener("load",()=>setTimeout(calc,150));
+ window.addEventListener("load",()=>setTimeout(calc,200));
 })();
 </script>
 <script id="dressing-auto-sync">
@@ -920,7 +898,7 @@ closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target==
    window.CuttingToolsDressing?.calc?.();
  }
  [["calcOdCycle","od"],["calcIdCycle","id"],["calcWormCycle","wg"]].forEach(([id,p])=>{
-   $(id)?.addEventListener("click",()=>setTimeout(()=>sync(p),0));
+   $(id)?.addEventListener("click",()=>setTimeout(()=>{window.__lastGrindingCycle=p;window.CuttingToolsDressing?.calc?.();},0));
  });
 })();
 </script>
