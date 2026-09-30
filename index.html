@@ -93,7 +93,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <div class="calc">
 <h2>🌀 Rettifica · Programma tecnologico automatico</h2>
 <p>Qui non interessa il diametro primitivo: inserisci <b>dimensioni iniziali e finali del pezzo</b>, tolleranza, Ra, materiale e dati della mola. Il motore calcola il sovrametallo, suddivide le passate in sgrossatura/finitura, calcola velocità mola e pezzo e costruisce una <b>sequenza tecnologica</b>.</p>
-<div class="result"><b>Importante:</b> il ciclo calcolato è un ciclo tecnologico iniziale. La velocità massima della mola, i limiti della rettificatrice, la specifica della mola e i parametri del costruttore prevalgono sempre. Per un programma CNC macchina-specifico serviranno anche marca/modello e controllo della rettificatrice.</div>
+<div class="result"><b>Formule verificate:</b> le relazioni matematiche usate dal motore sono state confrontate con documentazione tecnica pubblicata online (Machinery’s Handbook e Norton Abrasives). <b>Limite importante:</b> non esiste una formula universale che possa determinare in sicurezza, dalle sole dimensioni e dal Ra, una profondità di passata valida per ogni mola/materiale/macchina. Per questo il motore separa le formule certe (stock, velocità, MRR, tempi e numero passate) dai parametri tecnologici che devono provenire dalla specifica della mola, dal materiale e dalla rettificatrice. La velocità massima certificata della mola prevale sempre.</div>
 </div>
 
 <div class="calc" style="margin-top:12px">
@@ -777,73 +777,65 @@ closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target==
  const fmt=x=>Number.isFinite(x)?x.toFixed(3):"—";
  const out=(id,s)=>{const e=$(id);if(e)e.innerHTML=s};
  const wheelSpeed=(d,rpm)=>Math.PI*d*rpm/60000;
- function finishPolicy(ra){
-   if(!Number.isFinite(ra)) return {finishRad:.005,spark:2,label:"standard"};
-   if(ra<=0.4) return {finishRad:.002,spark:4,label:"finitura molto spinta"};
-   if(ra<=0.8) return {finishRad:.003,spark:3,label:"finitura fine"};
-   if(ra<=1.6) return {finishRad:.005,spark:2,label:"finitura media"};
-   if(ra<=3.2) return {finishRad:.008,spark:1,label:"finitura normale"};
-   return {finishRad:.012,spark:1,label:"finitura più aperta"};
- }
+ const workSpeed=(d,rpm)=>Math.PI*d*rpm/1000;
+
+ // Deterministic stock/pass calculation. The process infeed is an input,
+ // not an invented universal value derived from Ra.
  function cycle(stockRad,roughAe,finishAe,finishStockRad,spark){
    if(!(stockRad>0)) throw new Error("Il sovrametallo deve essere positivo.");
-   const rs=Number.isFinite(roughAe)&&roughAe>0?roughAe:0.01;
-   const fs=Number.isFinite(finishAe)&&finishAe>0?finishAe:0.003;
-   let finStock=Math.min(Math.max(finishStockRad||0,fs),stockRad);
-   let roughStock=Math.max(0,stockRad-finStock);
-   const roughN=Math.ceil(roughStock/rs);
-   const remR=roughN?roughStock/roughN:0;
-   const finN=Math.ceil(finStock/fs);
-   const remF=finN?finStock/finN:0;
+   if(!(roughAe>0)||!(finishAe>0)) throw new Error("Inserisci l'asportazione ammessa per passata, verificata per la tua mola/materiale/macchina.");
+   if(!(finishStockRad>=0)||finishStockRad>stockRad) throw new Error("Il sovrametallo di finitura deve essere compreso nel sovrametallo totale.");
+   const roughStock=Math.max(0,stockRad-finishStockRad);
+   const roughN=Math.ceil(roughStock/roughAe);
+   const finN=Math.ceil(finishStockRad/finishAe);
+   const roughActual=roughN?roughStock/roughN:0;
+   const finActual=finN?finishStockRad/finN:0;
    const rows=[];
-   for(let i=1;i<=roughN;i++)rows.push({fase:"Sgrossatura",passata:i,ae:remR,totale:remR*i});
-   for(let i=1;i<=finN;i++)rows.push({fase:"Finitura",passata:i,ae:remF,totale:roughStock+remF*i});
+   for(let i=1;i<=roughN;i++) rows.push({fase:"Sgrossatura",passata:i,ae:roughActual,totale:roughActual*i});
+   for(let i=1;i<=finN;i++) rows.push({fase:"Finitura",passata:i,ae:finActual,totale:roughStock+finActual*i});
    const sp=Math.max(0,Math.round(spark||0));
-   for(let i=1;i<=sp;i++)rows.push({fase:"Spark-out",passata:i,ae:0,totale:stockRad});
-   return {roughN,finN,sp,roughAe:remR,finishAe:remF,rows};
+   for(let i=1;i<=sp;i++) rows.push({fase:"Spark-out",passata:i,ae:0,totale:stockRad});
+   return {roughN,finN,sp,roughActual,finActual,rows};
  }
  function table(rows){
    return '<table style="min-width:620px"><thead><tr><th>Fase</th><th>Passata</th><th>Asportazione radiale mm</th><th>Asportazione cumulata mm</th></tr></thead><tbody>'+
     rows.map(r=>'<tr><td>'+r.fase+'</td><td>'+r.passata+'</td><td>'+fmt(r.ae)+'</td><td>'+fmt(r.totale)+'</td></tr>').join('')+'</tbody></table>';
  }
- function wheelInfo(d,n){const vs=wheelSpeed(d,n);return 'Vs = <b>'+fmt(vs)+' m/s</b>';}
- function materialNote(mat){return mat?'<br><small>Materiale dichiarato: '+String(mat).replace(/[&<>]/g,'')+'</small>':'';}
+ function wheelInfo(d,n){return 'Vs = <b>'+fmt(wheelSpeed(d,n))+' m/s</b>';}
+ function safeText(s){return String(s).replace(/[&<>]/g,'');}
+ function checkWheelSpeed(v){return '<br><small>Verificare che Vs non superi la velocità massima ammessa riportata sulla mola.</small>';}
 
  $('calcOdCycle')?.addEventListener('click',()=>{
-   try{
-    const s=num("odStart"),f=num("odFinal"),tol=num("odTol"),ra=num("odRa"),len=num("odLength"),wd=num("odWheelD"),wn=num("odWheelN"),wkn=num("odWorkN"),feed=num("odFeed");
-    const stockDiam=s-f;if(!(stockDiam>0))throw new Error("Per la rettifica esterna Ø iniziale deve essere maggiore del Ø finale.");
-    const stockRad=stockDiam/2, pol=finishPolicy(ra);
-    const finishStockDiam=num("odFinishStock"), finishStock=Number.isFinite(finishStockDiam)?finishStockDiam/2:pol.finishRad;
-    const ch=cycle(stockRad,num("odRoughAe"),num("odFinishAe")||pol.finishRad,finishStock,num("odSpark"));
-    const vs=wheelSpeed(wd,wn), vw=Number.isFinite(len)&&len>0&&Number.isFinite(wkn)?Math.PI*len*0+Math.PI*(s+f)/2*wkn/1000:NaN;
-    out("odCycleResult",'<b>Sovrametallo Ø:</b> '+fmt(stockDiam)+' mm · <b>radiale:</b> '+fmt(stockRad)+' mm · <b>passate:</b> '+(ch.roughN+ch.finN)+' + '+ch.sp+' spark-out · <b>tolleranza:</b> ±'+fmt(tol)+' mm · <b>Ra target:</b> '+fmt(ra)+' µm · '+wheelInfo(wd,wn)+' · <b>velocità pezzo:</b> '+fmt(vw)+' m/min · <b>feed:</b> '+fmt(feed)+' mm/min'+materialNote(txt("odMat"))+'<br><small>Strategia: '+pol.label+'. I valori di ae sono una stima iniziale e vanno verificati con specifica mola/macchina/materiale.</small>');
-    $("odCycleTable").innerHTML=table(ch.rows);
-   }catch(e){out("odCycleResult","⚠️ "+e.message);$("odCycleTable").innerHTML=""}
+  try{
+   const s=num("odStart"),f=num("odFinal"),tol=num("odTol"),ra=num("odRa"),wd=num("odWheelD"),wn=num("odWheelN"),wkn=num("odWorkN"),feed=num("odFeed");
+   const stockDiam=s-f;if(!(stockDiam>0))throw new Error("Per la rettifica esterna Ø iniziale deve essere maggiore del Ø finale.");
+   const stockRad=stockDiam/2, finishStockDiam=num("odFinishStock"), finishStock=finishStockDiam/2;
+   const ch=cycle(stockRad,num("odRoughAe"),num("odFinishAe"),finishStock,num("odSpark"));
+   const vs=wheelSpeed(wd,wn), vw=workSpeed((s+f)/2,wkn);
+   out("odCycleResult",'<b>Sovrametallo Ø:</b> '+fmt(stockDiam)+' mm · <b>radiale:</b> '+fmt(stockRad)+' mm · <b>passate:</b> '+(ch.roughN+ch.finN)+' + '+ch.sp+' spark-out · <b>tolleranza:</b> '+fmt(tol)+' mm · <b>Ra:</b> '+fmt(ra)+' µm · '+wheelInfo(wd,wn)+' · <b>V pezzo:</b> '+fmt(vw)+' m/min · <b>feed:</b> '+fmt(feed)+' mm/min · <b>materiale:</b> '+safeText(txt("odMat"))+checkWheelSpeed(vs));
+   $("odCycleTable").innerHTML=table(ch.rows);
+  }catch(e){out("odCycleResult","⚠️ "+e.message);$("odCycleTable").innerHTML=""}
  });
  $('calcIdCycle')?.addEventListener('click',()=>{
-   try{
-    const s=num("idStart"),f=num("idFinal"),tol=num("idTol"),ra=num("idRa"),len=num("idLength"),wd=num("idWheelD2"),wn=num("idWheelN2"),wkn=num("idWorkN2"),feed=num("idFeed2");
-    const stockDiam=f-s;if(!(stockDiam>0))throw new Error("Per la rettifica interna Ø finale deve essere maggiore del Ø iniziale.");
-    const stockRad=stockDiam/2, pol=finishPolicy(ra);
-    const finishStockDiam=num("idFinishStock2"), finishStock=Number.isFinite(finishStockDiam)?finishStockDiam/2:pol.finishRad;
-    const ch=cycle(stockRad,num("idRoughAe"),num("idFinishAe")||pol.finishRad,finishStock,num("idSpark"));
-    const vs=wheelSpeed(wd,wn), vw=Number.isFinite(wkn)?Math.PI*((s+f)/2)*wkn/1000:NaN;
-    out("idCycleResult",'<b>Sovrametallo Ø:</b> '+fmt(stockDiam)+' mm · <b>radiale:</b> '+fmt(stockRad)+' mm · <b>passate:</b> '+(ch.roughN+ch.finN)+' + '+ch.sp+' spark-out · <b>tolleranza:</b> ±'+fmt(tol)+' mm · <b>Ra target:</b> '+fmt(ra)+' µm · '+wheelInfo(wd,wn)+' · <b>velocità pezzo:</b> '+fmt(vw)+' m/min · <b>feed assiale:</b> '+fmt(feed)+' mm/min'+materialNote(txt("idMat"))+'<br><small>Per ID controllare sempre diametro massimo della mola, velocità ammessa e possibilità di oscillazione.</small>');
-    $("idCycleTable").innerHTML=table(ch.rows);
-   }catch(e){out("idCycleResult","⚠️ "+e.message);$("idCycleTable").innerHTML=""}
+  try{
+   const s=num("idStart"),f=num("idFinal"),tol=num("idTol"),ra=num("idRa"),wd=num("idWheelD2"),wn=num("idWheelN2"),wkn=num("idWorkN2"),feed=num("idFeed2");
+   const stockDiam=f-s;if(!(stockDiam>0))throw new Error("Per la rettifica interna Ø finale deve essere maggiore del Ø iniziale.");
+   const stockRad=stockDiam/2, finishStockDiam=num("idFinishStock2"), finishStock=finishStockDiam/2;
+   const ch=cycle(stockRad,num("idRoughAe"),num("idFinishAe"),finishStock,num("idSpark"));
+   const vs=wheelSpeed(wd,wn), vw=workSpeed((s+f)/2,wkn);
+   out("idCycleResult",'<b>Sovrametallo Ø:</b> '+fmt(stockDiam)+' mm · <b>radiale:</b> '+fmt(stockRad)+' mm · <b>passate:</b> '+(ch.roughN+ch.finN)+' + '+ch.sp+' spark-out · <b>tolleranza:</b> '+fmt(tol)+' mm · <b>Ra:</b> '+fmt(ra)+' µm · '+wheelInfo(wd,wn)+' · <b>V pezzo:</b> '+fmt(vw)+' m/min · <b>feed assiale:</b> '+fmt(feed)+' mm/min · <b>materiale:</b> '+safeText(txt("idMat"))+checkWheelSpeed(vs));
+   $("idCycleTable").innerHTML=table(ch.rows);
+  }catch(e){out("idCycleResult","⚠️ "+e.message);$("idCycleTable").innerHTML=""}
  });
  $('calcWormCycle')?.addEventListener('click',()=>{
-   try{
-    const m=num("wgM"),z=num("wgZ"),width=num("wgWidth"),stock=num("wgStock"),ra=num("wgRa"),tol=num("wgTol"),wd=num("wgWheelD"),wn=num("wgWheelN"),wkn=num("wgWorkN");
-    if(!(m>0&&z>0&&stock>0))throw new Error("Inserisci modulo, denti e sovrametallo per fianco.");
-    const pol=finishPolicy(ra), finish=Math.min(Math.max(pol.finishRad,0.001),stock), ch=cycle(stock,num("wgRoughAe"),num("wgFinishAe")||pol.finishRad,finish,num("wgSpark"));
-    const vs=wheelSpeed(wd,wn);
-    const pitch=Math.PI*m, ratio=wkn?wn/wkn:NaN;
-    out("wgCycleResult",'<b>Modulo:</b> '+fmt(m)+' · <b>denti:</b> '+z+' · <b>larghezza:</b> '+fmt(width)+' mm · <b>stock/fianco:</b> '+fmt(stock)+' mm · <b>passate:</b> '+(ch.roughN+ch.finN)+' + '+ch.sp+' spark-out · <b>Ra:</b> '+fmt(ra)+' µm · '+wheelInfo(wd,wn)+' · <b>giri pezzo:</b> '+fmt(wkn)+' rpm · <b>rapporto giri mola/pezzo:</b> '+fmt(ratio)+' · <b>passo base modulo:</b> '+fmt(pitch)+' mm'+
-      '<br><small>Il rapporto cinematico indicato è solo un dato di riferimento. La generazione reale della mola a vite dipende dalla rettificatrice, dal numero di principi della mola, dall'angolo d'elica, dalla macchina e dal controllo CNC: il ciclo non deve essere trasferito direttamente in macchina senza questi dati.</small>');
-    $("wgCycleTable").innerHTML=table(ch.rows);
-   }catch(e){out("wgCycleResult","⚠️ "+e.message);$("wgCycleTable").innerHTML=""}
+  try{
+   const m=num("wgM"),z=num("wgZ"),width=num("wgWidth"),stock=num("wgStock"),ra=num("wgRa"),tol=num("wgTol"),wd=num("wgWheelD"),wn=num("wgWheelN"),wkn=num("wgWorkN");
+   if(!(m>0&&z>0&&stock>0))throw new Error("Inserisci modulo, denti e sovrametallo per fianco.");
+   const ch=cycle(stock,num("wgRoughAe"),num("wgFinishAe"),Math.min(num("wgFinishAe"),stock),num("wgSpark"));
+   const vs=wheelSpeed(wd,wn), ratio=wkn?wn/wkn:NaN;
+   out("wgCycleResult",'<b>Modulo:</b> '+fmt(m)+' · <b>denti:</b> '+z+' · <b>larghezza:</b> '+fmt(width)+' mm · <b>stock/fianco:</b> '+fmt(stock)+' mm · <b>passate:</b> '+(ch.roughN+ch.finN)+' + '+ch.sp+' spark-out · <b>Ra:</b> '+fmt(ra)+' µm · <b>tolleranza:</b> '+fmt(tol)+' mm · '+wheelInfo(wd,wn)+' · <b>giri pezzo:</b> '+fmt(wkn)+' rpm · <b>rapporto giri mola/pezzo:</b> '+fmt(ratio)+'<br><small>La sincronizzazione reale della generazione a mola a vite deve essere impostata secondo la rettificatrice e la specifica della mola; KAPP NILES descrive la rettifica a generazione come una rotazione sincronizzata costante pezzo/mola.</small>');
+   $("wgCycleTable").innerHTML=table(ch.rows);
+  }catch(e){out("wgCycleResult","⚠️ "+e.message);$("wgCycleTable").innerHTML=""}
  });
 })();
 </script>
