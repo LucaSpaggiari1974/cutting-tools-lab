@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Metal AI source registry",
+  "rule": "Manufacturer data, standards and technical claims must be verified against the original source and stored with retrieval date.",
+  "source_classes": {
+    "manufacturer": "Primary source: official tooling/material manufacturer documentation.",
+    "standard": "Primary source: applicable standards body or licensed standard text.",
+    "technical_literature": "Secondary source: engineering literature or university/technical references.",
+    "internal": "Local catalog/calculation data; never presented as manufacturer-certified unless sourced."
+  },
+  "manufacturers": [
+    "Sandvik Coromant",
+    "ISCAR",
+    "Walter",
+    "Kennametal",
+    "Seco Tools",
+    "Ceratizit",
+    "Dormer Pramet",
+    "Gühring",
+    "Sumitomo Electric",
+    "Tungaloy",
+    "TaeguTec",
+    "ZCC Cutting Tools",
+    "NTK Cutting Tools",
+    "Ingersoll Cutting Tools"
+  ],
+  "knowledge_domains": [
+    "tornitura",
+    "fresatura",
+    "foratura",
+    "alesatura",
+    "maschiatura",
+    "rettifica diametri",
+    "rettifica fori",
+    "rettifica evolvente",
+    "rettifica con mola a vite",
+    "materiali metallici",
+    "geometria utensili",
+    "parametri di taglio",
+    "diagnosi problemi di lavorazione",
+    "metrologia e tolleranze",
+    "calcoli geometrici e tecnologici"
+  ]
+}
