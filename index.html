@@ -894,6 +894,33 @@ closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target==
  window.CuttingToolsDressing={calc};
 })();
 </script>
+<script id="dressing-auto-sync">
+(function(){
+ const $=id=>document.getElementById(id), num=id=>parseFloat($(id)?.value);
+ function set(id,v){const e=$(id);if(e&&Number.isFinite(v))e.value=v;}
+ function sync(prefix){
+   const D=num(prefix==="od"?"odWheelD":prefix==="id"?"idWheelD2":"wgWheelD");
+   const max=num(prefix==="od"?"odWheelMax":prefix==="id"?"idWheelMax":"wgWheelMax");
+   const ra=num(prefix==="od"?"odRa":prefix==="id"?"idRa":"wgRa");
+   const grit=num(prefix==="od"?"odGrit":prefix==="id"?"idGrit":"wgGrit");
+   const bw=num(prefix==="od"?"odDressWidth":prefix==="id"?"idDressWidth":"wgDressWidth");
+   if(D>0)set("dresserD",Math.max(20,D*.25));
+   if(bw>0)set("dresserWidth",bw);
+   if(grit>0)set("dresserGrit",grit);
+   if(ra>0)set("dresserRa",ra);
+   if(D>0){
+     const vs=Math.min(prefix==="id"?35:30,(max>0?max*.82:prefix==="id"?35:30));
+     const rpm=vs*60000/(Math.PI*D);
+     set("dresserVs",vs);set("dresserRpm",rpm);
+   }
+   const phase=$("dresserPhase"); if(phase)phase.value=ra<=0.8?"finish":ra<=1.6?"medium":"rough";
+   window.CuttingToolsDressing?.calc?.();
+ }
+ [["calcOdCycle","od"],["calcIdCycle","id"],["calcWormCycle","wg"]].forEach(([id,p])=>{
+   $(id)?.addEventListener("click",()=>setTimeout(()=>sync(p),0));
+ });
+})();
+</script>
 <script id="windows-empty-value-cleanup">
 (function(){
   function clean(){
