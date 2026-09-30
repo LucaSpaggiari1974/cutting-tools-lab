@@ -145,12 +145,12 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <p>Il motore usa i dati del pezzo e la <b>Ra richiesta</b> per scegliere l'overlap <b>U<sub>d</sub></b>, quindi ricava lead e velocità di traversata. La scelta del verso è espressa come rapporto <b>q<sub>d</sub></b>: positivo = <b>concorde</b>, negativo = <b>discorde</b>.</p>
 <div class="calcgrid">
 <label>Tipo ravvivatore<input id="dresserType" value="Diamante rotativo / disco CNC"></label>
-<label>Ø ravvivatore (mm)<input id="dresserD" type="number" step="0.1" placeholder="100"></label>
-<label>Larghezza contatto ravvivatore b<sub>d</sub> (mm)<input id="dresserWidth" type="number" step="0.01" placeholder="1"></label>
-<label>Grana mola (µm)<input id="dresserGrit" type="number" step="1" placeholder="46"></label>
-<label>Velocità mola Vs (m/s)<input id="dresserVs" type="number" step="0.1" placeholder="30"></label>
-<label>Giri mola n<sub>s</sub> (rpm)<input id="dresserRpm" type="number" step="1" placeholder="1432"></label>
-<label>Ra richiesta (µm)<input id="dresserRa" type="number" step="0.1" placeholder="0.8"></label>
+<label>Ø ravvivatore (mm)<input id="dresserD" type="number" step="0.1" value="100" placeholder="100"></label>
+<label>Larghezza contatto ravvivatore b<sub>d</sub> (mm)<input id="dresserWidth" type="number" step="0.01" value="1" placeholder="1"></label>
+<label>Grana mola (µm)<input id="dresserGrit" type="number" step="1" value="46" placeholder="46"></label>
+<label>Velocità mola Vs (m/s)<input id="dresserVs" type="number" step="0.1" value="30" placeholder="30"></label>
+<label>Giri mola n<sub>s</sub> (rpm)<input id="dresserRpm" type="number" step="1" value="5729.578" placeholder="5729.578"></label>
+<label>Ra richiesta (µm)<input id="dresserRa" type="number" step="0.1" value="0.8" placeholder="0.8"></label>
 <label>Fase<select id="dresserPhase"><option value="rough">Sgrossatura</option><option value="medium">Semifinitura</option><option value="finish" selected>Finitura</option></select></label>
 </div>
 <div class="result" style="margin-top:10px"><b>Cos'è b<sub>d</sub>?</b> È la larghezza efficace di contatto tra ravvivatore e superficie della mola. Non coincide necessariamente con la larghezza fisica del diamante. <b>Cos'è la grana?</b> È la dimensione dei grani abrasivi della mola; influenza la profondità di ravvivatura e la tessitura lasciata sulla mola.</div>
@@ -887,11 +887,13 @@ closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target==
     " · <b>V_d:</b> "+F(vd)+" m/s"+
     " · <b>n ravvivatore:</b> "+F(drpm)+" rpm"+
     " · <b>a_ed:</b> "+F(aed*1000)+" µm"+
+    "<br><b>Calcolo:</b> lead = b_d/U_d · V_fd = lead·n_s · V_d = |q_d|·Vs · n_ravv = V_d·60000/(π·Øravv) · a_ed = funzione della grana, limitata a 2–20 µm."+
     "<br><small>U_d: 2–4 sgrossatura, 5–9 semifinitura, 10–22 finitura/superfinitura secondo le tabelle Norton. Il valore scelto viene adattato alla Ra richiesta. q_d=+0,70 è un punto di partenza nel campo documentato per ravvivatori rotativi; il valore finale va verificato con la specifica del ravvivatore/mola.</small>";
    return {U,bd,lead,vfd,vd,drpm,aed,q,direction};
  }
  $("calcDressing")?.addEventListener("click",calc);
  window.CuttingToolsDressing={calc};
+ window.addEventListener("load",()=>setTimeout(calc,150));
 })();
 </script>
 <script id="dressing-auto-sync">
@@ -904,7 +906,7 @@ closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target==
    const ra=num(prefix==="od"?"odRa":prefix==="id"?"idRa":"wgRa");
    const grit=num(prefix==="od"?"odGrit":prefix==="id"?"idGrit":"wgGrit");
    const bw=num(prefix==="od"?"odDressWidth":prefix==="id"?"idDressWidth":"wgDressWidth");
-   if(D>0)set("dresserD",Math.max(20,D*.25));
+   if(D>0 && !(num("dresserD")>0))set("dresserD",100);
    if(bw>0)set("dresserWidth",bw);
    if(grit>0)set("dresserGrit",grit);
    if(ra>0)set("dresserRa",ra);
