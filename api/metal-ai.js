@@ -1,67 +1,107 @@
-export const runtime = "nodejs";
-export const maxDuration = 300;
-
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "Content-Type",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS"
 };
 
-function json(data, status = 200) {
-  return Response.json(data, { status, headers: corsHeaders });
+function sendJson(res, status, data) {
+  res.status(status).setHeader("Content-Type", "application/json; charset=utf-8");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+  res.end(JSON.stringify(data));
 }
 
-export async function OPTIONS() {
-  return new Response(null, { status: 204, headers: corsHeaders });
-}
-
-export async function GET() {
-  return json({
-    ok: true,
-    service: "Metal AI",
-    openaiConfigured: Boolean(process.env.OPENAI_API_KEY),
-    model: process.env.METAL_AI_MODEL || "gpt-5.6-luna"
+function getBody(req) {
+  return new Promise((resolve, reject) => {
+    if (req.body && typeof req.body === "object") return resolve(req.body);
+    let raw = "";
+    req.on("data", chunk => {
+      raw += chunk;
+      if (raw.length > 1000000) {
+        reject(new Error("Richiesta troppo grande."));
+        req.destroy();
+      }
+    });
+    req.on("end", () => {
+      if (!raw.trim()) return resolve({});
+      try { resolve(JSON.parse(raw)); }
+      catch { reject(new Error("JSON della richiesta non valido.")); }
+    });
+    req.on("error", reject);
   });
 }
 
-export async function POST(request) {
+async function handler(req, res) {
+  if (req.method === "OPTIONS") {
+    res.statusCode = 204;
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+    return res.end();
+  }
+
+  if (req.method === "GET") {
+    return sendJson(res, 200, {
+      ok: true,
+      service: "Metal AI",
+      openaiConfigured: Boolean(process.env.OPENAI_API_KEY),
+      model: process.env.METAL_AI_MODEL || "gpt-5.6-luna",
+      endpoint: "/api/metal-ai",
+      methods: ["GET", "POST", "OPTIONS"]
+    });
+  }
+
+  if (req.method !== "POST") {
+    return sendJson(res, 405, {
+      error: "Metodo non consentito.",
+      method: req.method,
+      allowed: ["GET", "POST", "OPTIONS"]
+    });
+  }
+
   if (!process.env.OPENAI_API_KEY) {
-    return json({ error: "OPENAI_API_KEY non configurata sul server." }, 503);
+    return sendJson(res, 503, {
+      error: "OPENAI_API_KEY non configurata sul server."
+    });
   }
 
   try {
-    const body = await request.json().catch(() => ({}));
-    const {
-      question = "",
-      catalogContext = "",
-      systemInstruction = "",
-      localCalculations = []
-    } = body || {};
+    const body = await getBody(req);
+    const question = String(body?.question || "");
+    const catalogContext = String(body?.catalogContext || "");
+    const systemInstruction = String(body?.systemInstruction || "");
+    const localCalculations = body?.localCalculations || [];
 
-    if (!String(question).trim()) {
-      return json({ error: "Richiesta vuota." }, 400);
+    if (!question.trim()) {
+      return sendJson(res, 400, { error: "Richiesta vuota." });
     }
 
-    const prompt = `${String(systemInstruction).slice(0, 6000)}
+    const prompt = `${systemInstruction.slice(0, 6000)}
 
 Sei Metal AI, assistente tecnico specializzato in metalmeccanica.
-Devi rispondere in italiano e distinguere sempre:
+Rispondi in italiano. Per ogni risposta distingui chiaramente:
 - dati verificati da fonti esterne;
-- dati presenti nel catalogo locale;
-- calcoli eseguiti matematicamente;
+- dati del catalogo locale;
+- calcoli matematici;
 - ipotesi diagnostiche.
-Per problemi di lavorazione, analizza il sintomo, le cause possibili, i controlli da fare e le correzioni in ordine operativo. Se la richiesta è un problema tecnico concreto, DEVI usare la ricerca web disponibile prima di formulare la soluzione, privilegiando fonti tecniche primarie. Non fermarti al catalogo locale.
-Per utensili, materiali, gradi, rivestimenti, parametri, norme, produttori e tecnologie recenti, cerca sul web fonti tecniche affidabili, privilegiando produttori, enti normativi e documentazione tecnica primaria. Non dichiarare di aver consultato "tutto internet": usa le fonti effettivamente trovate e cita i riferimenti.
-Non inventare parametri. Se le fonti divergono, mostra l'intervallo e spiega da cosa dipende.
-Per rettifica includi, quando pertinente, rettifica diametri, rettifica fori, rettifica evolvente e mole a vite.
-Contesto del catalogo locale:
-${String(catalogContext).slice(0, 12000)}
 
-Calcoli locali già eseguiti e verificabili:
+Per problemi di lavorazione devi analizzare sintomo, cause possibili, controlli e correzioni in ordine operativo.
+Per problemi tecnici concreti DEVI usare la ricerca web disponibile prima di formulare la soluzione, privilegiando fonti tecniche primarie.
+Per utensili, materiali, gradi, rivestimenti, parametri, norme, produttori e tecnologie recenti cerca fonti affidabili, soprattutto produttori, enti normativi e documentazione tecnica primaria.
+Non inventare parametri. Se mancano dati necessari, dichiaralo e chiedili.
+Se le fonti divergono, mostra l'intervallo e spiega da cosa dipende.
+Per rettifica considera, quando pertinente, rettifica diametri, rettifica fori, rettifica evolvente e mole a vite.
+Cita le fonti effettivamente consultate.
+
+CATALOGO LOCALE:
+${catalogContext.slice(0, 12000)}
+
+CALCOLI LOCALI:
 ${JSON.stringify(localCalculations).slice(0, 8000)}
 
-Richiesta dell'operatore:
-${String(question).slice(0, 8000)}`;
+RICHIESTA OPERATORE:
+${question.slice(0, 8000)}`;
 
     const openaiResponse = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
@@ -77,24 +117,24 @@ ${String(question).slice(0, 8000)}`;
     });
 
     const raw = await openaiResponse.text();
-    let data;
+    let data = {};
     try {
       data = raw ? JSON.parse(raw) : {};
     } catch {
-      return json({
+      return sendJson(res, 502, {
         error: "OpenAI ha restituito una risposta non JSON.",
         openai_status: openaiResponse.status,
         response_preview: raw.slice(0, 1000)
-      }, 502);
+      });
     }
 
     if (!openaiResponse.ok) {
-      return json({
+      return sendJson(res, openaiResponse.status, {
         error: data?.error?.message || "Errore del motore IA.",
         openai_status: openaiResponse.status,
         openai_type: data?.error?.type || null,
         openai_code: data?.error?.code || null
-      }, openaiResponse.status);
+      });
     }
 
     const sources = [];
@@ -108,7 +148,7 @@ ${String(question).slice(0, 8000)}`;
       }
     }
 
-    return json({
+    return sendJson(res, 200, {
       answer: data.output_text || "Nessuna risposta restituita.",
       sources: sources
         .filter((x, i, a) => a.findIndex(y => y.url === x.url) === i)
@@ -116,8 +156,10 @@ ${String(question).slice(0, 8000)}`;
       response_id: data.id || null
     });
   } catch (e) {
-    return json({
+    return sendJson(res, 500, {
       error: e?.message || "Errore durante la ricerca tecnica."
-    }, 500);
+    });
   }
 }
+
+module.exports = handler;
