@@ -4,11 +4,5 @@
     "api/metal-ai.js": {
       "maxDuration": 300
     }
-  },
-  "routes": [
-    {
-      "src": "/api/metal-ai",
-      "dest": "/api/metal-ai.js"
-    }
-  ]
+  }
 }
