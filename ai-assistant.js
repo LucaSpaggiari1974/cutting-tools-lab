@@ -65,7 +65,7 @@
 
   function needsResearch(text){
     const q=norm(text);
-    return /norma|iso\\b|en\\b|din\\b|materiale|acciaio|inox|inconel|titanio|ghisa|superlega|nuovo inserto|ultimo|aggiornato|produttore|catalogo|mola|rettifica|evolvente|vite|problema|vibraz|rottura|usura|finitura|temperatura|forza|parametri/.test(q);
+    return /norma|iso\b|en\b|din\b|materiale|acciaio|inox|inconel|titanio|ghisa|superlega|nuovo inserto|ultimo|aggiornato|produttore|catalogo|mola|rettifica|rettifica interna|rettifica esterna|rettifica piana|rettifica evolvente|mola a vite|vite|cbn|corindone|abrasivo|ravvivatura|dressing|truing|bruciatura|problema|vibraz|rottura|usura|finitura|temperatura|forza|parametri/.test(q);
   }
 
   function render(text){
