@@ -167,7 +167,8 @@
       mic.onclick=()=>{try{rec.start()}catch(_){}};
     }else if(mic){mic.disabled=true;mic.title='Riconoscimento vocale non supportato da questo browser';}
     const ex=$('aiExamples');if(ex)ex.addEventListener('click',e=>{if(e.target.dataset.q){$('aiInput').value=e.target.dataset.q;render(e.target.dataset.q)}});
-    const img=$('aiImage'), imgBtn=$('aiImageAnalyze'), imgName=$('aiImageName');\n    if(img) img.addEventListener('change',()=>{if(img.files[0]&&imgName)imgName.textContent=img.files[0].name});
+    const img=$('aiImage'), imgBtn=$('aiImageAnalyze'), imgName=$('aiImageName');
+    if(img) img.addEventListener('change',()=>{if(img.files[0]&&imgName)imgName.textContent=img.files[0].name});
     if(imgBtn) imgBtn.addEventListener('click',analyzeImage);
   }
   window.MetalAI={answer:render,calculate:q=>[...calc(q),...geometry('',q)],version:'2.0-metal-core'};
