@@ -90,90 +90,84 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 
 </section>
 <section id="rettifica" class="page">
+<div class="calc"><h2>🌀 Rettifica · Programma tecnologico automatico</h2>
+<p>Inserisci dimensioni iniziali/finali, tolleranza, Ra, materiale e dati della mola. Il motore calcola sovrametallo, passate e velocità.</p>
+<div class="result"><b>Formule verificate:</b> velocità, sovrametallo e numero passate sono formule matematiche; la profondità di passata sicura non può essere ricavata universalmente dal solo Ra. Deve essere verificata per mola, materiale e rettificatrice. La velocità massima certificata della mola prevale sempre.</div></div>
+<div class="calc" style="margin-top:12px"><h2>🔵 Rettifica cilindrica esterna · diametro</h2><div class="calcgrid">
+<label>Ø iniziale (mm)<input id="odStart" type="number" step="0.001" placeholder="50"></label><label>Ø finale (mm)<input id="odFinal" type="number" step="0.001" placeholder="49.80"></label><label>Tolleranza (mm)<input id="odTol" type="number" step="0.001" placeholder="0.01"></label><label>Ra (µm)<input id="odRa" type="number" step="0.1" placeholder="0.8"></label><label>Materiale / durezza<input id="odMat" type="text" placeholder="42CrMo4 55 HRC"></label><label>Diametro mola (mm)<input id="odWheelD" type="number" step="0.1" placeholder="400"></label><label>Giri mola (rpm)<input id="odWheelN" type="number" step="1" placeholder="1800"></label><label>Giri pezzo (rpm)<input id="odWorkN" type="number" step="1" placeholder="200"></label><label>Avanzamento (mm/min)<input id="odFeed" type="number" step="1" placeholder="500"></label><label>Sovrametallo finitura Ø (mm)<input id="odFinishStock" type="number" step="0.001" placeholder="0.04"></label><label>Infeed sgrossatura radiale/passata (mm)<input id="odRoughAe" type="number" step="0.001" placeholder="0.02"></label><label>Infeed finitura/passata (mm)<input id="odFinishAe" type="number" step="0.001" placeholder="0.005"></label><label>Spark-out (passate)<input id="odSpark" type="number" step="1" placeholder="2"></label>
+</div><button type="button" id="calcOdCycle">Genera programma di rettifica esterna</button><div class="result" id="odCycleResult">Inserisci i dati e genera il ciclo.</div><div id="odCycleTable" style="margin-top:10px"></div></div>
+<div class="calc" style="margin-top:12px"><h2>🟢 Rettifica cilindrica interna · foro</h2><div class="calcgrid">
+<label>Ø foro iniziale (mm)<input id="idStart" type="number" step="0.001" placeholder="39.80"></label><label>Ø foro finale (mm)<input id="idFinal" type="number" step="0.001" placeholder="40.00"></label><label>Tolleranza (mm)<input id="idTol" type="number" step="0.001" placeholder="0.01"></label><label>Ra (µm)<input id="idRa" type="number" step="0.1" placeholder="0.8"></label><label>Materiale / durezza<input id="idMat" type="text" placeholder="42CrMo4 58 HRC"></label><label>Diametro mola (mm)<input id="idWheelD2" type="number" step="0.1" placeholder="20"></label><label>Giri mola (rpm)<input id="idWheelN2" type="number" step="1" placeholder="30000"></label><label>Giri pezzo (rpm)<input id="idWorkN2" type="number" step="1" placeholder="300"></label><label>Avanzamento assiale (mm/min)<input id="idFeed2" type="number" step="1" placeholder="200"></label><label>Sovrametallo finitura Ø (mm)<input id="idFinishStock2" type="number" step="0.001" placeholder="0.03"></label><label>Infeed sgrossatura radiale/passata (mm)<input id="idRoughAe" type="number" step="0.001" placeholder="0.01"></label><label>Infeed finitura/passata (mm)<input id="idFinishAe" type="number" step="0.001" placeholder="0.003"></label><label>Spark-out (passate)<input id="idSpark" type="number" step="1" placeholder="2"></label>
+</div><button type="button" id="calcIdCycle">Genera programma di rettifica interna</button><div class="result" id="idCycleResult">Inserisci i dati e genera il ciclo.</div><div id="idCycleTable" style="margin-top:10px"></div></div>
+<div class="calc" style="margin-top:12px"><h2>🌀 Rettifica con mola a vite</h2><div class="calcgrid">
+<label>Modulo m (mm)<input id="wgM" type="number" step="0.001" placeholder="2"></label><label>Numero denti z<input id="wgZ" type="number" step="1" placeholder="30"></label><label>Larghezza (mm)<input id="wgWidth" type="number" step="0.1" placeholder="30"></label><label>Sovrametallo/fianco (mm)<input id="wgStock" type="number" step="0.001" placeholder="0.08"></label><label>Ra (µm)<input id="wgRa" type="number" step="0.1" placeholder="0.8"></label><label>Tolleranza (mm)<input id="wgTol" type="number" step="0.001" placeholder="0.01"></label><label>Ø mola a vite (mm)<input id="wgWheelD" type="number" step="0.1" placeholder="250"></label><label>Giri mola (rpm)<input id="wgWheelN" type="number" step="1" placeholder="1500"></label><label>Giri pezzo (rpm)<input id="wgWorkN" type="number" step="0.1" placeholder="50"></label><label>Infeed sgrossatura/passata (mm)<input id="wgRoughAe" type="number" step="0.001" placeholder="0.02"></label><label>Infeed finitura/passata (mm)<input id="wgFinishAe" type="number" step="0.001" placeholder="0.005"></label><label>Spark-out (passate)<input id="wgSpark" type="number" step="1" placeholder="2"></label>
+</div><button type="button" id="calcWormCycle">Genera programma mola a vite</button><div class="result" id="wgCycleResult">Inserisci i dati e genera il ciclo.</div><div id="wgCycleTable" style="margin-top:10px"></div></div>
+<div class="calc" style="margin-top:12px"><h2>📚 Formule verificate e limiti</h2><div class="problemList">
+<article class="problemCard"><h3>Velocità mola</h3><p><b>Vs = π × D × n / 60000</b>, D in mm, n in rpm, Vs in m/s.</p></article>
+<article class="problemCard"><h3>Velocità pezzo</h3><p><b>Vw = π × Dw × nw / 1000</b>, Dw in mm, nw in rpm, Vw in m/min.</p></article>
+<article class="problemCard"><h3>Numero passate</h3><p><b>N = ceil(sovrametallo / asportazione ammessa per passata)</b>. L'asportazione ammessa è un dato tecnologico da verificare, non un valore universale.</p></article>
+<article class="problemCard"><h3>Ra / spark-out</h3><p>Ra orienta la finitura ma non determina da solo l'infeed. Lo spark-out dipende dalla dinamica della macchina e dalla precisione richiesta.</p></article>
+</div><p class="unitNote">Fonti tecniche: Machinery’s Handbook e Norton Abrasives; per la mola a vite va verificata la cinematica specifica della rettificatrice.</p></div>
+</section><section id="ia" class="page"><div class="aiPanel"><h2>🤖 IA Metalmeccanica</h2><p>Assistente collegato al catalogo: ricerca utensili e parametri presenti nel progetto e svolge i calcoli di base senza uscire dal catalogo.</p><div class="aiInputRow"><input id="aiInput" placeholder="Scrivi oppure parla: es. CNMG acciaio, diametro 50 e 1200 giri"><button id="aiVoice" type="button">🎙️ Parla</button><button id="aiAsk" type="button">Analizza</button></div><div class="aiImageRow" style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin-top:8px"><label style="display:flex;align-items:center;gap:8px;border:1px solid #cbd7e1;border-radius:9px;padding:9px;background:#fff;cursor:pointer">📷 <span id="aiImageName">Carica foto del problema</span><input id="aiImage" type="file" accept="image/*" capture="environment" hidden></label><button id="aiImageAnalyze" type="button">🔎 Analizza foto</button></div><div id="aiImagePreview" style="display:none;margin-top:8px"></div><div id="aiExamples" class="aiExamples"><button type="button" data-q="CNMG tornitura acciaio">CNMG + acciaio</button><button type="button" data-q="diametro 50 rpm 1200 calcola Vc">Calcola Vc</button><button type="button" data-q="Walter tornitura">Walter tornitura</button></div><div id="aiAnswer" class="aiBox">Inserisci una richiesta per interrogare il catalogo e il motore di calcolo.</div></div></section>
+<section id="speciali" class="page">
+<div id="specialLock" class="calc" style="max-width:520px;margin:0 auto 14px">
+<h2>🔐 Accesso protetto</h2>
+<p>La Gestione utensili interni è riservata. Inserisci la password per continuare.</p>
+<label>Password<input id="specialPassword" type="password" autocomplete="current-password" placeholder="Inserisci password"></label>
+<button type="button" id="unlockSpecial">🔓 Accedi</button>
+<div id="specialLockStatus" class="result" style="display:none"></div>
+</div>
+<div id="specialProtected" hidden>
 <div class="calc">
-<h2>🌀 Rettifica · Programma tecnologico automatico</h2>
-<p>Qui non interessa il diametro primitivo: inserisci <b>dimensioni iniziali e finali del pezzo</b>, tolleranza, Ra, materiale e dati della mola. Il motore calcola il sovrametallo, suddivide le passate in sgrossatura/finitura, calcola velocità mola e pezzo e costruisce una <b>sequenza tecnologica</b>.</p>
-<div class="result"><b>Formule verificate:</b> le relazioni matematiche usate dal motore sono state confrontate con documentazione tecnica pubblicata online (Machinery’s Handbook e Norton Abrasives). <b>Limite importante:</b> non esiste una formula universale che possa determinare in sicurezza, dalle sole dimensioni e dal Ra, una profondità di passata valida per ogni mola/materiale/macchina. Per questo il motore separa le formule certe (stock, velocità, MRR, tempi e numero passate) dai parametri tecnologici che devono provenire dalla specifica della mola, dal materiale e dalla rettificatrice. La velocità massima certificata della mola prevale sempre.</div>
+<h2>🧰 Gestione utensili interni</h2>
+<p>Catalogo separato per gli utensili speciali presenti sulle nostre macchine. I dati, le quote e i disegni vengono inseriti manualmente.</p>
+<div class="result"><b>☁️ Archivio centrale online</b><br>Gli utensili speciali Gestione utensili interni vengono conservati in un <b>archivio cloud dedicato</b>, così sono disponibili da iPhone, Windows e dagli altri dispositivi. Il catalogo principale, invece, continua a usare GitHub.</div>
+<div class="calcgrid" style="margin-top:12px">
+<div class="calc"><b>Nuovo utensile speciale</b>
+<label>Codice / identificativo<input id="spCode" placeholder="ALLISON-001"></label>
+<label>Nome utensile<input id="spName" placeholder="Nome o descrizione"></label>
+<label>Tipo / categoria<input id="spType" placeholder="Portautensile, inserto, barra, fresa…"></label>
+<label>Macchina *<input id="spMachine" placeholder="Nome macchina / centro di lavoro" required></label><label>Tipologia di pezzo lavorato *<input id="spPieceType" placeholder="Albero, flangia, boccola, corpo..." required></label>
+<label>Materiale / impiego<input id="spMaterial" placeholder="Materiale e lavorazione"></label>
+<label>Geometria / caratteristiche<textarea id="spGeom" rows="4" style="width:100%;font:inherit;border:1px solid #cbd7e1;border-radius:9px;padding:10px"></textarea></label>
+<label>Parametri di taglio<input id="spParams" placeholder="Vc, f/fz, ap, n, ecc."></label>
+<label>Note<input id="spNotes" placeholder="Note interne"></label>
+<label>Foto o disegno (JPG/PNG/PDF)<input id="spFile" type="file" accept="image/*,.pdf"></label><small style="display:block;margin-top:6px;color:#5f7180">Il file viene salvato nel Blob privato e collegato automaticamente alla scheda.</small>
+<button type="button" id="saveSpecial">💾 Salva utensile speciale</button>
 </div>
-
-<div class="calc" style="margin-top:12px">
-<h2>🔵 Rettifica cilindrica esterna · diametro</h2>
-<div class="calcgrid">
-<label>Ø iniziale pezzo (mm)<input id="odStart" type="number" step="0.001" placeholder="50"></label>
-<label>Ø finale pezzo (mm)<input id="odFinal" type="number" step="0.001" placeholder="49.80"></label>
-<label>Tolleranza diametro (mm)<input id="odTol" type="number" step="0.001" placeholder="0.01"></label>
-<label>Ra richiesto (µm)<input id="odRa" type="number" step="0.1" placeholder="0.8"></label>
-<label>Lunghezza rettificata (mm)<input id="odLength" type="number" step="0.1" placeholder="80"></label>
-<label>Materiale / durezza<input id="odMat" type="text" placeholder="42CrMo4 bonificato 55 HRC"></label>
-<label>Diametro mola (mm)<input id="odWheelD" type="number" step="0.1" placeholder="400"></label>
-<label>Giri mola (rpm)<input id="odWheelN" type="number" step="1" placeholder="1800"></label>
-<label>Giri pezzo (rpm)<input id="odWorkN" type="number" step="1" placeholder="200"></label>
-<label>Avanzamento longitudinale (mm/min)<input id="odFeed" type="number" step="1" placeholder="500"></label>
-<label>Sovrametallo residuo finitura (mm diametrale)<input id="odFinishStock" type="number" step="0.001" placeholder="0.04"></label>
-<label>Infeed sgrossatura radiale/passata (mm)<input id="odRoughAe" type="number" step="0.001" placeholder="0.02"></label>
-<label>Infeed finitura radiale/passata (mm)<input id="odFinishAe" type="number" step="0.001" placeholder="0.005"></label>
-<label>Spark-out (passate)<input id="odSpark" type="number" step="1" placeholder="2"></label>
-</div>
-<button type="button" id="calcOdCycle">Genera programma di rettifica esterna</button>
-<div class="result" id="odCycleResult">Inserisci i dati e genera il ciclo.</div>
-<div id="odCycleTable" style="margin-top:10px"></div>
-</div>
-
-<div class="calc" style="margin-top:12px">
-<h2>🟢 Rettifica cilindrica interna · foro</h2>
-<div class="calcgrid">
-<label>Ø foro iniziale (mm)<input id="idStart" type="number" step="0.001" placeholder="39.80"></label>
-<label>Ø foro finale (mm)<input id="idFinal" type="number" step="0.001" placeholder="40.00"></label>
-<label>Tolleranza foro (mm)<input id="idTol" type="number" step="0.001" placeholder="0.01"></label>
-<label>Ra richiesto (µm)<input id="idRa" type="number" step="0.1" placeholder="0.8"></label>
-<label>Lunghezza foro (mm)<input id="idLength" type="number" step="0.1" placeholder="50"></label>
-<label>Materiale / durezza<input id="idMat" type="text" placeholder="42CrMo4 58 HRC"></label>
-<label>Diametro mola (mm)<input id="idWheelD2" type="number" step="0.1" placeholder="20"></label>
-<label>Giri mola (rpm)<input id="idWheelN2" type="number" step="1" placeholder="30000"></label>
-<label>Giri pezzo (rpm)<input id="idWorkN2" type="number" step="1" placeholder="300"></label>
-<label>Avanzamento assiale (mm/min)<input id="idFeed2" type="number" step="1" placeholder="200"></label>
-<label>Sovrametallo residuo finitura (mm diametrale)<input id="idFinishStock2" type="number" step="0.001" placeholder="0.03"></label>
-<label>Infeed sgrossatura radiale/passata (mm)<input id="idRoughAe" type="number" step="0.001" placeholder="0.01"></label>
-<label>Infeed finitura radiale/passata (mm)<input id="idFinishAe" type="number" step="0.001" placeholder="0.003"></label>
-<label>Spark-out (passate)<input id="idSpark" type="number" step="1" placeholder="2"></label>
-</div>
-<button type="button" id="calcIdCycle">Genera programma di rettifica interna</button>
-<div class="result" id="idCycleResult">Inserisci i dati e genera il ciclo.</div>
-<div id="idCycleTable" style="margin-top:10px"></div>
-</div>
-
-<div class="calc" style="margin-top:12px">
-<h2>🌀 Rettifica con mola a vite · ciclo di generazione</h2>
-<p>Il diametro primitivo viene eliminato dall'interfaccia. Il calcolo parte da <b>modulo, denti, dimensioni/stock e finitura</b>. Il rapporto cinematico reale resta legato alla rettificatrice e alla mola a vite.</p>
-<div class="calcgrid">
-<label>Modulo m (mm)<input id="wgM" type="number" step="0.001" placeholder="2"></label>
-<label>Numero denti z<input id="wgZ" type="number" step="1" placeholder="30"></label>
-<label>Larghezza fascia/dente (mm)<input id="wgWidth" type="number" step="0.1" placeholder="30"></label>
-<label>Sovrametallo radiale per fianco (mm)<input id="wgStock" type="number" step="0.001" placeholder="0.08"></label>
-<label>Ra richiesto (µm)<input id="wgRa" type="number" step="0.1" placeholder="0.8"></label>
-<label>Tolleranza (mm)<input id="wgTol" type="number" step="0.001" placeholder="0.01"></label>
-<label>Diametro mola a vite (mm)<input id="wgWheelD" type="number" step="0.1" placeholder="250"></label>
-<label>Giri mola a vite (rpm)<input id="wgWheelN" type="number" step="1" placeholder="1500"></label>
-<label>Giri pezzo iniziali (rpm)<input id="wgWorkN" type="number" step="0.1" placeholder="50"></label>
-<label>Infeed sgrossatura/passata (mm)<input id="wgRoughAe" type="number" step="0.001" placeholder="0.02"></label>
-<label>Infeed finitura/passata (mm)<input id="wgFinishAe" type="number" step="0.001" placeholder="0.005"></label>
-<label>Passate di spark-out<input id="wgSpark" type="number" step="1" placeholder="2"></label>
-</div>
-<button type="button" id="calcWormCycle">Genera programma mola a vite</button>
-<div class="result" id="wgCycleResult">Inserisci i dati e genera il ciclo.</div>
-<div id="wgCycleTable" style="margin-top:10px"></div>
-</div>
-
-<div class="calc" style="margin-top:12px">
-<h2>📐 Regole del motore di rettifica</h2>
-<div class="problemList">
-<article class="problemCard"><h3>Numero passate</h3><p>Il motore calcola il sovrametallo reale da asportare e lo divide tra sgrossatura, finitura e spark-out. Non usa un numero fisso di passate.</p></article>
-<article class="problemCard"><h3>Ra</h3><p>Il Ra richiesto modifica la quota di finitura e l'aggressività del ciclo: Ra più basso → passate finali più leggere, alimentazione più contenuta e più spark-out.</p></article>
-<article class="problemCard"><h3>Velocità mola</h3><p>La velocità periferica viene calcolata dal diametro e dai giri mola, ma il limite della mola certificato dal produttore è sempre il limite superiore.</p></article>
-<article class="problemCard"><h3>Ravvivatura</h3><p>Il ciclo segnala la necessità di ravvivare/controllare la mola quando si passa a finitura o quando compaiono bruciature, carico, deriva dimensionale o peggioramento del Ra. Truing e dressing sono funzioni diverse.</p></article>
-</div>
-</div>
-</section>
+<div class="calc"><b>Gestione archivio</b>
+<p>Gli utensili speciali restano separati dal catalogo dei produttori.</p>
+<button type="button" id="exportSpecial" style="margin-top:8px">⬇️ Esporta archivio</button>
+<button type="button" id="importSpecial" style="margin-top:8px">⬆️ Importa archivio</button>
+<input id="specialImportFile" type="file" accept=".json" hidden>
+<div class="result" id="specialStatus">Nessun utensile speciale inserito.</div>
+</div></div>
+<div class="calcgrid" style="margin-top:12px"><div class="calc"><b>Catalogazione</b><label>Macchina<select id="specialMachineFilter"><option value="">Tutte le macchine</option></select></label><label>Tipologia di pezzo<select id="specialPieceFilter"><option value="">Tutte le tipologie</option></select></label></div></div><div id="specialList" class="problemList"></div>
+</div></div></section><section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura</h2><p>Calcola ogni parametro separatamente. Inserisci solo i dati richiesti dalla tabella.</p><div class="result" style="margin-bottom:10px;text-align:center;font-size:18px"><b>π = 3,14</b><br><span style="font-size:12px;font-weight:600">Valore fisso usato automaticamente in tutti i calcoli</span></div>
+<div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>Vc = (3,14 × Dm × n) / 1000<br>n = (Vc × 1000) / (3,14 × Dm)<br>f = Vf / n<br>Vf = f × n<br>Q = Vc × ap × f<br><span class="unitNote">Dm, ap = mm · n = rpm · Vc = m/min · f = mm/giro · Vf = mm/min</span></div>
+<div class="calcgrid" style="margin-top:12px">
+<div class="calc"><b>Tabella 1 · CALCOLA Vc</b><label>Dm (mm)<input id="turnDm" type="number" step="0.01" inputmode="decimal" placeholder="50"></label><label>n (rpm)<input id="turnN" type="number" step="1" inputmode="numeric" placeholder="1200"></label><button type="button" id="calcTurnVc">Calcola Vc</button><div class="result" id="turnVcResult">—</div></div>
+<div class="calc"><b>Tabella 2 · CALCOLA n</b><label>Dm (mm)<input id="turnDmN" type="number" step="0.01" inputmode="decimal" placeholder="50"></label><label>Vc (m/min)<input id="turnVcN" type="number" step="0.1" inputmode="decimal" placeholder="180"></label><button type="button" id="calcTurnN">Calcola n</button><div class="result" id="turnNResult">—</div></div>
+<div class="calc"><b>Tabella 3 · CALCOLA f</b><label>Vf (mm/min)<input id="turnVfF" type="number" step="0.1" inputmode="decimal" placeholder="240"></label><label>n (rpm)<input id="turnNF" type="number" step="1" inputmode="numeric" placeholder="1200"></label><button type="button" id="calcTurnF">Calcola f</button><div class="result" id="turnFResult">—</div></div>
+<div class="calc"><b>Tabella 4 · CALCOLA Vf</b><label>f (mm/giro)<input id="turnFVf" type="number" step="0.001" inputmode="decimal" placeholder="0,20"></label><label>n (rpm)<input id="turnNVf" type="number" step="1" inputmode="numeric" placeholder="1200"></label><button type="button" id="calcTurnVf">Calcola Vf</button><div class="result" id="turnVfResult">—</div></div>
+<div class="calc"><b>Tabella 5 · CALCOLA Q</b><label>Vc (m/min)<input id="turnVcQ" type="number" step="0.1" inputmode="decimal" placeholder="180"></label><label>ap (mm)<input id="turnApQ" type="number" step="0.1" inputmode="decimal" placeholder="2"></label><label>f (mm/giro)<input id="turnFQ" type="number" step="0.001" inputmode="decimal" placeholder="0,20"></label><button type="button" id="calcTurnQ">Calcola Q</button><div class="result" id="turnQResult">—</div></div>
+</div></div></section><section id="alesatura" class="page"><div class="calc"><h2>🔩 Alesatura</h2><p>Calcola ogni parametro separatamente. Da è il diametro finale dell'alesatore e Dp il preforo.</p><div class="result" style="margin-bottom:10px;text-align:center;font-size:18px"><b>π = 3,14</b><br><span style="font-size:12px;font-weight:600">Valore fisso usato automaticamente in tutti i calcoli</span></div>
+<div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>Vc = (3,14 × Da × n) / 1000<br>n = (Vc × 1000) / (3,14 × Da)<br>f = Vf / n<br>Vf = f × n<br>Q = 3,14 × (Da² − Dp²) × Vf / 4000<br><span class="unitNote">Da, Dp = mm · n = rpm · Vc = m/min · f = mm/giro · Vf = mm/min</span></div>
+<div class="calcgrid" style="margin-top:12px">
+<div class="calc"><b>Tabella 1 · CALCOLA Vc</b><label>Da (mm)<input id="reamDaVc" type="number" step="0.01" inputmode="decimal" placeholder="20"></label><label>n (rpm)<input id="reamNVc" type="number" step="1" inputmode="numeric" placeholder="400"></label><button type="button" id="calcReamVc">Calcola Vc</button><div class="result" id="reamVcResult">—</div></div>
+<div class="calc"><b>Tabella 2 · CALCOLA n</b><label>Da (mm)<input id="reamDaN" type="number" step="0.01" inputmode="decimal" placeholder="20"></label><label>Vc (m/min)<input id="reamVcN" type="number" step="0.1" inputmode="decimal" placeholder="25"></label><button type="button" id="calcReamN">Calcola n</button><div class="result" id="reamNResult">—</div></div>
+<div class="calc"><b>Tabella 3 · CALCOLA f</b><label>Vf (mm/min)<input id="reamVfF" type="number" step="0.1" inputmode="decimal" placeholder="60"></label><label>n (rpm)<input id="reamNF" type="number" step="1" inputmode="numeric" placeholder="400"></label><button type="button" id="calcReamF">Calcola f</button><div class="result" id="reamFResult">—</div></div>
+<div class="calc"><b>Tabella 4 · CALCOLA Vf</b><label>f (mm/giro)<input id="reamFVf" type="number" step="0.001" inputmode="decimal" placeholder="0,15"></label><label>n (rpm)<input id="reamNVf" type="number" step="1" inputmode="numeric" placeholder="400"></label><button type="button" id="calcReamVf">Calcola Vf</button><div class="result" id="reamVfResult">—</div></div>
+<div class="calc"><b>Tabella 5 · CALCOLA Q</b><label>Da (mm)<input id="reamDaQ" type="number" step="0.01" inputmode="decimal" placeholder="20"></label><label>Dp (mm)<input id="reamDpQ" type="number" step="0.01" inputmode="decimal" placeholder="19,5"></label><label>Vf (mm/min)<input id="reamVfQ" type="number" step="0.1" inputmode="decimal" placeholder="60"></label><button type="button" id="calcReamQ">Calcola Q</button><div class="result" id="reamQResult">—</div></div>
+</div></div></section><section id="fresatura" class="page"><div class="calc"><h2>⚙️ Fresatura</h2><p>Calcola ogni parametro separatamente. Inserisci solo i dati richiesti dalla tabella.</p><div class="result" style="margin-bottom:10px;text-align:center;font-size:18px"><b>π = 3,14</b><br><span style="font-size:12px;font-weight:600">Valore fisso usato automaticamente in tutti i calcoli</span></div>
+<div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>Vc = (3,14 × D × n) / 1000<br>n = (Vc × 1000) / (3,14 × D)<br>fz = Vf / (z × n)<br>Vf = fz × z × n<br>Q = ap × ae × Vf / 1000<br><span class="unitNote">D, ap, ae = mm · n = rpm · Vc = m/min · fz = mm/dente · Vf = mm/min · z = denti</span></div>
+<div class="calcgrid" style="margin-top:12px">
+<div class="calc"><b>Tabella 1 · CALCOLA Vc</b><label>D (mm)<input id="millDVC" type="number" step="0.01" inputmode="decimal" placeholder="20"></label><label>n (rpm)<input id="millNVC" type="number" step="1" inputmode="numeric" placeholder="2400"></label><button type="button" id="calcMillVc">Calcola Vc</button><div class="result" id="millVcResult">—</div></div>
+<div class="calc"><b>Tabella 2 · CALCOLA n</b><label>D (mm)<input id="millDN" type="number" step="0.01" inputmode="decimal" placeholder="20"></label><label>Vc (m/min)<input id="millVCN" type="number" step="0.1" inputmode="decimal" placeholder="150"></label><button type="button" id="calcMillN">Calcola n</button><div class="result" id="millNResult">—</div></div>
+<div class="calc"><b>Tabella 3 · CALCOLA fz</b><label>Vf (mm/min)<input id="millVfFz" type="number" step="0.1" inputmode="decimal" placeholder="760"></label><label>z (denti)<input id="millZFz" type="number" step="1" inputmode="numeric" placeholder="4"></label><label>n (rpm)<input id="millNFz" type="number" step="1" inputmode="numeric" placeholder="2400"></label><button type="button" id="calcMillFz">Calcola fz</button><div class="result" id="millFzResult">—</div></div>
+<div class="calc"><b>Tabella 4 · CALCOLA Vf</b><label>fz (mm/dente)<input id="millFzVf" type="number" step="0.001" inputmode="decimal" placeholder="0,08"></label><label>z (denti)<input id="millZVf" type="number" step="1" inputmode="numeric" placeholder="4"></label><label>n (rpm)<input id="millNVf" type="number" step="1" inputmode="numeric" placeholder="2400"></label><button type="button" id="calcMillVf">Calcola Vf</button><div class="result" id="millVfResult">—</div></div>
+<div class="calc"><b>Tabella 5 · CALCOLA Q</b><label>ap (mm)<input id="millApQ" type="number" step="0.1" inputmode="decimal" placeholder="2"></label><label>ae (mm)<input id="millAeQ" type="number" step="0.1" inputmode="decimal" placeholder="10"></label><label>Vf (mm/min)<input id="millVfQ" type="number" step="0.1" inputmode="decimal" placeholder="760"></label><button type="button" id="calcMillQ">Calcola Q</button><div class="result" id="millQResult">—</div></div>
+</div></div></section><section id="produttori" class="page"><div class="calc"><h2>🏭 Produttori, cataloghi e disegni</h2><p>Assortimento separato per produttore. <b>Sandvik Coromant</b>, <b>ISCAR</b> e <b>ISO</b> sono tre voci distinte. I cataloghi e i disegni restano collegati alle fonti ufficiali del produttore.</p><div class="searchgrid"><input id="manufacturerSearch" placeholder="Cerca produttore, catalogo o tecnologia…"><select id="manufacturerType"><option value="">Tutti</option><option value="Produttore">Produttori</option><option value="Standard / assortimento generico">ISO / standard</option></select></div><div id="manufacturerList" class="problemList"></div></div></section>
 <section id="problemi" class="page">
 <div class="calc"><h2>🛠️ Problemi di lavorazione · diagnosi e soluzioni</h2>
 <p>Guida pratica per tornitura, foratura e fresatura. Parti dal sintomo, controlla una variabile alla volta e modifica i parametri con piccoli incrementi. I valori sono indicativi: utensile, grado, materiale, macchina e fissaggio possono richiedere impostazioni diverse.</p>
@@ -771,72 +765,13 @@ closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target==
 <script src="ai-assistant.js"></script>
 <script id="grinding-calculators">
 (function(){
- const $=id=>document.getElementById(id);
- const num=id=>parseFloat($(id)?.value);
- const txt=id=>String($(id)?.value||"").trim();
- const fmt=x=>Number.isFinite(x)?x.toFixed(3):"—";
- const out=(id,s)=>{const e=$(id);if(e)e.innerHTML=s};
- const wheelSpeed=(d,rpm)=>Math.PI*d*rpm/60000;
- const workSpeed=(d,rpm)=>Math.PI*d*rpm/1000;
-
- // Deterministic stock/pass calculation. The process infeed is an input,
- // not an invented universal value derived from Ra.
- function cycle(stockRad,roughAe,finishAe,finishStockRad,spark){
-   if(!(stockRad>0)) throw new Error("Il sovrametallo deve essere positivo.");
-   if(!(roughAe>0)||!(finishAe>0)) throw new Error("Inserisci l'asportazione ammessa per passata, verificata per la tua mola/materiale/macchina.");
-   if(!(finishStockRad>=0)||finishStockRad>stockRad) throw new Error("Il sovrametallo di finitura deve essere compreso nel sovrametallo totale.");
-   const roughStock=Math.max(0,stockRad-finishStockRad);
-   const roughN=Math.ceil(roughStock/roughAe);
-   const finN=Math.ceil(finishStockRad/finishAe);
-   const roughActual=roughN?roughStock/roughN:0;
-   const finActual=finN?finishStockRad/finN:0;
-   const rows=[];
-   for(let i=1;i<=roughN;i++) rows.push({fase:"Sgrossatura",passata:i,ae:roughActual,totale:roughActual*i});
-   for(let i=1;i<=finN;i++) rows.push({fase:"Finitura",passata:i,ae:finActual,totale:roughStock+finActual*i});
-   const sp=Math.max(0,Math.round(spark||0));
-   for(let i=1;i<=sp;i++) rows.push({fase:"Spark-out",passata:i,ae:0,totale:stockRad});
-   return {roughN,finN,sp,roughActual,finActual,rows};
- }
- function table(rows){
-   return '<table style="min-width:620px"><thead><tr><th>Fase</th><th>Passata</th><th>Asportazione radiale mm</th><th>Asportazione cumulata mm</th></tr></thead><tbody>'+
-    rows.map(r=>'<tr><td>'+r.fase+'</td><td>'+r.passata+'</td><td>'+fmt(r.ae)+'</td><td>'+fmt(r.totale)+'</td></tr>').join('')+'</tbody></table>';
- }
- function wheelInfo(d,n){return 'Vs = <b>'+fmt(wheelSpeed(d,n))+' m/s</b>';}
- function safeText(s){return String(s).replace(/[&<>]/g,'');}
- function checkWheelSpeed(v){return '<br><small>Verificare che Vs non superi la velocità massima ammessa riportata sulla mola.</small>';}
-
- $('calcOdCycle')?.addEventListener('click',()=>{
-  try{
-   const s=num("odStart"),f=num("odFinal"),tol=num("odTol"),ra=num("odRa"),wd=num("odWheelD"),wn=num("odWheelN"),wkn=num("odWorkN"),feed=num("odFeed");
-   const stockDiam=s-f;if(!(stockDiam>0))throw new Error("Per la rettifica esterna Ø iniziale deve essere maggiore del Ø finale.");
-   const stockRad=stockDiam/2, finishStockDiam=num("odFinishStock"), finishStock=finishStockDiam/2;
-   const ch=cycle(stockRad,num("odRoughAe"),num("odFinishAe"),finishStock,num("odSpark"));
-   const vs=wheelSpeed(wd,wn), vw=workSpeed((s+f)/2,wkn);
-   out("odCycleResult",'<b>Sovrametallo Ø:</b> '+fmt(stockDiam)+' mm · <b>radiale:</b> '+fmt(stockRad)+' mm · <b>passate:</b> '+(ch.roughN+ch.finN)+' + '+ch.sp+' spark-out · <b>tolleranza:</b> '+fmt(tol)+' mm · <b>Ra:</b> '+fmt(ra)+' µm · '+wheelInfo(wd,wn)+' · <b>V pezzo:</b> '+fmt(vw)+' m/min · <b>feed:</b> '+fmt(feed)+' mm/min · <b>materiale:</b> '+safeText(txt("odMat"))+checkWheelSpeed(vs));
-   $("odCycleTable").innerHTML=table(ch.rows);
-  }catch(e){out("odCycleResult","⚠️ "+e.message);$("odCycleTable").innerHTML=""}
- });
- $('calcIdCycle')?.addEventListener('click',()=>{
-  try{
-   const s=num("idStart"),f=num("idFinal"),tol=num("idTol"),ra=num("idRa"),wd=num("idWheelD2"),wn=num("idWheelN2"),wkn=num("idWorkN2"),feed=num("idFeed2");
-   const stockDiam=f-s;if(!(stockDiam>0))throw new Error("Per la rettifica interna Ø finale deve essere maggiore del Ø iniziale.");
-   const stockRad=stockDiam/2, finishStockDiam=num("idFinishStock2"), finishStock=finishStockDiam/2;
-   const ch=cycle(stockRad,num("idRoughAe"),num("idFinishAe"),finishStock,num("idSpark"));
-   const vs=wheelSpeed(wd,wn), vw=workSpeed((s+f)/2,wkn);
-   out("idCycleResult",'<b>Sovrametallo Ø:</b> '+fmt(stockDiam)+' mm · <b>radiale:</b> '+fmt(stockRad)+' mm · <b>passate:</b> '+(ch.roughN+ch.finN)+' + '+ch.sp+' spark-out · <b>tolleranza:</b> '+fmt(tol)+' mm · <b>Ra:</b> '+fmt(ra)+' µm · '+wheelInfo(wd,wn)+' · <b>V pezzo:</b> '+fmt(vw)+' m/min · <b>feed assiale:</b> '+fmt(feed)+' mm/min · <b>materiale:</b> '+safeText(txt("idMat"))+checkWheelSpeed(vs));
-   $("idCycleTable").innerHTML=table(ch.rows);
-  }catch(e){out("idCycleResult","⚠️ "+e.message);$("idCycleTable").innerHTML=""}
- });
- $('calcWormCycle')?.addEventListener('click',()=>{
-  try{
-   const m=num("wgM"),z=num("wgZ"),width=num("wgWidth"),stock=num("wgStock"),ra=num("wgRa"),tol=num("wgTol"),wd=num("wgWheelD"),wn=num("wgWheelN"),wkn=num("wgWorkN");
-   if(!(m>0&&z>0&&stock>0))throw new Error("Inserisci modulo, denti e sovrametallo per fianco.");
-   const ch=cycle(stock,num("wgRoughAe"),num("wgFinishAe"),Math.min(num("wgFinishAe"),stock),num("wgSpark"));
-   const vs=wheelSpeed(wd,wn), ratio=wkn?wn/wkn:NaN;
-   out("wgCycleResult",'<b>Modulo:</b> '+fmt(m)+' · <b>denti:</b> '+z+' · <b>larghezza:</b> '+fmt(width)+' mm · <b>stock/fianco:</b> '+fmt(stock)+' mm · <b>passate:</b> '+(ch.roughN+ch.finN)+' + '+ch.sp+' spark-out · <b>Ra:</b> '+fmt(ra)+' µm · <b>tolleranza:</b> '+fmt(tol)+' mm · '+wheelInfo(wd,wn)+' · <b>giri pezzo:</b> '+fmt(wkn)+' rpm · <b>rapporto giri mola/pezzo:</b> '+fmt(ratio)+'<br><small>La sincronizzazione reale della generazione a mola a vite deve essere impostata secondo la rettificatrice e la specifica della mola; KAPP NILES descrive la rettifica a generazione come una rotazione sincronizzata costante pezzo/mola.</small>');
-   $("wgCycleTable").innerHTML=table(ch.rows);
-  }catch(e){out("wgCycleResult","⚠️ "+e.message);$("wgCycleTable").innerHTML=""}
- });
+ const $=id=>document.getElementById(id),num=id=>parseFloat($(id)?.value),fmt=x=>Number.isFinite(x)?x.toFixed(3):"—",out=(id,s)=>{const e=$(id);if(e)e.innerHTML=s};
+ const vs=(d,n)=>Math.PI*d*n/60000,vw=(d,n)=>Math.PI*d*n/1000;
+ function cycle(stock,rough,finish,finishStock,spark){if(!(stock>0))throw Error("Sovrametallo non valido.");if(!(rough>0&&finish>0))throw Error("Inserisci le asportazioni ammesse per passata.");if(!(finishStock>=0&&finishStock<=stock))throw Error("Sovrametallo di finitura non valido.");const rs=Math.max(0,stock-finishStock),rn=Math.ceil(rs/rough),fn=Math.ceil(finishStock/finish),ra=rn?rs/rn:0,fa=fn?finishStock/fn:0,rows=[];for(let i=1;i<=rn;i++)rows.push(["Sgrossatura",i,ra,ra*i]);for(let i=1;i<=fn;i++)rows.push(["Finitura",i,fa,rs+fa*i]);for(let i=1;i<=Math.max(0,Math.round(spark||0));i++)rows.push(["Spark-out",i,0,stock]);return{rn,fn,rows}}
+ function table(rows){return '<table style="min-width:620px"><thead><tr><th>Fase</th><th>Passata</th><th>Asportazione radiale mm</th><th>Cumulata mm</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+fmt(r[2])+'</td><td>'+fmt(r[3])+'</td></tr>').join('')+'</tbody></table>'}
+ $('calcOdCycle')?.addEventListener('click',()=>{try{const s=num("odStart"),f=num("odFinal"),tol=num("odTol"),ra=num("odRa"),d=num("odWheelD"),n=num("odWheelN"),wn=num("odWorkN"),feed=num("odFeed"),fs=num("odFinishStock")/2,stock=(s-f)/2;if(!(stock>0))throw Error("Ø iniziale deve essere maggiore del Ø finale.");const c=cycle(stock,num("odRoughAe"),num("odFinishAe"),fs,num("odSpark"));out("odCycleResult",'<b>Sovrametallo Ø:</b> '+fmt(2*stock)+' mm · <b>passate:</b> '+(c.rn+c.fn)+' + '+(num("odSpark")||0)+' spark-out · <b>Vs:</b> '+fmt(vs(d,n))+' m/s · <b>V pezzo:</b> '+fmt(vw((s+f)/2,wn))+' m/min · <b>feed:</b> '+fmt(feed)+' mm/min · <b>Ra:</b> '+fmt(ra)+' µm · <b>tol:</b> '+fmt(tol)+' mm<br><small>Verificare sempre la velocità massima certificata della mola.</small>');$("odCycleTable").innerHTML=table(c.rows)}catch(e){out("odCycleResult","⚠️ "+e.message);$("odCycleTable").innerHTML=""}});
+ $('calcIdCycle')?.addEventListener('click',()=>{try{const s=num("idStart"),f=num("idFinal"),tol=num("idTol"),ra=num("idRa"),d=num("idWheelD2"),n=num("idWheelN2"),wn=num("idWorkN2"),feed=num("idFeed2"),fs=num("idFinishStock2")/2,stock=(f-s)/2;if(!(stock>0))throw Error("Ø finale deve essere maggiore del Ø iniziale.");const c=cycle(stock,num("idRoughAe"),num("idFinishAe"),fs,num("idSpark"));out("idCycleResult",'<b>Sovrametallo Ø:</b> '+fmt(2*stock)+' mm · <b>passate:</b> '+(c.rn+c.fn)+' + '+(num("idSpark")||0)+' spark-out · <b>Vs:</b> '+fmt(vs(d,n))+' m/s · <b>V pezzo:</b> '+fmt(vw((s+f)/2,wn))+' m/min · <b>feed:</b> '+fmt(feed)+' mm/min · <b>Ra:</b> '+fmt(ra)+' µm · <b>tol:</b> '+fmt(tol)+' mm<br><small>Verificare sempre la velocità massima certificata della mola.</small>');$("idCycleTable").innerHTML=table(c.rows)}catch(e){out("idCycleResult","⚠️ "+e.message);$("idCycleTable").innerHTML=""}});
+ $('calcWormCycle')?.addEventListener('click',()=>{try{const m=num("wgM"),z=num("wgZ"),width=num("wgWidth"),stock=num("wgStock"),ra=num("wgRa"),tol=num("wgTol"),d=num("wgWheelD"),n=num("wgWheelN"),wn=num("wgWorkN");if(!(m>0&&z>0&&width>0&&stock>0))throw Error("Inserisci modulo, denti, larghezza e sovrametallo.");const c=cycle(stock,num("wgRoughAe"),num("wgFinishAe"),Math.min(num("wgFinishAe"),stock),num("wgSpark"));out("wgCycleResult",'<b>Modulo:</b> '+fmt(m)+' · <b>denti:</b> '+z+' · <b>passate:</b> '+(c.rn+c.fn)+' + '+(num("wgSpark")||0)+' spark-out · <b>Vs:</b> '+fmt(vs(d,n))+' m/s · <b>giri pezzo:</b> '+fmt(wn)+' rpm · <b>Ra:</b> '+fmt(ra)+' µm · <b>tol:</b> '+fmt(tol)+' mm<br><small>La sincronizzazione reale della mola a vite dipende da rettificatrice, mola e CNC.</small>');$("wgCycleTable").innerHTML=table(c.rows)}catch(e){out("wgCycleResult","⚠️ "+e.message);$("wgCycleTable").innerHTML=""}});
 })();
 </script>
 
