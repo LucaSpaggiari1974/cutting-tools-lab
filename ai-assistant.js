@@ -100,7 +100,33 @@
     return 'Ho analizzato la richiesta. Servono ulteriori dati tecnici per produrre un calcolo verificabile.';
   }
   async function answerAndSpeak(text){
-    const result=render(text);
+    const question=String(text||'').trim();
+    if(!question){
+      $('aiAnswer').innerHTML='<div class="aiBox"><b>Inserisci una richiesta.</b><br><span>Scrivi il problema, la lavorazione, il materiale o il parametro che vuoi analizzare.</span></div>';
+      return null;
+    }
+    const result=render(question);
+    $('aiAnswer').innerHTML='<div class="aiBox"><b>Metal AI sta analizzando…</b><br><span>Controllo calcoli locali, catalogo e, quando utile, fonti tecniche aggiornate.</span></div>';
+    try {
+      const controller=new AbortController();
+      const timer=setTimeout(()=>controller.abort(),45000);
+      const systemInstruction="Sei Metal AI di Cutting Tools LAB, un assistente tecnico per officina metalmeccanica. Rispondi sempre in italiano, in modo concreto e operativo. Il tuo compito è RISOLVERE problemi, non solo parlare. Devi distinguere chiaramente: dati verificati da fonti esterne; dati del catalogo locale; calcoli matematici; ipotesi diagnostiche. Per problemi di lavorazione struttura: 1) diagnosi; 2) cause da verificare in ordine pratico; 3) soluzione passo-passo; 4) parametri/calcoli con unità e formule; 5) controlli finali; 6) fonti. Per utensili, materiali, gradi, rivestimenti, parametri, norme, produttori e tecnologie aggiornate usa la ricerca web disponibile e privilegia fonti tecniche primarie (produttori, documentazione tecnica, enti normativi). Se le fonti divergono, indica l'intervallo e la ragione. Non inventare dati mancanti. Per rettifica tratta quando pertinenti rettifica esterna, interna, piana, evolvente, ingranaggi, mole a vite e ravvivatura. Considera anche tornitura, fresatura, foratura, alesatura, CNC, refrigerazione, vibrazioni/chatter, usura, rotture, bruciature, errori dimensionali e finitura. Se mancano dati indispensabili, chiedili esplicitamente invece di inventarli.";
+      const catalogContext=result.hits.map(x=>x.r.code+' | '+x.r.maker+' | '+x.r.category+' | '+x.r.material+' | Vc '+x.r.vc+' | f/fz '+x.r.f+' | ap '+x.r.ap).join('\\n');
+      const r=await fetch('/api/metal-ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:question,catalogContext,systemInstruction,localCalculations:result.calculations}),signal:controller.signal});
+      clearTimeout(timer);
+      const j=await r.json();
+      if(!r.ok) throw new Error(j.error||'Motore Metal AI non disponibile');
+      let html='<div class="aiBox"><b>🤖 Metal AI · risposta tecnica</b><div class="aiHit" style="white-space:pre-wrap">'+esc(j.answer||'Nessuna risposta restituita.')+'</div>';
+      if(Array.isArray(j.sources)&&j.sources.length) html+='<div class="aiSources"><b>Fonti consultate</b>'+j.sources.map(s=>'<div class="aiSource"><a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">'+esc(s.title||s.url)+'</a></div>').join('')+'</div>';
+      html+='</div>';
+      $('aiAnswer').innerHTML=html;
+      return j;
+    } catch(e) {
+      const msg=e&&e.name==='AbortError'?'Tempo massimo superato.':(e.message||'Errore di collegamento al motore Metal AI.');
+      $('aiAnswer').innerHTML='<div class="aiBox"><b>Metal AI non ha completato la ricerca.</b><br>'+esc(msg)+'<br><span>Restano disponibili i calcoli verificabili e il catalogo locale.</span></div>';
+      return null;
+    }
+    /*
     if(result.research){
       $('aiAnswer').innerHTML='<div class="aiBox"><b>Attendi e ricerca soluzione</b><br><span>Sto ricercando il problema su fonti tecniche affidabili e confronto le possibili cause. Ti mostrerò la soluzione adatta appena la ricerca è completata.</span></div>';
       try{
@@ -121,6 +147,7 @@
       
     }
     return result;
+    */
   }
 
   async function compressImage(file){
@@ -143,7 +170,7 @@
       const data=await compressImage(file);
       preview.style.display='block';preview.innerHTML='<img src="'+esc(data)+'" alt="Foto problema" style="max-width:100%;max-height:320px;border-radius:10px;border:1px solid #cbd7e1">';
       box.innerHTML='<div class="aiBox"><b>Analisi visiva in corso…</b><br>Sto confrontando gli indizi visibili con le cause tipiche di lavorazione.</div>';
-      const r=await fetch('https://cutting-tools-lab.vercel.app/api/metal-ai-vision',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:data,question:$('aiInput')?.value||''})});
+      const r=await fetch('/api/metal-ai-vision',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:data,question:$('aiInput')?.value||''})});
       const j=await r.json(); if(!r.ok) throw new Error(j.error||'Errore server');
       box.innerHTML='<div class="aiBox"><b>Diagnosi da immagine</b><div class="aiHit" style="white-space:pre-wrap">'+esc(j.answer)+'</div><small>La diagnosi visiva è un supporto tecnico: prima di modificare parametri o utensili, verificare misure, macchina e condizioni reali.</small></div>';
       
