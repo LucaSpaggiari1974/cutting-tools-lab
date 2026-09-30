@@ -49,10 +49,14 @@
     return {d:get(/(?:diametro|dm|da|d)\s*[=:]?\s*(\d+(?:[.,]\d+)?)/),n:get(/(?:rpm|giri|n)\s*[=:]?\s*(\d+(?:[.,]\d+)?)/),vc:get(/vc\s*[=:]?\s*(\d+(?:[.,]\d+)?)/),f:get(/(?:f|avanzamento)\s*[=:]?\s*(\d+(?:[.,]\d+)?)/),vf:get(/vf\s*[=:]?\s*(\d+(?:[.,]\d+)?)/),ap:get(/ap\s*[=:]?\s*(\d+(?:[.,]\d+)?)/),ae:get(/ae\s*[=:]?\s*(\d+(?:[.,]\d+)?)/),z:get(/(?:z|denti)\s*[=:]?\s*(\d+(?:[.,]\d+)?)/)};
   }
   function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+  function speak(text){try{if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='it-IT';window.speechSynthesis.speak(u)}catch(_){}}
+  function answerAndSpeak(text){answer(text);if(String(text||'').trim())speak('Richiesta ricevuta. Ho analizzato il catalogo e i parametri disponibili.');}
   function init(){
     if(!$('aiAsk'))return;
-    $('aiAsk').onclick=()=>answer($('aiInput').value);
-    $('aiInput').addEventListener('keydown',e=>{if(e.key==='Enter')answer(e.target.value)});
+    $('aiAsk').onclick=()=>answerAndSpeak($('aiInput').value);
+    $('aiInput').addEventListener('keydown',e=>{if(e.key==='Enter')answerAndSpeak(e.target.value)});
+    const mic=document.getElementById('aiVoice'),SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(mic&&SR){const rec=new SR();rec.lang='it-IT';rec.interimResults=false;rec.maxAlternatives=1;rec.onstart=()=>{mic.textContent='🎙️ Ascolto…';mic.disabled=true};rec.onend=()=>{mic.textContent='🎙️ Parla';mic.disabled=false};rec.onerror=()=>{mic.textContent='🎙️ Parla';mic.disabled=false};rec.onresult=e=>{const t=e.results[0][0].transcript;$('aiInput').value=t;answerAndSpeak(t)};mic.onclick=()=>rec.start();}else if(mic){mic.disabled=true;mic.title='Riconoscimento vocale non supportato da questo browser';}
     $('aiExamples').addEventListener('click',e=>{if(e.target.dataset.q){$('aiInput').value=e.target.dataset.q;answer(e.target.dataset.q)}});
   }
   window.addEventListener('load',()=>setTimeout(init,300));
