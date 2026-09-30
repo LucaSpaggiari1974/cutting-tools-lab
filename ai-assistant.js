@@ -102,8 +102,9 @@
   async function answerAndSpeak(text){
     const result=render(text);
     if(result.research){
+      $('aiAnswer').innerHTML='<div class="aiBox"><b>Attendi e ricerca soluzione</b><br><span>Sto ricercando il problema su fonti tecniche affidabili e confronto le possibili cause. Ti mostrerò la soluzione adatta appena la ricerca è completata.</span></div>';
       try{
-        const systemInstruction="Sei l'IA Metalmeccanica di Cutting Tools LAB. Il tuo compito principale è RISOLVERE PROBLEMI, non soltanto calcolare parametri. Quando l'utente descrive un problema tecnico, diagnosticalo, individua le cause possibili e cerca la soluzione più adatta. Quando la domanda richiede dati aggiornati o documentazione, usa la ricerca web disponibile nel backend e consulta fonti affidabili: manuali e schede dei costruttori, norme e fonti tecniche riconosciute. Confronta le fonti e cita i riferimenti usati. Puoi affrontare problemi di tornitura, fresatura, foratura, alesatura, rettifica, rettifica evolvente, mole a vite, ingranaggi, utensili, CNC, refrigerazione, vibrazioni, chatter, bruciature, usura, rotture, errori dimensionali e finitura, oltre ad altri problemi tecnici legati alle lavorazioni meccaniche. Struttura la risposta in: diagnosi, cause da verificare, soluzione operativa passo-passo, parametri/calcoli se necessari, controlli finali e fonti. Non inventare dati: se mancano informazioni indispensabili, dichiaralo e chiedi i dati necessari.";
+        const systemInstruction="Sei l'IA Metalmeccanica di Cutting Tools LAB. Quando l'utente descrive un problema come \"rugosità alta in rettifica\", devi attivare la ricerca tecnica web e non limitarti al catalogo locale. Il tuo compito principale è RISOLVERE PROBLEMI, non soltanto calcolare parametri. Quando l'utente descrive un problema tecnico, diagnosticalo, individua le cause possibili e cerca la soluzione più adatta. Quando la domanda richiede dati aggiornati o documentazione, usa la ricerca web disponibile nel backend e consulta fonti affidabili: manuali e schede dei costruttori, norme e fonti tecniche riconosciute. Confronta le fonti e cita i riferimenti usati. Puoi affrontare problemi di tornitura, fresatura, foratura, alesatura, rettifica, rettifica evolvente, mole a vite, ingranaggi, utensili, CNC, refrigerazione, vibrazioni, chatter, bruciature, usura, rotture, errori dimensionali e finitura, oltre ad altri problemi tecnici legati alle lavorazioni meccaniche. Struttura la risposta in: diagnosi, cause da verificare, soluzione operativa passo-passo, parametri/calcoli se necessari, controlli finali e fonti. Non inventare dati: se mancano informazioni indispensabili, dichiaralo e chiedi i dati necessari.";
       const catalogContext=result.hits.map(x=>x.r.code+' | '+x.r.maker+' | '+x.r.material+' | Vc '+x.r.vc+' | f/fz '+x.r.f+' | ap '+x.r.ap).join('\\n');
         const r=await fetch('https://cutting-tools-lab.vercel.app/api/metal-ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:text,catalogContext,systemInstruction,mode:"problem-solving-research"})});
         const j=await r.json();
@@ -115,7 +116,6 @@
         
       }catch(e){
         $('aiAnswer').innerHTML='<div class="aiBox"><b>Ricerca tecnica non disponibile</b><br>'+esc(e.message||'Errore')+'<br><span>Il catalogo locale e i calcoli verificabili restano disponibili.</span></div>';
-        speak('La ricerca tecnica esterna non è disponibile. Posso comunque usare il catalogo locale e i calcoli verificabili.');
       }
     }else{
       
@@ -155,15 +155,6 @@
     if(!$('aiAsk'))return;
     $('aiAsk').onclick=()=>answerAndSpeak($('aiInput').value);
     $('aiInput').addEventListener('keydown',e=>{if(e.key==='Enter')answerAndSpeak(e.target.value)});
-    const mic=$('aiVoice'),SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-    if(mic&&SR){
-      const rec=new SR();rec.lang='it-IT';rec.interimResults=false;rec.maxAlternatives=1;
-      rec.onstart=()=>{mic.textContent='🎙️ Ascolto…';mic.disabled=true};
-      rec.onend=()=>{mic.textContent='🎙️ Parla';mic.disabled=false};
-      rec.onerror=()=>{mic.textContent='🎙️ Parla';mic.disabled=false};
-      rec.onresult=e=>{const t=e.results[0][0].transcript;$('aiInput').value=t;answerAndSpeak(t)};
-      mic.onclick=()=>{try{rec.start()}catch(_){}};
-    }else if(mic){mic.disabled=true;mic.title='Riconoscimento vocale non supportato da questo browser';}
     const ex=$('aiExamples');if(ex)ex.addEventListener('click',e=>{if(e.target.dataset.q){$('aiInput').value=e.target.dataset.q;render(e.target.dataset.q)}});
     const img=$('aiImage'), imgBtn=$('aiImageAnalyze'), imgName=$('aiImageName');
     if(img) img.addEventListener('change',()=>{if(img.files[0]&&imgName)imgName.textContent=img.files[0].name});
