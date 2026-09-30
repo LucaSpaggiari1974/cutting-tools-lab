@@ -47,7 +47,7 @@ export default async function handler(req, res) {
       service: "Metal AI",
       openaiConfigured: Boolean(process.env.OPENAI_API_KEY),
       gatewayConfigured: Boolean(process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN),
-      model,
+      model: process.env.METAL_AI_MODEL || (process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN ? "openai/gpt-5.6-luna" : "gpt-5.6-luna"),
       endpoint: "/api/metal-ai",
       methods: ["GET", "POST", "OPTIONS"]
     });
@@ -112,11 +112,11 @@ ${question.slice(0, 8000)}`;
     const openaiResponse = await fetch(`${baseUrl}/responses`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
+        "Authorization": `Bearer ${apiKey}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: process.env.METAL_AI_MODEL || "gpt-5.6-luna",
+        model,
         tools: [{ type: "web_search" }],
         input: prompt
       })
