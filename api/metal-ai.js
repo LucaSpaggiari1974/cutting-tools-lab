@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   if (!process.env.OPENAI_API_KEY) return res.status(503).json({ error: "OPENAI_API_KEY non configurata sul server." });
 
   try {
-    const { question = "", catalogContext = "", systemInstruction = "" } = req.body || {};
+    const { question = "", catalogContext = "", systemInstruction = "", localCalculations = [] } = req.body || {};
     if (!String(question).trim()) return res.status(400).json({ error: "Richiesta vuota." });
 
     const prompt = `${String(systemInstruction).slice(0,6000)}\n\nSei Metal AI, assistente tecnico specializzato in metalmeccanica.
@@ -34,6 +34,9 @@ Non inventare parametri. Se le fonti divergono, mostra l'intervallo e spiega da 
 Per rettifica includi, quando pertinente, rettifica diametri, rettifica fori, rettifica evolvente e mole a vite.
 Contesto del catalogo locale:
 ${String(catalogContext).slice(0,12000)}
+
+Calcoli locali già eseguiti e verificabili:
+${JSON.stringify(localCalculations).slice(0,8000)}
 
 Richiesta dell'operatore:
 ${String(question).slice(0,8000)}`;
@@ -52,7 +55,7 @@ ${String(question).slice(0,8000)}`;
     });
 
     const data = await r.json();
-    if (!r.ok) return res.status(r.status).json({ error: data?.error?.message || "Errore del motore IA." });
+    if (!r.ok) return res.status(r.status).json({ error: data?.error?.message || "Errore del motore IA.", openai_status: r.status });
 
     const sources = [];
     for (const item of (data.output || [])) {
@@ -68,6 +71,6 @@ ${String(question).slice(0,8000)}`;
       response_id: data.id || null
     });
   } catch (e) {
-    return res.status(500).json({ error: "Errore durante la ricerca tecnica." });
+    return res.status(500).json({ error: e?.message || "Errore durante la ricerca tecnica." });
   }
 }
