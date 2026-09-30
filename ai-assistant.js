@@ -172,7 +172,10 @@
       box.innerHTML='<div class="aiBox"><b>Analisi visiva in corso…</b><br>Sto confrontando gli indizi visibili con le cause tipiche di lavorazione.</div>';
       const r=await fetch('/api/metal-ai-vision',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:data,question:$('aiInput')?.value||''})});
       const j=await r.json(); if(!r.ok) throw new Error(j.error||'Errore server');
-      box.innerHTML='<div class="aiBox"><b>Diagnosi da immagine</b><div class="aiHit" style="white-space:pre-wrap">'+esc(j.answer)+'</div><small>La diagnosi visiva è un supporto tecnico: prima di modificare parametri o utensili, verificare misure, macchina e condizioni reali.</small></div>';
+      let html='<div class="aiBox"><b>📷 Diagnosi Metal AI da immagine</b><div class="aiHit" style="white-space:pre-wrap">'+esc(j.answer||'Nessuna analisi restituita.')+'</div><small>La diagnosi visiva è un supporto tecnico: prima di modificare parametri o utensili, verificare misure, macchina e condizioni reali.</small>';
+      if(Array.isArray(j.sources)&&j.sources.length) html+='<div class="aiSources"><b>Fonti consultate</b>'+j.sources.map(s=>'<div class="aiSource"><a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">'+esc(s.title||s.url)+'</a></div>').join('')+'</div>';
+      html+='</div>';
+      box.innerHTML=html;
       
     }catch(e){
       box.innerHTML='<div class="aiBox"><b>Analisi foto non disponibile.</b><br>'+esc(e.message||'Errore')+'</div>';
