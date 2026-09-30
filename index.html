@@ -634,8 +634,13 @@ async function loadOnlineSpecialTools(silent=false){
 async function hydrateSpecialImage(img){
   const src=img?.dataset?.specialSrc||img?.src||"";
   if(!src||img.dataset.hydrated==="1")return;
-  if(/^data:image\\//i.test(src)){img.src=src;img.dataset.hydrated="1";return;}
   img.dataset.specialSrc=src;
+  if(/^data:image\//i.test(src)){
+    img.src=src;
+    img.dataset.hydrated="1";
+    img.style.visibility="visible";
+    return;
+  }
   try{
     const r=await fetch(src,{cache:"no-store",mode:"cors"});
     if(!r.ok)throw new Error("image "+r.status);
@@ -645,7 +650,7 @@ async function hydrateSpecialImage(img){
     img.dataset.hydrated="1";
     img.dataset.objectUrl=objectUrl;
     img.src=objectUrl;
-    img.addEventListener("load",()=>img.style.visibility="visible",{once:true});
+    img.style.visibility="visible";
   }catch(_){
     img.dataset.directFallback="1";
     img.src=src+(src.includes("?")?"&":"?")+"iosretry="+Date.now();
