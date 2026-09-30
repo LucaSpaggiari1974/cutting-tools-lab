@@ -114,8 +114,14 @@
       const catalogContext=result.hits.map(x=>x.r.code+' | '+x.r.maker+' | '+x.r.category+' | '+x.r.material+' | Vc '+x.r.vc+' | f/fz '+x.r.f+' | ap '+x.r.ap).join('\\n');
       const r=await fetch('/api/metal-ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:question,catalogContext,systemInstruction,localCalculations:result.calculations}),signal:controller.signal});
       clearTimeout(timer);
-      const j=await r.json();
-      if(!r.ok) throw new Error(j.error||'Motore Metal AI non disponibile');
+      const responseText=await r.text();
+      let j=null;
+      try { j=responseText ? JSON.parse(responseText) : {}; }
+      catch(parseError){
+        const clean=responseText.replace(/<[^>]*>/g,' ').replace(/\\s+/g,' ').trim().slice(0,500);
+        throw new Error('Il server ha restituito una risposta non JSON (HTTP '+r.status+'). '+(clean||'Risposta vuota.'));
+      }
+      if(!r.ok) throw new Error(j.error||'Motore Metal AI non disponibile (HTTP '+r.status+').');
       let html='<div class="aiBox"><b>🤖 Metal AI · risposta tecnica</b><div class="aiHit" style="white-space:pre-wrap">'+esc(j.answer||'Nessuna risposta restituita.')+'</div>';
       if(Array.isArray(j.sources)&&j.sources.length) html+='<div class="aiSources"><b>Fonti consultate</b>'+j.sources.map(s=>'<div class="aiSource"><a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">'+esc(s.title||s.url)+'</a></div>').join('')+'</div>';
       html+='</div>';
