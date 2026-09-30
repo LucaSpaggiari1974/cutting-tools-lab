@@ -107,6 +107,34 @@
     if(String(text||'').trim()) speak(spoken(text,result));
   }
 
+  async function compressImage(file){
+    return new Promise((resolve,reject)=>{
+      const img=new Image(), url=URL.createObjectURL(file);
+      img.onload=()=>{
+        const max=1600, scale=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));
+        const canvas=document.createElement('canvas');canvas.width=Math.round(img.naturalWidth*scale);canvas.height=Math.round(img.naturalHeight*scale);
+        canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+        URL.revokeObjectURL(url);resolve(canvas.toDataURL('image/jpeg',.82));
+      };
+      img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('Immagine non leggibile'))};img.src=url;
+    });
+  }
+  async function analyzeImage(){
+    const input=$('aiImage'), box=$('aiAnswer'), preview=$('aiImagePreview');
+    if(!input||!input.files||!input.files[0]){box.innerHTML='<div class="aiBox"><b>Carica prima una foto.</b></div>';return}
+    const file=input.files[0];
+    try{
+      const data=await compressImage(file);
+      preview.style.display='block';preview.innerHTML='<img src="'+esc(data)+'" alt="Foto problema" style="max-width:100%;max-height:320px;border-radius:10px;border:1px solid #cbd7e1">';
+      box.innerHTML='<div class="aiBox"><b>Analisi visiva in corso…</b><br>Sto confrontando gli indizi visibili con le cause tipiche di lavorazione.</div>';
+      const r=await fetch('/api/metal-ai-vision.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:data,question:$('aiInput')?.value||''})});
+      const j=await r.json(); if(!r.ok) throw new Error(j.error||'Errore server');
+      box.innerHTML='<div class="aiBox"><b>Diagnosi da immagine</b><div class="aiHit" style="white-space:pre-wrap">'+esc(j.answer)+'</div><small>La diagnosi visiva è un supporto tecnico: prima di modificare parametri o utensili, verificare misure, macchina e condizioni reali.</small></div>';
+      speak(j.answer);
+    }catch(e){
+      box.innerHTML='<div class="aiBox"><b>Analisi foto non disponibile.</b><br>'+esc(e.message||'Errore')+'</div>';
+    }
+  }
   function init(){
     if(!$('aiAsk'))return;
     $('aiAsk').onclick=()=>answerAndSpeak($('aiInput').value);
@@ -120,7 +148,7 @@
       rec.onresult=e=>{const t=e.results[0][0].transcript;$('aiInput').value=t;answerAndSpeak(t)};
       mic.onclick=()=>{try{rec.start()}catch(_){}};
     }else if(mic){mic.disabled=true;mic.title='Riconoscimento vocale non supportato da questo browser';}
-    const ex=$('aiExamples');if(ex)ex.addEventListener('click',e=>{if(e.target.dataset.q){$('aiInput').value=e.target.dataset.q;render(e.target.dataset.q)}});
+    const ex=$('aiExamples');if(ex)ex.addEventListener('click',e=>{if(e.target.dataset.q){$('aiInput').value=e.target.dataset.q;render(e.target.dataset.q)}});\n    const img=$('aiImage'), imgBtn=$('aiImageAnalyze'), imgName=$('aiImageName');\n    if(img) img.addEventListener('change',()=>{if(img.files[0]&&imgName)imgName.textContent=img.files[0].name});\n    if(imgBtn) imgBtn.addEventListener('click',analyzeImage);
   }
   window.MetalAI={answer:render,calculate:q=>[...calc(q),...geometry('',q)],version:'2.0-metal-core'};
   window.addEventListener('load',()=>setTimeout(init,300));
