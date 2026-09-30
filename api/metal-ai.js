@@ -32,7 +32,7 @@ function getBody(req) {
   });
 }
 
-async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method === "OPTIONS") {
     res.statusCode = 204;
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -162,4 +162,3 @@ ${question.slice(0, 8000)}`;
   }
 }
 
-module.exports = handler;
