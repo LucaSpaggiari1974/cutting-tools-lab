@@ -1,1 +1,354 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body></body></html>
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#123a5a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Cutting Tools LAB">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Cutting Tools LAB">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Cutting Tools LAB · Foglio utensili</title>
+<style>
+:root{--navy:#123a5a;--blue:#1d78c9;--line:#d8e3ec;--bg:#f3f6f9}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#152536;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:1100px;margin:auto;padding:14px}header{background:linear-gradient(135deg,#123a5a,#0d2940);color:#fff;border-radius:16px;padding:18px;margin-bottom:12px}
+h1{margin:0;font-size:24px}header p{margin:4px 0 0;opacity:.85}
+.sheet{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 12px #0001;overflow:hidden}
+.toolbar{padding:12px;border-bottom:1px solid var(--line);background:#f8fbfd;position:sticky;top:0;z-index:5}
+.searchgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:8px}
+input,select,button{font:inherit;border:1px solid #cbd7e1;border-radius:9px;padding:10px;width:100%;background:#fff}
+button{background:var(--blue);color:#fff;border:0;font-weight:700}
+.formula{margin-top:10px;background:#102f47;color:#fff;border-radius:10px;padding:11px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr auto;gap:8px;align-items:center}
+.formula span{font-size:12px;opacity:.8}.formula b{display:block;font-size:14px}.formula button{background:#fff;color:#123a5a;width:auto}
+.status{padding:8px 12px;color:#607487;font-size:13px}.appbar{display:flex;gap:8px;align-items:center;padding:8px 12px;background:#f8fbfd;border-top:1px solid var(--line);font-size:12px;color:#607487}.appbar span{flex:1}.appbar button{width:auto;padding:8px 12px}
+.tablewrap{overflow:auto;max-height:62vh}table{border-collapse:separate;border-spacing:0;width:100%;min-width:1050px}
+th,td{padding:9px 10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:top}
+th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{cursor:pointer}tr.data:hover{background:#f3f8fc}td.code{font-weight:800;color:#123a5a;text-decoration:underline;cursor:pointer}.tag{display:inline-block;padding:3px 7px;border-radius:999px;background:#e9f2fb;color:#185b8f;font-size:11px;font-weight:700}
+.drawings{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 12px #0001}
+.drawings>summary{list-style:none;cursor:pointer;background:#123a5a;color:#fff;padding:15px;font-size:17px;font-weight:800}.drawings>summary::-webkit-details-marker{display:none}
+.drawings .hint{padding:10px 15px;color:#607487;font-size:13px}.groups{padding:0 12px 12px}
+.toolgroup{border-top:1px solid var(--line);padding:10px 0}.toolgroup summary{cursor:pointer;font-weight:800;padding:6px}.drawingbox{display:grid;grid-template-columns:320px 1fr;gap:14px;align-items:center;padding:10px;background:#f8fbfd;border-radius:10px}.realphoto{width:100%;height:210px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:9px}.photo-caption{font-size:11px;color:#607487;margin-top:5px}.notes{font-size:13px;line-height:1.5}.notes b{color:#123a5a}
+.warn{padding:12px 15px;font-size:12px;color:#53697b;background:#fff;border-top:1px solid var(--line)}
+.appHeader{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.lastUpdate{text-align:right;font-size:11px;line-height:1.35;opacity:.9;white-space:nowrap}.lastUpdate b{font-size:12px;color:#fff}.refreshOverlay{position:fixed;inset:0;background:rgba(5,20,32,.62);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}.refreshOverlay[hidden]{display:none}.refreshCard{width:min(430px,100%);background:#fff;border-radius:18px;padding:22px;box-shadow:0 15px 50px #0006;text-align:center}.refreshTitle{font-size:19px;font-weight:800;color:#123a5a}.refreshText{margin:7px 0 16px;color:#607487;font-size:13px}.progressTrack{height:14px;background:#e6edf3;border-radius:999px;overflow:hidden}.progressBar{height:100%;width:0;background:linear-gradient(90deg,#1d78c9,#37a6ef);border-radius:999px;transition:width .22s ease}.progressPct{margin-top:9px;font-weight:800;color:#123a5a;font-size:13px}
+@media(max-width:760px){.appHeader{align-items:center}.lastUpdate{font-size:10px}.lastUpdate b{font-size:11px}}
+@media(max-width:760px){main{padding:8px}header{border-radius:12px}.searchgrid{grid-template-columns:1fr 1fr}.formula{grid-template-columns:1fr 1fr}.formula button{grid-column:1/-1;width:100%}.tablewrap{max-height:66vh}.drawingbox{grid-template-columns:1fr}h1{font-size:21px}.appbar{position:sticky;bottom:0;z-index:10;flex-wrap:wrap}.appbar span{flex-basis:100%}.appbar button{flex:1}.toolbar{top:0}} @media(min-width:1200px){main{max-width:1500px}.sheet{min-height:80vh}.tablewrap{max-height:68vh}table{min-width:1250px}.formula{grid-template-columns:1.7fr 1fr 1fr 1fr 1fr auto}}
+.navtabs{display:flex;gap:6px;overflow:auto;margin:0 0 12px;padding:5px;background:#fff;border:1px solid var(--line);border-radius:12px;position:sticky;top:0;z-index:20}.navtab{white-space:nowrap;width:auto;padding:10px 14px;background:#eef4f8;color:#123a5a}.navtab.active{background:#123a5a;color:#fff}.page{display:none}.page.active{display:block}.calcgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.calc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 2px 12px #0001}.calc h2{margin-top:0;color:#123a5a}.calc label{display:block;font-weight:700;margin:9px 0}.calc label input{margin-top:5px}.formulaBox{background:#102f47;color:#fff;padding:14px;border-radius:10px;font-size:18px;font-weight:800;line-height:1.8}.unitNote{font-size:12px;opacity:.8}.result{margin-top:12px;padding:12px;background:#eaf2f8;border-radius:9px;font-weight:800;color:#123a5a}.modal{position:fixed;inset:0;background:#0008;z-index:100;display:flex;align-items:center;justify-content:center;padding:14px}.modal[hidden]{display:none}.modalCard{position:relative;background:#fff;border-radius:16px;width:min(760px,100%);max-height:90vh;overflow:auto;padding:20px}.closeModal{position:absolute;right:12px;top:12px;width:auto;background:#123a5a;padding:8px 12px}.modalImg{display:block;width:100%;max-height:420px;object-fit:contain;background:#f8fbfd;border-radius:10px;margin-top:12px}@media(max-width:760px){.navtabs{top:0}.calcgrid{grid-template-columns:1fr}.navtab{padding:9px 11px;font-size:13px}.modalCard{padding:14px}}
+.problemList{display:grid;gap:10px;margin-top:14px}.problemCard{border:1px solid var(--line);border-radius:12px;background:#f8fbfd;padding:12px}.problemCard h3{margin:0 0 6px;color:#123a5a;font-size:16px}.problemCard p{margin:5px 0;font-size:13px;line-height:1.45}.problemCard b{color:#123a5a}.problemCard .cause{color:#455b6d}.problemCard .solution{background:#fff;border-radius:8px;padding:8px;margin-top:7px}.recommendTitle{margin-top:18px;font-weight:800;color:#123a5a;font-size:17px}.recommend{display:grid;gap:10px;margin-top:10px}.recCard{display:grid;grid-template-columns:170px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#f8fbfd}.recDraw{width:160px;height:140px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:9px;padding:4px}.recMeta b{color:#123a5a}.recMeta .params{margin-top:7px;font-size:13px}.recMeta button{margin-top:8px;width:auto;padding:8px 12px}@media(max-width:760px){.recCard{grid-template-columns:1fr}.recDraw{width:100%;height:190px}}</style>
+</head>
+<body><main>
+<header class="appHeader"><div><h1>🔧 CUTTING TOOLS LAB</h1><p>Foglio utensili · inserti · portautensili · velocità e parametri di taglio</p></div><div class="lastUpdate">Ultimo aggiornamento<br><b id="lastUpdate">—</b></div></header>
+
+<nav class="navtabs" aria-label="Sezioni">
+<button class="navtab active" data-page="catalogo">📋 Utensili</button>
+<button class="navtab" data-page="tornitura">🔩 Tornitura</button>
+<button class="navtab" data-page="foratura">🕳️ Foratura</button>
+<button class="navtab" data-page="fresatura">⚙️ Fresatura</button>
+<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="produttori">🏭 Produttori</button>
+</nav>
+<section id="catalogo" class="page active"><section class="sheet">
+<div class="toolbar">
+<div class="searchgrid">
+<input id="q" placeholder="Cerca codice, famiglia, materiale, produttore…">
+<select id="cat"><option value="">Tutte le categorie</option></select>
+<select id="mat"><option value="">Tutti i materiali</option></select>
+<select id="maker"><option value="">Tutti i produttori</option></select>
+</div>
+<div class="formula" id="formula">
+<div><span>SELEZIONE</span><b id="fc">—</b></div>
+<div><span>MATERIALE</span><b id="fm">—</b></div>
+<div><span>Vc m/min</span><b id="fv">—</b></div>
+<div><span>f / fz</span><b id="ff">—</b></div>
+<div><span>ap mm</span><b id="fa">—</b></div>
+<button id="copy" type="button">Copia parametri</button>
+</div>
+</div>
+<div class="status" id="status">Caricamento foglio…</div>
+<div class="warn" style="border-top:0">🏭 Database produttori: foto associate al marchio del record. Le foto ufficiali sono contrassegnate come “Foto ufficiale del produttore”; non vengono sostituite con foto di un altro marchio.</div>
+<div class="appbar"><span id="updateState">🔄 Aggiornamento automatico attivo</span><button id="refreshData" type="button">Aggiorna dati</button><button id="installApp" type="button" hidden>Installa app</button></div>
+<div class="tablewrap">
+<table><thead><tr>
+<th>Categoria</th><th>Codice / utensile</th><th>Geometria / impiego</th><th>Materiale da lavorare</th><th>Vc consigliata<br>m/min</th><th>f / fz consigliato</th><th>ap consigliata<br>mm</th><th>Produttore / riferimento</th>
+</tr></thead><tbody id="rows"></tbody></table>
+</div>
+<div class="warn">⚠️ I valori sono intervalli iniziali indicativi: cambiano con grado dell'inserto, rivestimento, materiale reale, durezza, macchina, refrigerazione, stabilità e strategia. Per la produzione verificare sempre la scheda del produttore. Le classificazioni P/M/K/N/S/H seguono la logica ISO.</div>
+</section>
+
+
+</section>
+<section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura</h2><p class="small">Metodo: dalla tabella prendi Vc, f e ap; inserisci il diametro Dm del pezzo. Calcola n e poi Vf e Q. Q è in cm³/min. Le formule MRR sono quelle indicate da ISCAR per la tornitura. citeturn0search16</p><div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>n = (Vc × 1000) / (3,14 × Dm)<br>Vc = (3,14 × Dm × n) / 1000<br>Vf = f × n<br>Q = Vc × ap × f</div><div class="result" style="margin-top:10px;font-weight:600">Usa dalla tabella: Dm = diametro, Vc = velocità di taglio, f = avanzamento, ap = profondità di passata.</div></div></section>
+<section id="foratura" class="page"><div class="calc"><h2>🕳️ Foratura</h2><p class="small">Metodo: dalla tabella prendi Vc e f; inserisci Dc. Calcola n, poi Vf e Q. La formula Q vale per la punta tipica a 2 taglienti; ISCAR riporta anche la forma generale con ap e fz. citeturn0search16</p><div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>n = (Vc × 1000) / (3,14 × Dc)<br>Vc = (3,14 × Dc × n) / 1000<br>Vf = f × n<br>Q = 3,14 × Dc² × Vf / 4</div><div class="result" style="margin-top:10px;font-weight:600">Usa dalla tabella: Dc = diametro punta, Vc = velocità di taglio, f = avanzamento per giro.</div></div></section>
+<section id="fresatura" class="page"><div class="calc"><h2>⚙️ Fresatura</h2><p class="small">Metodo: dalla tabella prendi Vc, fz, ap e ae; inserisci D e il numero di denti z. Calcola n, poi Vf e Q. Q è in cm³/min. citeturn0search16</p><div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>n = (Vc × 1000) / (3,14 × D)<br>Vc = (3,14 × D × n) / 1000<br>Vf = fz × z × n<br>Q = ap × ae × Vf / 1000</div><div class="result" style="margin-top:10px;font-weight:600">Usa dalla tabella: D = diametro fresa, Vc = velocità di taglio, fz = avanzamento per dente, z = denti, ap = profondità, ae = impegno radiale.</div></div></section>
+<section id="produttori" class="page"><div class="calc"><h2>🏭 Produttori, cataloghi e disegni</h2><p>Assortimento separato per produttore. <b>Sandvik Coromant</b>, <b>ISCAR</b> e <b>ISO</b> sono tre voci distinte. I cataloghi e i disegni restano collegati alle fonti ufficiali del produttore.</p><div class="searchgrid"><input id="manufacturerSearch" placeholder="Cerca produttore, catalogo o tecnologia…"><select id="manufacturerType"><option value="">Tutti</option><option value="Produttore">Produttori</option><option value="Standard / assortimento generico">ISO / standard</option></select></div><div id="manufacturerList" class="problemList"></div></div></section>
+<section id="problemi" class="page">
+<div class="calc"><h2>🛠️ Problemi di lavorazione · diagnosi e soluzioni</h2>
+<p>Guida pratica per tornitura, foratura e fresatura. Parti dal sintomo, controlla una variabile alla volta e modifica i parametri con piccoli incrementi. I valori sono indicativi: utensile, grado, materiale, macchina e fissaggio possono richiedere impostazioni diverse.</p>
+<div class="searchgrid"><input id="problemSearch" placeholder="Cerca problema, sintomo o soluzione…"><select id="problemArea"><option value="">Tutte le lavorazioni</option><option>Tornitura</option><option>Foratura</option><option>Fresatura</option><option>Generale</option></select></div>
+<div id="problemList" class="problemList"></div>
+</div></section>
+<div id="refreshOverlay" class="refreshOverlay" hidden><div class="refreshCard"><div class="refreshTitle">🔄 Aggiornamento dati</div><div class="refreshText" id="refreshText">Controllo dei dati più recenti…</div><div class="progressTrack"><div class="progressBar" id="progressBar"></div></div><div class="progressPct" id="progressPct">0%</div></div></div>
+<div id="toolModal" class="modal" hidden>
+  <div class="modalCard">
+    <button class="closeModal" id="closeModal" type="button">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+</main>
+
+<script>
+const R=(category,code,geom,material,vc,f,ap,maker="ISO / dati indicativi")=>({category,code,geom,material,vc,f,ap,maker});
+const fallbackData=[{"category":"Tornitura · Sgrossatura","code":"CNMG 120412","geom":"Rombo 80° · SGROSSATURA · R1,2","material":"P Acciaio · M Inox · K Ghisa","vc":"120–210","f":"0,18–0,40","ap":"1–5","maker":"Sandvik / ISO"},{"category":"Tornitura · Sgrossatura","code":"CNMG 120408","geom":"Rombo 80° · SGROSSATURA/MEDIA · R0,8","material":"P Acciaio · M Inox · K Ghisa","vc":"140–230","f":"0,15–0,35","ap":"0,8–4","maker":"Sandvik / ISO"},{"category":"Tornitura · Finitura","code":"CNMG 120404","geom":"Rombo 80° · FINITURA · R0,4","material":"P Acciaio · M Inox · K Ghisa","vc":"160–240","f":"0,10–0,25","ap":"0,5–2","maker":"Sandvik / ISO"},{"category":"Tornitura esterna","code":"CNMG 120404","geom":"Rombo 80° · finitura/media","material":"P Acciaio · M Inox · K Ghisa","vc":"160–240","f":"0,10–0,25","ap":"0,5–3","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"CNMG 120408","geom":"Rombo 80° · media/sgrossatura","material":"P Acciaio · M Inox · K Ghisa","vc":"140–230","f":"0,15–0,35","ap":"0,8–4","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"CNMG 120412","geom":"Rombo 80° · sgrossatura","material":"P Acciaio · M Inox · K Ghisa","vc":"120–210","f":"0,18–0,40","ap":"1–5","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"CNMG 160612","geom":"Rombo 80° · sgrossatura pesante","material":"P Acciaio · K Ghisa","vc":"110–190","f":"0,22–0,45","ap":"2–6","maker":"ISO"},{"category":"Tornitura esterna","code":"DNMG 110404","geom":"Rombo 55° · finitura/profilatura","material":"P Acciaio · M Inox","vc":"150–240","f":"0,06–0,18","ap":"0,3–1,5","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"DNMG 110408","geom":"Rombo 55° · profilatura","material":"P Acciaio · M Inox","vc":"120–210","f":"0,08–0,22","ap":"0,5–2,5","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"DNMG 150408","geom":"Rombo 55° · media","material":"P Acciaio · M Inox · K Ghisa","vc":"110–190","f":"0,12–0,30","ap":"0,8–3","maker":"ISO"},{"category":"Tornitura esterna","code":"SNMG 120408","geom":"Quadrato 90° · media","material":"P Acciaio · M Inox · K Ghisa","vc":"120–210","f":"0,16–0,32","ap":"1–4","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"SNMG 120412","geom":"Quadrato 90° · sgrossatura","material":"P Acciaio · K Ghisa","vc":"100–190","f":"0,20–0,40","ap":"1,5–5","maker":"ISO"},{"category":"Tornitura esterna","code":"SNMG 190616","geom":"Quadrato 90° · pesante","material":"P Acciaio · K Ghisa","vc":"80–160","f":"0,25–0,55","ap":"2–8","maker":"ISO"},{"category":"Tornitura esterna","code":"WNMG 080408","geom":"Trigon 80° · generale","material":"P Acciaio · M Inox · K Ghisa","vc":"130–220","f":"0,12–0,30","ap":"0,8–3","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"WNMG 080412","geom":"Trigon 80° · media","material":"P Acciaio · M Inox · K Ghisa","vc":"110–190","f":"0,16–0,35","ap":"1–4","maker":"ISO"},{"category":"Profilatura / finitura","code":"VNMG 160404","geom":"Rombo 35° · finitura","material":"P Acciaio · M Inox","vc":"150–260","f":"0,05–0,16","ap":"0,2–1,2","maker":"Sandvik / ISCAR"},{"category":"Profilatura / finitura","code":"VNMG 160408","geom":"Rombo 35° · profilatura","material":"P Acciaio · M Inox","vc":"110–190","f":"0,06–0,18","ap":"0,3–1,8","maker":"ISO"},{"category":"Profilatura / finitura","code":"VBMT 160404","geom":"Rombo 35° · positivo","material":"P Acciaio · M Inox · N Alluminio","vc":"160–300","f":"0,04–0,15","ap":"0,2–1,2","maker":"ISO"},{"category":"Profilatura / finitura","code":"VBMT 160408","geom":"Rombo 35° · positivo","material":"P Acciaio · N Alluminio","vc":"140–300","f":"0,05–0,18","ap":"0,3–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"DCMT 11T304","geom":"Rombo 55° · positivo","material":"N Alluminio · P Acciaio","vc":"250–700","f":"0,04–0,18","ap":"0,2–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"DCMT 11T308","geom":"Rombo 55° · positivo","material":"P Acciaio · M Inox","vc":"90–180","f":"0,05–0,16","ap":"0,2–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"DCGT 11T304","geom":"Rombo 55° · affilato","material":"N Alluminio · rame","vc":"300–900","f":"0,04–0,20","ap":"0,2–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"CCMT 09T304","geom":"Rombo 80° · positivo","material":"N Alluminio · P Acciaio","vc":"250–800","f":"0,04–0,20","ap":"0,2–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"CCMT 09T308","geom":"Rombo 80° · positivo","material":"P Acciaio · M Inox","vc":"120–220","f":"0,05–0,18","ap":"0,3–1,8","maker":"ISO"},{"category":"Profilatura / finitura","code":"CCGT 09T304","geom":"Rombo 80° · affilato","material":"N Alluminio · ottone","vc":"350–1000","f":"0,04–0,22","ap":"0,2–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"TCMT 16T304","geom":"Triangolo 60° · finitura","material":"P Acciaio · N Alluminio","vc":"180–500","f":"0,04–0,16","ap":"0,2–1,2","maker":"ISO"},{"category":"Profilatura / finitura","code":"TCMT 16T308","geom":"Triangolo 60° · generale","material":"P Acciaio · M Inox","vc":"100–200","f":"0,06–0,18","ap":"0,3–1,8","maker":"ISO"},{"category":"Profilatura / finitura","code":"TCGT 16T304","geom":"Triangolo 60° · affilato","material":"N Alluminio · ottone","vc":"300–900","f":"0,04–0,20","ap":"0,2–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"RCMT 10T3M0","geom":"Tondo · profilatura","material":"P Acciaio · K Ghisa","vc":"100–220","f":"0,10–0,30","ap":"0,5–3","maker":"ISO"},{"category":"Profilatura / finitura","code":"RCMT 12T3M0","geom":"Tondo · sgrossatura","material":"P Acciaio · K Ghisa","vc":"90–180","f":"0,15–0,40","ap":"1–5","maker":"ISO"},{"category":"Scanalatura / troncatura","code":"MGMN 200-G","geom":"Inserto lama 2 mm","material":"P Acciaio · M Inox","vc":"60–160","f":"0,03–0,12","ap":"0,5–2","maker":"ISO"},{"category":"Scanalatura / troncatura","code":"MGMN 300-G","geom":"Inserto lama 3 mm","material":"P Acciaio · M Inox · K Ghisa","vc":"50–150","f":"0,04–0,14","ap":"0,5–3","maker":"ISO"},{"category":"Scanalatura / troncatura","code":"MGMN 400-G","geom":"Inserto lama 4 mm","material":"P Acciaio · M Inox","vc":"40–130","f":"0,04–0,12","ap":"0,5–3","maker":"ISO"},{"category":"Scanalatura / troncatura","code":"N123H2-0400","geom":"Troncatura 4 mm","material":"P Acciaio · M Inox · S Superleghe","vc":"50–140","f":"0,04–0,15","ap":"fino a 3","maker":"Sandvik / ISO"},{"category":"Filettatura","code":"16ER AG60","geom":"Esterno 60°","material":"P Acciaio · M Inox","vc":"60–160","f":"0,05–0,25","ap":"passate multiple","maker":"ISO"},{"category":"Filettatura","code":"16IR AG60","geom":"Interno 60°","material":"P Acciaio · M Inox","vc":"50–140","f":"0,05–0,22","ap":"passate multiple","maker":"ISO"},{"category":"Filettatura","code":"16ER ISO","geom":"Esterno ISO 60°","material":"P Acciaio · M Inox","vc":"60–150","f":"0,05–0,25","ap":"passate multiple","maker":"ISO"},{"category":"Filettatura","code":"11IR ISO","geom":"Interno ISO 60°","material":"P Acciaio · M Inox","vc":"50–140","f":"0,05–0,22","ap":"passate multiple","maker":"ISO"},{"category":"Foratura","code":"Punta integrale Ø6","geom":"Metallo duro · 2 taglienti","material":"P Acciaio · M Inox · K","vc":"40–120","f":"0,05–0,14 mm/giro","ap":"—","maker":"ISO / produttore"},{"category":"Foratura","code":"Punta integrale Ø10","geom":"Metallo duro · 2 taglienti","material":"P Acciaio · M Inox · K","vc":"40–120","f":"0,08–0,20 mm/giro","ap":"—","maker":"Sandvik / ISO"},{"category":"Foratura","code":"Punta integrale Ø12","geom":"Metallo duro · 2 taglienti","material":"P Acciaio · M Inox","vc":"30–90","f":"0,10–0,24 mm/giro","ap":"—","maker":"ISO"},{"category":"Foratura","code":"Punta a inserti Ø20","geom":"Testa indexabile","material":"P Acciaio · M Inox · K","vc":"70–160","f":"0,08–0,25 mm/giro","ap":"—","maker":"ISO"},{"category":"Foratura","code":"Punta modulare Ø25","geom":"Testa modulare","material":"P Acciaio · K Ghisa","vc":"60–140","f":"0,10–0,30 mm/giro","ap":"—","maker":"ISO"},{"category":"Fresatura","code":"Fresa a candela Ø10","geom":"Metallo duro · 4 taglienti","material":"P Acciaio · M Inox · N","vc":"60–180","f":"0,02–0,08 mm/dente","ap":"0,5–3","maker":"ISO"},{"category":"Fresatura","code":"Fresa a candela Ø16","geom":"Metallo duro · 4 taglienti","material":"P Acciaio · M Inox · N","vc":"50–150","f":"0,02–0,07 mm/dente","ap":"0,5–3","maker":"ISO"},{"category":"Fresatura","code":"Fresa a candela Ø20","geom":"Metallo duro · 3–4 taglienti","material":"N Alluminio","vc":"250–700","f":"0,04–0,14 mm/dente","ap":"1–5","maker":"ISO"},{"category":"Fresatura","code":"Fresa sferica Ø10","geom":"Ball nose · 2–4 taglienti","material":"P Acciaio · M Inox","vc":"60–160","f":"0,02–0,08 mm/dente","ap":"0,2–2","maker":"ISO"},{"category":"Spianatura","code":"Fresa a spianare Ø50","geom":"Inserti indexabili","material":"P Acciaio · K Ghisa · N","vc":"100–220","f":"0,10–0,30 mm/dente","ap":"1–5","maker":"ISO"},{"category":"Spianatura","code":"Fresa a spianare Ø63","geom":"Inserti indexabili","material":"P Acciaio · K Ghisa","vc":"90–200","f":"0,10–0,35 mm/dente","ap":"1–6","maker":"ISO"},{"category":"Portautensili","code":"PCLNR 2020K12","geom":"Esterno per CNMG","material":"CNMG 12","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"PDJNR 2020K15","geom":"Esterno per DNMG","material":"DNMG 15","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"SVJBR 2020K16","geom":"Esterno per VBMT/VNMG","material":"VBMT/VNMG","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"SCLCR 2020K09","geom":"Interno per CCMT","material":"CCMT 09","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"SDJCR 1212H07","geom":"Interno per DCMT","material":"DCMT 07","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"SER 2020K16","geom":"Filettatura esterna","material":"16ER","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"MGEHR 2020-2","geom":"Scanalatura","material":"MGMN 2 mm","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"MGEHR 2020-3","geom":"Scanalatura","material":"MGMN 3 mm","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Mandrini / adattatori","code":"ER32","geom":"Pinza portautensile","material":"Frese / punte","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Mandrini / adattatori","code":"ER40","geom":"Pinza portautensile","material":"Frese / punte","vc":"—","f":"—","ap":"—","maker":"ISO"}];
+let data=[];
+
+const groups=[
+["CNMG","CNMG · rombo 80°","Inserti negativi per tornitura esterna, da finitura a sgrossatura."],
+["DNMG","DNMG · rombo 55°","Profilatura e finitura con accesso più favorevole."],
+["SNMG","SNMG · quadrato 90°","Inserto robusto a 4 taglienti per tornitura e sgrossatura."],
+["WNMG","WNMG · trigon 80°","Geometria versatile per tornitura e profilatura."],
+["VNMG","VNMG · rombo 35°","Profilatura e finitura di spallamenti/contorni."],
+["VBMT","VBMT · positivo 35°","Finitura e profilatura con tagliente positivo."],
+["DCMT","DCMT / DCGT · rombo 55°","Finitura, barenatura e tornitura positiva."],
+["CCMT","CCMT / CCGT · rombo 80°","Finitura positiva, barenatura e piccoli diametri."],
+["TCMT","TCMT / TCGT · triangolo 60°","Finitura e tornitura interna/esterna."],
+["RCMT","RCMT · tondo","Profilatura, copie e lavorazioni con taglio multidirezionale."],
+["G","G / MGMN / N123 · scanalatura","Scanalatura, gole e troncatura."],
+["L","16ER / 16IR / 11ER / 11IR · filettatura","Inserti per filetti esterni e interni."],
+["DRILL","Punte · integrali / inserti / modulari","Foratura con metallo duro e teste indexabili."],
+["MILL","Frese a candela","Fresatura di cave, contorni, tasche e spallamenti."],
+["FACE","Frese a spianare","Spianatura con inserti indexabili."],
+["HOLDER","Portautensili","Portautensili esterni, interni, filettatura e scanalatura."],
+["ADAPTER","Mandrini / adattatori","Interfacce ER e adattatori per utensili rotanti."]
+];
+
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
+const q=document.getElementById("q"),cat=document.getElementById("cat"),mat=document.getElementById("mat"),maker=document.getElementById("maker"),rows=document.getElementById("rows");
+function fillFilters(){cat.innerHTML="<option value=\"\">Tutte le categorie</option>";mat.innerHTML="<option value=\"\">Tutti i materiali</option>";maker.innerHTML="<option value=\"\">Tutti i produttori</option>";[...new Set(data.map(x=>x.category))].forEach(x=>cat.add(new Option(x,x)));
+const mats=[...new Set(data.flatMap(x=>x.material.split(" · ")))].filter(x=>x&&x!=="—").sort();mats.forEach(x=>mat.add(new Option(x,x)));
+[...new Set(data.map(x=>x.maker))].sort().forEach(x=>maker.add(new Option(x,x)));
+}
+
+let selected=null;
+function render(){
+ const t=q.value.toLowerCase(),c=cat.value,m=mat.value,k=maker.value;
+ const a=data.filter(x=>(!t||Object.values(x).join(" ").toLowerCase().includes(t))&&(!c||x.category===c)&&(!m||x.material.includes(m))&&(!k||x.maker===k));
+ rows.innerHTML=a.map((x,i)=>'<tr class="data" data-i="'+data.indexOf(x)+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code">'+esc(x.code)+'</td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>').join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
+ document.getElementById("status").textContent=a.length+" righe · tocca una riga per caricare i dati nella barra dei parametri";
+ rows.querySelectorAll("tr.data").forEach(tr=>{
+ tr.onclick=()=>select(data[+tr.dataset.i]);
+ const code=tr.querySelector(".code");
+ if(code)code.onclick=e=>{e.stopPropagation();openTool(data[+tr.dataset.i])};
+});
+}
+function select(x){selected=x;document.getElementById("fc").textContent=x.code;document.getElementById("fm").textContent=x.material;document.getElementById("fv").textContent=x.vc;document.getElementById("ff").textContent=x.f;document.getElementById("fa").textContent=x.ap}
+[q,cat,mat,maker].forEach(e=>e.addEventListener("input",render));
+let currentCatalogUpdatedAt=null;
+async function loadCatalog(options={}){
+ const manual=options.manual===true;
+ try{
+  if(manual) showRefreshProgress(8,"Connessione al database…");
+  const r=await fetch("./catalog.json?v="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw new Error("HTTP "+r.status);
+  const pack=await r.json();
+  if(manual) showRefreshProgress(48,"Download dei dati completato…");
+  data=Array.isArray(pack)?pack:pack.items;
+  if(!Array.isArray(data)||!data.length)throw new Error("catalogo vuoto");
+  try{localStorage.setItem("ctl_catalog",JSON.stringify({updatedAt:pack.updatedAt||Date.now(),items:data}));}catch(_){}
+  fillFilters();render();
+  const updated=new Date(pack.updatedAt||Date.now());
+  currentCatalogUpdatedAt=pack.updatedAt||updated.toISOString();
+  const nowUpdate=new Date();
+  document.getElementById("status").textContent=data.length+" righe · catalogo aggiornato: "+updated.toLocaleString("it-IT");
+  document.getElementById("lastUpdate").textContent=nowUpdate.toLocaleString("it-IT",{dateStyle:"short",timeStyle:"short"});
+  document.getElementById("updateState").textContent="🟢 Dati aggiornati automaticamente";
+  if(manual) showRefreshProgress(78,"Aggiornamento completato…");
+ }catch(e){
+  let local=null;
+  try{local=JSON.parse(localStorage.getItem("ctl_catalog")||"null")}catch(_){}
+  data=local&&Array.isArray(local.items)?local.items:fallbackData;
+  fillFilters();render();
+  document.getElementById("status").textContent=data.length+" righe · modalità offline";
+  document.getElementById("updateState").textContent="🟠 Catalogo locale disponibile";
+  if(manual) showRefreshProgress(100,"Modalità offline: dati locali caricati.");
+ }
+}
+let refreshRunning=false;
+function showRefreshProgress(p,text){document.getElementById("refreshOverlay").hidden=false;document.getElementById("progressBar").style.width=Math.max(0,Math.min(100,p))+"%";document.getElementById("progressPct").textContent=Math.round(p)+"%";document.getElementById("refreshText").textContent=text||"Aggiornamento in corso…"}
+async function manualRefresh(message="Avvio aggiornamento…"){
+ if(refreshRunning)return;
+ refreshRunning=true;
+ showRefreshProgress(2,message);
+ try{
+  await loadCatalog({manual:true});
+  showRefreshProgress(82,"Database caricato e verificato…");
+  showRefreshProgress(94,"Preparazione del ricaricamento…");
+  setTimeout(()=>{showRefreshProgress(100,"Database aggiornato. Attendere, grazie.");setTimeout(()=>location.reload(),650)},450);
+ }catch(e){
+  showRefreshProgress(100,"Aggiornamento non riuscito.");
+  setTimeout(()=>{document.getElementById("refreshOverlay").hidden=true;refreshRunning=false},1200);
+ }
+}
+async function checkForDatabaseUpdate(){
+ if(refreshRunning)return;
+ try{
+  const r=await fetch("./catalog.json?check="+Date.now(),{cache:"no-store"});
+  if(!r.ok)return;
+  const pack=await r.json();
+  const remote=pack.updatedAt||"";
+  if(currentCatalogUpdatedAt && remote && remote!==currentCatalogUpdatedAt){
+   await manualRefresh("Database in aggiornamento. Attendere, grazie.");
+  }
+ }catch(_){}
+}
+loadCatalog();
+setInterval(checkForDatabaseUpdate,2*60*1000);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkForDatabaseUpdate()});
+document.getElementById("refreshData").onclick=()=>manualRefresh();
+
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").then(reg=>{reg.update();setInterval(()=>reg.update(),5*60*1000)}).catch(()=>{});}
+let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.getElementById("installApp").hidden=false});document.getElementById("installApp").onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById("installApp").hidden=true};
+document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
+
+const photoMap={
+CNMG:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale Sandvik Coromant CNMG 12 04 08"],
+DNMG:["https://static1.industrybuying.com/products/tooling-and-cutting/inserts/turning-inserts/TOO.TUR.332971358_1747837688878.webp","Foto reale Sandvik Coromant DNMG"],
+SNMG:["https://c.cdnmp.net/713071415/p/m/0/placuta-strunjire-inveio-sandvik-coromant-snmg-15-06-12-pm-4425~5110.jpg","Foto reale Sandvik Coromant SNMG"],
+WNMG:["https://www.tomcnc.com/upload/202306/m_20230626164014351.jpg","Foto reale Sandvik Coromant WNMG"],
+VNMG:["https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_vnmg_16_04_08_mf_2220_t_max_p_sorvaustera_pict3dview.jpg","Foto reale Sandvik Coromant VNMG"],
+VBMT:["https://darxton.ru/files/_images/60/6029e45a-864a-11eb-9ea2-000c29fafacd_fa11638e-5c20-11ec-a91a-000c2925a1b1.jpg","Foto reale inserto VBMT"],
+DCMT:["https://img2.tradewheel.com/uploads/images/products/6/9/cnc-lathe-tool-carbide-twist-drill2-0183441001627070172.jpg","Foto reale inserto DCMT"],
+CCMT:["https://cdn.dgisupply.ca/img/product-images/Asset_URL/Sandvik_Coromant_7080694.jpg","Foto reale Sandvik Coromant CCMT"],
+TCMT:["https://twineagleimports.co.uk/cdn/shop/files/sandvik-insert-10pc-sandvik-tcmt-16-t3-04-mm-1125-turning-insert-for-stainless-steel-7448723385838-1227468990.jpg?v=1773877431","Foto reale Sandvik Coromant TCMT"],
+RCMT:["https://cdn11.bigcommerce.com/s-4s9liwcv/images/stencil/original/products/670336/819830/6088861-24__48554.1682537263.jpg?c=2&imbypass=on","Foto reale inserto RCMT"],
+G:["https://www.gen3industrial.com/cdn/shop/files/83cebe6f-dde6-414a-9a46-6b301af44980.jpg?v=1760043945&width=4096","Foto reale utensile Sandvik per scanalatura/troncatura"],
+L:["https://i.ebayimg.com/images/g/GGEAAOSwwYVk9qGC/s-l1600.jpg","Foto reale portautensile per filettatura"],
+DRILL:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale Sandvik CoroDrill 460-XM"],
+MILL:["https://cdn11.bigcommerce.com/s-kvzeeygcn8/images/stencil/1280x1280/products/28579/131031/smt40917-sandvik-coromill-plura-20mm-carbide-endmill-5-flutes-rm-300re-24748-loc1884b__22210.1662992430.jpg?c=1","Foto reale Sandvik CoroMill Plura"],
+FACE:["https://i.ebayimg.com/images/g/~g4AAOSwUfdjoOwq/s-l960.jpg","Foto reale Sandvik CoroMill 245"],
+TURN_R12:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale inserto CNMG · raggio R1,2 · riferimento famiglia"],
+TURN_R08:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale inserto CNMG · raggio R0,8 · riferimento famiglia"],
+TURN_R04:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale inserto CNMG · raggio R0,4 · riferimento famiglia"],
+DRILL_INDEX:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta a inserti"],
+DRILL_MOD:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta modulare"],
+HOLDER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?set_id=880000500F","Foto reale portautensile"],
+ADAPTER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?set_id=880000500F","Foto reale mandrino/adattatore"]
+};
+function toolPhoto(x){
+ if(x && x.photoUrl){
+   const src=esc(x.photoUrl), alt=esc((x.maker||'')+' '+(x.code||''));
+   const sourceLabel=(x.photoSource==='manufacturer'||String(x.photoSource||'').toUpperCase().includes('ISCAR'))?'Foto ufficiale/collegata al produttore':'Foto del prodotto da distributore';
+   const link=x.drawingUrl?'<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>':(x.productUrl?'<a href="'+esc(x.productUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda prodotto ufficiale</a>':'');
+   return '<div><img class="recDraw" loading="lazy" src="'+src+'" alt="'+alt+'" onerror="this.style.display=\'none\'"><div class="photo-caption">'+sourceLabel+' · '+esc(x.maker||'')+'</div>'+link+'</div>';
+ }
+ if(x && x.productUrl){
+   return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Foto ufficiale non incorporata direttamente. <a href="'+esc(x.drawingUrl||x.productUrl)+'" target="_blank" rel="noopener" style="color:#185b8f;font-weight:800">Apri il disegno/codice ufficiale di '+esc(x.maker||'del produttore')+'</a>.</div>';
+ }
+ if(x && x.maker && x.maker!=='ISO' && x.maker!=='ISO / produttore'){
+   if(x.genericPhotoUrl){
+     return '<div><img class="recDraw" loading="lazy" src="'+esc(x.genericPhotoUrl)+'" alt="'+esc((x.genericPhotoNote||'Immagine generica della tipologia')+' · '+(x.maker||''))+'" onerror="this.style.display=\'none\'"><div class="photo-caption">Immagine generica della tipologia · '+esc(x.maker||'')+'</div></div>';
+   }
+   return '<div class="photo-caption" style="padding:12px;background:#fff;border:1px solid var(--line);border-radius:9px">📷 Nessuna immagine affidabile associata. Il riquadro resta vuoto per evitare foto di un altro utensile o produttore.</div>';
+ }
+ return toolDrawing(familyFor(x));
+}
+function toolDrawing(kind){
+ const p=photoMap[kind]||photoMap.HOLDER;
+ return '<div><img class="recDraw" loading="lazy" src="'+p[0]+'" alt="'+esc(p[1])+'" onerror="this.style.display=\'none\'"><div class="photo-caption">'+esc(p[1])+'</div></div>';
+}
+function familyFor(x){
+ const k=(x.code+' '+x.category+' '+x.geom).toUpperCase();
+ if(k.includes('FORATURA')){
+   if(k.includes('INSERTI')) return 'DRILL_INDEX';
+   if(k.includes('MODULARE')) return 'DRILL_MOD';
+   return 'DRILL';
+ }
+ if(k.includes('FRESATURA')) return 'MILL';
+ if(k.includes('SPIANATURA')) return 'FACE';
+ if(k.includes('CNMG')){
+   const r=insertRadius(x);
+   if(r===1.2) return 'TURN_R12';
+   if(r===0.8) return 'TURN_R08';
+   if(r===0.4) return 'TURN_R04';
+ }
+ for(const f of Object.keys(photoMap)) if(k.includes(f)) return f;
+ return 'HOLDER';
+}
+function renderRecommendations(target,filter){
+ const list=data.filter(x=>filter(x)).slice(0,4);
+ target.innerHTML=list.length?list.map(x=>'<div class="recCard">'+toolPhoto(x)+'<div class="recMeta"><b>'+esc(x.code)+'</b><br>'+esc(x.geom)+'<br><span>Materiale: '+esc(x.material)+'</span><div class="params"><b>Vc:</b> '+esc(x.vc)+' · <b>f/fz:</b> '+esc(x.f)+' · <b>ap:</b> '+esc(x.ap)+'</div><button type="button" data-code="'+esc(x.code)+'">Apri utensile</button></div></div>').join(''):'<div class="result">Nessun utensile del catalogo corrisponde ai criteri.</div>';
+ target.querySelectorAll('button[data-code]').forEach(b=>b.onclick=()=>{const x=data.find(v=>v.code===b.dataset.code);if(x)openTool(x)});
+}
+let manufacturers=[];
+async function loadManufacturers(){try{const r=await fetch("./manufacturers.json",{cache:"no-store"});manufacturers=await r.json();renderManufacturers()}catch(e){document.getElementById("manufacturerList").innerHTML="<div class=\"result\">Registro produttori non disponibile.</div>"}}
+function renderManufacturers(){const q=String(document.getElementById("manufacturerSearch")?.value||"").toLowerCase(),t=document.getElementById("manufacturerType")?.value||"";const list=(manufacturers.groups||[]).filter(x=>(!t||x.type===t)&&(!q||JSON.stringify(x).toLowerCase().includes(q)));document.getElementById("manufacturerList").innerHTML=list.map(x=>"<article class=\"problemCard\"><h3>"+esc(x.name)+"</h3><p><b>Tipo:</b> "+esc(x.type)+"</p><p><b>Assortimento:</b> "+esc(x.catalogScope||"—")+"</p><p><b>Disegni:</b> "+esc(x.drawings||"—")+"</p>"+(x.catalog?("<a href=\""+x.catalog+"\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block;margin-top:7px;color:#185b8f;font-weight:800\">📚 Apri catalogo / documentazione</a>"):"<p class=\"cause\">ISO: categoria standard separata, senza catalogo di un singolo produttore.</p>")+"</article>").join("")||"<div class=\"result\">Nessun produttore trovato.</div>"}
+document.getElementById("manufacturerSearch").oninput=renderManufacturers;document.getElementById("manufacturerType").onchange=renderManufacturers;loadManufacturers();
+const problems=[
+['Tornitura','Vibrazioni / chatter','Utensile troppo sporgente, pezzo poco rigido, ap o f troppo elevati, inserto non adatto.','Riduci la sporgenza, aumenta la rigidità del serraggio, riduci ap o f del 10–20%, prova un tagliente più positivo o una geometria anti-vibrante.'],
+['Tornitura','Superficie rugosa','Avanzamento elevato, inserto usurato, raggio punta inadatto o vibrazioni.','Controlla usura e serraggio; riduci f e stabilizza il sistema. Per finitura valuta un raggio punta adeguato alla profondità e alla rigidità.'],
+['Tornitura','Bava sul pezzo','Tagliente usurato, uscita utensile sfavorevole, f troppo basso/alto o materiale duttile.','Usa inserto affilato/positivo, correggi f e geometria, riduci il materiale residuo nell’uscita.'],
+['Tornitura','Usura sul fianco','Vc troppo alta, abrasione del materiale, raffreddamento insufficiente.','Riduci Vc, verifica grado/rivestimento e refrigerazione; controlla che il materiale corrisponda alla classe ISO prevista.'],
+['Tornitura','Usura a craterizzazione','Vc elevata e temperatura al tagliente, materiale che genera forte diffusione.','Riduci Vc, usa grado/rivestimento idoneo e migliora l’evacuazione del calore.'],
+['Tornitura','Intaglio / notch wear','Usura concentrata sulla linea di profondità di passata.','Varia leggermente ap, riduci Vc e usa una geometria/rivestimento più resistente alla tacca.'],
+['Tornitura','Inserto scheggiato','Taglio interrotto, urti, ap/f eccessivi, serraggio insufficiente.','Riduci ap/f, controlla battuta e portautensile, scegli un grado più tenace e verifica il percorso.'],
+['Tornitura','Inserto che si rompe subito','Sovraccarico, interferenza, quota utensile errata o materiale non previsto.','Ferma la macchina, verifica montaggio, altezza centro, verso di taglio e parametri prima di ripartire.'],
+['Tornitura','Truciolo lungo e incontrollato','F troppo basso o rompitruciolo non adatto al materiale.','Aumenta f entro il campo del rompitruciolo oppure scegli una geometria dedicata; verifica sicurezza e scarico truciolo.'],
+['Tornitura','Truciolo troppo corto / polvere','Taglio instabile o parametri troppo aggressivi.','Controlla inserto e tagliente; riduci il carico e verifica Vc/f con la tabella del produttore.'],
+['Tornitura','Diametro fuori quota','Usura utensile, compensazione errata, dilatazione termica o deflessione.','Misura a temperatura stabile, correggi l’usura/offset e riduci carico se il pezzo flette.'],
+['Tornitura','Conicità indesiderata','Pezzo non centrato, contropunta disallineata, flessione o utensile non in asse.','Controlla allineamento, serraggio e altezza utensile; riduci sporgenza e carico.'],
+['Tornitura','Finitura a onde','Vibrazione, gioco meccanico o variazione di carico.','Controlla mandrino/torretta, rigidità e cuscinetti; riduci il carico di taglio.'],
+['Tornitura','Materiale si incolla al tagliente','BUE su materiali duttili, Vc troppo bassa o geometria non adatta.','Aumenta Vc nel campo ammesso, usa tagliente affilato/positivo e refrigerazione appropriata.'],
+['Tornitura','Surriscaldamento pezzo','Vc troppo alta, asportazione eccessiva o refrigerazione insufficiente.','Riduci Vc/ap, migliora refrigerazione e controlla evacuazione truciolo.'],
+['Foratura','Punta che devia','Superficie inclinata, preforo non idoneo, punta usurata o serraggio debole.','Crea un invito stabile, controlla concentricità e usura, riduci lo sbalzo.'],
+['Foratura','Foro fuori centro','Punta non centrata, mandrino/portautensile con runout o superficie non preparata.','Controlla runout, portautensile e punta; usa una strategia di centratura quando necessaria.'],
+['Foratura','Foro sovradimensionato','Runout, punta usurata o geometria non corretta.','Misura il runout e sostituisci/controlla la punta; verifica il diametro nominale.'],
+['Foratura','Foro sottodimensionato','Usura, deflessione, materiale incrudito o parametri non adeguati.','Controlla usura e rigidità; verifica Vc e f del produttore per quel materiale.'],
+['Foratura','Punta si rompe','Truciolo bloccato, profondità eccessiva, refrigerazione insufficiente o carico elevato.','Interrompi, estrai il truciolo in sicurezza, controlla refrigerazione e riduci il carico secondo catalogo.'],
+['Foratura','Truciolo che intasa il foro','Evacuazione insufficiente o f non adatto.','Migliora refrigerazione, usa cicli/strategia di evacuazione appropriati e correggi f.'],
+['Foratura','Foro con rigature','Truciolo trascinato, punta usurata o evacuazione scarsa.','Controlla taglienti, refrigerazione e rimozione del truciolo.'],
+['Foratura','Surriscaldamento punta','Vc alta, refrigerazione insufficiente o truciolo che resta nel foro.','Riduci Vc, aumenta refrigerazione e migliora evacuazione.'],
+['Foratura','Foratura profonda instabile','Sbalzo elevato, evacuazione difficile e deviazione progressiva.','Riduci lo sbalzo, usa utensile specifico per profondità e ciclo consigliato dal produttore.'],
+['Foratura','Bava in uscita','Geometria e usura, materiale duttile o avanzamento non ottimizzato.','Riduci la bava con geometria appropriata, controllo dell’uscita e parametri corretti.'],
+['Foratura','Ingresso con colpo / vibrazione','Superficie non stabile o punta non adatta all’ingresso.','Riduci il carico iniziale, stabilizza la superficie e verifica il centraggio.'],
+['Fresatura','Vibrazioni durante la fresatura','Sbalzo utensile elevato, impegno radiale assiale sfavorevole o risonanza.','Riduci sbalzo, modifica ae/ap e velocità, usa passo/numero denti e geometria adatti alla rigidità.'],
+['Fresatura','Fresa che si rompe','Sovraccarico, profondità eccessiva, ingresso errato o serraggio insufficiente.','Controlla serraggio e percorso; riduci ae/ap e carico per dente, verificando i limiti del produttore.'],
+['Fresatura','Usura rapida dei denti','Vc alta, refrigerazione o evacuazione inadeguata, grado non adatto.','Riduci Vc, migliora evacuazione e scegli grado/rivestimento coerente con il materiale.'],
+['Fresatura','Tagliente scheggiato','Entrata brusca, interruzioni, vibrazioni o materiale duro.','Usa ingresso in rampa/arco quando previsto, riduci carico e valuta una geometria più tenace.'],
+['Fresatura','Superficie con righe','Runout, dente usurato, passo/numero denti non adatto o vibrazione.','Controlla concentricità e usura; stabilizza il sistema e verifica ae/ap.'],
+['Fresatura','Fondo non uniforme','Fresa non in quota, flessione o geometria non adatta.','Controlla planarità, lunghezza utensile e deflessione; verifica la strategia di passata.'],
+['Fresatura','Parete fuori misura','Deflessione, runout, usura o compensazione utensile errata.','Misura il runout, correggi offset e riduci il carico laterale.'],
+['Fresatura','Bava sulle pareti','Tagliente usurato, direzione di taglio eccessivamente aggressiva o materiale duttile.','Controlla tagliente, direzione/strategia e parametri; considera una passata di finitura.'],
+['Fresatura','Trucioli che ricircolano','Refrigerante/aria insufficienti o tasca troppo chiusa.','Migliora il flusso di refrigerante/aria e la strategia di evacuazione; evita il re-taglio dei trucioli.'],
+['Fresatura','Carico mandrino troppo alto','Vf, ae/ap o Vc non coerenti con utensile e macchina.','Riduci il carico modificando una variabile alla volta e controlla la potenza/coppia disponibile.'],
+['Fresatura','Mandrino surriscaldato','Regime elevato, sbilanciamento, carico o serraggio problematici.','Controlla bilanciamento, portautensile e carico; verifica il limite di giri del mandrino.'],
+['Fresatura','Runout elevato','Portautensile, cono, pinza o utensile sporchi/danneggiati.','Pulisci interfacce, controlla cono e pinza, misura il runout e sostituisci i componenti danneggiati.'],
+['Generale','Utensile dura troppo poco','Parametri troppo aggressivi, grado errato, instabilità o refrigerazione inadeguata.','Confronta materiale e grado, riduci Vc o carico e verifica rigidità/serraggio.'],
+['Generale','Utensile dura troppo','Taglio molto conservativo o utensile sovradimensionato rispetto al lavoro.','Verifica il campo consigliato del produttore e aumenta gradualmente il carico solo se macchina e fissaggio lo consentono.'],
+['Generale','Macchina va in sovraccarico','Carico di taglio eccessivo, f/ap/ae troppo alti o utensile non adatto.','Riduci il carico, controlla potenza/coppia e distribuisci l’asportazione in più passate.'],
+['Generale','Rumore anomalo','Vibrazione, componente allentato, utensile danneggiato o contatto indesiderato.','Ferma e controlla in sicurezza serraggi, utensile, pezzo e percorso prima di continuare.'],
+['Generale','Quota cambia durante la serie','Usura, temperatura, accumulo truciolo o variazione del materiale.','Stabilisci una routine di controllo dimensionale e compensazione usura; monitora temperatura e utensile.'],
+['Generale','Refrigerante non arriva al tagliente','Ugello mal posizionato, pressione/portata insufficienti o percorso ostruito.','Ripristina il flusso sul punto di taglio e pulisci il circuito/ugello secondo la procedura della macchina.'],
+['Generale','Truciolo pericoloso','Forma lunga, evacuazione scarsa o parametri non corretti.','Non rimuoverlo a mano durante il ciclo; ferma la macchina secondo procedura e correggi rompitruciolo, f e strategia.'],
+['Generale','Pezzo si muove nel serraggio','Forza o superficie di appoggio insufficienti, staffaggio errato.','Ferma la lavorazione, ripristina il serraggio e verifica battute/appoggi prima di ripartire.'],
+['Generale','Utensile non è in asse','Montaggio errato, portautensile danneggiato o offset errato.','Controlla altezza centro/orientamento e serraggio; verifica il portautensile.'],
+['Generale','Parametri non corrispondono alla tabella','La tabella appartiene a un altro grado, materiale, diametro o condizione di lavoro.','Usa sempre la scheda del codice/grado esatto come riferimento finale; tratta i valori dell’app come punto di partenza.']
+];
+function renderProblems(){
+ const q=String(document.getElementById('problemSearch').value||'').toLowerCase(),a=document.getElementById('problemArea').value;
+ const list=problems.filter(p=>(!a||p[0]===a)&&(!q||p.join(' ').toLowerCase().includes(q)));
+ document.getElementById('problemList').innerHTML=list.map(p=>'<article class="problemCard"><h3>'+esc(p[0])+' · '+esc(p[1])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(p[2])+'</p><div class="solution"><b>Soluzione:</b> '+esc(p[3])+'</div></article>').join('')||'<div class="result">Nessun problema trovato.</div>';
+}
+document.getElementById('problemSearch').oninput=renderProblems;document.getElementById('problemArea').oninput=renderProblems;renderProblems();
+
+const toolModal=document.getElementById("toolModal");
+const closeModal=document.getElementById("closeModal");
+const modalBody=document.getElementById("modalBody");
+function openTool(x){
+ const kind=familyFor(x), p=photoMap[kind]||photoMap.HOLDER;
+ let body='<h2>'+esc(x.code)+'</h2><p><b>Fornitore:</b> '+esc(x.maker||'—')+'</p><p><b>Categoria:</b> '+esc(x.category)+'</p><p>'+esc(x.geom)+'</p>'+toolPhoto(x)+'<p><b>Materiale:</b> '+esc(x.material)+'</p><div class="formulaBox">Vc: '+esc(x.vc)+' m/min · f/fz: '+esc(x.f)+' · ap: '+esc(x.ap)+'</div><p class="photo-caption">'+esc(x.photoNote||x.photoSource||'Fonte fotografica non specificata')+'. Il codice preciso, grado e quote devono essere verificati sulla scheda del produttore.</p>';
+ modalBody.innerHTML=body;toolModal.hidden=false;
+}
+closeModal.onclick=()=>toolModal.hidden=true;toolModal.onclick=e=>{if(e.target===toolModal)toolModal.hidden=true};document.addEventListener("keydown",e=>{if(e.key==="Escape")toolModal.hidden=true});
+</script>
+</body></html>
