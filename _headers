@@ -1,0 +1,10 @@
+/
+  Cache-Control: no-cache, no-store, must-revalidate
+/index.html
+  Cache-Control: no-cache, no-store, must-revalidate
+/catalog.json
+  Cache-Control: no-cache, no-store, must-revalidate
+/update-status.json
+  Cache-Control: no-cache, no-store, must-revalidate
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
