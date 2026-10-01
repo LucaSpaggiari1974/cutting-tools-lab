@@ -79,9 +79,55 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 
 
 </section>
-<section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura</h2><p class="small">Metodo: dalla tabella prendi Vc, f e ap; inserisci il diametro Dm del pezzo. Calcola n e poi Vf e Q. Q è in cm³/min. Le formule MRR sono quelle indicate da ISCAR per la tornitura. citeturn0search16</p><div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>n = (Vc × 1000) / (3,14 × Dm)<br>Vc = (3,14 × Dm × n) / 1000<br>Vf = f × n<br>Q = Vc × ap × f</div><div class="result" style="margin-top:10px;font-weight:600">Usa dalla tabella: Dm = diametro, Vc = velocità di taglio, f = avanzamento, ap = profondità di passata.</div></div></section>
-<section id="foratura" class="page"><div class="calc"><h2>🕳️ Foratura</h2><p class="small">Metodo: dalla tabella prendi Vc e f; inserisci Dc. Calcola n, poi Vf e Q. La formula Q vale per la punta tipica a 2 taglienti; ISCAR riporta anche la forma generale con ap e fz. citeturn0search16</p><div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>n = (Vc × 1000) / (3,14 × Dc)<br>Vc = (3,14 × Dc × n) / 1000<br>Vf = f × n<br>Q = 3,14 × Dc² × Vf / 4</div><div class="result" style="margin-top:10px;font-weight:600">Usa dalla tabella: Dc = diametro punta, Vc = velocità di taglio, f = avanzamento per giro.</div></div></section>
-<section id="fresatura" class="page"><div class="calc"><h2>⚙️ Fresatura</h2><p class="small">Metodo: dalla tabella prendi Vc, fz, ap e ae; inserisci D e il numero di denti z. Calcola n, poi Vf e Q. Q è in cm³/min. citeturn0search16</p><div class="formulaBox"><b>FORMULE ESSENZIALI</b><br>n = (Vc × 1000) / (3,14 × D)<br>Vc = (3,14 × D × n) / 1000<br>Vf = fz × z × n<br>Q = ap × ae × Vf / 1000</div><div class="result" style="margin-top:10px;font-weight:600">Usa dalla tabella: D = diametro fresa, Vc = velocità di taglio, fz = avanzamento per dente, z = denti, ap = profondità, ae = impegno radiale.</div></div></section>
+<section id="tornitura" class="page">
+<div class="calc"><h2>🔩 Tornitura · calcolatore completo</h2>
+<p>Inserisci i valori disponibili. I risultati si aggiornano automaticamente. Usa <b>π = 3,14</b>.</p>
+<div class="calcgrid">
+<label>Diametro Dm (mm)<input id="tDm" type="number" step="any" placeholder="es. 50"></label>
+<label>Velocità Vc (m/min)<input id="tVc" type="number" step="any" placeholder="es. 180"></label>
+<label>Giri n (rpm)<input id="tN" type="number" step="any" placeholder="es. 1146"></label>
+<label>Avanzamento fn (mm/giro)<input id="tFn" type="number" step="any" placeholder="es. 0,20"></label>
+<label>Profondità ap (mm)<input id="tAp" type="number" step="any" placeholder="es. 2"></label>
+<label>Lunghezza lm (mm)<input id="tLm" type="number" step="any" placeholder="es. 100"></label>
+<label>Forza specifica kc (N/mm²)<input id="tKc" type="number" step="any" placeholder="es. 1800"></label>
+<label>Angolo KAPR (°)<input id="tKapr" type="number" step="any" placeholder="es. 95"></label>
+</div>
+<div class="formulaBox">Vc = 3,14 × Dm × n / 1000<br>n = Vc × 1000 / (3,14 × Dm)<br>Vf = fn × n<br>Q = Vc × ap × fn<br>Tc = lm / (fn × n)<br>Pc = Vc × ap × fn × kc / 60000<br>hm = fn × sin(KAPR)<br>hex = fn / sin(KAPR)</div>
+<div id="tResults" class="result">Inserisci almeno i dati necessari per calcolare.</div>
+</div></section>
+<section id="foratura" class="page">
+<div class="calc"><h2>🕳️ Foratura · calcolatore completo</h2>
+<p>Calcolo automatico di velocità, giri, avanzamento, volume asportato, tempo e potenza. Per una punta a 2 taglienti usa f come avanzamento per giro.</p>
+<div class="calcgrid">
+<label>Diametro punta Dc (mm)<input id="dDc" type="number" step="any" placeholder="es. 10"></label>
+<label>Velocità Vc (m/min)<input id="dVc" type="number" step="any" placeholder="es. 80"></label>
+<label>Giri n (rpm)<input id="dN" type="number" step="any" placeholder="es. 2548"></label>
+<label>Avanzamento f (mm/giro)<input id="dF" type="number" step="any" placeholder="es. 0,12"></label>
+<label>Profondità foro L (mm)<input id="dL" type="number" step="any" placeholder="es. 40"></label>
+<label>Numero taglienti z<input id="dZ" type="number" step="1" placeholder="2"></label>
+<label>Forza specifica kc (N/mm²)<input id="dKc" type="number" step="any" placeholder="es. 1800"></label>
+<label>Tempo extra ciclo (min)<input id="dExtra" type="number" step="any" placeholder="0"></label>
+</div>
+<div class="formulaBox">Vc = 3,14 × Dc × n / 1000<br>n = Vc × 1000 / (3,14 × Dc)<br>Vf = f × n<br>Q = 3,14 × Dc² × Vf / 4000<br>T = L / Vf<br>fz = f / z</div>
+<div id="dResults" class="result">Inserisci almeno i dati necessari per calcolare.</div>
+</div></section>
+<section id="fresatura" class="page">
+<div class="calc"><h2>⚙️ Fresatura · calcolatore completo</h2>
+<p>Inserisci diametro, Vc, denti, fz, ap e ae. I risultati vengono calcolati in automatico.</p>
+<div class="calcgrid">
+<label>Diametro fresa D (mm)<input id="mD" type="number" step="any" placeholder="es. 20"></label>
+<label>Velocità Vc (m/min)<input id="mVc" type="number" step="any" placeholder="es. 120"></label>
+<label>Giri n (rpm)<input id="mN" type="number" step="any" placeholder="es. 1911"></label>
+<label>Avanzamento per dente fz (mm/dente)<input id="mFz" type="number" step="any" placeholder="es. 0,08"></label>
+<label>Avanzamento per giro fn (mm/giro)<input id="mFn" type="number" step="any" placeholder="es. 0,32"></label>
+<label>Numero denti z<input id="mZ" type="number" step="1" placeholder="4"></label>
+<label>Profondità ap (mm)<input id="mAp" type="number" step="any" placeholder="es. 2"></label>
+<label>Impegno radiale ae (mm)<input id="mAe" type="number" step="any" placeholder="es. 8"></label>
+<label>Forza specifica kc (N/mm²)<input id="mKc" type="number" step="any" placeholder="es. 1800"></label>
+</div>
+<div class="formulaBox">Vc = 3,14 × D × n / 1000<br>n = Vc × 1000 / (3,14 × D)<br>Vf = fz × n × z<br>fz = Vf / (n × z)<br>fn = Vf / n<br>Q = ap × ae × Vf / 1000<br>Pc = ae × ap × Vf × kc / 60000000<br>Mc = Pc × 30000 / (3,14 × n)</div>
+<div id="mResults" class="result">Inserisci almeno i dati necessari per calcolare.</div>
+</div></section>
 <section id="produttori" class="page"><div class="calc"><h2>🏭 Produttori, cataloghi e disegni</h2><p>Assortimento separato per produttore. <b>Sandvik Coromant</b>, <b>ISCAR</b> e <b>ISO</b> sono tre voci distinte. I cataloghi e i disegni restano collegati alle fonti ufficiali del produttore.</p><div class="searchgrid"><input id="manufacturerSearch" placeholder="Cerca produttore, catalogo o tecnologia…"><select id="manufacturerType"><option value="">Tutti</option><option value="Produttore">Produttori</option><option value="Standard / assortimento generico">ISO / standard</option></select></div><div id="manufacturerList" class="problemList"></div></div></section>
 <section id="problemi" class="page">
 <div class="calc"><h2>🛠️ Problemi di lavorazione · diagnosi e soluzioni</h2>
@@ -265,17 +311,26 @@ function familySvg(kind,label){
  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><rect width="300" height="300" fill="#f8fbfd"/>'+shape+'<text x="150" y="292" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#123a5a">'+String(label||kind).replace(/[&<>]/g,'')+'</text></svg>';
  return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
 }
+function realReferenceFor(x){
+ const k=(String(x?.code||'')+' '+String(x?.category||'')+' '+String(x?.geom||'')).toUpperCase();
+ const families=['CNMG','DNMG','SNMG','WNMG','VNMG','VBMT','DCMT','CCMT','TCMT'];
+ for(const f of families) if(k.includes(f)&&photoMap[f]) return {url:photoMap[f][0],note:'Foto reale di riferimento geometrico · altro produttore'};
+ if(k.includes('FORATURA')&&photoMap.DRILL) return {url:photoMap.DRILL[0],note:'Foto reale di riferimento · altro produttore'};
+ if(k.includes('FRESATURA')&&photoMap.MILL) return {url:photoMap.MILL[0],note:'Foto reale di riferimento · altro produttore'};
+ return null;
+}
 function toolPhoto(x){
  const exact=x&&x.photoUrl?String(x.photoUrl):"";
  const official=x&&x.productUrl?String(x.productUrl):"";
- const src=exact||(official?"/api/product-image?url="+encodeURIComponent(official):"");
+ const ref=realReferenceFor(x);
+ const src=exact||(official?"/api/product-image?url="+encodeURIComponent(official):"")||(ref?ref.url:"");
  const alt=esc((x&&x.maker||"")+" "+(x&&x.code||""));
- const sourceLabel=exact?"Foto reale collegata al produttore":(official?"Foto reale dal catalogo/scheda ufficiale":"Foto reale non disponibile");
+ const sourceLabel=exact?"Foto reale collegata al produttore":(official?"Foto reale dal catalogo/scheda ufficiale":(ref?ref.note:"Foto reale non disponibile"));
  const link=x&&x.drawingUrl
    ? '<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>'
    : (official?'<a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda ufficiale del produttore</a>':'');
  if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Foto reale non disponibile nel catalogo locale.</div>'+link+'</div>';
- return '<div class="photoWrap"><img class="recDraw" loading="eager" src="'+esc(src)+'" alt="'+alt+'" onerror="this.style.display=\'none\';this.nextElementSibling.textContent=\'Foto ufficiale non raggiungibile: aprire la scheda del produttore.\';"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
+ return '<div class="photoWrap"><img class="recDraw" loading="eager" src="'+esc(src)+'" alt="'+alt+'" onerror="this.style.display=\'none\';this.nextElementSibling.textContent=\'Foto reale non raggiungibile: aprire la scheda del produttore.\';"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
 }
 function toolDrawing(kind){
  const p=photoMap[kind]||photoMap.HOLDER;
@@ -365,6 +420,39 @@ function renderProblems(){
  document.getElementById('problemList').innerHTML=list.map(p=>'<article class="problemCard"><h3>'+esc(p[0])+' · '+esc(p[1])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(p[2])+'</p><div class="solution"><b>Soluzione:</b> '+esc(p[3])+'</div></article>').join('')||'<div class="result">Nessun problema trovato.</div>';
 }
 document.getElementById('problemSearch').oninput=renderProblems;document.getElementById('problemArea').oninput=renderProblems;renderProblems();
+
+function num(id){const e=document.getElementById(id);const v=parseFloat(e?.value);return Number.isFinite(v)?v:null}
+function setVal(id,v){if(v!=null&&Number.isFinite(v)){const e=document.getElementById(id);if(e)e.value=(Math.round(v*100000)/100000).toString()}}
+function calcTurning(){
+ let D=num('tDm'),Vc=num('tVc'),n=num('tN'),f=num('tFn'),ap=num('tAp'),L=num('tLm'),kc=num('tKc'),ka=num('tKapr');
+ if(Vc==null&&D!=null&&n!=null) Vc=3.14*D*n/1000;
+ if(n==null&&Vc!=null&&D!=null&&D>0) n=Vc*1000/(3.14*D);
+ if(Vc!=null&&D!=null&&n!=null){setVal('tVc',Vc);setVal('tN',n)}
+ const vf=f!=null&&n!=null?f*n:null,Q=Vc!=null&&ap!=null&&f!=null?Vc*ap*f:null,T=L!=null&&f!=null&&n!=null&&f*n>0?L/(f*n):null,P=Vc!=null&&ap!=null&&f!=null&&kc!=null?Vc*ap*f*kc/60000:null;
+ const s=ka!=null?Math.sin(ka*Math.PI/180):null,hm=f!=null&&s!=null?f*s:null,hex=f!=null&&s!=null&&s!==0?f/s:null;
+ document.getElementById('tResults').innerHTML=[['Vc','m/min',Vc],['n','rpm',n],['Vf','mm/min',vf],['Q','cm³/min',Q],['Tc','min',T],['Pc','kW',P],['hm','mm',hm],['hex','mm',hex]].filter(x=>x[2]!=null).map(x=>'<b>'+x[0]+'</b> = '+x[2].toFixed(3)+' '+x[1]).join(' · ')||'Inserisci almeno i dati necessari per calcolare.';
+}
+function calcDrilling(){
+ let D=num('dDc'),Vc=num('dVc'),n=num('dN'),f=num('dF'),L=num('dL'),z=num('dZ'),kc=num('dKc'),extra=num('dExtra')||0;
+ if(Vc==null&&D!=null&&n!=null) Vc=3.14*D*n/1000;
+ if(n==null&&Vc!=null&&D!=null&&D>0) n=Vc*1000/(3.14*D);
+ if(Vc!=null&&D!=null&&n!=null){setVal('dVc',Vc);setVal('dN',n)}
+ const vf=f!=null&&n!=null?f*n:null,Q=D!=null&&vf!=null?3.14*D*D*vf/4000:null,T=L!=null&&vf!=null&&vf>0?L/vf+extra:null,fz=f!=null&&z!=null&&z>0?f/z:null,P=Vc!=null&&D!=null&&f!=null&&kc!=null?Vc*(3.14*D*D/4)*f*kc/60000:null;
+ document.getElementById('dResults').innerHTML=[['Vc','m/min',Vc],['n','rpm',n],['Vf','mm/min',vf],['Q','cm³/min',Q],['T','min',T],['fz','mm/dente',fz],['Pc','kW',P]].filter(x=>x[2]!=null).map(x=>'<b>'+x[0]+'</b> = '+x[2].toFixed(3)+' '+x[1]).join(' · ')||'Inserisci almeno i dati necessari per calcolare.';
+}
+function calcMilling(){
+ let D=num('mD'),Vc=num('mVc'),n=num('mN'),fz=num('mFz'),fn=num('mFn'),z=num('mZ'),ap=num('mAp'),ae=num('mAe'),kc=num('mKc');
+ if(Vc==null&&D!=null&&n!=null) Vc=3.14*D*n/1000;
+ if(n==null&&Vc!=null&&D!=null&&D>0) n=Vc*1000/(3.14*D);
+ if(fz!=null&&n!=null&&z!=null) fn=fz*z;
+ if(fn!=null&&n!=null&&z!=null&&z>0) fz=fn/z;
+ if(Vc!=null&&D!=null&&n!=null){setVal('mVc',Vc);setVal('mN',n)}
+ if(fn!=null) setVal('mFn',fn); if(fz!=null)setVal('mFz',fz);
+ const vf=fz!=null&&n!=null&&z!=null?fz*n*z:null,Q=ap!=null&&ae!=null&&vf!=null?ap*ae*vf/1000:null,P=ae!=null&&ap!=null&&vf!=null&&kc!=null?ae*ap*vf*kc/60000000:null,M=P!=null&&n!=null&&n>0?P*30000/(3.14*n):null;
+ document.getElementById('mResults').innerHTML=[['Vc','m/min',Vc],['n','rpm',n],['fz','mm/dente',fz],['fn','mm/giro',fn],['Vf','mm/min',vf],['Q','cm³/min',Q],['Pc','kW',P],['Mc','Nm',M]].filter(x=>x[2]!=null).map(x=>'<b>'+x[0]+'</b> = '+x[2].toFixed(3)+' '+x[1]).join(' · ')||'Inserisci almeno i dati necessari per calcolare.';
+}
+['tDm','tVc','tN','tFn','tAp','tLm','tKc','tKapr','dDc','dVc','dN','dF','dL','dZ','dKc','dExtra','mD','mVc','mN','mFz','mFn','mZ','mAp','mAe','mKc'].forEach(id=>{const e=document.getElementById(id);if(e)e.addEventListener('input',()=>{calcTurning();calcDrilling();calcMilling()})});
+calcTurning();calcDrilling();calcMilling();
 
 const toolModal=document.getElementById("toolModal");
 const closeModal=document.getElementById("closeModal");
