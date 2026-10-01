@@ -137,13 +137,19 @@ function render(){
  rows.innerHTML=a.map((x,i)=>'<tr class="data" data-i="'+data.indexOf(x)+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code">'+esc(x.code)+'</td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>').join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
  document.getElementById("status").textContent=a.length+" righe · tocca una riga per caricare i dati nella barra dei parametri";
  rows.querySelectorAll("tr.data").forEach(tr=>{
- tr.onclick=()=>select(data[+tr.dataset.i]);
+ tr.onclick=()=>{const x=data[+tr.dataset.i];select(x);openTool(x)};
  const code=tr.querySelector(".code");
  if(code)code.onclick=e=>{e.stopPropagation();openTool(data[+tr.dataset.i])};
 });
 }
 function select(x){selected=x;document.getElementById("fc").textContent=x.code;document.getElementById("fm").textContent=x.material;document.getElementById("fv").textContent=x.vc;document.getElementById("ff").textContent=x.f;document.getElementById("fa").textContent=x.ap}
 [q,cat,mat,maker].forEach(e=>e.addEventListener("input",render));
+document.querySelectorAll(".navtab").forEach(btn=>btn.addEventListener("click",()=>{
+  const page=btn.dataset.page;
+  document.querySelectorAll(".navtab").forEach(b=>b.classList.toggle("active",b===btn));
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===page));
+  window.scrollTo({top:0,behavior:"smooth"});
+}));
 let currentCatalogUpdatedAt=null;
 async function loadCatalog(options={}){
  const manual=options.manual===true;
