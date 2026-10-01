@@ -1,8 +1,8 @@
-name: Cutting Tools LAB · aggiornamento quotidiano
+name: Cutting Tools LAB · aggiornamento automatico
 
 on:
   schedule:
-    - cron: "17 3 * * *"
+    - cron: "17 * * * *"
       timezone: "Europe/Rome"
   workflow_dispatch:
 
@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: cutting-tools-daily-update
+  group: cutting-tools-automatic-update
   cancel-in-progress: false
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Aggiorna catalogo e foto dai produttori ufficiali
+      - name: Cerca aggiornamenti dai produttori ufficiali
         run: python scripts/daily_update.py
 
       - name: Backup Gestione utensili interni (metadati)
@@ -41,14 +41,14 @@ jobs:
           json.dump(src,open("backups/special-tools-latest.json","w",encoding="utf-8"),ensure_ascii=False,indent=2)
           PY
 
-      - name: Commit automatico se necessario
+      - name: Pubblica risultati e orario dell'ultimo controllo
         run: |
           git config user.name "Cutting Tools LAB Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add catalog.json update-status.json backups/catalog-latest.json backups/special-tools-latest.json
           if git diff --cached --quiet; then
-            echo "Nessuna modifica da pubblicare."
+            echo "Nessuna modifica al catalogo."
           else
-            git commit -m "chore: aggiornamento quotidiano catalogo produttori"
+            git commit -m "chore: controllo automatico catalogo produttori"
             git push
           fi
