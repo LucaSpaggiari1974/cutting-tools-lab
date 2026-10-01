@@ -149,7 +149,7 @@ async function loadCatalog(options={}){
  const manual=options.manual===true;
  try{
   if(manual) showRefreshProgress(8,"Connessione al database…");
-  const r=await fetch("./catalog.json?cb="+Date.now(),{cache:"no-store",credentials:"same-origin"});
+  const r=await fetch("./catalog.json?v="+Date.now(),{cache:"no-store"});
   if(!r.ok)throw new Error("HTTP "+r.status);
   const pack=await r.json();
   if(manual) showRefreshProgress(48,"Download dei dati completato…");
@@ -162,7 +162,7 @@ async function loadCatalog(options={}){
   const nowUpdate=new Date();
   let checkTime=nowUpdate;
   try{
-   const sr=await fetch("./update-status.json?cb="+Date.now(),{cache:"no-store",credentials:"same-origin"});
+   const sr=await fetch("./update-status.json?ts="+Date.now(),{cache:"no-store"});
    if(sr.ok){
     const ss=await sr.json();
     if(ss.updatedAt) checkTime=new Date(ss.updatedAt);
@@ -201,7 +201,7 @@ async function manualRefresh(message="Avvio aggiornamento…"){
 async function checkForDatabaseUpdate(){
  if(refreshRunning)return;
  try{
-  const r=await fetch("./catalog.json?check="+Date.now(),{cache:"no-store",credentials:"same-origin"});
+  const r=await fetch("./catalog.json?check="+Date.now(),{cache:"no-store"});
   if(!r.ok)return;
   const pack=await r.json();
   const remote=pack.updatedAt||"";
@@ -211,11 +211,11 @@ async function checkForDatabaseUpdate(){
  }catch(_){}
 }
 loadCatalog();
-setInterval(checkForDatabaseUpdate,2*60*1000);
+setInterval(checkForDatabaseUpdate,60*1000);
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkForDatabaseUpdate()});
 document.getElementById("refreshData").onclick=()=>manualRefresh();
 
-if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js?build=20261001").then(reg=>{reg.update();setInterval(()=>reg.update(),5*60*1000)}).catch(()=>{});}
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").then(reg=>{reg.update();setInterval(()=>reg.update(),60*1000)}).catch(()=>{});}
 let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.getElementById("installApp").hidden=false});document.getElementById("installApp").onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById("installApp").hidden=true};
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
@@ -277,12 +277,12 @@ function toolPhoto(x){
  const link=x&&x.drawingUrl
    ? '<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>'
    : (official?'<a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda ufficiale del produttore</a>':'');
- return '<div class="photoWrap"><img class="recDraw" loading="eager" referrerpolicy="no-referrer" decoding="async" src="'+esc(src)+'" alt="'+alt+'" data-local-fallback="'+esc(localFallback)+'" onerror="if(!this.dataset.failed){this.dataset.failed=\'1\';this.src=this.dataset.localFallback;this.nextElementSibling.textContent=\'Anteprima grafica di riferimento · immagine esterna non raggiungibile\';}else{this.style.display=\'none\';}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+' '+exactNote+'</div>'+link+'</div>';
+ return '<div class="photoWrap"><img class="recDraw" loading="eager" src="'+esc(src)+'" alt="'+alt+'" data-local-fallback="'+esc(localFallback)+'" onerror="if(!this.dataset.failed){this.dataset.failed=\'1\';this.src=this.dataset.localFallback;this.nextElementSibling.textContent=\'Anteprima grafica di riferimento · immagine esterna non raggiungibile\';}else{this.style.display=\'none\';}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+' '+exactNote+'</div>'+link+'</div>';
 }
 function toolDrawing(kind){
  const p=photoMap[kind]||photoMap.HOLDER;
  const local=familySvg(kind,kind);
- return '<div><img class="recDraw" loading="lazy" referrerpolicy="no-referrer" decoding="async" src="'+esc(p[0])+'" alt="'+esc(p[1])+'" data-local-fallback="'+esc(local)+'" onerror="if(!this.dataset.failed){this.dataset.failed=\'1\';this.src=this.dataset.localFallback;this.nextElementSibling.textContent=\'Anteprima grafica di riferimento · immagine esterna non raggiungibile\';}else{this.style.display=\'none\';}"><div class="photo-caption">'+esc(p[1])+'</div></div>';
+ return '<div><img class="recDraw" loading="lazy" src="'+esc(p[0])+'" alt="'+esc(p[1])+'" data-local-fallback="'+esc(local)+'" onerror="if(!this.dataset.failed){this.dataset.failed=\'1\';this.src=this.dataset.localFallback;this.nextElementSibling.textContent=\'Anteprima grafica di riferimento · immagine esterna non raggiungibile\';}else{this.style.display=\'none\';}"><div class="photo-caption">'+esc(p[1])+'</div></div>';
 }
 function familyFor(x){
  const k=(x.code+' '+x.category+' '+x.geom).toUpperCase();
