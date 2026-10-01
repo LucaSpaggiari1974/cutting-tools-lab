@@ -328,7 +328,7 @@ let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDe
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
 const photoMap={
-CNMG:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale Sandvik Coromant CNMG"],
+CNMG:["https://ssl.ingersoll-imc.com/resources/product-images/cnmg/cnmg_Enlarge.jpg","Foto reale CNMG · riferimento ufficiale stabile"],
 ISCAR_CNMG:["https://media-pim.rubix.com/medias/products/05/75/8910070677505/image1-300Wx300H.jpeg.jpeg?v=230603194541+0100","Foto reale di inserto CNMG · riferimento fotografico reale · non disegno"],
 INGERSOLL_CNMG:["https://ssl.ingersoll-imc.com/resources/product-images/cnmg/cnmg_Enlarge.jpg","Foto reale Ingersoll CNMG · famiglia ufficiale"],
 DNMG:["https://static1.industrybuying.com/products/tooling-and-cutting/inserts/turning-inserts/TOO.TUR.332971358_1747837688878.webp","Foto reale DNMG"],
