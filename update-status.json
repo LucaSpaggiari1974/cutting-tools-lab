@@ -1,16 +1,16 @@
 {
-  "updatedAt": "2026-10-01T19:28:37Z",
+  "updatedAt": "2026-10-01T20:30:31Z",
   "run": "daily",
-  "changed": true,
+  "changed": false,
   "pagesChecked": 474,
   "pagesFailed": 8,
-  "photosUpdated": 22,
+  "photosUpdated": 0,
   "newProducts": 0,
   "catalogItems": 555,
   "backup": "backups/catalog-latest.json",
   "sourcesChecked": 21,
   "note": "Gli aggiornamenti automatici usano solo dati rilevati da pagine/cataloghi ufficiali. Parametri di taglio non verificati non vengono inventati.",
   "errors": [
-    "HTTP Error 404: "
+    "<urlopen error [Errno 111] Connection refused>"
   ]
 }
