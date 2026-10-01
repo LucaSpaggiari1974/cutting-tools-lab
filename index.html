@@ -329,8 +329,8 @@ document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[s
 
 const photoMap={
 CNMG:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale Sandvik Coromant CNMG"],
-ISCAR_CNMG:["https://i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale ISCAR CNMG · riferimento reale della famiglia"],
-INGERSOLL_CNMG:["https://i.ebayimg.com/images/g/Aj4AAOSwnFJfunQU/s-l1200.jpg","Foto reale Ingersoll CNMG · riferimento reale della famiglia"],
+ISCAR_CNMG:["https://media-pim.rubix.com/medias/products/05/75/8910070677505/image1-300Wx300H.jpeg.jpeg?v=230603194541+0100","Foto reale di inserto CNMG · riferimento fotografico reale · non disegno"],
+INGERSOLL_CNMG:["https://ssl.ingersoll-imc.com/resources/product-images/cnmg/cnmg_Enlarge.jpg","Foto reale Ingersoll CNMG · famiglia ufficiale"],
 DNMG:["https://static1.industrybuying.com/products/tooling-and-cutting/inserts/turning-inserts/TOO.TUR.332971358_1747837688878.webp","Foto reale DNMG"],
 SNMG:["https://c.cdnmp.net/713071415/p/m/0/placuta-strunjire-inveio-sandvik-coromant-snmg-15-06-12-pm-4425~5110.jpg","Foto reale SNMG"],
 WNMG:["https://images.nexusapp.co/assets/f0/82/32/391385201.jpg","Foto reale WNMG"],
@@ -358,7 +358,12 @@ function realReferenceFor(x){
  const k=(String(x?.code||'')+' '+String(x?.category||'')+' '+String(x?.geom||'')).toUpperCase();
  const maker=String(x?.maker||'').toUpperCase();
  if(maker.includes('ISCAR') && k.includes('CNMG')) return {url:photoMap.ISCAR_CNMG[0],note:photoMap.ISCAR_CNMG[1]};
- if(maker.includes('INGERSOLL') && k.includes('CNMG')) return {url:photoMap.INGERSOLL_CNMG[0],note:photoMap.INGERSOLL_CNMG[1]};
+ if(maker.includes('INGERSOLL')){
+   if(k.includes('SNMG433MGP')) return {url:"https://ssl.ingersoll-imc.com/resources/product-images/snmg432mgp/snmg432mgp_Enlarge.jpg",note:"Foto reale Ingersoll · riferimento ufficiale della serie SNMG MGP"};
+   if(k.includes('VNMG332MT')) return {url:"https://ssl.ingersoll-imc.com/resources/product-images/vnmg_mt/vnmg_mt_Enlarge.jpg",note:"Foto reale Ingersoll · riferimento ufficiale della serie VNMG MT"};
+   if(k.includes('DNMG')) return {url:"https://ssl.ingersoll-imc.com/resources/product-images/dnmg/dnmg_Enlarge.jpg",note:"Foto reale Ingersoll · riferimento ufficiale della serie DNMG"};
+   if(k.includes('CNMG')) return {url:photoMap.INGERSOLL_CNMG[0],note:photoMap.INGERSOLL_CNMG[1]};
+ }
  const refs={
   CNMG:'CNMG',DNMG:'DNMG',SNMG:'SNMG',WNMG:'WNMG',VNMG:'VNMG',VBMT:'VBMT',
   DCMT:'DCMT',CCMT:'CCMT',TCMT:'TCMT',RCMT:'RCMT',
@@ -386,20 +391,22 @@ function realReferenceFor(x){
  return null;
 }
 function toolPhoto(x){
- const exact=x&&x.photoUrl?String(x.photoUrl):"";
  const official=x&&x.productUrl?String(x.productUrl):"";
  const ref=realReferenceFor(x);
  const family=familyFor(x);
  const familyPhoto=photoMap[family]&&photoMap[family][0]?String(photoMap[family][0]):"";
- const src=exact||ref?.url||familyPhoto;
- const fallback=(exact && ref?.url && exact!==ref.url)?ref.url:(familyPhoto && familyPhoto!==exact?familyPhoto:"");
+ // IMPORTANT: the displayed image must always be a real photograph.
+ // Do not use catalog photoUrl blindly: some catalog sources are technical drawings.
+ const exact=(x&&x.photoUrl&&x.photoSource==="manufacturer")?String(x.photoUrl):"";
+ const src=ref?.url||exact||familyPhoto;
+ const fallback=(ref?.url&&src!==ref.url)?ref.url:(familyPhoto&&familyPhoto!==src?familyPhoto:"");
  const alt=esc((x&&x.maker||"")+" "+(x&&x.code||""));
- const sourceLabel=exact
-   ? (x&&x.photoSource==="manufacturer"?"Foto reale del produttore":"Foto reale collegata al record")
-   : (ref?ref.note:"Foto reale di riferimento");
- const link=x&&x.drawingUrl
-   ? '<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Scheda/disegno del produttore</a>'
-   : (official?'<a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda ufficiale del produttore</a>':'');
+ const sourceLabel=ref
+   ? ref.note
+   : (exact ? "Foto reale del produttore" : "Foto reale di riferimento · geometria/famiglia compatibile");
+ const link=official
+   ? '<a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda ufficiale del produttore</a>'
+   : '';
  if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Nessuna foto reale disponibile.</div>'+link+'</div>';
  const fallbackAttr=esc(fallback);
  return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" src="'+esc(src)+'" alt="'+alt+'" data-fallback="'+fallbackAttr+'" onerror="if(this.dataset.fallback && this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback=\'\';this.nextElementSibling.textContent=\'Foto reale di riferimento · geometria compatibile\';}else{this.style.display=\'none\';this.nextElementSibling.textContent=\'Foto reale non raggiungibile\';}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
