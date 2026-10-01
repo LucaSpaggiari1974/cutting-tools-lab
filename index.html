@@ -37,7 +37,56 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 @media(max-width:760px){.appHeader{align-items:center}.lastUpdate{font-size:10px}.lastUpdate b{font-size:11px}}
 @media(max-width:760px){main{padding:8px}header{border-radius:12px}.searchgrid{grid-template-columns:1fr 1fr}.formula{grid-template-columns:1fr 1fr}.formula button{grid-column:1/-1;width:100%}.tablewrap{max-height:66vh}.drawingbox{grid-template-columns:1fr}h1{font-size:21px}.appbar{position:sticky;bottom:0;z-index:10;flex-wrap:wrap}.appbar span{flex-basis:100%}.appbar button{flex:1}.toolbar{top:0}} @media(min-width:1200px){main{max-width:1500px}.sheet{min-height:80vh}.tablewrap{max-height:68vh}table{min-width:1250px}.formula{grid-template-columns:1.7fr 1fr 1fr 1fr 1fr auto}}
 .navtabs{display:flex;gap:6px;overflow:auto;margin:0 0 12px;padding:5px;background:#fff;border:1px solid var(--line);border-radius:12px;position:sticky;top:0;z-index:20}.navtab{white-space:nowrap;width:auto;padding:10px 14px;background:#eef4f8;color:#123a5a}.navtab.active{background:#123a5a;color:#fff}.page{display:none}.page.active{display:block}.calcgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.calc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 2px 12px #0001}.calc h2{margin-top:0;color:#123a5a}.calc label{display:block;font-weight:700;margin:9px 0}.calc label input{margin-top:5px}.formulaBox{background:#102f47;color:#fff;padding:14px;border-radius:10px;font-size:18px;font-weight:800;line-height:1.8}.unitNote{font-size:12px;opacity:.8}.result{margin-top:12px;padding:12px;background:#eaf2f8;border-radius:9px;font-weight:800;color:#123a5a}.modal{position:fixed;inset:0;background:#0008;z-index:100;display:flex;align-items:center;justify-content:center;padding:14px}.modal[hidden]{display:none}.modalCard{position:relative;background:#fff;border-radius:16px;width:min(760px,100%);max-height:90vh;overflow:auto;padding:20px}.closeModal{position:absolute;right:12px;top:12px;width:auto;background:#123a5a;padding:8px 12px}.modalCard .photoWrap .recDraw{width:100%;height:420px;object-fit:contain;background:#f8fbfd;border:1px solid var(--line);border-radius:10px;padding:4px}.photoEmpty{width:100%;min-height:180px;display:flex;align-items:center;justify-content:center;background:#f8fbfd;border:1px solid var(--line);border-radius:10px;color:#607487;font-weight:700;text-align:center;padding:20px}.modalImg{display:block;width:100%;max-height:420px;object-fit:contain;background:#f8fbfd;border-radius:10px;margin-top:12px}@media(max-width:760px){.navtabs{top:0}.calcgrid{grid-template-columns:1fr}.navtab{padding:9px 11px;font-size:13px}.modalCard{padding:14px}}
-.problemList{display:grid;gap:10px;margin-top:14px}.problemCard{border:1px solid var(--line);border-radius:12px;background:#f8fbfd;padding:12px}.problemCard h3{margin:0 0 6px;color:#123a5a;font-size:16px}.problemCard p{margin:5px 0;font-size:13px;line-height:1.45}.problemCard b{color:#123a5a}.problemCard .cause{color:#455b6d}.problemCard .solution{background:#fff;border-radius:8px;padding:8px;margin-top:7px}.recommendTitle{margin-top:18px;font-weight:800;color:#123a5a;font-size:17px}.recommend{display:grid;gap:10px;margin-top:10px}.recCard{display:grid;grid-template-columns:170px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#f8fbfd}.recDraw{width:160px;height:140px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:9px;padding:4px}.recMeta b{color:#123a5a}.recMeta .params{margin-top:7px;font-size:13px}.recMeta button{margin-top:8px;width:auto;padding:8px 12px}@media(max-width:760px){.recCard{grid-template-columns:1fr}.recDraw{width:100%;height:190px}}</style>
+.problemList{display:grid;gap:10px;margin-top:14px}.problemCard{border:1px solid var(--line);border-radius:12px;background:#f8fbfd;padding:12px}.problemCard h3{margin:0 0 6px;color:#123a5a;font-size:16px}.problemCard p{margin:5px 0;font-size:13px;line-height:1.45}.problemCard b{color:#123a5a}.problemCard .cause{color:#455b6d}.problemCard .solution{background:#fff;border-radius:8px;padding:8px;margin-top:7px}.recommendTitle{margin-top:18px;font-weight:800;color:#123a5a;font-size:17px}.recommend{display:grid;gap:10px;margin-top:10px}.recCard{display:grid;grid-template-columns:170px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#f8fbfd}.recDraw{width:160px;height:140px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:9px;padding:4px}.recMeta b{color:#123a5a}.recMeta .params{margin-top:7px;font-size:13px}.recMeta button{margin-top:8px;width:auto;padding:8px 12px}@media(max-width:760px){.recCard{grid-template-columns:1fr}.recDraw{width:100%;height:190px}}
+/* iPhone / touch optimization — mantiene invariata la logica Windows */
+@media (max-width:760px){
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+  body{overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
+  main{padding:8px 8px calc(74px + env(safe-area-inset-bottom));width:100%;}
+  header{padding:14px 13px;margin-bottom:8px;}
+  .appHeader{display:block;}
+  h1{font-size:20px;line-height:1.2;}
+  header p{font-size:12px;line-height:1.35;margin-top:5px;}
+  .lastUpdate{text-align:left;margin-top:8px;white-space:normal;font-size:11px;}
+  .lastUpdate b{font-size:12px;}
+  .navtabs{margin-bottom:8px;padding:4px;gap:5px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;}
+  .navtab{min-height:44px;padding:9px 12px;font-size:13px;flex:0 0 auto;scroll-snap-align:start;touch-action:manipulation;}
+  .toolbar{top:58px;padding:9px;}
+  .searchgrid{grid-template-columns:1fr;gap:8px;}
+  input,select,button{font-size:16px;min-height:44px;touch-action:manipulation;}
+  .formula{grid-template-columns:1fr;padding:10px;gap:6px;}
+  .formula>div{padding:3px 0;}
+  .formula button{grid-column:auto;width:100%;}
+  .tablewrap{max-height:60vh;overflow-x:auto;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
+  table{min-width:920px;}
+  th,td{font-size:12px;padding:9px 8px;}
+  .appbar{position:sticky;bottom:0;z-index:30;margin:0 -1px;gap:6px;padding:7px 8px calc(7px + env(safe-area-inset-bottom));background:rgba(248,251,253,.97);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);}
+  .appbar span{flex-basis:100%;font-size:11px;}
+  .appbar button{flex:1;width:auto;padding:9px 8px;}
+  .calc{padding:13px;border-radius:12px;}
+  .calc h2{font-size:20px;line-height:1.25;}
+  .calcgrid{grid-template-columns:1fr;gap:8px;}
+  .calc label{margin:5px 0;font-size:14px;}
+  .formulaBox{font-size:15px;line-height:1.65;overflow-wrap:anywhere;}
+  .result{font-size:13px;line-height:1.55;}
+  .modal{padding:0;align-items:stretch;}
+  .modalCard{width:100%;height:100%;max-height:none;border-radius:0;padding:calc(58px + env(safe-area-inset-top)) 12px calc(16px + env(safe-area-inset-bottom));overflow:auto;-webkit-overflow-scrolling:touch;}
+  .closeModal{position:fixed;right:12px;top:calc(10px + env(safe-area-inset-top));width:44px;height:44px;min-height:44px;padding:0;border-radius:50%;z-index:2;font-size:20px;}
+  .modalCard .photoWrap .recDraw{height:min(48vh,360px);min-height:220px;}
+  .photoEmpty{min-height:220px;}
+  .recCard{grid-template-columns:1fr;gap:9px;padding:9px;}
+  .recDraw{width:100%;height:min(46vw,240px);min-height:180px;}
+  .recMeta button{width:100%;min-height:44px;}
+  .drawings>summary{min-height:48px;display:flex;align-items:center;}
+  .toolgroup summary{min-height:44px;display:flex;align-items:center;}
+}
+@media (max-width:380px){
+  main{padding-left:6px;padding-right:6px;}
+  h1{font-size:19px;}
+  .navtab{padding-left:10px;padding-right:10px;font-size:12px;}
+  table{min-width:880px;}
+}
+</style>
 </head>
 <body><main>
 <header class="appHeader"><div><h1>🔧 CUTTING TOOLS LAB</h1><p>Foglio utensili · inserti · portautensili · velocità e parametri di taglio</p></div><div class="lastUpdate">Ultimo aggiornamento<br><b id="lastUpdate">—</b></div></header>
