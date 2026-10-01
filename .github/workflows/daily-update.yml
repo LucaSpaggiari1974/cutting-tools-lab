@@ -26,6 +26,19 @@ jobs:
         with:
           python-version: "3.13"
 
+      - name: Crea punto di ripristino prima dell'aggiornamento
+        run: |
+          mkdir -p backups
+          cp catalog.json backups/catalog-before-update.json
+          python - <<'PY'
+          import json
+          src=json.load(open("special-tools.json",encoding="utf-8"))
+          for x in src.get("items",[]):
+              x.pop("fileUrl",None)
+              x.pop("fileDataUrl",None)
+          json.dump(src,open("backups/special-tools-before-update.json","w",encoding="utf-8"),ensure_ascii=False,indent=2)
+          PY
+
       - name: Cerca aggiornamenti dai produttori ufficiali
         run: python scripts/daily_update.py
 
@@ -45,7 +58,7 @@ jobs:
         run: |
           git config user.name "Cutting Tools LAB Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add catalog.json update-status.json backups/catalog-latest.json backups/special-tools-latest.json
+          git add catalog.json update-status.json backups/catalog-latest.json backups/catalog-before-update.json backups/special-tools-latest.json backups/special-tools-before-update.json
           if git diff --cached --quiet; then
             echo "Nessuna modifica al catalogo."
           else
