@@ -307,7 +307,7 @@ async function checkForDatabaseUpdate(){
   const pack=await r.json();
   const remote=pack.updatedAt||"";
   if(currentCatalogUpdatedAt && remote && remote!==currentCatalogUpdatedAt){
-   await manualRefresh("Database in aggiornamento. Attendere, grazie.");
+   await manualRefresh("Aggiornamento automatico in corso. Attendere, grazie.");
   }
  }catch(_){}
 }
