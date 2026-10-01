@@ -1,7 +1,7 @@
 {
-  "version": "2.6-real-photo-audit-auto",
-  "updatedAt": "2026-09-24T01:28:22Z",
-  "source": "Cataloghi ufficiali ISCAR + ISCAR Italia webshop · foto collegate quando la scheda prodotto consente la verifica del codice",
+  "version": "2.7-real-photo-audit",
+  "updatedAt": "2026-10-01T18:36:00Z",
+  "source": "Cataloghi ufficiali + foto reali di riferimento; quando manca la foto esatta del codice viene mostrata una foto reale della stessa famiglia/geometria.",
   "items": [
     {
       "category": "Tornitura · Sgrossatura",
@@ -92,7 +92,10 @@
       "f": "0,08–0,22",
       "ap": "0,2–1,5",
       "maker": "Ingersoll",
-      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
+      "photoUrl": "https://ssl.ingersoll-imc.com/resources/product-images/vnmg_mt/vnmg_mt_Enlarge.jpg",
+      "photoSource": "Ingersoll Cutting Tools",
+      "photoNote": "Foto reale Ingersoll · riferimento ufficiale serie VNMG MT",
+      "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=39560"
     },
     {
       "category": "Tornitura · Media",
@@ -102,7 +105,11 @@
       "vc": "100–220",
       "f": "0,10–0,30",
       "ap": "0,5–4",
-      "maker": "Ingersoll"
+      "maker": "Ingersoll",
+      "photoUrl": "https://ssl.ingersoll-imc.com/resources/product-images/snmg432mgp/snmg432mgp_Enlarge.jpg",
+      "photoSource": "Ingersoll Cutting Tools",
+      "photoNote": "Foto reale Ingersoll · immagine ufficiale della serie SNMG MGP",
+      "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=6180310"
     },
     {
       "category": "Tornitura · Media",
@@ -113,7 +120,10 @@
       "f": "0,08–0,24",
       "ap": "0,3–2,5",
       "maker": "Ingersoll",
-      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
+      "photoUrl": "https://ssl.ingersoll-imc.com/resources/product-images/dnmg/dnmg_Enlarge.jpg",
+      "photoSource": "Ingersoll Cutting Tools",
+      "photoNote": "Foto reale Ingersoll · riferimento ufficiale della serie DNMG",
+      "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=39098"
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -124,7 +134,10 @@
       "f": "0,18–0,40",
       "ap": "1–5",
       "maker": "Ingersoll",
-      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
+      "photoUrl": "https://ssl.ingersoll-imc.com/resources/product-images/cnmg/cnmg_Enlarge.jpg",
+      "photoSource": "Ingersoll Cutting Tools",
+      "photoNote": "Foto reale Ingersoll · riferimento ufficiale della serie CNMG RT",
+      "productUrl": "https://www.ingersoll-imc.com/product-family/301775"
     },
     {
       "category": "Tornitura · Media",
@@ -135,7 +148,10 @@
       "f": "0,12–0,30",
       "ap": "0,5–3",
       "maker": "Ingersoll",
-      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
+      "photoUrl": "https://ssl.ingersoll-imc.com/resources/product-images/cnmg/cnmg_Enlarge.jpg",
+      "photoSource": "Ingersoll Cutting Tools",
+      "photoNote": "Foto reale Ingersoll · riferimento ufficiale della serie CNMG RT",
+      "productUrl": "https://www.ingersoll-imc.com/product-family/301775"
     },
     {
       "category": "Tornitura · Finitura",
@@ -146,7 +162,10 @@
       "f": "0,08–0,20",
       "ap": "0,3–2",
       "maker": "Ingersoll",
-      "photoWarning": "Fonte immagine non del produttore: da sostituire con immagine ufficiale quando disponibile."
+      "photoUrl": "https://ssl.ingersoll-imc.com/resources/product-images/cnmg/cnmg_Enlarge.jpg",
+      "photoSource": "Ingersoll Cutting Tools",
+      "photoNote": "Foto reale Ingersoll · riferimento ufficiale della serie CNMG RT",
+      "productUrl": "https://www.ingersoll-imc.com/product-family/301775"
     },
     {
       "category": "Tornitura · Media",
