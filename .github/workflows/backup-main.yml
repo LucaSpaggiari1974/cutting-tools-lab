@@ -32,11 +32,10 @@ jobs:
         env:
           ALLISON_API: https://cutting-tools-lab.vercel.app/api/special-tools
         run: |
-          set -e
           git fetch origin "$BACKUP_BRANCH"
           git checkout -B "$BACKUP_BRANCH" "origin/$BACKUP_BRANCH"
-          curl --fail --silent --show-error --location --retry 3 "$ALLISON_API?backup=$(date +%s)" -o special-tools-allison.json
-          python - <<'PY'
+          if curl --fail --silent --show-error --location --retry 3 "$ALLISON_API?backup=$(date +%s)" -o special-tools-allison.json; then
+            python - <<'PY'
           import json
           with open("special-tools-allison.json","r",encoding="utf-8") as f:
               data=json.load(f)
@@ -47,6 +46,9 @@ jobs:
               f.write("\n")
           print(f"Backup Allison: {len(data['items'])} utensili")
           PY
+          else
+            echo '{"items":[],"backupNote":"Archivio Allison non raggiungibile; backup del catalogo principale comunque eseguito."}' > special-tools-allison.json
+          fi
           git add special-tools-allison.json
           if git diff --cached --quiet; then
             echo "Nessuna variazione nell'archivio Allison."
