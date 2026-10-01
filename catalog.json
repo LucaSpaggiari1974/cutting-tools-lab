@@ -1,6 +1,6 @@
 {
   "version": "2.8-real-photo-reference",
-  "updatedAt": "2026-10-01T18:42:35.487Z",
+  "updatedAt": "2026-10-01T18:43:25.877Z",
   "source": "Cataloghi ufficiali + foto reali; quando manca la foto esatta del codice viene mostrata una foto reale rappresentativa della stessa geometria/famiglia.",
   "items": [
     {
@@ -12,9 +12,9 @@
       "f": "0,35–0,70",
       "ap": "3–7",
       "maker": "ISCAR",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
-      "photoSource": "ISCAR Italia webshop",
-      "photoNote": "Foto visualizzata nella scheda prodotto ISCAR; codice produttore verificato 5567464.",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
+      "photoSource": "real-reference",
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto.",
       "productUrl": "https://webshop.iscar.in/catalogue/product/1907633",
       "drawingUrl": "https://webshop.iscar.in/catalogue/product/1907633"
     },
@@ -27,9 +27,9 @@
       "f": "0,15–0,45",
       "ap": "0,7–4,5",
       "maker": "ISCAR",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
-      "photoSource": "ISCAR Italia webshop",
-      "photoNote": "Foto prodotto ISCAR verificata per il codice 5566681.",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
+      "photoSource": "real-reference",
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto.",
       "drawingUrl": "https://webshop.iscar.de/catalogue/product/1907077"
     },
     {
@@ -41,9 +41,9 @@
       "f": "0,08–0,20",
       "ap": "0,3–1,5",
       "maker": "ISCAR",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
-      "photoSource": "ISCAR Italia webshop",
-      "photoNote": "Foto visualizzata nella scheda prodotto ISCAR; codice produttore verificato 5567463.",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
+      "photoSource": "real-reference",
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto.",
       "productUrl": "https://webshop.iscar.de/catalogue/product/1907631",
       "drawingUrl": "https://webshop.iscar.de/catalogue/product/1907631"
     },
@@ -369,9 +369,9 @@
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "photoUpdatedAt": "2026-09-23T01:28:30Z",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale dimostrativa della famiglia/geometria CNMG; non identifica necessariamente il codice esatto."
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -385,9 +385,9 @@
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "photoUpdatedAt": "2026-09-23T01:28:30Z",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale dimostrativa della famiglia/geometria CNMG; non identifica necessariamente il codice esatto."
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -401,9 +401,9 @@
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "photoUpdatedAt": "2026-09-23T01:28:30Z",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale dimostrativa della famiglia/geometria CNMG; non identifica necessariamente il codice esatto."
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -505,9 +505,9 @@
       "f": "0,10–0,25",
       "ap": "0,5–2",
       "maker": "ISO",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale dimostrativa della famiglia/geometria CNMG; non identifica necessariamente il codice esatto."
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -518,9 +518,9 @@
       "f": "0,15–0,35",
       "ap": "0,8–4",
       "maker": "ISO",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale dimostrativa della famiglia/geometria CNMG; non identifica necessariamente il codice esatto."
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -531,9 +531,9 @@
       "f": "0,18–0,40",
       "ap": "1–5",
       "maker": "ISO",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale dimostrativa della famiglia/geometria CNMG; non identifica necessariamente il codice esatto."
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto."
     },
     {
       "category": "Tornitura esterna",
@@ -544,9 +544,9 @@
       "f": "0,10–0,25",
       "ap": "0,5–3",
       "maker": "ISO",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale dimostrativa della famiglia/geometria CNMG; non identifica necessariamente il codice esatto."
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto."
     },
     {
       "category": "Tornitura esterna",
@@ -557,9 +557,9 @@
       "f": "0,15–0,35",
       "ap": "0,8–4",
       "maker": "ISO",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale dimostrativa della famiglia/geometria CNMG; non identifica necessariamente il codice esatto."
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto."
     },
     {
       "category": "Tornitura esterna",
@@ -570,9 +570,9 @@
       "f": "0,18–0,40",
       "ap": "1–5",
       "maker": "ISO",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale dimostrativa della famiglia/geometria CNMG; non identifica necessariamente il codice esatto."
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto."
     },
     {
       "category": "Tornitura esterna",
@@ -583,9 +583,9 @@
       "f": "0,22–0,45",
       "ap": "2–6",
       "maker": "ISO",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale dimostrativa della famiglia/geometria CNMG; non identifica necessariamente il codice esatto."
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto."
     },
     {
       "category": "Tornitura esterna",
@@ -1150,9 +1150,9 @@
       "f": "—",
       "ap": "—",
       "maker": "ISO",
-      "photoUrl": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg",
+      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale dimostrativa della famiglia/geometria CNMG; non identifica necessariamente il codice esatto."
+      "photoNote": "Foto reale dimostrativa di inserto CNMG 120408; la foto rappresenta la famiglia CNMG e non necessariamente il grado/codice esatto."
     },
     {
       "category": "Portautensili",
