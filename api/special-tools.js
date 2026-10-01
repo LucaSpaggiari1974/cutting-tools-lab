@@ -2,8 +2,8 @@ const { put, get, del } = require("@vercel/blob");
 const crypto = require("crypto");
 
 
-const ARCHIVE_PATH = "allison/special-tools.json";
-const MEDIA_PREFIX = "allison/media/";
+const ARCHIVE_PATH = "utensili/special-tools.json";
+const MEDIA_PREFIX = "utensili/media/";
 
 const CATALOG_IMAGE_URLS = {
   CNMG:"https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
