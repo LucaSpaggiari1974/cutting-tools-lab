@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-01T20:30:31Z",
+  "updatedAt": "2026-10-01T21:28:09Z",
   "run": "daily",
   "changed": false,
   "pagesChecked": 474,
@@ -11,6 +11,6 @@
   "sourcesChecked": 21,
   "note": "Gli aggiornamenti automatici usano solo dati rilevati da pagine/cataloghi ufficiali. Parametri di taglio non verificati non vengono inventati.",
   "errors": [
-    "<urlopen error [Errno 111] Connection refused>"
+    "HTTP Error 404: "
   ]
 }
