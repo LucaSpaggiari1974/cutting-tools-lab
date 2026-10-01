@@ -96,7 +96,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <button class="navtab" data-page="tornitura">🔩 Tornitura</button>
 <button class="navtab" data-page="foratura">🕳️ Foratura</button>
 <button class="navtab" data-page="fresatura">⚙️ Fresatura</button>
-<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="produttori">🏭 Produttori</button>
+<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="dentatura">⚙️ Dentatura</button><button class="navtab" data-page="produttori">🏭 Produttori</button>
 </nav>
 <section id="catalogo" class="page active"><section class="sheet">
 <div class="toolbar">
@@ -176,6 +176,13 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 </div>
 <div class="formulaBox">Vc = 3,14 × D × n / 1000<br>n = Vc × 1000 / (3,14 × D)<br>Vf = fz × n × z<br>fz = Vf / (n × z)<br>fn = Vf / n<br>Q = ap × ae × Vf / 1000<br>Pc = ae × ap × Vf × kc / 60000000<br>Mc = Pc × 30000 / (3,14 × n)</div>
 <div id="mResults" class="result">Inserisci almeno i dati necessari per calcolare.</div>
+</div></section>
+<section id="dentatura" class="page">
+<div class="calc"><h2>⚙️ Dentatura · coltello e creatore</h2>
+<p>Guida diagnostica per dentatura a coltello (gear shaping/Fellows) e dentatura a creatore (hobbing). Ogni voce parte dal sintomo e separa cause, controlli e correzioni. I parametri di taglio vanno sempre verificati sul manuale della macchina, del creatore/coltello e del materiale.</p>
+<div class="searchgrid"><input id="gearSearch" placeholder="Cerca usura, impastamento, profilo, passo, bava…"><select id="gearMethod"><option value="">Entrambi i processi</option><option>Coltello</option><option>Creatore</option></select></div>
+<div id="gearProblemList" class="problemList"></div>
+<div class="warn"><b>Riferimenti tecnici:</b> letteratura scientifica sulla dentatura e usura dei creatori; Gleason Practical Gear Engineering e documentazione utensili; AGMA per condizioni di taglio; Liebherr per tecnologia di gear shaping. Le cause indicate sono diagnostiche generali e non sostituiscono il set-up qualificato della macchina.</div>
 </div></section>
 <section id="produttori" class="page"><div class="calc"><h2>🏭 Produttori, cataloghi e disegni</h2><p>Assortimento separato per produttore. <b>Sandvik Coromant</b>, <b>ISCAR</b> e <b>ISO</b> sono tre voci distinte. I cataloghi e i disegni restano collegati alle fonti ufficiali del produttore.</p><div class="searchgrid"><input id="manufacturerSearch" placeholder="Cerca produttore, catalogo o tecnologia…"><select id="manufacturerType"><option value="">Tutti</option><option value="Produttore">Produttori</option><option value="Standard / assortimento generico">ISO / standard</option></select></div><div id="manufacturerList" class="problemList"></div></div></section>
 <section id="problemi" class="page">
@@ -432,6 +439,36 @@ let manufacturers=[];
 async function loadManufacturers(){try{const r=await fetch("./manufacturers.json",{cache:"no-store"});manufacturers=await r.json();renderManufacturers()}catch(e){document.getElementById("manufacturerList").innerHTML="<div class=\"result\">Registro produttori non disponibile.</div>"}}
 function renderManufacturers(){const q=String(document.getElementById("manufacturerSearch")?.value||"").toLowerCase(),t=document.getElementById("manufacturerType")?.value||"";const list=(manufacturers.groups||[]).filter(x=>(!t||x.type===t)&&(!q||JSON.stringify(x).toLowerCase().includes(q)));document.getElementById("manufacturerList").innerHTML=list.map(x=>"<article class=\"problemCard\"><h3>"+esc(x.name)+"</h3><p><b>Tipo:</b> "+esc(x.type)+"</p><p><b>Assortimento:</b> "+esc(x.catalogScope||"—")+"</p><p><b>Disegni:</b> "+esc(x.drawings||"—")+"</p>"+(x.catalog?("<a href=\""+x.catalog+"\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block;margin-top:7px;color:#185b8f;font-weight:800\">📚 Apri catalogo / documentazione</a>"):"<p class=\"cause\">ISO: categoria standard separata, senza catalogo di un singolo produttore.</p>")+"</article>").join("")||"<div class=\"result\">Nessun produttore trovato.</div>"}
 document.getElementById("manufacturerSearch").oninput=renderManufacturers;document.getElementById("manufacturerType").onchange=renderManufacturers;loadManufacturers();
+const gearProblems=[
+['Creatore','Usura del creatore','Usura progressiva del fianco/tagliente, condizioni di taglio, materiale e refrigerazione possono ridurre precisione e vita utensile.','Controlla uniformità dell’usura, stato dei taglienti, rivestimento, velocità, avanzamento e refrigerazione; confronta il limite di usura con il costruttore del creatore.'],
+['Creatore','Impastamento / materiale aderente','Materiale aderente al tagliente, refrigerazione insufficiente, utensile/materiale non abbinati o condizioni termiche sfavorevoli.','Controlla refrigerazione e filtrazione, specifica/rivestimento del creatore e parametri; elimina il materiale aderente prima di continuare se compromette il tagliente.'],
+['Creatore','Profilo dente fuori specifica','Errore di set-up, creatore errato, usura, posizione assiale/radiale o dati nominali non corretti.','Verifica codice e geometria del creatore, interassi, orientamento, profondità, sincronizzazione e compensazioni; misura il profilo prima di correggere.'],
+['Creatore','Errore di passo / divisione','Errore di sincronizzazione, macchina, montaggio o utensile; gioco o posizionamento non corretti.','Controlla sincronismo creatore-pezzo, serraggio, giochi e dati macchina; verificare con controllo dimensionale del pezzo.'],
+['Creatore','Conicità o variazione lungo la fascia','Allineamento, inclinazione del creatore, posizione assiale, deflessione o usura non uniforme.','Controlla allineamento e orientamento, posizionamento assiale e rigidità; verifica la distribuzione dell’usura sul creatore.'],
+['Creatore','Rugosità elevata sul fianco','Velocità/avanzamento, vibrazioni, usura, runout o condizioni di taglio non ottimali.','Controlla runout e serraggio, stabilità, velocità, avanzamento e stato del creatore; confronta con il catalogo utensile.'],
+['Creatore','Striature / righe sul fianco','Taglienti danneggiati, runout, vibrazione, truciolo ricircolato o refrigerante contaminato.','Controlla taglienti, runout, bilanciamento, filtrazione e scarico truciolo.'],
+['Creatore','Bava eccessiva','Condizioni di uscita, utensile usurato, sovrametallo, parametri o geometria non corretti.','Controlla usura e strategia di uscita; verifica parametri e successive operazioni di sbavatura previste dal processo.'],
+['Creatore','Truciolo lungo / evacuazione difficile','Forma del truciolo, refrigerazione, evacuazione e condizioni di taglio.','Migliora flusso del refrigerante e scarico truciolo; verifica parametri e geometria del creatore.'],
+['Creatore','Vibrazioni / chatter','Rigidezza insufficiente, sbalzo, macchina, pezzo, creatore o condizioni di velocità/avanzamento.','Riduci sbalzo e verifica serraggi; controlla bilanciamento e varia le condizioni di taglio secondo i dati del costruttore.'],
+['Creatore','Surriscaldamento / bruciature','Carico termico eccessivo, refrigerazione insufficiente o parametri non idonei.','Controlla refrigerante, velocità e carico; verifica eventuali danni termici e interrompi se la superficie mostra alterazioni.'],
+['Coltello','Usura del coltello','Usura dei taglienti, materiale lavorato, velocità, avanzamento e condizioni di refrigerazione.','Controlla usura uniforme e differenze tra taglienti; verifica parametri e specifica del coltello e pianifica riaffilatura entro i limiti del costruttore.'],
+['Coltello','Impastamento del coltello','Materiale aderente, refrigerazione insufficiente o geometria/rivestimento non adatti.','Controlla refrigerazione e specifica del coltello; riduci il carico termico e verifica il materiale aderente sui taglienti.'],
+['Coltello','Profilo dente errato','Coltello non corretto, riaffilatura non conforme, profondità/set-up o compensazioni errati.','Verifica profilo e codice del coltello, stato della riaffilatura, posizione e profondità di lavoro; misura il profilo.'],
+['Coltello','Errore di passo','Sincronizzazione macchina, gioco, posizionamento o utensile non corretti.','Controlla sincronizzazione e giochi, serraggio e dati del coltello; verificare il passo con strumento di misura appropriato.'],
+['Coltello','Errore di elica','Orientamento della testa, guida elicoidale, dati macchina o set-up non corretti.','Verifica angolo e verso dell’elica, guida/asse della macchina e parametri di impostazione.'],
+['Coltello','Fianco rigato / superficie ondulata','Vibrazioni, tagliente danneggiato, runout o condizioni di taglio instabili.','Controlla macchina, portautensile, runout e taglienti; stabilizza il processo e verifica i parametri.'],
+['Coltello','Bava eccessiva','Uscita del coltello, usura, geometria o condizioni di taglio.','Controlla usura e uscita del tagliente, parametri e sovrametallo; verificare l’operazione di sbavatura prevista.'],
+['Coltello','Rumore anomalo / colpi','Interferenza, gioco, serraggio o sincronizzazione errata.','Fermare la macchina e verificare in sicurezza interferenze, serraggi, sincronismo e posizione utensile.'],
+['Coltello','Dente sottosquadra / interferenza','Geometria utensile, profondità, numero denti o dati di progetto non coerenti.','Verifica disegno, modulo, angolo di pressione, utensile e profondità di generazione prima di modificare il set-up.'],
+['Coltello','Quota varia tra pezzi','Usura, temperatura, compensazione o variazione del serraggio.','Stabilizza temperatura, controllo e serraggio; monitora usura e applica compensazioni secondo procedura macchina.']
+];
+function renderGearProblems(){
+ const q=String(document.getElementById('gearSearch').value||'').toLowerCase(),m=document.getElementById('gearMethod').value;
+ const list=gearProblems.filter(p=>(!m||p[0]===m)&&(!q||p.join(' ').toLowerCase().includes(q)));
+ document.getElementById('gearProblemList').innerHTML=list.map(p=>'<article class="problemCard"><h3>'+esc(p[0])+' · '+esc(p[1])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(p[2])+'</p><div class="solution"><b>Soluzione:</b> '+esc(p[3])+'</div></article>').join('')||'<div class="result">Nessun problema trovato.</div>';
+}
+document.getElementById('gearSearch').oninput=renderGearProblems;document.getElementById('gearMethod').oninput=renderGearProblems;renderGearProblems();
+
 const problems=[
 ['Rettifica','Foro fuori diametro / quota instabile','Mola usurata o vetrificata, dressing insufficiente, riscaldamento, variazione termica o centratura non stabile.','Controlla dressing e ravvivatura, misura a temperatura stabile, verifica velocità mola/pezzo e condizioni di refrigerazione; usa i parametri della mola specifica.'],
 ['Rettifica','Foro conico','Disallineamento, flessione, usura non uniforme della mola, errore di posizionamento o dressing non corretto.','Controlla allineamento e serraggio, sporgenza e runout; verifica il dressing e correggi una variabile alla volta.'],
