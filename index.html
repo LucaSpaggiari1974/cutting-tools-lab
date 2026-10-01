@@ -116,7 +116,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 </div>
 </div>
 <div class="status" id="status">Caricamento foglio…</div>
-<div class="warn" style="border-top:0">🏭 Database produttori: foto associate al marchio del record. Le foto ufficiali sono contrassegnate come “Foto ufficiale del produttore”; non vengono sostituite con foto di un altro marchio.</div>
+<div class="warn" style="border-top:0">🏭 Foto utensili: vengono mostrate foto reali. Se manca la foto esatta del record, viene usata una foto reale dimostrativa della stessa famiglia/geometria; non vengono mostrati disegni come anteprima.</div>
 <div class="appbar"><span id="updateState">🔄 Aggiornamento automatico attivo</span><button id="refreshData" type="button">Aggiorna dati</button><button id="installApp" type="button" hidden>Installa app</button></div>
 <div class="tablewrap">
 <table><thead><tr>
@@ -328,47 +328,37 @@ let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDe
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
 const photoMap={
-CNMG:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale Sandvik Coromant CNMG 12 04 08"],
-DNMG:["https://static1.industrybuying.com/products/tooling-and-cutting/inserts/turning-inserts/TOO.TUR.332971358_1747837688878.webp","Foto reale Sandvik Coromant DNMG"],
-SNMG:["https://c.cdnmp.net/713071415/p/m/0/placuta-strunjire-inveio-sandvik-coromant-snmg-15-06-12-pm-4425~5110.jpg","Foto reale Sandvik Coromant SNMG"],
-WNMG:["https://www.tomcnc.com/upload/202306/m_20230626164014351.jpg","Foto reale Sandvik Coromant WNMG"],
-VNMG:["https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_vnmg_16_04_08_mf_2220_t_max_p_sorvaustera_pict3dview.jpg","Foto reale Sandvik Coromant VNMG"],
-VBMT:["https://darxton.ru/files/_images/60/6029e45a-864a-11eb-9ea2-000c29fafacd_fa11638e-5c20-11ec-a91a-000c2925a1b1.jpg","Foto reale inserto VBMT"],
-DCMT:["https://img2.tradewheel.com/uploads/images/products/6/9/cnc-lathe-tool-carbide-twist-drill2-0183441001627070172.jpg","Foto reale inserto DCMT"],
-CCMT:["https://cdn.dgisupply.ca/img/product-images/Asset_URL/Sandvik_Coromant_7080694.jpg","Foto reale Sandvik Coromant CCMT"],
-TCMT:["https://twineagleimports.co.uk/cdn/shop/files/sandvik-insert-10pc-sandvik-tcmt-16-t3-04-mm-1125-turning-insert-for-stainless-steel-7448723385838-1227468990.jpg?v=1773877431","Foto reale Sandvik Coromant TCMT"],
-RCMT:["https://cdn11.bigcommerce.com/s-4s9liwcv/images/stencil/original/products/670336/819830/6088861-24__48554.1682537263.jpg?c=2&imbypass=on","Foto reale inserto RCMT"],
-G:["https://www.gen3industrial.com/cdn/shop/files/83cebe6f-dde6-414a-9a46-6b301af44980.jpg?v=1760043945&width=4096","Foto reale utensile Sandvik per scanalatura/troncatura"],
+CNMG:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale Sandvik Coromant CNMG"],
+ISCAR_CNMG:["https://i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale ISCAR CNMG · riferimento reale della famiglia"],
+INGERSOLL_CNMG:["https://i.ebayimg.com/images/g/Aj4AAOSwnFJfunQU/s-l1200.jpg","Foto reale Ingersoll CNMG · riferimento reale della famiglia"],
+DNMG:["https://static1.industrybuying.com/products/tooling-and-cutting/inserts/turning-inserts/TOO.TUR.332971358_1747837688878.webp","Foto reale DNMG"],
+SNMG:["https://c.cdnmp.net/713071415/p/m/0/placuta-strunjire-inveio-sandvik-coromant-snmg-15-06-12-pm-4425~5110.jpg","Foto reale SNMG"],
+WNMG:["https://www.tomcnc.com/upload/202306/m_20230626164014351.jpg","Foto reale WNMG"],
+VNMG:["https://webshop.industriacenter.fi/tuotekuvat/1500x1500/sandvik_coromant_vnmg_16_04_08_mf_2220_t_max_p_sorvaustera_pict3dview.jpg","Foto reale VNMG"],
+VBMT:["https://darxton.ru/files/_images/60/6029e45a-864a-11eb-9ea2-000c29fafacd_fa11638e-5c20-11ec-a91a-000c2925a1b1.jpg","Foto reale VBMT"],
+DCMT:["https://img2.tradewheel.com/uploads/images/products/6/9/cnc-lathe-tool-carbide-twist-drill2-0183441001627070172.jpg","Foto reale DCMT"],
+CCMT:["https://cdn.dgisupply.ca/img/product-images/Asset_URL/Sandvik_Coromant_7080694.jpg","Foto reale CCMT"],
+TCMT:["https://twineagleimports.co.uk/cdn/shop/files/sandvik-insert-10pc-sandvik-tcmt-16-t3-04-mm-1125-turning-insert-for-stainless-steel-7448723385838-1227468990.jpg?v=1773877431","Foto reale TCMT"],
+RCMT:["https://cdn11.bigcommerce.com/s-4s9liwcv/images/stencil/original/products/670336/819830/6088861-24__48554.1682537263.jpg?c=2&imbypass=on","Foto reale RCMT"],
+G:["https://www.gen3industrial.com/cdn/shop/files/83cebe6f-dde6-414a-9a46-6b301af44980.jpg?v=1760043945&width=4096","Foto reale utensile per scanalatura/troncatura"],
 L:["https://i.ebayimg.com/images/g/GGEAAOSwwYVk9qGC/s-l1600.jpg","Foto reale portautensile per filettatura"],
-DRILL:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale Sandvik CoroDrill 460-XM"],
-MILL:["https://cdn11.bigcommerce.com/s-kvzeeygcn8/images/stencil/1280x1280/products/28579/131031/smt40917-sandvik-coromill-plura-20mm-carbide-endmill-5-flutes-rm-300re-24748-loc1884b__22210.1662992430.jpg?c=1","Foto reale Sandvik CoroMill Plura"],
-FACE:["https://i.ebayimg.com/images/g/~g4AAOSwUfdjoOwq/s-l960.jpg","Foto reale Sandvik CoroMill 245"],
-TURN_R12:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale inserto CNMG · raggio R1,2 · riferimento famiglia"],
-TURN_R08:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale inserto CNMG · raggio R0,8 · riferimento famiglia"],
-TURN_R04:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale inserto CNMG · raggio R0,4 · riferimento famiglia"],
+DRILL:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta"],
+MILL:["https://cdn11.bigcommerce.com/s-kvzeeygcn8/images/stencil/1280x1280/products/28579/131031/smt40917-sandvik-coromill-plura-20mm-carbide-endmill-5-flutes-rm-300re-24748-loc1884b__22210.1662992430.jpg?c=1","Foto reale fresa"],
+FACE:["https://i.ebayimg.com/images/g/~g4AAOSwUfdjoOwq/s-l960.jpg","Foto reale fresa a spianare"],
+TURN_R12:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale CNMG · riferimento famiglia R1,2"],
+TURN_R08:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale CNMG · riferimento famiglia R0,8"],
+TURN_R04:["https://i.ebayimg.com/images/g/f~wAAOSw35tnBQi6/s-l1600.png","Foto reale CNMG · riferimento famiglia R0,4"],
 DRILL_INDEX:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta a inserti"],
 DRILL_MOD:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta modulare"],
 HOLDER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?set_id=880000500F","Foto reale portautensile"],
-ADAPTER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?set_id=880000500F","Foto reale mandrino/adattatore"]
+ADAPTER:["https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/FOwAAeSwB11pLiAr/\$\_57.JPG?set_id=880000500F","Foto reale mandrino/adattatore"],
+GENERIC_INSERT:["https://i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale di inserto · riferimento geometria compatibile"]
 };
-function familySvg(kind,label){
- const shapes={
-  CNMG:'<polygon points="150,18 282,92 282,208 150,282 18,208 18,92" fill="#d7dee5" stroke="#51606d" stroke-width="6"/><circle cx="150" cy="150" r="42" fill="#eef2f5" stroke="#51606d" stroke-width="6"/>',
-  DNMG:'<polygon points="150,18 280,150 150,282 20,150" fill="#d7dee5" stroke="#51606d" stroke-width="6"/><circle cx="150" cy="150" r="40" fill="#eef2f5" stroke="#51606d" stroke-width="6"/>',
-  SNMG:'<rect x="28" y="28" width="244" height="244" rx="12" fill="#d7dee5" stroke="#51606d" stroke-width="6"/><circle cx="150" cy="150" r="42" fill="#eef2f5" stroke="#51606d" stroke-width="6"/>',
-  WNMG:'<polygon points="150,18 282,82 246,238 150,282 54,238 18,82" fill="#d7dee5" stroke="#51606d" stroke-width="6"/><circle cx="150" cy="150" r="40" fill="#eef2f5" stroke="#51606d" stroke-width="6"/>',
-  VNMG:'<polygon points="150,18 280,282 20,282" fill="#d7dee5" stroke="#51606d" stroke-width="6"/><circle cx="150" cy="205" r="38" fill="#eef2f5" stroke="#51606d" stroke-width="6"/>',
-  VBMT:'<polygon points="150,18 282,282 18,282" fill="#d7dee5" stroke="#51606d" stroke-width="6"/><circle cx="150" cy="205" r="38" fill="#eef2f5" stroke="#51606d" stroke-width="6"/>',
-  DCMT:'<polygon points="58,28 282,150 58,272" fill="#d7dee5" stroke="#51606d" stroke-width="6"/><circle cx="110" cy="150" r="38" fill="#eef2f5" stroke="#51606d" stroke-width="6"/>',
-  CCMT:'<polygon points="52,28 248,28 282,150 248,272 52,272 18,150" fill="#d7dee5" stroke="#51606d" stroke-width="6"/><circle cx="150" cy="150" r="38" fill="#eef2f5" stroke="#51606d" stroke-width="6"/>',
-  TCMT:'<polygon points="150,18 282,246 18,246" fill="#d7dee5" stroke="#51606d" stroke-width="6"/><circle cx="150" cy="184" r="38" fill="#eef2f5" stroke="#51606d" stroke-width="6"/>'
- };
- const shape=shapes[kind]||'<rect x="55" y="35" width="190" height="230" rx="18" fill="#d7dee5" stroke="#51606d" stroke-width="6"/><circle cx="150" cy="150" r="40" fill="#eef2f5" stroke="#51606d" stroke-width="6"/>';
- const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><rect width="300" height="300" fill="#f8fbfd"/>'+shape+'<text x="150" y="292" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#123a5a">'+String(label||kind).replace(/[&<>]/g,'')+'</text></svg>';
- return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
-}
 function realReferenceFor(x){
  const k=(String(x?.code||'')+' '+String(x?.category||'')+' '+String(x?.geom||'')).toUpperCase();
+ const maker=String(x?.maker||'').toUpperCase();
+ if(maker.includes('ISCAR') && k.includes('CNMG')) return {url:photoMap.ISCAR_CNMG[0],note:photoMap.ISCAR_CNMG[1]};
+ if(maker.includes('INGERSOLL') && k.includes('CNMG')) return {url:photoMap.INGERSOLL_CNMG[0],note:photoMap.INGERSOLL_CNMG[1]};
  const refs={
   CNMG:'CNMG',DNMG:'DNMG',SNMG:'SNMG',WNMG:'WNMG',VNMG:'VNMG',VBMT:'VBMT',
   DCMT:'DCMT',CCMT:'CCMT',TCMT:'TCMT',RCMT:'RCMT',
@@ -389,6 +379,10 @@ function realReferenceFor(x){
    url:photoMap[family][0],
    note:'Foto reale di riferimento · famiglia compatibile · produttore diverso dal record'
  };
+ if(String(x?.category||'').toUpperCase().includes('INSERT')) return {
+   url:photoMap.GENERIC_INSERT[0],
+   note:photoMap.GENERIC_INSERT[1]
+ };
  return null;
 }
 function toolPhoto(x){
@@ -397,20 +391,18 @@ function toolPhoto(x){
  const ref=realReferenceFor(x);
  const family=familyFor(x);
  const familyPhoto=photoMap[family]&&photoMap[family][0]?String(photoMap[family][0]):"";
- const local=familySvg(family,x&&x.code||family);
- const src=exact||ref?.url||familyPhoto||local;
- const secondFallback=ref?.url||familyPhoto||local;
+ const src=exact||ref?.url||familyPhoto;
+ const fallback=(exact && ref?.url && exact!==ref.url)?ref.url:(familyPhoto && familyPhoto!==exact?familyPhoto:"");
  const alt=esc((x&&x.maker||"")+" "+(x&&x.code||""));
  const sourceLabel=exact
-   ? (x&&x.photoSource==="manufacturer"?"Foto ufficiale collegata al produttore":"Foto reale collegata al record")
-   : (ref?ref.note:"Anteprima grafica di riferimento");
+   ? (x&&x.photoSource==="manufacturer"?"Foto reale del produttore":"Foto reale collegata al record")
+   : (ref?ref.note:"Foto reale di riferimento");
  const link=x&&x.drawingUrl
-   ? '<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>'
+   ? '<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Scheda/disegno del produttore</a>'
    : (official?'<a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda ufficiale del produttore</a>':'');
- if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Nessuna immagine di riferimento disponibile.</div>'+link+'</div>';
- const fallbackAttr=esc(secondFallback);
- const localAttr=esc(local);
- return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" src="'+esc(src)+'" alt="'+alt+'" data-fallback="'+fallbackAttr+'" data-local="'+localAttr+'" onerror="if(this.dataset.fallback && this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback=\'\';this.nextElementSibling.textContent=\'Foto reale di riferimento · geometria compatibile\';}else{this.src=this.dataset.local;this.dataset.local=\'\';this.nextElementSibling.textContent=\'Anteprima grafica di riferimento\';}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
+ if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Nessuna foto reale disponibile.</div>'+link+'</div>';
+ const fallbackAttr=esc(fallback);
+ return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" src="'+esc(src)+'" alt="'+alt+'" data-fallback="'+fallbackAttr+'" onerror="if(this.dataset.fallback && this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback=\'\';this.nextElementSibling.textContent=\'Foto reale di riferimento · geometria compatibile\';}else{this.style.display=\'none\';this.nextElementSibling.textContent=\'Foto reale non raggiungibile\';}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
 }
 function familyFor(x){
  const k=(x.code+' '+x.category+' '+x.geom).toUpperCase();
@@ -427,7 +419,8 @@ function familyFor(x){
    if(r===0.8) return 'TURN_R08';
    if(r===0.4) return 'TURN_R04';
  }
- for(const f of Object.keys(photoMap)) if(k.includes(f)) return f;
+ for(const f of Object.keys(photoMap)) if(k.includes(f) && !['ISCAR_CNMG','INGERSOLL_CNMG','GENERIC_INSERT'].includes(f)) return f;
+ if(k.includes('INSERT') || k.includes('WSP') || k.includes('INSERTI')) return 'GENERIC_INSERT';
  return 'HOLDER';
 }
 function renderRecommendations(target,filter){
