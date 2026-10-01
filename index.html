@@ -399,7 +399,8 @@ function toolPhoto(x){
  // Do not use catalog photoUrl blindly: some catalog sources are technical drawings.
  const exact=(x&&x.photoUrl&&x.photoSource==="manufacturer")?String(x.photoUrl):"";
  const src=exact||ref?.url||familyPhoto;
- const localCnmgFallback=(String(x?.code||"")+" "+String(x?.category||"")+" "+String(x?.geom||"")).toUpperCase().includes("CNMG") ? "/assets/previews/CNMG.svg" : "";\n const fallback=localCnmgFallback || (ref?.url&&src!==ref.url?ref.url:(familyPhoto&&familyPhoto!==src?familyPhoto:""));
+ const localCnmgFallback=(String(x?.code||"")+" "+String(x?.category||"")+" "+String(x?.geom||"")).toUpperCase().includes("CNMG") ? "/assets/previews/CNMG.svg" : "";
+ const fallback=localCnmgFallback || (ref?.url&&src!==ref.url?ref.url:(familyPhoto&&familyPhoto!==src?familyPhoto:""));
  const alt=esc((x&&x.maker||"")+" "+(x&&x.code||""));
  const sourceLabel=ref
    ? ref.note
