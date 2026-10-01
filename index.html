@@ -323,14 +323,21 @@ function toolPhoto(x){
  const exact=x&&x.photoUrl?String(x.photoUrl):"";
  const official=x&&x.productUrl?String(x.productUrl):"";
  const ref=realReferenceFor(x);
- const src=exact||(official?"/api/product-image?url="+encodeURIComponent(official):"")||(ref?ref.url:"");
+ const family=familyFor(x);
+ const familyPhoto=photoMap[family]&&photoMap[family][0]?String(photoMap[family][0]):"";
+ const local=familySvg(family,x&&x.code||family);
+ const fallback=ref?ref.url:(familyPhoto||local);
+ const src=exact||fallback;
  const alt=esc((x&&x.maker||"")+" "+(x&&x.code||""));
- const sourceLabel=exact?"Foto reale collegata al produttore":(official?"Foto reale dal catalogo/scheda ufficiale":(ref?ref.note:"Foto reale non disponibile"));
+ const sourceLabel=exact
+   ? (x&&x.photoSource==="manufacturer"?"Foto ufficiale collegata al produttore":"Foto reale collegata al record")
+   : (ref?"Foto reale di riferimento · geometria/famiglia":"Anteprima grafica di riferimento");
  const link=x&&x.drawingUrl
    ? '<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>'
    : (official?'<a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda ufficiale del produttore</a>':'');
- if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Foto reale non disponibile nel catalogo locale.</div>'+link+'</div>';
- return '<div class="photoWrap"><img class="recDraw" loading="eager" src="'+esc(src)+'" alt="'+alt+'" onerror="this.style.display=\'none\';this.nextElementSibling.textContent=\'Foto reale non raggiungibile: aprire la scheda del produttore.\';"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
+ if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Foto reale non disponibile; anteprima grafica non disponibile.</div>'+link+'</div>';
+ const fallbackAttr=esc(fallback);
+ return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" src="'+esc(src)+'" alt="'+alt+'" data-fallback="'+fallbackAttr+'" onerror="if(this.dataset.fallback && this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback=\'\';this.nextElementSibling.textContent=\'Anteprima di riferimento · immagine ufficiale non raggiungibile\';}else{this.style.display=\'none\';this.nextElementSibling.textContent=\'Immagine non raggiungibile: aprire la scheda del produttore.\';}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
 }
 function toolDrawing(kind){
  const p=photoMap[kind]||photoMap.HOLDER;
