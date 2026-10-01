@@ -266,7 +266,7 @@ function toolPhoto(x){
  const fallback=photoMap[kind]||photoMap.HOLDER;
  const localFallback=familySvg(kind,(x&&x.code)||kind);
  const isExact=!!exact;
- const src=exact||fallback[0];
+ const src=exact||fallback[0]||localFallback;
  const alt=esc((x&&x.maker||"")+" "+(x&&x.code||""));
  const sourceLabel=isExact
    ? ((x.photoSource==="manufacturer"||String(x.photoSource||"").toUpperCase().includes("ISCAR"))?"Foto ufficiale/collegata al produttore":"Foto associata al prodotto")
@@ -277,11 +277,12 @@ function toolPhoto(x){
  const link=x&&x.drawingUrl
    ? '<a href="'+esc(x.drawingUrl)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📐 Disegno/codice esatto del produttore</a>'
    : (official?'<a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda ufficiale del produttore</a>':'');
- return '<div class="photoWrap"><img class="recDraw" loading="eager" src="'+esc(src)+'" alt="'+alt+'" data-local-fallback="'+esc(localFallback)+'" onerror="if(!this.dataset.failed){this.dataset.failed=\'1\';this.src=this.dataset.localFallback;this.nextElementSibling.textContent=\'Anteprima grafica di riferimento · foto esterna non raggiungibile\';}else{this.style.display=\'none\';}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+' '+exactNote+'</div>'+link+'</div>';
+ return '<div class="photoWrap"><img class="recDraw" loading="eager" src="'+esc(src)+'" alt="'+alt+'" data-local-fallback="'+esc(localFallback)+'" onerror="if(!this.dataset.failed){this.dataset.failed=\'1\';this.src=this.dataset.localFallback;this.nextElementSibling.textContent=\'Anteprima grafica di riferimento · immagine esterna non raggiungibile\';}else{this.style.display=\'none\';}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+' '+exactNote+'</div>'+link+'</div>';
 }
 function toolDrawing(kind){
  const p=photoMap[kind]||photoMap.HOLDER;
- return '<div><img class="recDraw" loading="lazy" src="'+p[0]+'" alt="'+esc(p[1])+'" onerror="this.style.display=\'none\'"><div class="photo-caption">'+esc(p[1])+'</div></div>';
+ const local=familySvg(kind,kind);
+ return '<div><img class="recDraw" loading="lazy" src="'+esc(p[0])+'" alt="'+esc(p[1])+'" data-local-fallback="'+esc(local)+'" onerror="if(!this.dataset.failed){this.dataset.failed=\'1\';this.src=this.dataset.localFallback;this.nextElementSibling.textContent=\'Anteprima grafica di riferimento · immagine esterna non raggiungibile\';}else{this.style.display=\'none\';}"><div class="photo-caption">'+esc(p[1])+'</div></div>';
 }
 function familyFor(x){
  const k=(x.code+' '+x.category+' '+x.geom).toUpperCase();
