@@ -28,33 +28,17 @@ jobs:
           git fetch origin main
           git push origin "origin/main:refs/heads/$BACKUP_BRANCH" --force
 
-      - name: Recupera l'archivio online degli utensili
-        env:
-          UTENSILI_API: https://cutting-tools-lab.vercel.app/api/special-tools
+      - name: Archivia Gestione utensili interni dal repository
         run: |
           git fetch origin "$BACKUP_BRANCH"
           git checkout -B "$BACKUP_BRANCH" "origin/$BACKUP_BRANCH"
-          if curl --fail --silent --show-error --location --retry 3 "$UTENSILI_API?backup=$(date +%s)" -o special-tools-utensili.json; then
-            python - <<'PY'
-          import json
-          with open("special-tools-utensili.json","r",encoding="utf-8") as f:
-              data=json.load(f)
-          if not isinstance(data.get("items"), list):
-              raise SystemExit("Archivio utensili non valido: manca items[]")
-          with open("special-tools-utensili.json","w",encoding="utf-8") as f:
-              json.dump(data,f,ensure_ascii=False,indent=2)
-              f.write("\n")
-          print(f"Backup utensili: {len(data['items'])} utensili")
-          PY
-          else
-            echo '{"items":[],"backupNote":"Archivio utensili non raggiungibile; backup del catalogo principale comunque eseguito."}' > special-tools-utensili.json
-          fi
+          cp special-tools.json special-tools-utensili.json
           git add special-tools-utensili.json
           if git diff --cached --quiet; then
-            echo "Nessuna variazione nell'archivio utensili."
+            echo "Nessuna variazione nell'archivio utensili interni."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "backup: archivio utensili"
+            git commit -m "backup: Gestione utensili interni"
             git push origin "$BACKUP_BRANCH"
           fi
