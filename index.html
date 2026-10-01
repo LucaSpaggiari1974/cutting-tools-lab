@@ -160,9 +160,17 @@ async function loadCatalog(options={}){
   const updated=new Date(pack.updatedAt||Date.now());
   currentCatalogUpdatedAt=pack.updatedAt||updated.toISOString();
   const nowUpdate=new Date();
-  document.getElementById("status").textContent=data.length+" righe · catalogo aggiornato: "+updated.toLocaleString("it-IT");
-  document.getElementById("lastUpdate").textContent=nowUpdate.toLocaleString("it-IT",{dateStyle:"short",timeStyle:"short"});
-  document.getElementById("updateState").textContent="🟢 Dati aggiornati automaticamente";
+  let checkTime=nowUpdate;
+  try{
+   const sr=await fetch("./update-status.json?ts="+Date.now(),{cache:"no-store"});
+   if(sr.ok){
+    const ss=await sr.json();
+    if(ss.updatedAt) checkTime=new Date(ss.updatedAt);
+   }
+  }catch(_){}
+  document.getElementById("status").textContent=data.length+" righe · ultimo controllo automatico: "+checkTime.toLocaleString("it-IT");
+  document.getElementById("lastUpdate").textContent=checkTime.toLocaleString("it-IT",{dateStyle:"short",timeStyle:"short"});
+  document.getElementById("updateState").textContent="🟢 Dati verificati automaticamente";
   if(manual) showRefreshProgress(78,"Aggiornamento completato…");
  }catch(e){
   let local=null;
