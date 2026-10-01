@@ -39,7 +39,7 @@ jobs:
           from pathlib import Path
           import re
           p=Path("sw.js"); s=p.read_text(encoding="utf-8")
-          m=re.search(r'(cutting-tools-lab-v)(\\d+)',s)
+          m=re.search(r'(cutting-tools-lab-v)(\d+)',s)
           if not m: raise SystemExit("SW cache version not found")
           n=int(m.group(2))+1
           p.write_text(s[:m.start(2)]+str(n)+s[m.end(2):],encoding="utf-8")
