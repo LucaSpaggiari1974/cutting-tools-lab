@@ -94,7 +94,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <nav class="navtabs" aria-label="Sezioni">
 <button class="navtab active" data-page="catalogo">📋 Utensili</button>
 <button class="navtab" data-page="tornitura">🔩 Tornitura</button>
-<button class="navtab" data-page="foratura">🕳️ Foratura</button>
+<button class="navtab" data-page="foratura">🕳️ Foratura</button><button class="navtab" data-page="alesatura">🔧 Alesatura</button>
 <button class="navtab" data-page="fresatura">⚙️ Fresatura</button>
 <button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="dentatura">⚙️ Dentatura</button><button class="navtab" data-page="produttori">🏭 Produttori</button>
 </nav>
@@ -160,7 +160,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <div class="formulaBox">Vc = 3,14 × Dc × n / 1000<br>n = Vc × 1000 / (3,14 × Dc)<br>Vf = f × n<br>Q = 3,14 × Dc² × Vf / 4<br>T = L / Vf<br>fz = f / z</div>
 <div id="dResults" class="result">Inserisci almeno i dati necessari per calcolare.</div>
 </div></section>
-<section id="fresatura" class="page">
+<section id="alesatura" class="page"><div class="calc"><h2>🔧 Alesatura · calcolatore e diagnosi</h2><p>Calcoli e diagnostica per alesatura. Il diametro finale dipende da utensile, preforo, concentricità, materiale e condizioni di taglio: verificare sempre la scheda dell'alesatore.</p><div class="calcgrid"><label>Diametro alesatore Da (mm)<input id="rDa" type="number" step="any"></label><label>Velocità Vc (m/min)<input id="rVc" type="number" step="any"></label><label>Giri n (rpm)<input id="rN" type="number" step="any"></label><label>Avanzamento f (mm/giro)<input id="rF" type="number" step="any"></label><label>Lunghezza L (mm)<input id="rL" type="number" step="any"></label></div><div class="formulaBox">Vc = 3,14 × Da × n / 1000<br>n = Vc × 1000 / (3,14 × Da)<br>Vf = f × n<br>T = L / Vf</div><div id="rResults" class="result">Inserisci i dati necessari per calcolare.</div><h3>Diagnostica</h3><div id="reamingProblems" class="problemList"></div></div></section><section id="fresatura" class="page">
 <div class="calc"><h2>⚙️ Fresatura · calcolatore completo</h2>
 <p>Inserisci diametro, Vc, denti, fz, ap e ae. I risultati vengono calcolati in automatico.</p>
 <div class="calcgrid">
@@ -469,6 +469,19 @@ function renderGearProblems(){
 }
 document.getElementById('gearSearch').oninput=renderGearProblems;document.getElementById('gearMethod').oninput=renderGearProblems;renderGearProblems();
 
+const reamingProblems=[
+['Alesatura','Foro troppo grande','Concentricità insufficiente, velocità/avanzamento non corretti, usura o run-out.','Controlla concentricità e utensile; riduci velocità o avanzamento solo entro il campo previsto dal costruttore e verifica il preforo.'],
+['Alesatura','Foro troppo piccolo','Utensile usurato, velocità troppo bassa o condizioni di taglio non corrette.','Controlla usura e geometria; verifica velocità e avanzamento secondo il catalogo dell’alesatore.'],
+['Alesatura','Foro conico','Preforo non corretto, disallineamento, utensile che non lavora in asse o condizioni termiche.','Controlla concentricità, preforo, serraggio e allineamento; verifica pressione e calore.'],
+['Alesatura','Foro fuori centro','Preforo decentrato, run-out, ingresso non guidato o utensile flessibile.','Controlla il primo taglio, concentricità e preforo; riduci gli errori di allineamento.'],
+['Alesatura','Chatter / strappi','Concentricità, geometria/raggio, velocità o stabilità non adeguate.','Controlla concentricità, riduci velocità se indicato dal costruttore e verifica geometria e stabilità.'],
+['Alesatura','Rugosità elevata','Utensile usurato, vibrazioni, geometria o refrigerazione non corretta.','Controlla usura, concentricità, refrigerazione e condizioni di taglio.'],
+['Alesatura','Utensile non gira vero','Run-out, preforo non corretto, taglio interrotto o errore angolare.','Controlla il primo taglio, run-out, concentricità e qualità del preforo.'],
+['Alesatura','Grippaggio / materiale aderente','Materiale duttile, refrigerazione insufficiente o condizioni di taglio non idonee.','Verifica refrigerazione, materiale, geometria e dati del costruttore; evita il proseguimento se l’utensile è danneggiato.']
+];
+document.getElementById('rDa')?.addEventListener('input',calcReaming);document.getElementById('rVc')?.addEventListener('input',calcReaming);document.getElementById('rN')?.addEventListener('input',calcReaming);document.getElementById('rF')?.addEventListener('input',calcReaming);document.getElementById('rL')?.addEventListener('input',calcReaming);
+function calcReaming(){const D=num('rDa'),Vc=num('rVc'),N=num('rN'),f=num('rF'),L=num('rL');let out=[];if(D&&Vc)out.push('n = '+(Vc*1000/(3.14*D)).toFixed(1)+' rpm');if(D&&N)out.push('Vc = '+(3.14*D*N/1000).toFixed(2)+' m/min');if(N&&f)out.push('Vf = '+(f*N).toFixed(2)+' mm/min');if(L&&N&&f)out.push('T = '+(L/(f*N)).toFixed(3)+' min');document.getElementById('rResults').textContent=out.join(' · ')||'Inserisci i dati necessari per calcolare.'}
+function renderReaming(){document.getElementById('reamingProblems').innerHTML=reamingProblems.map(p=>'<article class="problemCard"><h3>'+esc(p[1])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(p[2])+'</p><div class="solution"><b>Soluzione:</b> '+esc(p[3])+'</div></article>').join('')}renderReaming();
 const problems=[
 ['Rettifica','Foro fuori diametro / quota instabile','Mola usurata o vetrificata, dressing insufficiente, riscaldamento, variazione termica o centratura non stabile.','Controlla dressing e ravvivatura, misura a temperatura stabile, verifica velocità mola/pezzo e condizioni di refrigerazione; usa i parametri della mola specifica.'],
 ['Rettifica','Foro conico','Disallineamento, flessione, usura non uniforme della mola, errore di posizionamento o dressing non corretto.','Controlla allineamento e serraggio, sporgenza e runout; verifica il dressing e correggi una variabile alla volta.'],
