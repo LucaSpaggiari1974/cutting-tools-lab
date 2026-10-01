@@ -22,7 +22,7 @@ CATALOG=ROOT/"catalog.json"
 MANUFACTURERS=ROOT/"manufacturers.json"
 BACKUP=ROOT/"backups/catalog-latest.json"
 STATUS=ROOT/"update-status.json"
-UA="Cutting-Tools-LAB-Daily-Updater/1.0 (+https://cutting-tools-lab.vercel.app/)"
+UA="Cutting-Tools-LAB-Daily-Updater/1.0 (+https://cutting-tools-lab.pages.dev/)"
 
 def now():
     return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00","Z")
