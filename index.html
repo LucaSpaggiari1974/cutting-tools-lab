@@ -603,7 +603,7 @@ document.addEventListener("click",e=>{
     x=n("hf_t_l");y=n("hf_t_vf");o("hf_t_out",x!=null&&y>0?x/y:null);
   };
   var ids=document.querySelectorAll(".formulaCard input:not(.resultCell)");
-  ids.forEach(function(e){e.addEventListener("input",window.forceFormulaCalculations);e.addEventListener("change",window.forceFormulaCalculations);keyupHandler&&e.addEventListener("keyup",keyupHandler);});
+  ids.forEach(function(e){e.addEventListener("input",window.forceFormulaCalculations);e.addEventListener("change",window.forceFormulaCalculations);e.addEventListener("keyup",keyupHandler);});
   function keyupHandler(){window.forceFormulaCalculations();}
   window.forceFormulaCalculations();
   setInterval(window.forceFormulaCalculations,500);
