@@ -23,6 +23,7 @@ MAKERS={
 "ZCC Cutting Tools":["zccct.com"],"TaeguTec":["taegutec.com"],
 "Ceratizit":["ceratizit.com"],"ISO":[],"ISO / produttore":[]
 }
+REFERENCE_DOMAINS=["i.ebayimg.com","cdn.mscdirect.com","insertcarbide.com","static1.industrybuying.com","c.cdnmp.net","images.nexusapp.co","darxton.ru","img2.tradewheel.com","cdn.dgisupply.ca","cdn11.bigcommerce.com","gen3industrial.com","www.maxodeals.com","rinaldi-tools.com"]
 
 def host_ok(url, domains):
     host=(urllib.parse.urlparse(url).hostname or "").lower()
@@ -47,9 +48,11 @@ def main():
         checked+=1
         maker=str(x.get("maker","")).strip()
         domains=MAKERS.get(maker,[])
+        is_reference = str(x.get("photoStatus","")).lower()=="reference" or "real-reference" in str(x.get("photoSource","")).lower() or "family-reference" in str(x.get("photoSource","")).lower()
         if domains and not host_ok(url,domains):
-            errors.append({"index":i,"code":x.get("code"),"maker":maker,"error":"photoUrl outside official manufacturer domains","url":url})
-            continue
+            if not (is_reference and host_ok(url,REFERENCE_DOMAINS)):
+                errors.append({"index":i,"code":x.get("code"),"maker":maker,"error":"photoUrl outside allowed manufacturer/reference domains","url":url})
+                continue
         try:
             status,final_url,ctype,n=probe(url)
             if status < 200 or status >= 400:
@@ -68,7 +71,7 @@ def main():
       "photoUrlsFailed":len(errors),
       "recordsMissingPhotoStatus":missing_status,
       "genericPhotoFields":generic,
-      "policy":"manufacturer-exact-only; unavailable is explicit when no verified official photo exists",
+      "policy":"manufacturer-exact-preferred; real reference photos are allowed only when explicitly marked and hosted on an approved reference domain",
       "errors":errors[:200]
     }
     os.makedirs(os.path.dirname(REPORT),exist_ok=True)
