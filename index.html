@@ -414,7 +414,7 @@ function toolPhoto(x){
  if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Nessuna foto reale disponibile.</div>'+link+'</div>';
  const fallbackAttr=esc(fallback);
  const fallback2Attr=esc(fallback2);
- return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(src)+'" alt="'+alt+'" data-fallback="'+fallbackAttr+'" data-fallback2="'+fallback2Attr+'" onerror="if(this.dataset.fallback && this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback="";this.nextElementSibling.textContent=\"Foto reale di riferimento · geometria compatibile\";}else if(this.dataset.fallback2 && this.src!==this.dataset.fallback2){this.src=this.dataset.fallback2;this.dataset.fallback2="";this.nextElementSibling.textContent=\"Foto reale Ingersoll · fallback CNMG\";}else{this.style.display=\"none\";this.nextElementSibling.textContent=\"Foto reale non raggiungibile\";}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
+ return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(src)+'" alt="'+alt+'" data-open-code="'+esc(x.code)+'" data-fallback="'+fallbackAttr+'" data-fallback2="'+fallback2Attr+'" onerror="if(this.dataset.fallback && this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback="";this.nextElementSibling.textContent=\"Foto reale di riferimento · geometria compatibile\";}else if(this.dataset.fallback2 && this.src!==this.dataset.fallback2){this.src=this.dataset.fallback2;this.dataset.fallback2="";this.nextElementSibling.textContent=\"Foto reale Ingersoll · fallback CNMG\";}else{this.style.display=\"none\";this.nextElementSibling.textContent=\"Foto reale non raggiungibile\";}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
 }
 function familyFor(x){
  const k=(x.code+' '+x.category+' '+x.geom).toUpperCase();
@@ -522,15 +522,26 @@ closeModal.onclick=()=>toolModal.hidden=true;
 toolModal.onclick=e=>{if(e.target===toolModal)toolModal.hidden=true};
 document.addEventListener("keydown",e=>{if(e.key==="Escape")toolModal.hidden=true});
 
-/* Solo touch/iPhone: apre l'anteprima al tocco. Windows resta invariato. */
-document.addEventListener("click",e=>{
- if(!window.matchMedia("(pointer:coarse)").matches)return;
+/* iPhone/touch: apertura anteprima diretta. Windows invariato. */
+let lastTouchOpen=0;
+function openPhotoFromTouch(e){
  const img=e.target.closest(".photoWrap .recDraw");
  if(!img)return;
+ const coarse=e.pointerType==="touch" || (window.matchMedia && window.matchMedia("(pointer:coarse)").matches);
+ if(!coarse)return;
+ const code=img.dataset.openCode || img.closest(".recCard")?.querySelector("button[data-code]")?.dataset.code;
+ if(!code)return;
+ const x=data.find(v=>v.code===code);
+ if(!x)return;
  e.preventDefault();
- const row=img.closest(".recCard") || img.closest("tr.data");
- const code=row?.querySelector("button[data-code]")?.dataset.code || row?.querySelector(".code")?.textContent?.trim();
- if(code){const x=data.find(v=>v.code===code);if(x)openTool(x);}
+ e.stopPropagation();
+ lastTouchOpen=Date.now();
+ openTool(x);
+}
+document.addEventListener("pointerup",openPhotoFromTouch,{passive:false});
+document.addEventListener("click",e=>{
+ if(Date.now()-lastTouchOpen<700)return;
+ openPhotoFromTouch(e);
 });
 </script>
 </body></html>
