@@ -173,6 +173,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <div class="formulaCard"><h3>Formula avanzamento assiale</h3><label>Avanzamento fa (mm/giro pezzo)<input id="hf_f_fa" type="number" step="any"></label><label>Giri pezzo Np (rpm)<input id="hf_f_np" type="number" step="any"></label><div class="formulaText">Vf = fa × Np</div><div id="hf_f_out" class="resultCell outputCell">Vf mm/min</div></div>
 <div class="formulaCard"><h3>Formula tempo teorico</h3><label>Corsa assiale L (mm)<input id="hf_t_l" type="number" step="any"></label><label>Vf (mm/min)<input id="hf_t_vf" type="number" step="any"></label><div class="formulaText">T = L / Vf</div><div id="hf_t_out" class="resultCell outputCell">Tempo min</div></div>
 </div><p class="formulaNote"><b>Fonte tecnica:</b> HOB3D tratta modulo, numero denti, diametro creatore, avanzamento assiale e velocità di taglio come dati del processo e descrive la cinematica sincronizzata creatore/pezzo. EMAG specifica che nella dentatura a creatore la velocità di taglio è legata al diametro/velocità del creatore e che l'avanzamento è espresso in mm per giro del pezzo.</p></div></section>
+<section id="produttori" class="page"><div class="calc"><h2>🏭 Produttori</h2><p>Elenco dei produttori e riferimenti del catalogo.</p><div class="searchgrid"><input id="manufacturerSearch" placeholder="Cerca produttore…"><select id="manufacturerType"><option value="">Tutti i tipi</option><option value="inserti">Inserti</option><option value="utensili">Utensili</option><option value="portautensili">Portautensili</option><option value="ISO">ISO</option></select></div><div id="manufacturerList" class="problemList"><div class="result">Caricamento produttori…</div></div></div></section>
 <section id="problemi" class="page">
 <div class="calc"><h2>🛠️ Problemi di lavorazione · diagnosi e soluzioni</h2>
 <p>Guida pratica per tornitura, foratura, fresatura e rettifica. Le indicazioni sono organizzate come diagnosi: sintomo → cause possibili → controlli → correzione. Parti dal sintomo, controlla una variabile alla volta e modifica i parametri con piccoli incrementi. I valori sono indicativi: utensile, grado, materiale, macchina e fissaggio possono richiedere impostazioni diverse.</p>
@@ -406,7 +407,7 @@ function toolPhoto(x){
  if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Nessuna foto reale disponibile.</div>'+link+'</div>';
  const fallbackAttr=esc(proxyImage(fallback));
  const fallback2Attr=esc(proxyImage(fallback2));
- return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(src)+'" alt="'+alt+'" data-open-code="'+esc(x.code)+'" onclick="openTool(data.find(v=>v.code===this.dataset.openCode))" role="button" tabindex="0" data-fallback="'+fallbackAttr+'" data-fallback2="'+fallback2Attr+'" onerror="if(this.dataset.fallback && this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback="";this.nextElementSibling.textContent=\"Foto reale di riferimento · geometria compatibile\";}else if(this.dataset.fallback2 && this.src!==this.dataset.fallback2){this.src=this.dataset.fallback2;this.dataset.fallback2="";this.nextElementSibling.textContent=\"Foto reale Ingersoll · fallback CNMG\";}else{this.style.display=\"none\";this.nextElementSibling.textContent=\"Foto reale non raggiungibile\";}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
+ return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(src)+'" alt="'+alt+'" data-open-code="'+esc(x.code)+'" data-raw-src="'+esc(rawSrc)+'" onclick="openTool(data.find(v=>v.code===this.dataset.openCode))" role="button" tabindex="0" data-fallback="'+fallbackAttr+'" data-fallback2="'+fallback2Attr+'" onerror="if(this.dataset.fallback && this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback="";this.nextElementSibling.textContent=\"Foto reale di riferimento · geometria compatibile\";}else if(this.dataset.fallback2 && this.src!==this.dataset.fallback2){this.src=this.dataset.fallback2;this.dataset.fallback2="";this.nextElementSibling.textContent=\"Foto reale Ingersoll · fallback CNMG\";}else{this.style.display=\"none\";this.nextElementSibling.textContent=\"Foto reale non raggiungibile\";}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
 }
 function familyFor(x){
  const k=(x.code+' '+x.category+' '+x.geom).toUpperCase();
@@ -615,6 +616,50 @@ document.addEventListener("click",e=>{
     b.addEventListener("click",function(){openFormula(b.dataset.formula);});
   });
   openFormula("tornitura");
+})();
+</script>
+<script>
+(function(){
+  const baseProblems=[
+    ["Tornitura","Vibrazioni / chatter","Sbalzo elevato, fissaggio debole, utensile usurato o parametri non adatti.","Riduci lo sbalzo, controlla serraggio e rigidità, verifica usura e correggi velocità/avanzamento secondo il costruttore."],
+    ["Tornitura","Usura rapida dell'inserto","Velocità troppo alta, materiale difficile, refrigerazione insufficiente o grado non adatto.","Controlla Vc, refrigerazione, grado/rivestimento e profondità; confronta i parametri con la scheda del produttore."],
+    ["Tornitura","Rugosità elevata","Avanzamento elevato, raggio punta non adatto, vibrazioni o tagliente usurato.","Controlla f, raggio punta, stabilità e stato del tagliente; modifica un parametro alla volta."],
+    ["Foratura","Foro fuori quota","Usura della punta, runout, serraggio o parametri non corretti.","Controlla runout, punta, serraggio e parametri; misura il diametro e sostituisci l'utensile se usurato."],
+    ["Foratura","Foratura con vibrazioni","Sbalzo elevato, punta non centrata, macchina poco rigida o parametri eccessivi.","Riduci sbalzo, controlla centraggio e serraggio, quindi verifica Vc e avanzamento."],
+    ["Foratura","Scarico truciolo difficile","Refrigerazione insufficiente, truciolo lungo o avanzamento non adeguato.","Migliora il refrigerante e lo scarico; verifica geometria della punta e parametri consigliati."],
+    ["Fresatura","Chatter / vibrazioni","Sbalzo elevato, utensile troppo lungo, numero denti e parametri non adatti.","Riduci sbalzo, aumenta rigidità e verifica Vc, fz, ap e ae."],
+    ["Fresatura","Usura dei taglienti","Carico eccessivo, velocità non corretta, refrigerazione o grado non adatti.","Controlla Vc, fz, ap/ae, materiale e grado dell'utensile."],
+    ["Fresatura","Superficie con righe","Runout, utensile usurato, vibrazioni o passo/strategia non adeguati.","Controlla runout, serraggio, usura e stabilità del processo."],
+    ["Rettifica","Bruciature sul pezzo","Carico termico elevato, mola non corretta, ravvivatura o refrigerazione insufficienti.","Controlla refrigerazione, ravvivatura, pressione e condizioni della mola."],
+    ["Generale","Durata utensile insufficiente","Condizioni di taglio, materiale, grado, refrigerazione o rigidità non ottimali.","Confronta i parametri con il catalogo del produttore e verifica macchina, fissaggio e materiale reale."]
+  ];
+  function renderProblems(){
+    const q=String(document.getElementById("problemSearch")?.value||"").toLowerCase();
+    const area=document.getElementById("problemArea")?.value||"";
+    const all=baseProblems.concat((window.gearProblems||[]).map(p=>[p[0],p[1],p[2],p[3]]));
+    const list=all.filter(p=>(!area||p[0]===area)&&(!q||p.join(" ").toLowerCase().includes(q)));
+    const el=document.getElementById("problemList");
+    if(el)el.innerHTML=list.map(p=>'<article class="problemCard"><h3>'+esc(p[0])+' · '+esc(p[1])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(p[2])+'</p><div class="solution"><b>Soluzione / controllo:</b> '+esc(p[3])+'</div></article>').join("")||'<div class="result">Nessun problema trovato.</div>';
+  }
+  window.renderProblems=renderProblems;
+  document.getElementById("problemSearch")?.addEventListener("input",renderProblems);
+  document.getElementById("problemArea")?.addEventListener("change",renderProblems);
+  setTimeout(renderProblems,0);
+})();
+</script>
+<script>
+/* Anteprima utensili robusta: se il proxy non risponde, prova direttamente la foto e poi un fallback. */
+(function(){
+  document.addEventListener("error",function(e){
+    const img=e.target;
+    if(!(img instanceof HTMLImageElement) || !img.classList.contains("recDraw"))return;
+    if(img.dataset.directTried!=="1" && img.dataset.rawSrc){
+      img.dataset.directTried="1"; img.src=img.dataset.rawSrc; return;
+    }
+    img.style.display="";
+    img.src="data:image/svg+xml;charset=UTF-8,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400"><rect width="100%" height="100%" fill="#f8fbfd"/><polygon points="180,80 420,80 520,200 420,320 180,320 80,200" fill="#c7d2da" stroke="#123a5a" stroke-width="8"/><text x="300" y="215" text-anchor="middle" font-family="Arial" font-size="42" font-weight="700" fill="#123a5a">INSERT</text></svg>');
+  },true);
+  window.addEventListener("pageshow",function(){document.querySelectorAll(".recDraw").forEach(function(img){if(img.dataset.rawSrc&&!img.src.includes("weserv"))return;});});
 })();
 </script>
 <script>
