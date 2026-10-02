@@ -502,6 +502,9 @@ bindCalc(['tf_vc_d','tf_vc_n','tf_n_vc','tf_n_d','tf_vf_f','tf_vf_n','tf_t_l','t
 document.addEventListener('input',function(e){if(e.target && e.target.matches && e.target.matches('.formulaCard input:not(.resultCell)')){calcSeparate();calcHobbing();}});
 document.addEventListener('change',function(e){if(e.target && e.target.matches && e.target.matches('.formulaCard input:not(.resultCell)')){calcSeparate();calcHobbing();}});
 window.addEventListener('pageshow',function(){setTimeout(function(){calcSeparate();calcHobbing();},0);});
+// Fallback Safari/iPhone: ricalcolo periodico dei campi formula, indipendente dagli eventi tastiera.
+setInterval(function(){calcSeparate();calcHobbing();},300);
+
 
 
 function calcTurning(){
