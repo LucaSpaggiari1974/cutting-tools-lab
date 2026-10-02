@@ -498,6 +498,11 @@ function calcSeparate(){
  put('gf_f_out',v('gf_f_f','gf_f_s'));const gtl=val('gf_t_l'),gtv=val('gf_t_vf');put('gf_t_out',gtl!=null&&gtv>0?gtl/gtv:null);
 }
 bindCalc(['tf_vc_d','tf_vc_n','tf_n_vc','tf_n_d','tf_vf_f','tf_vf_n','tf_t_l','tf_t_vf','df_vc_d','df_vc_n','df_n_vc','df_n_d','df_vf_f','df_vf_n','df_fz_f','df_fz_z','rf_vc_d','rf_vc_n','rf_n_vc','rf_n_d','rf_vf_f','rf_vf_n','rf_t_l','rf_t_vf','mf_vc_d','mf_vc_n','mf_n_vc','mf_n_d','mf_vf_fz','mf_vf_n','mf_vf_z','mf_fz_vf','mf_fz_n','mf_fz_z','mf_q_ap','mf_q_ae','mf_q_vf','gf_vc_l','gf_vc_s','gf_s_vc','gf_s_l','gf_f_f','gf_f_s','gf_t_l','gf_t_vf'],calcSeparate);
+// Calcolo robusto anche su Safari/iPhone: ascolto delegato sui campi di input.
+document.addEventListener('input',function(e){if(e.target && e.target.matches && e.target.matches('.formulaCard input:not(.resultCell)')){calcSeparate();calcHobbing();}});
+document.addEventListener('change',function(e){if(e.target && e.target.matches && e.target.matches('.formulaCard input:not(.resultCell)')){calcSeparate();calcHobbing();}});
+window.addEventListener('pageshow',function(){setTimeout(function(){calcSeparate();calcHobbing();},0);});
+
 
 function calcTurning(){
  let D=num('tDm'),Vc=num('tVc'),n=num('tN'),f=num('tFn'),ap=num('tAp'),L=num('tLm'),kc=num('tKc'),ka=num('tKapr');
