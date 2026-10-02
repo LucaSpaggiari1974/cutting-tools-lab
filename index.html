@@ -572,4 +572,42 @@ document.addEventListener("click",e=>{
  openPhotoFromTouch(e);
 });
 </script>
+<script>
+(function(){
+  function n(id){var e=document.getElementById(id);var v=e?parseFloat(e.value):NaN;return Number.isFinite(v)?v:null;}
+  function o(id,v){var e=document.getElementById(id);if(!e)return;e.textContent=(v==null||!Number.isFinite(v))?"":Number(v).toFixed(3);e.classList.add("resultCell");}
+  function f(a,b){var x=n(a),y=n(b);return x!=null&&y!=null?x*y:null;}
+  window.forceFormulaCalculations=function(){
+    var x,y;
+    x=n("tf_vc_d");y=n("tf_vc_n");o("tf_vc_out",x!=null&&y!=null?3.14*x*y/1000:null);
+    x=n("tf_n_vc");y=n("tf_n_d");o("tf_n_out",x!=null&&y>0?x*1000/(3.14*y):null);
+    o("tf_vf_out",f("tf_vf_f","tf_vf_n"));x=n("tf_t_l");y=n("tf_t_vf");o("tf_t_out",x!=null&&y>0?x/y:null);
+    x=n("df_vc_d");y=n("df_vc_n");o("df_vc_out",x!=null&&y!=null?3.14*x*y/1000:null);
+    x=n("df_n_vc");y=n("df_n_d");o("df_n_out",x!=null&&y>0?x*1000/(3.14*y):null);
+    o("df_vf_out",f("df_vf_f","df_vf_n"));x=n("df_fz_f");y=n("df_fz_z");o("df_fz_out",x!=null&&y>0?x/y:null);
+    x=n("rf_vc_d");y=n("rf_vc_n");o("rf_vc_out",x!=null&&y!=null?3.14*x*y/1000:null);
+    x=n("rf_n_vc");y=n("rf_n_d");o("rf_n_out",x!=null&&y>0?x*1000/(3.14*y):null);
+    o("rf_vf_out",f("rf_vf_f","rf_vf_n"));x=n("rf_t_l");y=n("rf_t_vf");o("rf_t_out",x!=null&&y>0?x/y:null);
+    x=n("mf_vc_d");y=n("mf_vc_n");o("mf_vc_out",x!=null&&y!=null?3.14*x*y/1000:null);
+    x=n("mf_n_vc");y=n("mf_n_d");o("mf_n_out",x!=null&&y>0?x*1000/(3.14*y):null);
+    x=n("mf_vf_fz");y=n("mf_vf_n");var z=n("mf_vf_z");o("mf_vf_out",x!=null&&y!=null&&z>0?x*y*z:null);
+    x=n("mf_fz_vf");y=n("mf_fz_n");z=n("mf_fz_z");o("mf_fz_out",x!=null&&y>0&&z>0?x/(y*z):null);
+    x=n("mf_q_ap");y=n("mf_q_ae");var q=n("mf_q_vf");o("mf_q_out",x!=null&&y!=null&&q!=null?x*y*q/1000:null);
+    x=n("gf_vc_l");y=n("gf_vc_s");o("gf_vc_out",x!=null&&y!=null?x*y/1000:null);
+    x=n("gf_s_vc");y=n("gf_s_l");o("gf_s_out",x!=null&&y>0?x*1000/y:null);
+    o("gf_f_out",f("gf_f_f","gf_f_s"));x=n("gf_t_l");y=n("gf_t_vf");o("gf_t_out",x!=null&&y>0?x/y:null);
+    x=n("hf_vc_d");y=n("hf_vc_n");o("hf_vc_out",x!=null&&y!=null?3.14*x*y/1000:null);
+    x=n("hf_n_vc");y=n("hf_n_d");o("hf_n_out",x!=null&&y>0?x*1000/(3.14*y):null);
+    x=n("hf_p_nh");y=n("hf_p_zc");z=n("hf_p_zp");o("hf_p_out",x!=null&&y>0&&z>0?x*y/z:null);
+    x=n("hf_f_fa");y=n("hf_f_np");o("hf_f_out",x!=null&&y!=null?x*y:null);
+    x=n("hf_t_l");y=n("hf_t_vf");o("hf_t_out",x!=null&&y>0?x/y:null);
+  };
+  var ids=document.querySelectorAll(".formulaCard input:not(.resultCell)");
+  ids.forEach(function(e){e.addEventListener("input",window.forceFormulaCalculations);e.addEventListener("change",window.forceFormulaCalculations);keyupHandler&&e.addEventListener("keyup",keyupHandler);});
+  function keyupHandler(){window.forceFormulaCalculations();}
+  window.forceFormulaCalculations();
+  setInterval(window.forceFormulaCalculations,500);
+})();
+</script>
+
 </body></html>
