@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-02T20:27:11Z",
+  "updatedAt": "2026-10-02T21:28:14Z",
   "run": "daily",
   "changed": false,
   "pagesChecked": 474,
@@ -11,6 +11,6 @@
   "sourcesChecked": 21,
   "note": "Gli aggiornamenti automatici usano solo dati rilevati da pagine/cataloghi ufficiali. Parametri di taglio non verificati non vengono inventati.",
   "errors": [
-    "<urlopen error _ssl.c:1015: The handshake operation timed out>"
+    "<urlopen error timed out>"
   ]
 }
