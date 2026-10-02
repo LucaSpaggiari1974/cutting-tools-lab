@@ -1,5 +1,5 @@
 {
-  "version": "1.1",
+  "version": "1.2",
   "title": "Parametri documentati per dentatura",
   "disclaimer": "Valori tratti da fonti tecniche o studi sperimentali. Sono valori iniziali/documentati, non universali: verificare sempre macchina, utensile, materiale, durezza, corsa, refrigerazione e dati del costruttore.",
   "coltello": [
@@ -10,7 +10,7 @@
       "feed_circolare": "0,2–3,0 mm/corsa",
       "feed_radiale": "0,002–0,010 mm/corsa",
       "nota": "Condizioni pubblicate per gear shaper rivestiti.",
-      "fonte": "NACHI Gear Shaper Cutters"
+      "fonte": "NACHI Gear Shaper Cutters · relazione Vc/Wc"
     },
     {
       "titolo": "NACHI · cutter rivestito",
@@ -93,15 +93,15 @@
     }
   ],
   "formule_coltello": {
-    "Vc": "Vc = velocità di taglio media (m/min); L = lunghezza completa della corsa di taglio/avanti e ritorno (mm); B = battute del coltello (battute/min). Relazione usata per gear shaping: Vc = 2 × L × B / 1000.",
-    "B": "B = battute/min; Vc = velocità di taglio media (m/min); L = lunghezza completa della corsa (mm). B = Vc × 1000 / (2 × L).",
-    "Vf": "Vf = avanzamento lineare medio (mm/min); f_c = avanzamento per battuta/corsa (mm/corsa); B = battute/min. Vf = f_c × B.",
-    "battute_dente": "Bd = battute per dente; B = battute/min; Np = giri pezzo (giri/min); Zp = numero denti del pezzo. Bd = B / (Np × Zp), quando la cinematica della macchina considera un ciclo di generazione per dente.",
-    "battute_min_da_dente": "B = Bd × Np × Zp."
+    "Vc": "Vc = velocità di taglio media durante la corsa di taglio (m/min); b = larghezza utile del pezzo (mm); Wc = numero di corse del coltello (str/min). Relazione NACHI: Vc = Wc × (b + 6) × pi / 1000.",
+    "B": "Wc = corse/min; Vc = velocità di taglio (m/min); b = larghezza utile del pezzo (mm). Wc = Vc × 1000 / ((b + 6) × pi).",
+    "Vf": "Vf = avanzamento lineare medio (mm/min); f_c = avanzamento per corsa (mm/corsa); Wc = corse/min. Vf = f_c × Wc.",
+    "battute_dente": "Bd = battute/corse per dente; Wc = corse/min; Np = giri pezzo (giri/min); Zp = numero denti del pezzo. La relazione Bd = Wc / (Np × Zp) è utilizzabile solo se la cinematica della macchina definisce un ciclo di generazione per dente.",
+    "battute_min_da_dente": "Wc = Bd × Np × Zp, solo con la stessa convenzione cinematica."
   },
   "battute_dente_documentate": {
     "fonte": "Maag Gear Shaper Cutter",
-    "descrizione": "Numero di battute/corse del coltello per dente, valori generalmente adottati e documentati. La scelta dipende da modulo, numero denti e numero di passate.",
+    "descrizione": "Numero di battute/corse del coltello per dente, distinto dalla frequenza delle corse al minuto. Valori documentati Maag; la scelta dipende da modulo, numero denti e numero di passate.",
     "unita": "battute/dente",
     "colonne": [
       {
