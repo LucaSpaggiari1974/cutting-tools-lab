@@ -391,7 +391,7 @@ function toolPhoto(x){
  const rawSrc=exact||ref?.url||familyPhoto;
  // Use a server-side image proxy: several manufacturer/e-commerce hosts block
  // direct hotlinking on desktop browsers (especially Windows/Edge).
- const proxyImage=u=>u ? "https://images.weserv.nl/?url="+encodeURIComponent(u) : "";
+ const proxyImage=u=>u ? "/product-image?url="+encodeURIComponent(u) : "";
  const src=proxyImage(rawSrc);
  const isCnmg=(String(x?.code||"")+" "+String(x?.category||"")+" "+String(x?.geom||"")).toUpperCase().includes("CNMG");
  const localCnmgFallback=isCnmg ? "https://i.ebayimg.com/thumbs/images/g/QHUAAeSwpRxpHPLd/s-l500.jpg" : "";
