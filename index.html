@@ -467,7 +467,7 @@ function calcReaming(){const D=parseFloat(document.getElementById('rDa')?.value)
 function num(id){const e=document.getElementById(id);const v=parseFloat(e?.value);return Number.isFinite(v)?v:null}
 function setVal(id,v){if(v!=null&&Number.isFinite(v)){const e=document.getElementById(id);if(e)e.value=(Math.round(v*100000)/100000).toString()}}
 function val(id){const e=document.getElementById(id);const v=parseFloat(e?.value);return Number.isFinite(v)?v:null}
-function put(id,v){const e=document.getElementById(id);if(!e)return;e.value=v==null?'':Number(v).toFixed(3);e.dispatchEvent(new Event('change',{bubbles:true}));}
+function put(id,v){const e=document.getElementById(id);if(!e)return;e.value=v==null?'':Number(v).toFixed(3);e.setAttribute('value',e.value);e.classList.add('resultCell');}
 function bindCalc(ids,fn){const run=()=>fn();ids.forEach(id=>{const e=document.getElementById(id);if(e){e.addEventListener('input',run);e.addEventListener('change',run);}});run();}
 function calcHobbing(){
  const a=val('hf_vc_d'),b=val('hf_vc_n');put('hf_vc_out',a!=null&&b!=null?3.14*a*b/1000:null);
