@@ -161,15 +161,23 @@ def main():
         if result:
             item.update(result); item["photoStatus"] = "available"; item["photoNote"] = "Foto ufficiale verificata tramite corrispondenza esatta del codice."; found += 1; updated += 1
         else:
-            for k in ("photoUrl","photoSource","photoVerified","photoVerifiedAt"): item.pop(k,None)
-            item["photoStatus"] = "unavailable"
-            item["photoNote"] = "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
+            # Preserve an existing real reference/family photo when available.
+            # Exact manufacturer photo remains preferred, but lack of exact
+            # verification must not destroy a usable real photograph.
+            source = str(item.get("photoSource", "")).lower()
+            if item.get("photoUrl") and ("real-reference" in source or "family-reference" in source):
+                item["photoStatus"] = "reference"
+                item["photoNote"] = "Foto reale di riferimento della stessa famiglia/geometria; il codice esatto non è stato verificato."
+            else:
+                for k in ("photoUrl","photoSource","photoVerified","photoVerifiedAt"): item.pop(k,None)
+                item["photoStatus"] = "unavailable"
+                item["photoNote"] = "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
         time.sleep(0.15)
 
     catalog["updatedAt"] = now
     catalog["photoPolicy"] = {
-        "mode": "manufacturer-exact-only",
-        "rule": "Solo foto ufficiali del produttore collegate a una pagina che contiene il codice esatto.",
+        "mode": "manufacturer-exact-preferred-reference-allowed",
+        "rule": "Preferire foto ufficiali del produttore collegate al codice esatto; se non verificabili, preservare una foto reale di riferimento esplicitamente marcata come tale.",
         "lastRun": now,
     }
     with open(CATALOG, "w", encoding="utf-8") as f:
