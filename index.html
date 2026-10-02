@@ -96,7 +96,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <button class="navtab" data-page="tornitura">🔩 Tornitura</button>
 <button class="navtab" data-page="foratura">🕳️ Foratura</button><button class="navtab" data-page="alesatura">🔧 Alesatura</button>
 <button class="navtab" data-page="fresatura">⚙️ Fresatura</button>
-<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="dentatura">⚙️ Dentatura</button><button class="navtab" data-page="produttori">🏭 Produttori</button>
+<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="dentatura">⚙️ Dentatura a coltello</button><button class="navtab" data-page="creatore">⚙️ Dentatura a creatore</button><button class="navtab" data-page="produttori">🏭 Produttori</button>
 </nav>
 <section id="catalogo" class="page active"><section class="sheet">
 <div class="toolbar">
@@ -164,6 +164,14 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <div class="formulaCard"><h3>Formula avanzamento totale</h3><label>Avanzamento per corsa (mm/corsa)<input id="gf_f_f" type="number" step="any"></label><label>Corse/min (corse/min)<input id="gf_f_s" type="number" step="any"></label><div class="formulaText">Vf = f × S</div><input id="gf_f_out" class="resultCell" readonly placeholder="Vf mm/min"></div>
 <div class="formulaCard"><h3>Formula tempo teorico</h3><label>Corsa/traslazione utile L (mm)<input id="gf_t_l" type="number" step="any"></label><label>Vf (mm/min)<input id="gf_t_vf" type="number" step="any"></label><div class="formulaText">T = L / Vf</div><input id="gf_t_out" class="resultCell" readonly placeholder="Tempo min"></div>
 </div><p class="formulaNote">Nota: nella dentatura a coltello la corsa di ritorno e i movimenti di riposizionamento possono modificare il tempo reale. Il calcolo qui riportato è teorico e non sostituisce i dati della macchina.</p></div></section>
+<section id="creatore" class="page"><div class="calc"><h2>⚙️ Dentatura a creatore · formule dedicate</h2><p>Calcolo separato per dentatura a creatore. ⬜ Dati da inserire. 🟨 Risultato. Le relazioni sono basate sulla cinematica del processo HOB3D e sulla descrizione tecnica EMAG: la velocità di taglio deriva dalla velocità periferica del creatore; l'avanzamento è espresso in mm per giro del pezzo. Per ingranaggi elicoidali e condizioni speciali verificare sempre i dati macchina e utensile.</p>
+<div class="formulaGrid">
+<div class="formulaCard"><h3>Formula velocità di taglio Vc</h3><label>Diametro creatore Dh (mm)<input id="hf_vc_d" type="number" step="any"></label><label>Giri creatore Nh (rpm)<input id="hf_vc_n" type="number" step="any"></label><div class="formulaText">Vc = 3,14 × Dh × Nh / 1000</div><input id="hf_vc_out" class="resultCell" readonly placeholder="Vc m/min"></div>
+<div class="formulaCard"><h3>Formula giri creatore Nh</h3><label>Vc (m/min)<input id="hf_n_vc" type="number" step="any"></label><label>Dh (mm)<input id="hf_n_d" type="number" step="any"></label><div class="formulaText">Nh = Vc × 1000 / (3,14 × Dh)</div><input id="hf_n_out" class="resultCell" readonly placeholder="Nh rpm"></div>
+<div class="formulaCard"><h3>Formula giri pezzo Np</h3><label>Giri creatore Nh (rpm)<input id="hf_p_nh" type="number" step="any"></label><label>Numero principi creatore Zc<input id="hf_p_zc" type="number" step="1"></label><label>Numero denti pezzo Zp<input id="hf_p_zp" type="number" step="1"></label><div class="formulaText">Np = Nh × Zc / Zp</div><input id="hf_p_out" class="resultCell" readonly placeholder="Np rpm"></div>
+<div class="formulaCard"><h3>Formula avanzamento assiale</h3><label>Avanzamento fa (mm/giro pezzo)<input id="hf_f_fa" type="number" step="any"></label><label>Giri pezzo Np (rpm)<input id="hf_f_np" type="number" step="any"></label><div class="formulaText">Vf = fa × Np</div><input id="hf_f_out" class="resultCell" readonly placeholder="Vf mm/min"></div>
+<div class="formulaCard"><h3>Formula tempo teorico</h3><label>Corsa assiale L (mm)<input id="hf_t_l" type="number" step="any"></label><label>Vf (mm/min)<input id="hf_t_vf" type="number" step="any"></label><div class="formulaText">T = L / Vf</div><input id="hf_t_out" class="resultCell" readonly placeholder="Tempo min"></div>
+</div><p class="formulaNote"><b>Fonte tecnica:</b> HOB3D tratta modulo, numero denti, diametro creatore, avanzamento assiale e velocità di taglio come dati del processo e descrive la cinematica sincronizzata creatore/pezzo. EMAG specifica che nella dentatura a creatore la velocità di taglio è legata al diametro/velocità del creatore e che l'avanzamento è espresso in mm per giro del pezzo. citeturn2search17turn1search4</p></div></section>
 <section id="problemi" class="page">
 <div class="calc"><h2>🛠️ Problemi di lavorazione · diagnosi e soluzioni</h2>
 <p>Guida pratica per tornitura, foratura, fresatura e rettifica. Le indicazioni sono organizzate come diagnosi: sintomo → cause possibili → controlli → correzione. Parti dal sintomo, controlla una variabile alla volta e modifica i parametri con piccoli incrementi. I valori sono indicativi: utensile, grado, materiale, macchina e fissaggio possono richiedere impostazioni diverse.</p>
@@ -461,6 +469,14 @@ function setVal(id,v){if(v!=null&&Number.isFinite(v)){const e=document.getElemen
 function val(id){const e=document.getElementById(id);const v=parseFloat(e?.value);return Number.isFinite(v)?v:null}
 function put(id,v){const e=document.getElementById(id);if(e)e.value=v==null?'':Number(v).toFixed(3)}
 function bindCalc(ids,fn){ids.forEach(id=>document.getElementById(id)?.addEventListener('input',fn));fn()}
+function calcHobbing(){
+ const a=val('hf_vc_d'),b=val('hf_vc_n');put('hf_vc_out',a!=null&&b!=null?3.14*a*b/1000:null);
+ const c=val('hf_n_vc'),d=val('hf_n_d');put('hf_n_out',c!=null&&d>0?c*1000/(3.14*d):null);
+ const nh=val('hf_p_nh'),zc=val('hf_p_zc'),zp=val('hf_p_zp');put('hf_p_out',nh!=null&&zc>0&&zp>0?nh*zc/zp:null);
+ const fa=val('hf_f_fa'),np=val('hf_f_np');put('hf_f_out',fa!=null&&np!=null?fa*np:null);
+ const l=val('hf_t_l'),vf=val('hf_t_vf');put('hf_t_out',l!=null&&vf>0?l/vf:null);
+}
+bindCalc(['hf_vc_d','hf_vc_n','hf_n_vc','hf_n_d','hf_p_nh','hf_p_zc','hf_p_zp','hf_f_fa','hf_f_np','hf_t_l','hf_t_vf'],calcHobbing);
 function calcSeparate(){
  const v=(a,b)=>{const x=val(a),y=val(b);return x!=null&&y!=null?x*y:null};
  const a=val('tf_vc_d'),b=val('tf_vc_n');put('tf_vc_out',a!=null&&b!=null?3.14*a*b/1000:null);
