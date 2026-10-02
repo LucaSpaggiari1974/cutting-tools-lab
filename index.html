@@ -93,10 +93,9 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 
 <nav class="navtabs" aria-label="Sezioni">
 <button class="navtab active" data-page="catalogo">📋 Utensili</button>
-<button class="navtab" data-page="tornitura">🔩 Tornitura</button>
-<button class="navtab" data-page="foratura">🕳️ Foratura</button><button class="navtab" data-page="alesatura">🔧 Alesatura</button>
-<button class="navtab" data-page="fresatura">⚙️ Fresatura</button>
-<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button><button class="navtab" data-page="dentatura">⚙️ Dentatura a coltello</button><button class="navtab" data-page="creatore">⚙️ Dentatura a creatore</button><button class="navtab" data-page="produttori">🏭 Produttori</button>
+<button class="navtab" data-page="formule">📐 Formule</button>
+<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button>
+<button class="navtab" data-page="produttori">🏭 Produttori</button>
 </nav>
 <section id="catalogo" class="page active"><section class="sheet">
 <div class="toolbar">
@@ -128,6 +127,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 
 
 </section>
+<section id="formule" class="page"><div class="calc"><h2>📐 Formule</h2><p>Calcoli separati per ogni lavorazione. ⬜ Inserisci i dati · 🟨 risultato calcolato.</p></div></section>
 <section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura · formule separate</h2><p>⬜ Inserisci i dati. 🟨 Il campo giallo è il risultato.</p>
 <div class="formulaGrid">
 <div class="formulaCard"><h3>Formula Vc</h3><label>D (mm)<input id="tf_vc_d" type="number" step="any"></label><label>N (rpm)<input id="tf_vc_n" type="number" step="any"></label><div class="formulaText">Vc = 3,14 × D × N / 1000</div><div id="tf_vc_out" class="resultCell outputCell">Vc m/min</div></div>
@@ -575,6 +575,19 @@ document.addEventListener("click",e=>{
  if(Date.now()-lastTouchOpen<700)return;
  openPhotoFromTouch(e);
 });
+</script>
+<script>
+/* Raggruppamento unico delle formule: tutte le lavorazioni restano sotto la voce Formule. */
+(function(){
+  const host=document.getElementById("formule");
+  if(!host)return;
+  ["tornitura","foratura","alesatura","fresatura","dentatura","creatore"].forEach(function(id){
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.classList.remove("page","active");
+    host.appendChild(el);
+  });
+})();
 </script>
 <script>
 (function(){
