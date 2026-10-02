@@ -160,16 +160,16 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <div class="formulaCard"><h3>Formula asportazione Q</h3><label>ap (mm)<input id="mf_q_ap" type="number" step="any"></label><label>ae (mm)<input id="mf_q_ae" type="number" step="any"></label><label>Vf (mm/min)<input id="mf_q_vf" type="number" step="any"></label><div class="formulaText">Q = ap × ae × Vf / 1000</div><div id="mf_q_out" class="resultCell outputCell">Q cm³/min</div></div>
 </div></div></section>
 <section id="dentatura" class="page"><div class="calc"><h2>⚙️ Dentatura a coltello · formule dedicate</h2>
-<p><b>Legenda:</b> <b>Vc</b> = velocità di taglio media del coltello (m/min) · <b>L</b> = lunghezza completa della corsa considerata, avanti + ritorno (mm) · <b>B</b> = battute del coltello (battute/min) · <b>f<sub>c</sub></b> = avanzamento per battuta/corsa (mm/corsa) · <b>Vf</b> = avanzamento lineare medio (mm/min) · <b>Bd</b> = battute per dente · <b>Np</b> = giri del pezzo (giri/min) · <b>Zp</b> = numero denti del pezzo · <b>m</b> = modulo dell'ingranaggio (mm). I valori consigliati sotto sono documentati e vanno scelti in base a modulo, numero denti, passata e materiale.</p>
+<p><b>Legenda:</b> <b>Vc</b> = velocità di taglio media durante la corsa di taglio (m/min) · <b>b</b> = larghezza utile del pezzo (mm) · <b>Wc</b> = corse del coltello (str/min) · <b>f<sub>c</sub></b> = avanzamento per corsa (mm/corsa) · <b>Vf</b> = avanzamento lineare medio (mm/min) · <b>Bd</b> = battute/corse per dente · <b>Np</b> = giri del pezzo (giri/min) · <b>Zp</b> = numero denti del pezzo · <b>m</b> = modulo dell'ingranaggio (mm). <b>Nota:</b> una doppia corsa comprende una corsa di taglio e una di ritorno; la macchina può indicarla come DS/min.</p>
 <div class="formulaGrid">
-<div class="formulaCard"><h3>Velocità di taglio Vc</h3><label>Lunghezza completa della corsa L (mm)<input id="gf_vc_l" type="number" step="any"></label><label>Battute B (battute/min)<input id="gf_vc_s" type="number" step="any"></label><div class="formulaText">Vc = 2 × L × B / 1000</div><div class="formulaNote">Il fattore 2 considera la corsa avanti + ritorno del coltello.</div><div id="gf_vc_out" class="resultCell outputCell">Vc m/min</div></div>
-<div class="formulaCard"><h3>Battute del coltello B</h3><label>Vc (m/min)<input id="gf_s_vc" type="number" step="any"></label><label>Lunghezza completa della corsa L (mm)<input id="gf_s_l" type="number" step="any"></label><div class="formulaText">B = Vc × 1000 / (2 × L)</div><div id="gf_s_out" class="resultCell outputCell">Battute/min</div></div>
-<div class="formulaCard"><h3>Avanzamento totale Vf</h3><label>Avanzamento per battuta f<sub>c</sub> (mm/corsa)<input id="gf_f_f" type="number" step="any"></label><label>Battute B (battute/min)<input id="gf_f_s" type="number" step="any"></label><div class="formulaText">Vf = f<sub>c</sub> × B</div><div class="formulaNote">f<sub>c</sub> è l'avanzamento radiale/circolare applicato a ogni battuta, secondo la cinematica della macchina.</div><div id="gf_f_out" class="resultCell outputCell">Vf mm/min</div></div>
-<div class="formulaCard"><h3>Battute per dente Bd</h3><label>Battute B (battute/min)<input id="gf_bd_b" type="number" step="any"></label><label>Giri pezzo Np (giri/min)<input id="gf_bd_np" type="number" step="any"></label><label>Denti pezzo Zp<input id="gf_bd_zp" type="number" step="1"></label><div class="formulaText">Bd = B / (Np × Zp)</div><div class="formulaNote">Usare questa relazione quando ogni ciclo di generazione corrisponde al passaggio di un dente; verificare la cinematica della macchina.</div><div id="gf_bd_out" class="resultCell outputCell">Battute/dente</div></div>
-<div class="formulaCard"><h3>Battute/min da Bd</h3><label>Battute per dente Bd<input id="gf_b_bdg" type="number" step="any"></label><label>Giri pezzo Np (giri/min)<input id="gf_b_np" type="number" step="any"></label><label>Denti pezzo Zp<input id="gf_b_zp" type="number" step="1"></label><div class="formulaText">B = Bd × Np × Zp</div><div id="gf_b_out" class="resultCell outputCell">Battute/min</div></div>
-<div class="formulaCard"><h3>Tempo teorico di generazione</h3><label>Battute per dente Bd<input id="gf_t_bd" type="number" step="any"></label><label>Denti pezzo Zp<input id="gf_t_zp" type="number" step="1"></label><label>Battute B (battute/min)<input id="gf_t_b" type="number" step="any"></label><div class="formulaText">T = (Bd × Zp) / B</div><div class="formulaNote">Tempo teorico per una passata, senza indicizzazione, infeed e movimenti ausiliari.</div><div id="gf_t_out" class="resultCell outputCell">Tempo min</div></div>
+<div class="formulaCard"><h3>Velocità di taglio Vc · NACHI</h3><label>Larghezza utile del pezzo b (mm)<input id="gf_vc_l" type="number" step="any"></label><label>Corse Wc (str/min)<input id="gf_vc_s" type="number" step="any"></label><div class="formulaText">Vc = Wc × (b + 6) × 3,14 / 1000</div><div class="formulaNote">Relazione pubblicata da NACHI per gear shaper: Wc = corse/min e b = larghezza del pezzo. Non è la lunghezza totale avanti+ritorno.</div><div id="gf_vc_out" class="resultCell outputCell">Vc m/min</div></div>
+<div class="formulaCard"><h3>Corse del coltello Wc</h3><label>Vc (m/min)<input id="gf_s_vc" type="number" step="any"></label><label>Larghezza utile del pezzo b (mm)<input id="gf_s_l" type="number" step="any"></label><div class="formulaText">Wc = Vc × 1000 / ((b + 6) × 3,14)</div><div class="formulaNote">Il risultato è in corse/min secondo la relazione NACHI.</div><div id="gf_s_out" class="resultCell outputCell">Corse/min</div></div>
+<div class="formulaCard"><h3>Avanzamento totale Vf</h3><label>Avanzamento per corsa f<sub>c</sub> (mm/corsa)<input id="gf_f_f" type="number" step="any"></label><label>Corse Wc (str/min)<input id="gf_f_s" type="number" step="any"></label><div class="formulaText">Vf = f<sub>c</sub> × Wc</div><div class="formulaNote">L'avanzamento per corsa va interpretato secondo la cinematica della macchina; NACHI pubblica il rotary feed in mm/Stroke.</div><div id="gf_f_out" class="resultCell outputCell">Vf mm/min</div></div>
+<div class="formulaCard"><h3>Battute/corse per dente Bd</h3><label>Corse Wc (str/min)<input id="gf_bd_b" type="number" step="any"></label><label>Giri pezzo Np (giri/min)<input id="gf_bd_np" type="number" step="any"></label><label>Denti pezzo Zp<input id="gf_bd_zp" type="number" step="1"></label><div class="formulaText">Bd = B / (Np × Zp)</div><div class="formulaNote">Usare questa relazione quando ogni ciclo di generazione corrisponde al passaggio di un dente; verificare la cinematica della macchina.</div><div id="gf_bd_out" class="resultCell outputCell">Battute/dente</div></div>
+<div class="formulaCard"><h3>Corse/min da Bd</h3><label>Battute/corse per dente Bd<input id="gf_b_bdg" type="number" step="any"></label><label>Giri pezzo Np (giri/min)<input id="gf_b_np" type="number" step="any"></label><label>Denti pezzo Zp<input id="gf_b_zp" type="number" step="1"></label><div class="formulaText">B = Bd × Np × Zp</div><div id="gf_b_out" class="resultCell outputCell">Corse/min</div></div>
+<div class="formulaCard"><h3>Tempo teorico di generazione</h3><label>Battute per dente Bd<input id="gf_t_bd" type="number" step="any"></label><label>Denti pezzo Zp<input id="gf_t_zp" type="number" step="1"></label><label>Corse Wc (str/min)<input id="gf_t_b" type="number" step="any"></label><div class="formulaText">T = (Bd × Zp) / B</div><div class="formulaNote">Tempo teorico per una passata, senza indicizzazione, infeed e movimenti ausiliari.</div><div id="gf_t_out" class="resultCell outputCell">Tempo min</div></div>
 </div>
-<div class="formulaNote"><b>Importante:</b> la lunghezza L deve essere coerente con il modo in cui la macchina definisce la corsa. I tempi reali aumentano per infeed, indicizzazione, approccio e sovracorsa. Le battute/dente documentate sono riportate nella tabella sottostante.</div></div></section>
+<div class="formulaNote"><b>Importante:</b> non usare una formula universale del tipo 2 × L × battute/min. Nella dentatura a coltello la corsa di taglio e quella di ritorno hanno tempi diversi; le macchine possono esprimere la frequenza come corse/min o DS/min. Per il calcolo Vc/Wc qui viene usata la relazione pubblicata da NACHI. Le battute/dente Maag sono un parametro separato.</div></div></section>
 <section id="creatore" class="page"><div class="calc"><h2>⚙️ Dentatura a creatore · formule dedicate</h2><p>Calcolo separato per dentatura a creatore. ⬜ Dati da inserire. 🟨 Risultato. Le relazioni sono basate sulla cinematica del processo HOB3D e sulla descrizione tecnica EMAG: la velocità di taglio deriva dalla velocità periferica del creatore; l'avanzamento è espresso in mm per giro del pezzo. Per ingranaggi elicoidali e condizioni speciali verificare sempre i dati macchina e utensile.</p>
 <div class="formulaGrid">
 <div class="formulaCard"><h3>Formula velocità di taglio Vc</h3><label>Diametro creatore Dh (mm)<input id="hf_vc_d" type="number" step="any"></label><label>Giri creatore Nh (rpm)<input id="hf_vc_n" type="number" step="any"></label><div class="formulaText">Vc = 3,14 × Dh × Nh / 1000</div><div id="hf_vc_out" class="resultCell outputCell">Vc m/min</div></div>
@@ -389,30 +389,23 @@ function toolPhoto(x){
  const ref=realReferenceFor(x);
  const family=familyFor(x);
  const familyPhoto=photoMap[family]&&photoMap[family][0]?String(photoMap[family][0]):"";
- // IMPORTANT: prefer real product photography / manufacturer imagery.
- // Do not use catalog photoUrl blindly: some catalog sources are technical drawings.
  const exact=(x&&x.photoUrl&&x.photoSource==="manufacturer")?String(x.photoUrl):"";
- const rawSrc=exact||ref?.url||familyPhoto;
- // Use a server-side image proxy: several manufacturer/e-commerce hosts block
- // direct hotlinking on desktop browsers (especially Windows/Edge).
- const proxyImage=u=>u ? "/product-image?url="+encodeURIComponent(u) : "";
- const src=proxyImage(rawSrc);
  const isCnmg=(String(x?.code||"")+" "+String(x?.category||"")+" "+String(x?.geom||"")).toUpperCase().includes("CNMG");
- const localCnmgFallback=isCnmg ? "https://i.ebayimg.com/thumbs/images/g/QHUAAeSwpRxpHPLd/s-l500.jpg" : "";
- const cnmgOfficialFallback=isCnmg ? "https://ssl.ingersoll-imc.com/resources/product-images/cnmg/cnmg_Enlarge.jpg" : "";
- const fallback=localCnmgFallback || (ref?.url&&src!==ref.url?ref.url:(familyPhoto&&familyPhoto!==src?familyPhoto:""));
- const fallback2=cnmgOfficialFallback && cnmgOfficialFallback!==src && cnmgOfficialFallback!==fallback ? cnmgOfficialFallback : "";
+ const cnmgStable="https://cdn.mscdirect.com/global/images/ProductImages/6534470-21.jpg";
+ const fallback= isCnmg ? cnmgStable : (ref?.url||familyPhoto);
+ const fallback2= isCnmg ? (familyPhoto||ref?.url) : (ref?.url&&ref.url!==familyPhoto?ref.url:"");
+ const rawCandidates=[exact||"",fallback||"",fallback2||""].filter(Boolean);
+ const unique=[...new Set(rawCandidates)];
+ const src=unique.length?"/product-image?"+unique.map((u,i)=>(i?"fallback":"url")+"="+encodeURIComponent(u)).join("&"):"";
  const alt=esc((x&&x.maker||"")+" "+(x&&x.code||""));
- const sourceLabel=ref
-   ? ref.note
-   : (exact ? "Foto reale del produttore" : "Foto reale di riferimento · geometria/famiglia compatibile");
+ const sourceLabel=exact
+   ? "Foto reale del produttore"
+   : (ref ? ref.note : "Foto reale di riferimento · geometria/famiglia compatibile");
  const link=official
    ? '<a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda ufficiale del produttore</a>'
    : '';
- if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Nessuna foto reale disponibile.</div><button type="button" class="previewButton" data-preview-code="'+esc(x.code)+'">🔍 Apri anteprima</button>'+link+'</div>';
- const fallbackAttr=esc(proxyImage(fallback));
- const fallback2Attr=esc(proxyImage(fallback2));
- return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(src)+'" alt="'+alt+'" data-open-code="'+esc(x.code)+'" data-raw-src="'+esc(rawSrc)+'" role="button" tabindex="0" data-fallback="'+fallbackAttr+'" data-fallback2="'+fallback2Attr+'" onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback=\"";this.nextElementSibling.textContent=\"Foto reale di riferimento · geometria compatibile\";}else if(this.dataset.fallback2){this.src=this.dataset.fallback2;this.dataset.fallback2=\"";this.nextElementSibling.textContent=\"Foto reale Ingersoll · fallback CNMG\";}else{this.onerror=null;this.src=\"data:image/svg+xml;charset=UTF-8,\"+encodeURIComponent(\"<svg xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 600 400\\\"><rect width=\\\"600\\\" height=\\\"400\\\" fill=\\\"#f8fbfd\\\"/><polygon points=\\\"180,70 420,70 530,200 420,330 180,330 70,200\\\" fill=\\\"#c7d2da\\\" stroke=\\\"#123a5a\\\" stroke-width=\\\"8\\\"/><text x=\\\"300\\\" y=\\\"215\\\" text-anchor=\\\"middle\\\" font-family=\\\"Arial\\\" font-size=\\\"42\\\" font-weight=\\\"700\\\" fill=\\\"#123a5a\\\">INSERT</text></svg>\");this.nextElementSibling.textContent=\"Anteprima geometrica di riferimento\";}}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div><button type="button" class="previewButton" data-preview-code="'+esc(x.code)+'">🔍 Apri anteprima</button>'+link+'</div>';
+ if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Nessuna foto reale disponibile per questo utensile.</div>'+link+'</div>';
+ return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(src)+'" alt="'+alt+'" data-open-code="'+esc(x.code)+'" role="button" tabindex="0"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div><button type="button" class="previewButton" data-preview-code="'+esc(x.code)+'">🔍 Apri anteprima</button>'+link+'</div>';
 }
 function familyFor(x){
  const k=(x.code+' '+x.category+' '+x.geom).toUpperCase();
@@ -661,21 +654,7 @@ document.addEventListener("click",function(e){
   setTimeout(renderProblems,0);
 })();
 </script>
-<script>
-/* Anteprima utensili robusta: se il proxy non risponde, prova direttamente la foto e poi un fallback. */
-(function(){
-  document.addEventListener("error",function(e){
-    const img=e.target;
-    if(!(img instanceof HTMLImageElement) || !img.classList.contains("recDraw"))return;
-    if(img.dataset.directTried!=="1" && img.dataset.rawSrc){
-      img.dataset.directTried="1"; img.src=img.dataset.rawSrc; return;
-    }
-    img.style.display="";
-    img.src="data:image/svg+xml;charset=UTF-8,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400"><rect width="100%" height="100%" fill="#f8fbfd"/><polygon points="180,80 420,80 520,200 420,320 180,320 80,200" fill="#c7d2da" stroke="#123a5a" stroke-width="8"/><text x="300" y="215" text-anchor="middle" font-family="Arial" font-size="42" font-weight="700" fill="#123a5a">INSERT</text></svg>');
-  },true);
-  window.addEventListener("pageshow",function(){document.querySelectorAll(".recDraw").forEach(function(img){if(img.dataset.rawSrc&&!img.src.includes("weserv"))return;});});
-})();
-</script>
+
 <script>
 (function(){
   function n(id){var e=document.getElementById(id);var v=e?parseFloat(e.value):NaN;return Number.isFinite(v)?v:null;}
@@ -697,8 +676,8 @@ document.addEventListener("click",function(e){
     x=n("mf_vf_fz");y=n("mf_vf_n");var z=n("mf_vf_z");o("mf_vf_out",x!=null&&y!=null&&z>0?x*y*z:null);
     x=n("mf_fz_vf");y=n("mf_fz_n");z=n("mf_fz_z");o("mf_fz_out",x!=null&&y>0&&z>0?x/(y*z):null);
     x=n("mf_q_ap");y=n("mf_q_ae");var q=n("mf_q_vf");o("mf_q_out",x!=null&&y!=null&&q!=null?x*y*q/1000:null);
-    x=n("gf_vc_l");y=n("gf_vc_s");o("gf_vc_out",x!=null&&y!=null?2*x*y/1000:null);
-    x=n("gf_s_vc");y=n("gf_s_l");o("gf_s_out",x!=null&&y>0?x*1000/(2*y):null);
+    x=n("gf_vc_l");y=n("gf_vc_s");o("gf_vc_out",x!=null&&y!=null?y*(x+6)*3.14/1000:null);
+    x=n("gf_s_vc");y=n("gf_s_l");o("gf_s_out",x!=null&&y>=0?x*1000/((y+6)*3.14):null);
     o("gf_f_out",f("gf_f_f","gf_f_s"));x=n("gf_bd_b");y=n("gf_bd_np");var z=n("gf_bd_zp");o("gf_bd_out",x!=null&&y>0&&z>0?x/(y*z):null);x=n("gf_b_bdg");y=n("gf_b_np");z=n("gf_b_zp");o("gf_b_out",x!=null&&y!=null&&z>0?x*y*z:null);x=n("gf_t_bd");y=n("gf_t_zp");z=n("gf_t_b");o("gf_t_out",x!=null&&y>0&&z>0?x*y/z:null);
     x=n("hf_vc_d");y=n("hf_vc_n");o("hf_vc_out",x!=null&&y!=null?3.14*x*y/1000:null);
     x=n("hf_n_vc");y=n("hf_n_d");o("hf_n_out",x!=null&&y>0?x*1000/(3.14*y):null);
