@@ -36,6 +36,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 .appHeader{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.lastUpdate{text-align:right;font-size:11px;line-height:1.35;opacity:.9;white-space:nowrap}.lastUpdate b{font-size:12px;color:#fff}.refreshOverlay{position:fixed;inset:0;background:rgba(5,20,32,.62);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}.refreshOverlay[hidden]{display:none}.refreshCard{width:min(430px,100%);background:#fff;border-radius:18px;padding:22px;box-shadow:0 15px 50px #0006;text-align:center}.refreshTitle{font-size:19px;font-weight:800;color:#123a5a}.refreshText{margin:7px 0 16px;color:#607487;font-size:13px}.progressTrack{height:14px;background:#e6edf3;border-radius:999px;overflow:hidden}.progressBar{height:100%;width:0;background:linear-gradient(90deg,#1d78c9,#37a6ef);border-radius:999px;transition:width .22s ease}.progressPct{margin-top:9px;font-weight:800;color:#123a5a;font-size:13px}
 @media(max-width:760px){.appHeader{align-items:center}.lastUpdate{font-size:10px}.lastUpdate b{font-size:11px}}
 @media(max-width:760px){main{padding:8px}header{border-radius:12px}.searchgrid{grid-template-columns:1fr 1fr}.formula{grid-template-columns:1fr 1fr}.formula button{grid-column:1/-1;width:100%}.tablewrap{max-height:66vh}.drawingbox{grid-template-columns:1fr}h1{font-size:21px}.appbar{position:sticky;bottom:0;z-index:10;flex-wrap:wrap}.appbar span{flex-basis:100%}.appbar button{flex:1}.toolbar{top:0}} @media(min-width:1200px){main{max-width:1500px}.sheet{min-height:80vh}.tablewrap{max-height:68vh}table{min-width:1250px}.formula{grid-template-columns:1.7fr 1fr 1fr 1fr 1fr auto}}
+.formulaChooser{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 2px 12px #0001;margin-bottom:12px}.formulaChooser h2{margin:0;color:#123a5a}.formulaChooser p{margin:6px 0 14px;color:#607487}.formulaChoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.formulaChoice{background:#eef4f8;color:#123a5a;border:1px solid var(--line);font-weight:800;text-align:left}.formulaChoice.selected{background:#123a5a;color:#fff}@media(max-width:760px){.formulaChoices{grid-template-columns:1fr}.formulaChoice{min-height:48px}}
 .navtabs{display:flex;gap:6px;overflow:auto;margin:0 0 12px;padding:5px;background:#fff;border:1px solid var(--line);border-radius:12px;position:sticky;top:0;z-index:20}.navtab{white-space:nowrap;width:auto;padding:10px 14px;background:#eef4f8;color:#123a5a}.navtab.active{background:#123a5a;color:#fff}.page{display:none}.page.active{display:block}.calcgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.calc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 2px 12px #0001}.calc h2{margin-top:0;color:#123a5a}.calc label{display:block;font-weight:700;margin:9px 0}.calc label input{margin-top:5px}.formulaBox{background:#102f47;color:#fff;padding:14px;border-radius:10px;font-size:18px;font-weight:800;line-height:1.8}.unitNote{font-size:12px;opacity:.8}.formulaGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.formulaCard{border:1px solid var(--line);border-radius:12px;padding:12px;background:#f8fbfd}.formulaCard h3{margin:0 0 8px;color:#123a5a}.formulaCard label{margin:7px 0}.formulaCard input{width:100%;box-sizing:border-box}.formulaCard .resultCell{background:#fff3a6!important;border:2px solid #d6b900;font-weight:900}.outputCell{display:flex;align-items:center;min-height:42px;padding:8px 10px;box-sizing:border-box;color:#123a5a;font-size:16px;border-radius:6px}.formulaCard .formulaText{font-weight:800;margin:8px 0;color:#123a5a}.formulaNote{font-size:12px;color:#607487}@media(max-width:760px){.formulaGrid{grid-template-columns:1fr}}.result{margin-top:12px;padding:12px;background:#eaf2f8;border-radius:9px;font-weight:800;color:#123a5a}.modal{position:fixed;inset:0;background:#0008;z-index:100;display:flex;align-items:center;justify-content:center;padding:14px}.modal[hidden]{display:none}.modalCard{position:relative;background:#fff;border-radius:16px;width:min(760px,100%);max-height:90vh;overflow:auto;padding:20px}.closeModal{position:absolute;right:12px;top:12px;width:auto;background:#123a5a;padding:8px 12px}.modalCard .photoWrap .recDraw{width:100%;height:420px;object-fit:contain;background:#f8fbfd;border:1px solid var(--line);border-radius:10px;padding:4px}.photoEmpty{width:100%;min-height:180px;display:flex;align-items:center;justify-content:center;background:#f8fbfd;border:1px solid var(--line);border-radius:10px;color:#607487;font-weight:700;text-align:center;padding:20px}.modalImg{display:block;width:100%;max-height:420px;object-fit:contain;background:#f8fbfd;border-radius:10px;margin-top:12px}@media(max-width:760px){.navtabs{top:0}.calcgrid{grid-template-columns:1fr}.navtab{padding:9px 11px;font-size:13px}.modalCard{padding:14px}}
 .problemList{display:grid;gap:10px;margin-top:14px}.problemCard{border:1px solid var(--line);border-radius:12px;background:#f8fbfd;padding:12px}.problemCard h3{margin:0 0 6px;color:#123a5a;font-size:16px}.problemCard p{margin:5px 0;font-size:13px;line-height:1.45}.problemCard b{color:#123a5a}.problemCard .cause{color:#455b6d}.problemCard .solution{background:#fff;border-radius:8px;padding:8px;margin-top:7px}.recommendTitle{margin-top:18px;font-weight:800;color:#123a5a;font-size:17px}.recommend{display:grid;gap:10px;margin-top:10px}.recCard{display:grid;grid-template-columns:170px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#f8fbfd}.recDraw{width:160px;height:140px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:9px;padding:4px}.recMeta b{color:#123a5a}.recMeta .params{margin-top:7px;font-size:13px}.recMeta button{margin-top:8px;width:auto;padding:8px 12px}@media(max-width:760px){.recCard{grid-template-columns:1fr}.recDraw{width:100%;height:190px}}
 /* iPhone / touch optimization — mantiene invariata la logica Windows */
@@ -577,16 +578,43 @@ document.addEventListener("click",e=>{
 });
 </script>
 <script>
-/* Raggruppamento unico delle formule: tutte le lavorazioni restano sotto la voce Formule. */
+/* Formule: una sola voce principale, poi l'utente sceglie quale lavorazione aprire. */
 (function(){
   const host=document.getElementById("formule");
   if(!host)return;
-  ["tornitura","foratura","alesatura","fresatura","dentatura","creatore"].forEach(function(id){
+  const ids=["tornitura","foratura","alesatura","fresatura","dentatura","creatore"];
+  const names={
+    tornitura:"🔩 Tornitura",
+    foratura:"🕳️ Foratura",
+    alesatura:"🔧 Alesatura",
+    fresatura:"⚙️ Fresatura",
+    dentatura:"⚙️ Dentatura a coltello",
+    creatore:"⚙️ Dentatura a creatore"
+  };
+  const chooser=document.createElement("div");
+  chooser.className="formulaChooser";
+  chooser.innerHTML='<h2>📐 Formule</h2><p>Seleziona la lavorazione da aprire:</p><div class="formulaChoices">'+ids.map(id=>'<button type="button" class="formulaChoice" data-formula="'+id+'">'+names[id]+'</button>').join("")+'</div>';
+  host.querySelector(".calc").replaceWith(chooser);
+  ids.forEach(function(id){
     const el=document.getElementById(id);
     if(!el)return;
     el.classList.remove("page","active");
+    el.style.display="none";
     host.appendChild(el);
   });
+  function openFormula(id){
+    ids.forEach(function(x){
+      const el=document.getElementById(x);
+      if(el)el.style.display=x===id?"block":"none";
+    });
+    chooser.querySelectorAll(".formulaChoice").forEach(function(b){
+      b.classList.toggle("selected",b.dataset.formula===id);
+    });
+  }
+  chooser.querySelectorAll(".formulaChoice").forEach(function(b){
+    b.addEventListener("click",function(){openFormula(b.dataset.formula);});
+  });
+  openFormula("tornitura");
 })();
 </script>
 <script>
