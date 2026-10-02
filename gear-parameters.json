@@ -1,19 +1,189 @@
 {
-  "version":"1.0",
-  "title":"Parametri documentati per dentatura",
-  "disclaimer":"Valori tratti da fonti tecniche o studi sperimentali; verificare sempre la scheda del singolo utensile e i limiti della macchina.",
-  "coltello":[
-    {"titolo":"NACHI · cutter rivestito","materiale":"Blister steel","vc":"40–80 m/min","feed_circolare":"0,2–3,0 mm/corsa","feed_radiale":"0,002–0,010 mm/corsa","nota":"Condizioni pubblicate per gear shaper rivestiti.","fonte":"NACHI Gear Shaper Cutters"},
-    {"titolo":"NACHI · cutter rivestito","materiale":"S45C","vc":"30–50 m/min","feed_circolare":"0,2–3,0 mm/corsa","feed_radiale":"0,002–0,010 mm/corsa","nota":"Condizioni pubblicate per gear shaper rivestiti.","fonte":"NACHI Gear Shaper Cutters"},
-    {"titolo":"NACHI · cutter rivestito","materiale":"FCD70","vc":"20–40 m/min","feed_circolare":"0,2–3,0 mm/corsa","feed_radiale":"0,002–0,010 mm/corsa","nota":"Condizioni pubblicate per gear shaper rivestiti.","fonte":"NACHI Gear Shaper Cutters"},
-    {"titolo":"Liebherr · esempio industriale HSS","materiale":"SAE 3120","vc":"52 m/min","feed_circolare":"0,64 mm/corsa","corse":"70 corse/min","fonte":"Liebherr Gear Shaper example"},
-    {"titolo":"Liebherr · esempio industriale HSS","materiale":"15CrNi6","vc":"79 m/min","feed_circolare":"1,00 mm/corsa","corse":"2000 corse/min","fonte":"Liebherr Gear Shaper example"},
-    {"titolo":"Nidec MX-1 · HSS rivestito","materiale":"Acciaio cementato","vc":"—","feed_circolare":"1,50 / 0,50 mm/corsa","feed_radiale":"0,020 / 0,012 mm/corsa","corse":"850 / 920 corse/min","fonte":"Nidec MX-1 Shaper Cutter"}
+  "version": "1.1",
+  "title": "Parametri documentati per dentatura",
+  "disclaimer": "Valori tratti da fonti tecniche o studi sperimentali. Sono valori iniziali/documentati, non universali: verificare sempre macchina, utensile, materiale, durezza, corsa, refrigerazione e dati del costruttore.",
+  "coltello": [
+    {
+      "titolo": "NACHI · cutter rivestito",
+      "materiale": "Blister steel",
+      "vc": "40–80 m/min",
+      "feed_circolare": "0,2–3,0 mm/corsa",
+      "feed_radiale": "0,002–0,010 mm/corsa",
+      "nota": "Condizioni pubblicate per gear shaper rivestiti.",
+      "fonte": "NACHI Gear Shaper Cutters"
+    },
+    {
+      "titolo": "NACHI · cutter rivestito",
+      "materiale": "S45C",
+      "vc": "30–50 m/min",
+      "feed_circolare": "0,2–3,0 mm/corsa",
+      "feed_radiale": "0,002–0,010 mm/corsa",
+      "nota": "Condizioni pubblicate per gear shaper rivestiti.",
+      "fonte": "NACHI Gear Shaper Cutters"
+    },
+    {
+      "titolo": "NACHI · cutter rivestito",
+      "materiale": "FCD70",
+      "vc": "20–40 m/min",
+      "feed_circolare": "0,2–3,0 mm/corsa",
+      "feed_radiale": "0,002–0,010 mm/corsa",
+      "nota": "Condizioni pubblicate per gear shaper rivestiti.",
+      "fonte": "NACHI Gear Shaper Cutters"
+    },
+    {
+      "titolo": "Liebherr · esempio industriale HSS",
+      "materiale": "SAE 3120",
+      "vc": "52 m/min",
+      "feed_circolare": "0,64 mm/corsa",
+      "corse": "70 corse/min",
+      "fonte": "Liebherr Gear Shaper example"
+    },
+    {
+      "titolo": "Liebherr · esempio industriale HSS",
+      "materiale": "15CrNi6",
+      "vc": "79 m/min",
+      "feed_circolare": "1,00 mm/corsa",
+      "corse": "2000 corse/min",
+      "fonte": "Liebherr Gear Shaper example"
+    },
+    {
+      "titolo": "Nidec MX-1 · HSS rivestito",
+      "materiale": "Acciaio cementato",
+      "vc": "—",
+      "feed_circolare": "1,50 / 0,50 mm/corsa",
+      "feed_radiale": "0,020 / 0,012 mm/corsa",
+      "corse": "850 / 920 corse/min",
+      "fonte": "Nidec MX-1 Shaper Cutter"
+    }
   ],
-  "creatore":[
-    {"titolo":"Studio sperimentale · HSS hobbing","materiale":"SAE 8620","vc":"33,2–41,8 m/min","feed":"0,25–0,63 mm/giro lavoro","nota":"Prove sperimentali con creatore HSS; condizioni a secco.","fonte":"Experimental study on gear manufacturing / SAE 8620"},
-    {"titolo":"Studio industriale · modulo 3","materiale":"Gear hobbing · HSS","vc":"46 m/min","feed":"2,5 mm/giro","hob_diameter":"82,5 mm","modulo":"3","fonte":"A Review of New Strategies for Gear Production"},
-    {"titolo":"Studio industriale · modulo 6","materiale":"Gear hobbing · HSS","vc":"22 m/min","feed":"1,5 mm/giro","hob_diameter":"114,3 mm","modulo":"6","fonte":"A Review of New Strategies for Gear Production"},
-    {"titolo":"Studio DOE/RSM · modulo 6","materiale":"17CrNiMo6","giri_creatore":"100–150 rpm","feed":"2–8 mm/min","profondita":"1,45–4,35 mm","fonte":"ACMME 2019 / IOP Conference Series"}
-  ]
+  "creatore": [
+    {
+      "titolo": "Studio sperimentale · HSS hobbing",
+      "materiale": "SAE 8620",
+      "vc": "33,2–41,8 m/min",
+      "feed": "0,25–0,63 mm/giro lavoro",
+      "nota": "Prove sperimentali con creatore HSS; condizioni a secco.",
+      "fonte": "Experimental study on gear manufacturing / SAE 8620"
+    },
+    {
+      "titolo": "Studio industriale · modulo 3",
+      "materiale": "Gear hobbing · HSS",
+      "vc": "46 m/min",
+      "feed": "2,5 mm/giro",
+      "hob_diameter": "82,5 mm",
+      "modulo": "3",
+      "fonte": "A Review of New Strategies for Gear Production"
+    },
+    {
+      "titolo": "Studio industriale · modulo 6",
+      "materiale": "Gear hobbing · HSS",
+      "vc": "22 m/min",
+      "feed": "1,5 mm/giro",
+      "hob_diameter": "114,3 mm",
+      "modulo": "6",
+      "fonte": "A Review of New Strategies for Gear Production"
+    },
+    {
+      "titolo": "Studio DOE/RSM · modulo 6",
+      "materiale": "17CrNiMo6",
+      "giri_creatore": "100–150 rpm",
+      "feed": "2–8 mm/min",
+      "profondita": "1,45–4,35 mm",
+      "fonte": "ACMME 2019 / IOP Conference Series"
+    }
+  ],
+  "formule_coltello": {
+    "Vc": "Vc = velocità di taglio media (m/min); L = lunghezza completa della corsa di taglio/avanti e ritorno (mm); B = battute del coltello (battute/min). Relazione usata per gear shaping: Vc = 2 × L × B / 1000.",
+    "B": "B = battute/min; Vc = velocità di taglio media (m/min); L = lunghezza completa della corsa (mm). B = Vc × 1000 / (2 × L).",
+    "Vf": "Vf = avanzamento lineare medio (mm/min); f_c = avanzamento per battuta/corsa (mm/corsa); B = battute/min. Vf = f_c × B.",
+    "battute_dente": "Bd = battute per dente; B = battute/min; Np = giri pezzo (giri/min); Zp = numero denti del pezzo. Bd = B / (Np × Zp), quando la cinematica della macchina considera un ciclo di generazione per dente.",
+    "battute_min_da_dente": "B = Bd × Np × Zp."
+  },
+  "battute_dente_documentate": {
+    "fonte": "Maag Gear Shaper Cutter",
+    "descrizione": "Numero di battute/corse del coltello per dente, valori generalmente adottati e documentati. La scelta dipende da modulo, numero denti e numero di passate.",
+    "unita": "battute/dente",
+    "colonne": [
+      {
+        "id": "one_finish",
+        "nome": "1 passata · finitura",
+        "z12": "Z 12–25",
+        "z26": "Z 26–70"
+      },
+      {
+        "id": "two_rough",
+        "nome": "2 passate · sgrossatura",
+        "z12": "Z 12–25",
+        "z26": "Z 26–70"
+      },
+      {
+        "id": "two_finish",
+        "nome": "2 passate · finitura",
+        "z12": "Z 12–25",
+        "z26": "Z 26–70"
+      }
+    ],
+    "valori": [
+      {
+        "modulo": "0,7–1,5",
+        "one_finish": [
+          "40–50",
+          "35–45"
+        ],
+        "two_rough": [
+          "30–40",
+          "18–28"
+        ],
+        "two_finish": [
+          "15–25",
+          "10–20"
+        ]
+      },
+      {
+        "modulo": "1,5–2,5",
+        "one_finish": [
+          "50–60",
+          "40–50"
+        ],
+        "two_rough": [
+          "35–50",
+          "25–35"
+        ],
+        "two_finish": [
+          "20–32",
+          "15–25"
+        ]
+      },
+      {
+        "modulo": "2,5–3,2",
+        "one_finish": [
+          "55–70",
+          "45–55"
+        ],
+        "two_rough": [
+          "42–60",
+          "32–42"
+        ],
+        "two_finish": [
+          "25–42",
+          "20–32"
+        ]
+      },
+      {
+        "modulo": "3,2–4,0",
+        "one_finish": [
+          "60–80",
+          "50–60"
+        ],
+        "two_rough": [
+          "50–70",
+          "40–50"
+        ],
+        "two_finish": [
+          "30–50",
+          "25–36"
+        ]
+      }
+    ]
+  }
 }
