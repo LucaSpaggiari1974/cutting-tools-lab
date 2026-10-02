@@ -401,7 +401,7 @@ function toolPhoto(x){
  const src=exact||ref?.url||familyPhoto;
  const isCnmg=(String(x?.code||"")+" "+String(x?.category||"")+" "+String(x?.geom||"")).toUpperCase().includes("CNMG");
  const localCnmgFallback=isCnmg ? "https://i.ebayimg.com/thumbs/images/g/QHUAAeSwpRxpHPLd/s-l500.jpg" : "";
- const cnmgOfficialFallback=isCnmg ? "https://productinformation.sandvik.coromant.com/s3/documents/pictures/pict-3d-view/ext-mini/2107081__80X8072Dpi.png" : "";
+ const cnmgOfficialFallback=isCnmg ? "https://ssl.ingersoll-imc.com/resources/product-images/cnmg/cnmg_Enlarge.jpg" : "";
  const fallback=localCnmgFallback || (ref?.url&&src!==ref.url?ref.url:(familyPhoto&&familyPhoto!==src?familyPhoto:""));
  const fallback2=cnmgOfficialFallback && cnmgOfficialFallback!==src && cnmgOfficialFallback!==fallback ? cnmgOfficialFallback : "";
  const alt=esc((x&&x.maker||"")+" "+(x&&x.code||""));
@@ -414,7 +414,7 @@ function toolPhoto(x){
  if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Nessuna foto reale disponibile.</div>'+link+'</div>';
  const fallbackAttr=esc(fallback);
  const fallback2Attr=esc(fallback2);
- return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(src)+'" alt="'+alt+'" data-fallback="'+fallbackAttr+'" data-fallback2="'+fallback2Attr+'" onerror="if(this.dataset.fallback && this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback='';this.nextElementSibling.textContent='Foto reale di riferimento · geometria compatibile';}else if(this.dataset.fallback2 && this.src!==this.dataset.fallback2){this.src=this.dataset.fallback2;this.dataset.fallback2='';this.nextElementSibling.textContent='Rappresentazione ufficiale Sandvik · fallback';}else{this.style.display='none';this.nextElementSibling.textContent='Foto reale non raggiungibile';}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
+ return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(src)+'" alt="'+alt+'" data-fallback="'+fallbackAttr+'" data-fallback2="'+fallback2Attr+'" onerror="if(this.dataset.fallback && this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback="";this.nextElementSibling.textContent='Foto reale di riferimento · geometria compatibile';}else if(this.dataset.fallback2 && this.src!==this.dataset.fallback2){this.src=this.dataset.fallback2;this.dataset.fallback2="";this.nextElementSibling.textContent='Foto reale Ingersoll · fallback CNMG';}else{this.style.display='none';this.nextElementSibling.textContent='Foto reale non raggiungibile';}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
 }
 function familyFor(x){
  const k=(x.code+' '+x.category+' '+x.geom).toUpperCase();
