@@ -17,6 +17,7 @@ export default {
 
       const allowedHosts = [
         "i.ebayimg.com",
+        "cdn.mscdirect.com",
         "industrybuying.com",
         "insertcarbide.com",
         "rinaldi-tools.com",
@@ -49,33 +50,53 @@ export default {
       );
       if (!allowed) return new Response("Image host not allowed", { status: 403 });
 
-      try {
-        const upstream = await fetch(target.toString(), {
-          headers: {
+      const candidates = [targetRaw]
+        .concat(url.searchParams.getAll("fallback"))
+        .filter(Boolean)
+        .slice(0, 4);
+
+      for (const candidateRaw of candidates) {
+        let candidate;
+        try { candidate = new URL(candidateRaw); } catch { continue; }
+        if (candidate.protocol !== "https:") continue;
+
+        const candidateAllowed = allowedHosts.some(
+          host => candidate.hostname === host || candidate.hostname.endsWith("." + host)
+        );
+        if (!candidateAllowed) continue;
+
+        const headerSets = [
+          {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36",
             "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
-            "Referer": target.origin + "/"
+            "Referer": candidate.origin + "/"
+          },
+          {
+            "User-Agent": "Mozilla/5.0",
+            "Accept": "image/avif,image/webp,image/*,*/*;q=0.7"
           }
-        });
+        ];
 
-        if (!upstream.ok) {
-          return new Response("Image unavailable", { status: 502 });
+        for (const requestHeaders of headerSets) {
+          try {
+            const upstream = await fetch(candidate.toString(), { headers: requestHeaders });
+            if (!upstream.ok) continue;
+
+            const contentType = upstream.headers.get("content-type") || "";
+            if (!contentType.toLowerCase().startsWith("image/")) continue;
+
+            const headers = new Headers();
+            headers.set("Content-Type", contentType);
+            headers.set("Cache-Control", "public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000");
+            headers.set("Access-Control-Allow-Origin", "*");
+            headers.set("X-Image-Source", candidate.hostname);
+
+            return new Response(upstream.body, { status: 200, headers });
+          } catch {}
         }
-
-        const contentType = upstream.headers.get("content-type") || "";
-        if (!contentType.startsWith("image/")) {
-          return new Response("Upstream is not an image", { status: 502 });
-        }
-
-        const headers = new Headers();
-        headers.set("Content-Type", contentType);
-        headers.set("Cache-Control", "public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000");
-        headers.set("Access-Control-Allow-Origin", "*");
-
-        return new Response(upstream.body, { status: 200, headers });
-      } catch {
-        return new Response("Image proxy failed", { status: 502 });
       }
+
+      return new Response("Image unavailable", { status: 502 });
     }
 
     return env.ASSETS.fetch(request);
