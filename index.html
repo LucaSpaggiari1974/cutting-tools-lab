@@ -385,7 +385,11 @@ function toolPhoto(x){
  // IMPORTANT: prefer real product photography / manufacturer imagery.
  // Do not use catalog photoUrl blindly: some catalog sources are technical drawings.
  const exact=(x&&x.photoUrl&&x.photoSource==="manufacturer")?String(x.photoUrl):"";
- const src=exact||ref?.url||familyPhoto;
+ const rawSrc=exact||ref?.url||familyPhoto;
+ // Use a server-side image proxy: several manufacturer/e-commerce hosts block
+ // direct hotlinking on desktop browsers (especially Windows/Edge).
+ const proxyImage=u=>u ? "https://images.weserv.nl/?url="+encodeURIComponent(u) : "";
+ const src=proxyImage(rawSrc);
  const isCnmg=(String(x?.code||"")+" "+String(x?.category||"")+" "+String(x?.geom||"")).toUpperCase().includes("CNMG");
  const localCnmgFallback=isCnmg ? "https://i.ebayimg.com/thumbs/images/g/QHUAAeSwpRxpHPLd/s-l500.jpg" : "";
  const cnmgOfficialFallback=isCnmg ? "https://ssl.ingersoll-imc.com/resources/product-images/cnmg/cnmg_Enlarge.jpg" : "";
@@ -399,8 +403,8 @@ function toolPhoto(x){
    ? '<a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda ufficiale del produttore</a>'
    : '';
  if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Nessuna foto reale disponibile.</div>'+link+'</div>';
- const fallbackAttr=esc(fallback);
- const fallback2Attr=esc(fallback2);
+ const fallbackAttr=esc(proxyImage(fallback));
+ const fallback2Attr=esc(proxyImage(fallback2));
  return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(src)+'" alt="'+alt+'" data-open-code="'+esc(x.code)+'" onclick="openTool(data.find(v=>v.code===this.dataset.openCode))" role="button" tabindex="0" data-fallback="'+fallbackAttr+'" data-fallback2="'+fallback2Attr+'" onerror="if(this.dataset.fallback && this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback="";this.nextElementSibling.textContent=\"Foto reale di riferimento · geometria compatibile\";}else if(this.dataset.fallback2 && this.src!==this.dataset.fallback2){this.src=this.dataset.fallback2;this.dataset.fallback2="";this.nextElementSibling.textContent=\"Foto reale Ingersoll · fallback CNMG\";}else{this.style.display=\"none\";this.nextElementSibling.textContent=\"Foto reale non raggiungibile\";}"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div>'+link+'</div>';
 }
 function familyFor(x){
