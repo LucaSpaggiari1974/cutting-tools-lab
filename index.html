@@ -710,4 +710,22 @@ document.addEventListener("click",function(e){
 })();
 </script>
 
+<script>
+(function(){
+const css=document.createElement('style');
+css.textContent='.gearSourceBox{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:#f8fbfd;padding:12px}.gearSourceBox h3{margin:0 0 8px;color:#123a5a}.gearSourceBox table{min-width:0;width:100%;border-collapse:collapse}.gearSourceBox th,.gearSourceBox td{border:1px solid var(--line);padding:7px;font-size:12px}.gearSourceBox th{position:static}.gearSourceNote{font-size:11px;color:#607487;margin-top:8px;line-height:1.45}.gearSourceBadge{display:inline-block;background:#e9f2fb;color:#185b8f;border-radius:999px;padding:3px 7px;font-weight:800;font-size:11px}';
+document.head.appendChild(css);
+const esc2=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function make(title,items,type){
+return '<div class="gearSourceBox"><h3>'+esc2(title)+'</h3><span class="gearSourceBadge">PARAMETRI DOCUMENTATI</span><table><thead><tr><th>Condizione</th><th>Materiale</th><th>Vc / velocità</th><th>Avanzamento</th><th>Radiale / corse</th><th>Fonte</th></tr></thead><tbody>'+
+items.map(x=>'<tr><td>'+esc2(x.titolo)+'</td><td>'+esc2(x.materiale||'—')+'</td><td>'+esc2(x.vc||x.giri_creatore||'—')+'</td><td>'+esc2(x.feed_circolare||x.feed||'—')+'</td><td>'+esc2((x.feed_radiale||'—')+(x.corse?' · '+x.corse:''))+'</td><td>'+esc2(x.fonte)+'</td></tr>').join('')+
+'</tbody></table><div class="gearSourceNote">'+(type==='coltello'?'VF teorica = avanzamento per corsa × corse/min. La Vc NACHI è riferita alla cinematica della macchina; non usare il valore senza verificare macchina e utensile.':'Per il creatore, l’avanzamento dipende dalla cinematica e dalla specifica lavorazione. I dati sono riportati insieme alla condizione originale, non come valore universale.')+'</div></div>';
+}
+fetch('./gear-parameters.json?ts='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(d=>{
+const sh=document.querySelector('#dentatura .calc'),ho=document.querySelector('#creatore .calc');
+if(sh&&!sh.querySelector('.gearSourceBox'))sh.insertAdjacentHTML('beforeend',make('Valori consigliati e documentati · dentatura a coltello',d.coltello,'coltello'));
+if(ho&&!ho.querySelector('.gearSourceBox'))ho.insertAdjacentHTML('beforeend',make('Valori consigliati e documentati · dentatura a creatore',d.creatore,'creatore'));
+}).catch(()=>{});
+})();
+</script>
 </body></html>

@@ -1,0 +1,19 @@
+{
+  "version":"1.0",
+  "title":"Parametri documentati per dentatura",
+  "disclaimer":"Valori tratti da fonti tecniche o studi sperimentali; verificare sempre la scheda del singolo utensile e i limiti della macchina.",
+  "coltello":[
+    {"titolo":"NACHI · cutter rivestito","materiale":"Blister steel","vc":"40–80 m/min","feed_circolare":"0,2–3,0 mm/corsa","feed_radiale":"0,002–0,010 mm/corsa","nota":"Condizioni pubblicate per gear shaper rivestiti.","fonte":"NACHI Gear Shaper Cutters"},
+    {"titolo":"NACHI · cutter rivestito","materiale":"S45C","vc":"30–50 m/min","feed_circolare":"0,2–3,0 mm/corsa","feed_radiale":"0,002–0,010 mm/corsa","nota":"Condizioni pubblicate per gear shaper rivestiti.","fonte":"NACHI Gear Shaper Cutters"},
+    {"titolo":"NACHI · cutter rivestito","materiale":"FCD70","vc":"20–40 m/min","feed_circolare":"0,2–3,0 mm/corsa","feed_radiale":"0,002–0,010 mm/corsa","nota":"Condizioni pubblicate per gear shaper rivestiti.","fonte":"NACHI Gear Shaper Cutters"},
+    {"titolo":"Liebherr · esempio industriale HSS","materiale":"SAE 3120","vc":"52 m/min","feed_circolare":"0,64 mm/corsa","corse":"70 corse/min","fonte":"Liebherr Gear Shaper example"},
+    {"titolo":"Liebherr · esempio industriale HSS","materiale":"15CrNi6","vc":"79 m/min","feed_circolare":"1,00 mm/corsa","corse":"2000 corse/min","fonte":"Liebherr Gear Shaper example"},
+    {"titolo":"Nidec MX-1 · HSS rivestito","materiale":"Acciaio cementato","vc":"—","feed_circolare":"1,50 / 0,50 mm/corsa","feed_radiale":"0,020 / 0,012 mm/corsa","corse":"850 / 920 corse/min","fonte":"Nidec MX-1 Shaper Cutter"}
+  ],
+  "creatore":[
+    {"titolo":"Studio sperimentale · HSS hobbing","materiale":"SAE 8620","vc":"33,2–41,8 m/min","feed":"0,25–0,63 mm/giro lavoro","nota":"Prove sperimentali con creatore HSS; condizioni a secco.","fonte":"Experimental study on gear manufacturing / SAE 8620"},
+    {"titolo":"Studio industriale · modulo 3","materiale":"Gear hobbing · HSS","vc":"46 m/min","feed":"2,5 mm/giro","hob_diameter":"82,5 mm","modulo":"3","fonte":"A Review of New Strategies for Gear Production"},
+    {"titolo":"Studio industriale · modulo 6","materiale":"Gear hobbing · HSS","vc":"22 m/min","feed":"1,5 mm/giro","hob_diameter":"114,3 mm","modulo":"6","fonte":"A Review of New Strategies for Gear Production"},
+    {"titolo":"Studio DOE/RSM · modulo 6","materiale":"17CrNiMo6","giri_creatore":"100–150 rpm","feed":"2–8 mm/min","profondita":"1,45–4,35 mm","fonte":"ACMME 2019 / IOP Conference Series"}
+  ]
+}
