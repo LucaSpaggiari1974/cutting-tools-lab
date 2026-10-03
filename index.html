@@ -866,6 +866,16 @@ if(ho&&!ho.querySelector('.gearSourceBox'))ho.insertAdjacentHTML('beforeend',mak
 
   const oldRender=window.renderProblems;
   window.renderProblems=function(){
+    const area=document.getElementById("problemArea")?.value||"";
+    if(/^Rettifica(?: foro| evolvente| diametri esterni)?$/.test(area)){
+      const list=document.getElementById("problemList");
+      const q=String(document.getElementById("problemSearch")?.value||"").toLowerCase();
+      const wanted=grindingEvidence.filter(g=>g.area===area)
+        .flatMap(g=>g.problems.map(p=>({area:g.area,source:g.source,p})))
+        .filter(x=>!q||[x.area,x.source,...x.p].join(" ").toLowerCase().includes(q));
+      if(list)list.innerHTML=wanted.map(x=>'<article class="problemCard grindingCard"><h3>'+esc(x.area)+' · '+esc(x.p[0])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(x.p[1])+'</p><p><b>Controlli:</b> '+esc(x.p[2])+'</p><div class="solution"><b>Soluzione / correzione:</b> '+esc(x.p[3])+'</div><p><b>Valori / regolazione di prova:</b> '+esc(x.p[4])+'</p><p class="photo-caption"><b>Fonte tecnica:</b> '+esc(x.source)+'</p></article>').join("")||'<div class="result">Nessun problema trovato.</div>';
+      return;
+    }
     if(typeof oldRender==="function")oldRender();
     renderGrindingExtension();
   };
