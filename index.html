@@ -319,20 +319,27 @@ document.getElementById("refreshData").onclick=()=>manualRefresh();
 
 if("serviceWorker" in navigator){
  navigator.serviceWorker.register("sw.js").then(reg=>{
+   let updateTimer=null;
+   const finishUpdate=()=>{
+     showRefreshProgress(100,"Aggiornamento completato. Attendere…");
+     clearTimeout(updateTimer);
+     updateTimer=setTimeout(()=>location.reload(),650);
+   };
    const watch=()=>{
      const installing=reg.installing;
      if(!installing)return;
      showRefreshProgress(8,"ATTENDI — AGGIORNAMENTO IN CORSO");
-     const steps=()=> {
-       if(installing.state==="installing") showRefreshProgress(35,"Scaricamento aggiornamento…");
-       else if(installing.state==="installed"){
+     const steps=()=>{
+       if(installing.state==="installing"){
+         showRefreshProgress(35,"ATTENDI — AGGIORNAMENTO IN CORSO");
+       }else if(installing.state==="installed"){
          if(navigator.serviceWorker.controller){
-           showRefreshProgress(85,"Nuova versione pronta…");
-           setTimeout(()=>{showRefreshProgress(100,"Aggiornamento completato. Attendere…");setTimeout(()=>location.reload(),500)},250);
+           showRefreshProgress(82,"ATTENDI — AGGIORNAMENTO IN CORSO");
+           setTimeout(()=>finishUpdate(),350);
          }else{
            document.getElementById("refreshOverlay").hidden=true;
          }
-       } else if(installing.state==="redundant"){
+       }else if(installing.state==="redundant"){
          document.getElementById("refreshOverlay").hidden=true;
        }
      };
@@ -340,6 +347,10 @@ if("serviceWorker" in navigator){
      steps();
    };
    reg.addEventListener("updatefound",watch);
+   navigator.serviceWorker.addEventListener("controllerchange",()=>{
+     showRefreshProgress(92,"ATTENDI — AGGIORNAMENTO IN CORSO");
+     setTimeout(()=>finishUpdate(),250);
+   });
    reg.update();
    setInterval(()=>reg.update(),60*1000);
  }).catch(()=>{});
