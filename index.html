@@ -330,7 +330,33 @@ setInterval(checkForDatabaseUpdate,60*1000);
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkForDatabaseUpdate()});
 document.getElementById("refreshData").onclick=()=>manualRefresh();
 
-if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").then(reg=>{reg.update();setInterval(()=>reg.update(),60*1000)}).catch(()=>{});}
+if("serviceWorker" in navigator){
+ navigator.serviceWorker.register("sw.js").then(reg=>{
+   const watch=()=>{
+     const installing=reg.installing;
+     if(!installing)return;
+     showRefreshProgress(8,"ATTENDI — AGGIORNAMENTO IN CORSO");
+     const steps=()=> {
+       if(installing.state==="installing") showRefreshProgress(35,"Scaricamento aggiornamento…");
+       else if(installing.state==="installed"){
+         if(navigator.serviceWorker.controller){
+           showRefreshProgress(85,"Nuova versione pronta…");
+           setTimeout(()=>{showRefreshProgress(100,"Aggiornamento completato. Attendere…");setTimeout(()=>location.reload(),500)},250);
+         }else{
+           document.getElementById("refreshOverlay").hidden=true;
+         }
+       } else if(installing.state==="redundant"){
+         document.getElementById("refreshOverlay").hidden=true;
+       }
+     };
+     installing.addEventListener("statechange",steps);
+     steps();
+   };
+   reg.addEventListener("updatefound",watch);
+   reg.update();
+   setInterval(()=>reg.update(),60*1000);
+ }).catch(()=>{});
+}
 let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.getElementById("installApp").hidden=false});document.getElementById("installApp").onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById("installApp").hidden=true};
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
@@ -421,8 +447,30 @@ function toolPhoto(x){
    ? '<a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda ufficiale del produttore</a>'
    : '';
  if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Nessuna foto reale disponibile per questo utensile.</div>'+link+'</div>';
- return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(src)+'" alt="'+alt+'" data-open-code="'+esc(x.code)+'" role="button" tabindex="0"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div><button type="button" class="previewButton" data-preview-code="'+esc(x.code)+'">🔍 Apri anteprima</button>'+link+'</div>';
+ const candidateData=encodeURIComponent(JSON.stringify(unique));
+ return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(src)+'" alt="'+alt+'" data-open-code="'+esc(x.code)+'" data-photo-candidates="'+candidateData+'" role="button" tabindex="0"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div><button type="button" class="previewButton" data-preview-code="'+esc(x.code)+'">🔍 Apri anteprima</button>'+link+'</div>';
 }
+document.addEventListener("error",e=>{
+ const img=e.target;
+ if(!(img instanceof HTMLImageElement)||!img.classList.contains("recDraw"))return;
+ let list=[];
+ try{list=JSON.parse(decodeURIComponent(img.dataset.photoCandidates||"[]"));}catch(_){}
+ const n=Number(img.dataset.photoFallbackIndex||"0");
+ if(n<list.length){
+   img.dataset.photoFallbackIndex=String(n+1);
+   img.src=list[n];
+ }else{
+   img.style.display="none";
+   const wrap=img.closest(".photoWrap");
+   if(wrap&&!wrap.querySelector(".photoEmpty")){
+     const d=document.createElement("div");
+     d.className="photoEmpty";
+     d.textContent="📷 Foto reale temporaneamente non raggiungibile. Riprova tra poco.";
+     wrap.insertBefore(d,wrap.firstChild);
+   }
+ }
+},true);
+
 function familyFor(x){
  const k=(x.code+' '+x.category+' '+x.geom).toUpperCase();
  if(k.includes('FORATURA')){
