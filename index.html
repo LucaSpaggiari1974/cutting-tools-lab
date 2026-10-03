@@ -402,14 +402,17 @@ function toolPhoto(x){
  const ref=realReferenceFor(x);
  const family=familyFor(x);
  const familyPhoto=photoMap[family]&&photoMap[family][0]?String(photoMap[family][0]):"";
- const exact=(x&&x.photoUrl&&x.photoSource==="manufacturer")?String(x.photoUrl):"";
+ const photoSource=String(x?.photoSource||"").toLowerCase();
+ const exact=(x&&x.photoUrl&&(/manufacturer|official/.test(photoSource)))?String(x.photoUrl):"";
  const isCnmg=(String(x?.code||"")+" "+String(x?.category||"")+" "+String(x?.geom||"")).toUpperCase().includes("CNMG");
  const cnmgStable="https://cdn.mscdirect.com/global/images/ProductImages/6534470-21.jpg";
  const fallback= isCnmg ? cnmgStable : (ref?.url||familyPhoto);
  const fallback2= isCnmg ? (familyPhoto||ref?.url) : (ref?.url&&ref.url!==familyPhoto?ref.url:"");
  const rawCandidates=[exact||"",fallback||"",fallback2||""].filter(Boolean);
  const unique=[...new Set(rawCandidates)];
- const src=unique.length?"/product-image?"+unique.map((u,i)=>(i?"fallback":"url")+"="+encodeURIComponent(u)).join("&"):"";
+ const proxyBase="https://cutting-tools-lab.spaggiari.workers.dev/product-image";
+ const photoVersion=encodeURIComponent(String(x?.photoUpdatedAt||x?.photoVerifiedAt||"stable"));
+ const src=unique.length?proxyBase+"?v="+photoVersion+"&"+unique.map((u,i)=>(i?"fallback":"url")+"="+encodeURIComponent(u)).join("&"):"";
  const alt=esc((x&&x.maker||"")+" "+(x&&x.code||""));
  const sourceLabel=exact
    ? "Foto reale del produttore"
