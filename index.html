@@ -97,7 +97,9 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
   table{min-width:880px;}
 }
 </style>
-\n<style id="insert-preview-fix">.insertPreviewFrame{margin-top:12px;background:#f8fbfd;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}.insertPreviewFrame .modalImg{height:min(58vh,520px);min-height:260px;object-fit:contain}.insertPreviewFrame .photo-caption{margin:8px 0 2px}</style>\n</head>
+
+<style id="insert-preview-fix">.insertPreviewFrame{margin-top:12px;background:#f8fbfd;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}.insertPreviewFrame .modalImg{height:min(58vh,520px);min-height:260px;object-fit:contain}.insertPreviewFrame .photo-caption{margin:8px 0 2px}</style>
+</head>
 <body><main>
 <header class="appHeader"><div><h1>🔧 CUTTING TOOLS LAB</h1><p>Foglio utensili · inserti · portautensili · velocità e parametri di taglio</p></div><div class="lastUpdate">Ultimo aggiornamento<br><b id="lastUpdate">—</b></div></header>
 
@@ -695,7 +697,8 @@ document.addEventListener('mousemove',function(e){
  const left=Math.min(e.clientX+18,window.innerWidth-318),top=Math.min(e.clientY+18,window.innerHeight-290);
  hoverInsertPreview.style.left=Math.max(8,left)+'px';hoverInsertPreview.style.top=Math.max(8,top)+'px';
 });
-\nfunction openInsertPreview(x){
+
+function openInsertPreview(x){
  if(!x)return;
  const ref=realReferenceFor(x);
  const family=familyFor(x);
