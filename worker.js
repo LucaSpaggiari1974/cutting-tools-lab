@@ -50,8 +50,6 @@ export default {
       const allowed = allowedHosts.some(
         host => target.hostname === host || target.hostname.endsWith("." + host)
       );
-      if (!allowed) return new Response("Image host not allowed", { status: 403 });
-
       const candidates = [targetRaw]
         .concat(url.searchParams.getAll("fallback").map(cleanUrl))
         .filter(Boolean)
