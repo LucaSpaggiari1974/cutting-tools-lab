@@ -182,7 +182,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <section id="problemi" class="page">
 <div class="calc"><h2>🛠️ Problemi di lavorazione · diagnosi e soluzioni</h2>
 <p>Guida pratica per tornitura, foratura, fresatura e rettifica. Le indicazioni sono organizzate come diagnosi: sintomo → cause possibili → controlli → correzione. Parti dal sintomo, controlla una variabile alla volta e modifica i parametri con piccoli incrementi. I valori sono indicativi: utensile, grado, materiale, macchina e fissaggio possono richiedere impostazioni diverse.</p>
-<div class="searchgrid"><input id="problemSearch" placeholder="Cerca problema, sintomo o soluzione…"><select id="problemArea"><option value="">Tutte le lavorazioni</option><option>Tornitura</option><option>Foratura</option><option>Fresatura</option><option>Rettifica</option><option>Rettifica foro</option><option>Rettifica evolvente</option><option>Rettifica diametri esterni</option><option>Dentatura a coltello</option><option>Dentatura a creatore</option><option>Generale</option></select></div>
+<div class="searchgrid"><input id="problemSearch" placeholder="Cerca problema, sintomo o soluzione…"><select id="problemArea"><option value="">Tutte le lavorazioni</option><option>Tornitura</option><option>Foratura</option><option>Fresatura</option><option>Rettifica foro</option><option>Rettifica evolvente</option><option>Rettifica diametri esterni</option><option>Dentatura a coltello</option><option>Dentatura a creatore</option><option>Generale</option></select></div>
 <div id="problemList" class="problemList"></div>
 </div></section>
 <div id="refreshOverlay" class="refreshOverlay" hidden><div class="refreshCard"><div class="refreshTitle">🔄 Aggiornamento dati</div><div class="refreshText" id="refreshText">Controllo dei dati più recenti…</div><div class="progressTrack"><div class="progressBar" id="progressBar"></div></div><div class="progressPct" id="progressPct">0%</div></div></div>
@@ -801,7 +801,21 @@ if(ho&&!ho.querySelector('.gearSourceBox'))ho.insertAdjacentHTML('beforeend',mak
    * Le correzioni operative restano indicative: verificare sempre mola,
    * macchina, materiale e parametri del costruttore.
    */
-  const grindingEvidence=[
+  const grindingSources={
+  "Rettifica foro":[
+    ["CIRP 2014 · Effect of Dressing on Internal Cylindrical Grinding","https://doi.org/10.1016/j.procir.2014.03.064"],
+    ["CIRP 2017 · Coolant jet flow in cylindrical grinding","https://doi.org/10.1016/j.procir.2017.03.261"]
+  ],
+  "Rettifica evolvente":[
+    ["Leibniz-IWT Bremen · Abrasive Processes and Gear Technology","https://www.iwt-bremen.de/en/research/scientific-departments/manufacturing-technologies/abrasive-processes-and-gear-technology"]
+  ],
+  "Rettifica diametri esterni":[
+    ["Journal of Materials Processing Technology · In-process monitoring of grinding burn in cylindrical grinding","https://doi.org/10.1016/S0924-0136(98)00408-7"],
+    ["CIRP 2018 · In-process workpiece based temperature measurement in cylindrical grinding","https://doi.org/10.1016/j.procir.2018.08.206"],
+    ["Journal of Materials Processing Technology · Cooling effects in cylindrical grinding with CBN","https://doi.org/10.1016/S0924-0136(01)00531-3"]
+  ]
+};
+const grindingEvidence=[
     {
       area:"Rettifica foro",
       source:"UNITED GRINDING · tecnologia di rettifica / refrigerazione; principi di processo verificati su documentazione tecnica.",
@@ -856,7 +870,7 @@ if(ho&&!ho.querySelector('.gearSourceBox'))ho.insertAdjacentHTML('beforeend',mak
       .flatMap(g=>g.problems.map(p=>({area:g.area,source:g.source,p})))
       .filter(x=>!q||[x.area,x.source,...x.p].join(" ").toLowerCase().includes(q));
     if(!wanted.length)return;
-    const html=wanted.map(x=>'<article class="problemCard grindingCard"><h3>'+esc(x.area)+' · '+esc(x.p[0])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(x.p[1])+'</p><p><b>Controlli:</b> '+esc(x.p[2])+'</p><div class="solution"><b>Soluzione / correzione:</b> '+esc(x.p[3])+'</div><p><b>Valori / regolazione di prova:</b> '+esc(x.p[4])+'</p><p class="photo-caption"><b>Fonte tecnica:</b> '+esc(x.source)+'</p></article>').join("");
+    const html=wanted.map(x=>{const refs=(grindingSources[x.area]||[]).map(r=>'<li><a href="'+r[1]+'" target="_blank" rel="noopener noreferrer">'+esc(r[0])+'</a></li>').join("");return '<article class="problemCard grindingCard"><h3>'+esc(x.area)+' · '+esc(x.p[0])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(x.p[1])+'</p><p><b>Controlli:</b> '+esc(x.p[2])+'</p><div class="solution"><b>Soluzione / correzione:</b> '+esc(x.p[3])+'</div><p><b>Valori / regolazione di prova:</b> '+esc(x.p[4])+'</p><p class="photo-caption"><b>Fonte tecnica:</b> '+esc(x.source)+'</p><div class="sourceBox"><b>Riferimenti verificabili:</b><ul>'+refs+'</ul></div></article>';}).join("");
     if(/^Rettifica(?: foro| evolvente| diametri esterni)?$/.test(area)) list.insertAdjacentHTML("beforeend",html);
     else if(!area){
       const head='<div class="result grindingIntro"><b>Rettifica ampliata:</b> foro · evolvente · diametri esterni. Diagnosi basata su documentazione tecnica UNITED GRINDING e ricerca IWT Bremen.</div>';
