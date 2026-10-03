@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#123a5a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Cutting Tools LAB">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Cutting Tools LAB">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Cutting Tools LAB · Foglio utensili</title>
+<style>
+:root{--navy:#123a5a;--blue:#1d78c9;--line:#d8e3ec;--bg:#f3f6f9}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#152536;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:1100px;margin:auto;padding:14px}header{background:linear-gradient(135deg,#123a5a,#0d2940);color:#fff;border-radius:16px;padding:18px;margin-bottom:12px}
+h1{margin:0;font-size:24px}header p{margin:4px 0 0;opacity:.85}
+.sheet{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 12px #0001;overflow:hidden}
+.toolbar{padding:12px;border-bottom:1px solid var(--line);background:#f8fbfd;position:sticky;top:0;z-index:5}
+.searchgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:8px}
+input,select,button{font:inherit;border:1px solid #cbd7e1;border-radius:9px;padding:10px;width:100%;background:#fff}
+button{background:var(--blue);color:#fff;border:0;font-weight:700}
+.formula{margin-top:10px;background:#102f47;color:#fff;border-radius:10px;padding:11px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr auto;gap:8px;align-items:center}
+.formula span{font-size:12px;opacity:.8}.formula b{display:block;font-size:14px}.formula button{background:#fff;color:#123a5a;width:auto}
+.status{padding:8px 12px;color:#607487;font-size:13px}.appbar{display:flex;gap:8px;align-items:center;padding:8px 12px;background:#f8fbfd;border-top:1px solid var(--line);font-size:12px;color:#607487}.appbar span{flex:1}.appbar button{width:auto;padding:8px 12px}
+.tablewrap{overflow:auto;max-height:62vh}table{border-collapse:separate;border-spacing:0;width:100%;min-width:1050px}
+th,td{padding:9px 10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:top}
+th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{cursor:pointer}tr.data:hover{background:#f3f8fc}td.code{font-weight:800;color:#123a5a;text-decoration:underline;cursor:pointer}.tag{display:inline-block;padding:3px 7px;border-radius:999px;background:#e9f2fb;color:#185b8f;font-size:11px;font-weight:700}
+.drawings{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 12px #0001}
+.drawings>summary{list-style:none;cursor:pointer;background:#123a5a;color:#fff;padding:15px;font-size:17px;font-weight:800}.drawings>summary::-webkit-details-marker{display:none}
+.drawings .hint{padding:10px 15px;color:#607487;font-size:13px}.groups{padding:0 12px 12px}
+.toolgroup{border-top:1px solid var(--line);padding:10px 0}.toolgroup summary{cursor:pointer;font-weight:800;padding:6px}.drawingbox{display:grid;grid-template-columns:320px 1fr;gap:14px;align-items:center;padding:10px;background:#f8fbfd;border-radius:10px}.realphoto{width:100%;height:210px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:9px}.photo-caption{font-size:11px;color:#607487;margin-top:5px}.notes{font-size:13px;line-height:1.5}.notes b{color:#123a5a}
+.warn{padding:12px 15px;font-size:12px;color:#53697b;background:#fff;border-top:1px solid var(--line)}
+.appHeader{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.lastUpdate{text-align:right;font-size:11px;line-height:1.35;opacity:.9;white-space:nowrap}.lastUpdate b{font-size:12px;color:#fff}.refreshOverlay{position:fixed;inset:0;background:rgba(5,20,32,.62);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}.refreshOverlay[hidden]{display:none}.refreshCard{width:min(430px,100%);background:#fff;border-radius:18px;padding:22px;box-shadow:0 15px 50px #0006;text-align:center}.refreshTitle{font-size:19px;font-weight:800;color:#123a5a}.refreshText{margin:7px 0 16px;color:#607487;font-size:13px}.progressTrack{height:14px;background:#e6edf3;border-radius:999px;overflow:hidden}.progressBar{height:100%;width:0;background:linear-gradient(90deg,#1d78c9,#37a6ef);border-radius:999px;transition:width .22s ease}.progressPct{margin-top:9px;font-weight:800;color:#123a5a;font-size:13px}
+@media(max-width:760px){.appHeader{align-items:center}.lastUpdate{font-size:10px}.lastUpdate b{font-size:11px}}
+@media(max-width:760px){main{padding:8px}header{border-radius:12px}.searchgrid{grid-template-columns:1fr 1fr}.formula{grid-template-columns:1fr 1fr}.formula button{grid-column:1/-1;width:100%}.tablewrap{max-height:66vh}.drawingbox{grid-template-columns:1fr}h1{font-size:21px}.appbar{position:sticky;bottom:0;z-index:10;flex-wrap:wrap}.appbar span{flex-basis:100%}.appbar button{flex:1}.toolbar{top:0}} @media(min-width:1200px){main{max-width:1500px}.sheet{min-height:80vh}.tablewrap{max-height:68vh}table{min-width:1250px}.formula{grid-template-columns:1.7fr 1fr 1fr 1fr 1fr auto}}
+.photoWrap{cursor:pointer}.photoWrap .previewButton{display:block;width:auto;margin-top:7px;padding:8px 12px;background:#123a5a;color:#fff;border:0;border-radius:8px;font-weight:800;cursor:pointer}.photoWrap .recDraw{cursor:pointer}
+.formulaChooser{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 2px 12px #0001;margin-bottom:12px}.formulaChooser h2{margin:0;color:#123a5a}.formulaChooser p{margin:6px 0 14px;color:#607487}.formulaChoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.formulaChoice{background:#eef4f8;color:#123a5a;border:1px solid var(--line);font-weight:800;text-align:left}.formulaChoice.selected{background:#123a5a;color:#fff}@media(max-width:760px){.formulaChoices{grid-template-columns:1fr}.formulaChoice{min-height:48px}}
+.navtabs{display:flex;gap:6px;overflow:auto;margin:0 0 12px;padding:5px;background:#fff;border:1px solid var(--line);border-radius:12px;position:sticky;top:0;z-index:20}.navtab{white-space:nowrap;width:auto;padding:10px 14px;background:#eef4f8;color:#123a5a}.navtab.active{background:#123a5a;color:#fff}.page{display:none}.page.active{display:block}.calcgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.calc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 2px 12px #0001}.calc h2{margin-top:0;color:#123a5a}.calc label{display:block;font-weight:700;margin:9px 0}.calc label input{margin-top:5px}.formulaBox{background:#102f47;color:#fff;padding:14px;border-radius:10px;font-size:18px;font-weight:800;line-height:1.8}.unitNote{font-size:12px;opacity:.8}.formulaGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.formulaCard{border:1px solid var(--line);border-radius:12px;padding:12px;background:#f8fbfd}.formulaCard h3{margin:0 0 8px;color:#123a5a}.formulaCard label{margin:7px 0}.formulaCard input{width:100%;box-sizing:border-box}.formulaCard .resultCell{background:#fff3a6!important;border:2px solid #d6b900;font-weight:900}.outputCell{display:flex;align-items:center;min-height:42px;padding:8px 10px;box-sizing:border-box;color:#123a5a;font-size:16px;border-radius:6px}.formulaCard .formulaText{font-weight:800;margin:8px 0;color:#123a5a}.formulaNote{font-size:12px;color:#607487}@media(max-width:760px){.formulaGrid{grid-template-columns:1fr}}.result{margin-top:12px;padding:12px;background:#eaf2f8;border-radius:9px;font-weight:800;color:#123a5a}.modal{position:fixed;inset:0;background:#0008;z-index:100;display:flex;align-items:center;justify-content:center;padding:14px}.modal[hidden]{display:none}.modalCard{position:relative;background:#fff;border-radius:16px;width:min(760px,100%);max-height:90vh;overflow:auto;padding:20px}.closeModal{position:absolute;right:12px;top:12px;width:auto;background:#123a5a;padding:8px 12px}.modalCard .photoWrap .recDraw{width:100%;height:420px;object-fit:contain;background:#f8fbfd;border:1px solid var(--line);border-radius:10px;padding:4px}.photoEmpty{width:100%;min-height:180px;display:flex;align-items:center;justify-content:center;background:#f8fbfd;border:1px solid var(--line);border-radius:10px;color:#607487;font-weight:700;text-align:center;padding:20px}.modalImg{display:block;width:100%;max-height:420px;object-fit:contain;background:#f8fbfd;border-radius:10px;margin-top:12px}@media(max-width:760px){.navtabs{top:0}.calcgrid{grid-template-columns:1fr}.navtab{padding:9px 11px;font-size:13px}.modalCard{padding:14px}}
+.problemList{display:grid;gap:10px;margin-top:14px}.problemCard{border:1px solid var(--line);border-radius:12px;background:#f8fbfd;padding:12px}.problemCard h3{margin:0 0 6px;color:#123a5a;font-size:16px}.problemCard p{margin:5px 0;font-size:13px;line-height:1.45}.problemCard .solution{border-left:4px solid #1d78c9}.problemCard p:last-child{background:#eef6fb;border-radius:8px;padding:8px}.problemCard b{color:#123a5a}.problemCard .cause{color:#455b6d}.problemCard .solution{background:#fff;border-radius:8px;padding:8px;margin-top:7px}.recommendTitle{margin-top:18px;font-weight:800;color:#123a5a;font-size:17px}.recommend{display:grid;gap:10px;margin-top:10px}.recCard{display:grid;grid-template-columns:170px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#f8fbfd}.recDraw{width:160px;height:140px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:9px;padding:4px}.recMeta b{color:#123a5a}.recMeta .params{margin-top:7px;font-size:13px}.recMeta button{margin-top:8px;width:auto;padding:8px 12px}@media(max-width:760px){.recCard{grid-template-columns:1fr}.recDraw{width:100%;height:190px}}
+/* iPhone / touch optimization — mantiene invariata la logica Windows */
+@media (max-width:760px){
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+  body{overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
+  main{padding:8px 8px calc(74px + env(safe-area-inset-bottom));width:100%;}
+  header{padding:14px 13px;margin-bottom:8px;}
+  .appHeader{display:block;}
+  h1{font-size:20px;line-height:1.2;}
+  header p{font-size:12px;line-height:1.35;margin-top:5px;}
+  .lastUpdate{text-align:left;margin-top:8px;white-space:normal;font-size:11px;}
+  .lastUpdate b{font-size:12px;}
+  .navtabs{margin-bottom:8px;padding:4px;gap:5px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;}
+  .navtab{min-height:44px;padding:9px 12px;font-size:13px;flex:0 0 auto;scroll-snap-align:start;touch-action:manipulation;}
+  .toolbar{top:58px;padding:9px;}
+  .searchgrid{grid-template-columns:1fr;gap:8px;}
+  input,select,button{font-size:16px;min-height:44px;touch-action:manipulation;}
+  .formula{grid-template-columns:1fr;padding:10px;gap:6px;}
+  .formula>div{padding:3px 0;}
+  .formula button{grid-column:auto;width:100%;}
+  .tablewrap{max-height:60vh;overflow-x:auto;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;}
+  table{min-width:920px;}
+  th,td{font-size:12px;padding:9px 8px;}
+  .appbar{position:sticky;bottom:0;z-index:30;margin:0 -1px;gap:6px;padding:7px 8px calc(7px + env(safe-area-inset-bottom));background:rgba(248,251,253,.97);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);}
+  .appbar span{flex-basis:100%;font-size:11px;}
+  .appbar button{flex:1;width:auto;padding:9px 8px;}
+  .calc{padding:13px;border-radius:12px;}
+  .calc h2{font-size:20px;line-height:1.25;}
+  .calcgrid{grid-template-columns:1fr;gap:8px;}
+  .calc label{margin:5px 0;font-size:14px;}
+  .formulaBox{font-size:15px;line-height:1.65;overflow-wrap:anywhere;}
+  .result{font-size:13px;line-height:1.55;}
+  .modal{padding:0;align-items:stretch;}
+  .modalCard{width:100%;height:100%;max-height:none;border-radius:0;padding:calc(58px + env(safe-area-inset-top)) 12px calc(16px + env(safe-area-inset-bottom));overflow:auto;-webkit-overflow-scrolling:touch;}
+  .closeModal{position:fixed;right:12px;top:calc(10px + env(safe-area-inset-top));width:44px;height:44px;min-height:44px;padding:0;border-radius:50%;z-index:2;font-size:20px;}
+  .modalCard .photoWrap .recDraw{height:min(48vh,360px);min-height:220px;}
+  .photoEmpty{min-height:220px;}
+  .recCard{grid-template-columns:1fr;gap:9px;padding:9px;}
+  .recDraw{width:100%;height:min(46vw,240px);min-height:180px;}
+  .recMeta button{width:100%;min-height:44px;}
+  .drawings>summary{min-height:48px;display:flex;align-items:center;}
+  .toolgroup summary{min-height:44px;display:flex;align-items:center;}
+}
+@media (max-width:380px){
+  main{padding-left:6px;padding-right:6px;}
+  h1{font-size:19px;}
+  .navtab{padding-left:10px;padding-right:10px;font-size:12px;}
+  table{min-width:880px;}
+}
+</style>
+\n<style id="insert-preview-fix">.insertPreviewFrame{margin-top:12px;background:#f8fbfd;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}.insertPreviewFrame .modalImg{height:min(58vh,520px);min-height:260px;object-fit:contain}.insertPreviewFrame .photo-caption{margin:8px 0 2px}</style>\n</head>
+<body><main>
+<header class="appHeader"><div><h1>🔧 CUTTING TOOLS LAB</h1><p>Foglio utensili · inserti · portautensili · velocità e parametri di taglio</p></div><div class="lastUpdate">Ultimo aggiornamento<br><b id="lastUpdate">—</b></div></header>
+
+<nav class="navtabs" aria-label="Sezioni">
+<button class="navtab active" data-page="catalogo">📋 Utensili</button>
+<button class="navtab" data-page="formule">📐 Formule</button>
+<button class="navtab" data-page="problemi">🛠️ Problemi & soluzioni</button>
+<button class="navtab" data-page="produttori">🏭 Produttori</button>
+</nav>
+<section id="catalogo" class="page active"><section class="sheet">
+<div class="toolbar">
+<div class="searchgrid">
+<input id="q" placeholder="Cerca codice, famiglia, materiale, produttore…">
+<select id="cat"><option value="">Tutte le categorie</option></select>
+<select id="mat"><option value="">Tutti i materiali</option></select>
+<select id="maker"><option value="">Tutti i produttori</option></select>
+</div>
+<div class="formula" id="formula">
+<div><span>SELEZIONE</span><b id="fc">—</b></div>
+<div><span>MATERIALE</span><b id="fm">—</b></div>
+<div><span>Vc m/min</span><b id="fv">—</b></div>
+<div><span>f / fz</span><b id="ff">—</b></div>
+<div><span>ap mm</span><b id="fa">—</b></div>
+<button id="copy" type="button">Copia parametri</button>
+</div>
+</div>
+<div class="status" id="status">Caricamento foglio…</div>
+<div class="warn" style="border-top:0">🏭 Foto utensili: vengono mostrate foto reali. Se manca la foto esatta del record, viene usata una foto reale dimostrativa della stessa famiglia/geometria; non vengono mostrati disegni come anteprima.</div>
+<div class="appbar"><span id="updateState">🔄 Aggiornamento automatico attivo</span><button id="refreshData" type="button">Aggiorna dati</button><button id="installApp" type="button" hidden>Installa app</button></div>
+<div class="tablewrap">
+<table><thead><tr>
+<th>Categoria</th><th>Codice / utensile</th><th>Geometria / impiego</th><th>Materiale da lavorare</th><th>Vc consigliata<br>m/min</th><th>f / fz consigliato</th><th>ap consigliata<br>mm</th><th>Produttore / riferimento</th>
+</tr></thead><tbody id="rows"></tbody></table>
+</div>
+<div class="warn">⚠️ I valori sono intervalli iniziali indicativi: cambiano con grado dell'inserto, rivestimento, materiale reale, durezza, macchina, refrigerazione, stabilità e strategia. Per la produzione verificare sempre la scheda del produttore. Le classificazioni P/M/K/N/S/H seguono la logica ISO.</div>
+</section>
+
+
+</section>
+<section id="formule" class="page"><div class="calc"><h2>📐 Formule</h2><p>Calcoli separati per ogni lavorazione. ⬜ Inserisci i dati · 🟨 risultato calcolato. <b>Legenda generale:</b> Vc = velocità di taglio · D/Dc/Da = diametro · N = giri/min · f = avanzamento per giro · Vf = velocità di avanzamento · fz = avanzamento per dente · z = numero di denti/taglienti.</p></div></section>
+<section id="tornitura" class="page"><div class="calc"><h2>🔩 Tornitura · formule separate</h2><p>⬜ Inserisci i dati. 🟨 Il campo giallo è il risultato. <b>Legenda:</b> Vc = velocità di taglio (m/min) · D = diametro utensile/pezzo (mm) · N = velocità di rotazione (giri/min o rpm) · f = avanzamento per giro (mm/giro) · Vf = velocità di avanzamento (mm/min) · L = lunghezza di lavorazione (mm) · fz = avanzamento per dente (mm/dente) · z = numero di taglienti/denti.</p>
+<div class="formulaGrid">
+<div class="formulaCard"><h3>Formula Vc</h3><label>D (mm)<input id="tf_vc_d" type="number" step="any"></label><label>N (rpm)<input id="tf_vc_n" type="number" step="any"></label><div class="formulaText">Vc = 3,14 × D × N / 1000</div><div id="tf_vc_out" class="resultCell outputCell">Vc m/min</div></div>
+<div class="formulaCard"><h3>Formula N</h3><label>Vc (m/min)<input id="tf_n_vc" type="number" step="any"></label><label>D (mm)<input id="tf_n_d" type="number" step="any"></label><div class="formulaText">N = Vc × 1000 / (3,14 × D)</div><div id="tf_n_out" class="resultCell outputCell">N rpm</div></div>
+<div class="formulaCard"><h3>Formula Vf</h3><label>f (mm/giro)<input id="tf_vf_f" type="number" step="any"></label><label>N (rpm)<input id="tf_vf_n" type="number" step="any"></label><div class="formulaText">Vf = f × N</div><div id="tf_vf_out" class="resultCell outputCell">Vf mm/min</div></div>
+<div class="formulaCard"><h3>Formula tempo</h3><label>L (mm)<input id="tf_t_l" type="number" step="any"></label><label>Vf (mm/min)<input id="tf_t_vf" type="number" step="any"></label><div class="formulaText">T = L / Vf</div><div id="tf_t_out" class="resultCell outputCell">Tempo min</div></div>
+</div></div></section>
+<section id="foratura" class="page"><div class="calc"><h2>🕳️ Foratura · formule separate</h2><p>⬜ Inserisci i dati. 🟨 Il campo giallo è il risultato. <b>Legenda:</b> Vc = velocità di taglio (m/min) · D = diametro utensile/pezzo (mm) · N = velocità di rotazione (giri/min o rpm) · f = avanzamento per giro (mm/giro) · Vf = velocità di avanzamento (mm/min) · L = lunghezza di lavorazione (mm) · fz = avanzamento per dente (mm/dente) · z = numero di taglienti/denti.</p>
+<div class="formulaGrid">
+<div class="formulaCard"><h3>Formula Vc</h3><label>Dc (mm)<input id="df_vc_d" type="number" step="any"></label><label>N (rpm)<input id="df_vc_n" type="number" step="any"></label><div class="formulaText">Vc = 3,14 × Dc × N / 1000</div><div id="df_vc_out" class="resultCell outputCell">Vc m/min</div></div>
+<div class="formulaCard"><h3>Formula N</h3><label>Vc (m/min)<input id="df_n_vc" type="number" step="any"></label><label>Dc (mm)<input id="df_n_d" type="number" step="any"></label><div class="formulaText">N = Vc × 1000 / (3,14 × Dc)</div><div id="df_n_out" class="resultCell outputCell">N rpm</div></div>
+<div class="formulaCard"><h3>Formula Vf</h3><label>f (mm/giro)<input id="df_vf_f" type="number" step="any"></label><label>N (rpm)<input id="df_vf_n" type="number" step="any"></label><div class="formulaText">Vf = f × N</div><div id="df_vf_out" class="resultCell outputCell">Vf mm/min</div></div>
+<div class="formulaCard"><h3>Formula fz</h3><label>f (mm/giro)<input id="df_fz_f" type="number" step="any"></label><label>z (taglienti)<input id="df_fz_z" type="number" step="1"></label><div class="formulaText">fz = f / z</div><div id="df_fz_out" class="resultCell outputCell">fz mm/dente</div></div>
+</div></div></section>
+<section id="alesatura" class="page"><div class="calc"><h2>🔧 Alesatura · formule separate</h2><p>⬜ Inserisci i dati. 🟨 Il campo giallo è il risultato. <b>Legenda:</b> Vc = velocità di taglio (m/min) · D = diametro utensile/pezzo (mm) · N = velocità di rotazione (giri/min o rpm) · f = avanzamento per giro (mm/giro) · Vf = velocità di avanzamento (mm/min) · L = lunghezza di lavorazione (mm) · fz = avanzamento per dente (mm/dente) · z = numero di taglienti/denti.</p>
+<div class="formulaGrid">
+<div class="formulaCard"><h3>Formula Vc</h3><label>Da (mm)<input id="rf_vc_d" type="number" step="any"></label><label>N (rpm)<input id="rf_vc_n" type="number" step="any"></label><div class="formulaText">Vc = 3,14 × Da × N / 1000</div><div id="rf_vc_out" class="resultCell outputCell">Vc m/min</div></div>
+<div class="formulaCard"><h3>Formula N</h3><label>Vc (m/min)<input id="rf_n_vc" type="number" step="any"></label><label>Da (mm)<input id="rf_n_d" type="number" step="any"></label><div class="formulaText">N = Vc × 1000 / (3,14 × Da)</div><div id="rf_n_out" class="resultCell outputCell">N rpm</div></div>
+<div class="formulaCard"><h3>Formula Vf</h3><label>f (mm/giro)<input id="rf_vf_f" type="number" step="any"></label><label>N (rpm)<input id="rf_vf_n" type="number" step="any"></label><div class="formulaText">Vf = f × N</div><div id="rf_vf_out" class="resultCell outputCell">Vf mm/min</div></div>
+<div class="formulaCard"><h3>Formula tempo</h3><label>L (mm)<input id="rf_t_l" type="number" step="any"></label><label>Vf (mm/min)<input id="rf_t_vf" type="number" step="any"></label><div class="formulaText">T = L / Vf</div><div id="rf_t_out" class="resultCell outputCell">Tempo min</div></div>
+</div></div></section>
+<section id="fresatura" class="page"><div class="calc"><h2>⚙️ Fresatura · formule separate</h2><p>⬜ Inserisci i dati. 🟨 Il campo giallo è il risultato. <b>Legenda:</b> Vc = velocità di taglio (m/min) · D = diametro utensile/pezzo (mm) · N = velocità di rotazione (giri/min o rpm) · f = avanzamento per giro (mm/giro) · Vf = velocità di avanzamento (mm/min) · L = lunghezza di lavorazione (mm) · fz = avanzamento per dente (mm/dente) · z = numero di taglienti/denti.</p>
+<div class="formulaGrid">
+<div class="formulaCard"><h3>Formula Vc</h3><label>D (mm)<input id="mf_vc_d" type="number" step="any"></label><label>N (rpm)<input id="mf_vc_n" type="number" step="any"></label><div class="formulaText">Vc = 3,14 × D × N / 1000</div><div id="mf_vc_out" class="resultCell outputCell">Vc m/min</div></div>
+<div class="formulaCard"><h3>Formula N</h3><label>Vc (m/min)<input id="mf_n_vc" type="number" step="any"></label><label>D (mm)<input id="mf_n_d" type="number" step="any"></label><div class="formulaText">N = Vc × 1000 / (3,14 × D)</div><div id="mf_n_out" class="resultCell outputCell">N rpm</div></div>
+<div class="formulaCard"><h3>Formula Vf</h3><label>fz (mm/dente)<input id="mf_vf_fz" type="number" step="any"></label><label>N (rpm)<input id="mf_vf_n" type="number" step="any"></label><label>z (denti)<input id="mf_vf_z" type="number" step="1"></label><div class="formulaText">Vf = fz × N × z</div><div id="mf_vf_out" class="resultCell outputCell">Vf mm/min</div></div>
+<div class="formulaCard"><h3>Formula fz</h3><label>Vf (mm/min)<input id="mf_fz_vf" type="number" step="any"></label><label>N (rpm)<input id="mf_fz_n" type="number" step="any"></label><label>z (denti)<input id="mf_fz_z" type="number" step="1"></label><div class="formulaText">fz = Vf / (N × z)</div><div id="mf_fz_out" class="resultCell outputCell">fz mm/dente</div></div>
+<div class="formulaCard"><h3>Formula asportazione Q</h3><label>ap (mm)<input id="mf_q_ap" type="number" step="any"></label><label>ae (mm)<input id="mf_q_ae" type="number" step="any"></label><label>Vf (mm/min)<input id="mf_q_vf" type="number" step="any"></label><div class="formulaText">Q = ap × ae × Vf / 1000</div><div id="mf_q_out" class="resultCell outputCell">Q cm³/min</div></div>
+</div></div></section>
+<section id="dentatura" class="page"><div class="calc"><h2>⚙️ Dentatura a coltello · formule dedicate</h2>
+<div class="gearRangeBanner"><b>Campo modulo dell’app:</b> dentatura a coltello fino a <b>m 10</b> · dentatura a creatore fino a <b>m 20</b>. Questi sono limiti del calcolatore, non una garanzia di capacità della singola macchina o utensile.</div><p><b>Legenda:</b> <b>Vc</b> = velocità di taglio media durante la corsa di taglio (m/min) · <b>b</b> = larghezza utile del pezzo (mm) · <b>Wc</b> = corse del coltello (str/min) · <b>f<sub>c</sub></b> = avanzamento per corsa (mm/corsa) · <b>Vf</b> = avanzamento lineare medio (mm/min) · <b>Bd</b> = battute/corse per dente · <b>Np</b> = giri del pezzo (giri/min) · <b>Zp</b> = numero denti del pezzo · <b>m</b> = modulo dell'ingranaggio (mm). <b>Nota:</b> una doppia corsa comprende una corsa di taglio e una di ritorno; la macchina può indicarla come DS/min.</p>
+<div class="formulaGrid">
+<div class="formulaCard"><h3>Velocità di taglio Vc · NACHI</h3><label>Larghezza utile del pezzo b (mm)<input id="gf_vc_l" type="number" step="any"></label><label>Corse Wc (str/min)<input id="gf_vc_s" type="number" step="any"></label><div class="formulaText">Vc = Wc × (b + 6) × 3,14 / 1000</div><div class="formulaNote">Relazione pubblicata da NACHI per gear shaper: Wc = corse/min e b = larghezza del pezzo. Non è la lunghezza totale avanti+ritorno.</div><div id="gf_vc_out" class="resultCell outputCell">Vc m/min</div></div>
+<div class="formulaCard"><h3>Corse del coltello Wc</h3><label>Vc (m/min)<input id="gf_s_vc" type="number" step="any"></label><label>Larghezza utile del pezzo b (mm)<input id="gf_s_l" type="number" step="any"></label><div class="formulaText">Wc = Vc × 1000 / ((b + 6) × 3,14)</div><div class="formulaNote">Il risultato è in corse/min secondo la relazione NACHI.</div><div id="gf_s_out" class="resultCell outputCell">Corse/min</div></div>
+<div class="formulaCard"><h3>Avanzamento totale Vf</h3><label>Avanzamento per corsa f<sub>c</sub> (mm/corsa)<input id="gf_f_f" type="number" step="any"></label><label>Corse Wc (str/min)<input id="gf_f_s" type="number" step="any"></label><div class="formulaText">Vf = f<sub>c</sub> × Wc</div><div class="formulaNote">L'avanzamento per corsa va interpretato secondo la cinematica della macchina; NACHI pubblica il rotary feed in mm/Stroke.</div><div id="gf_f_out" class="resultCell outputCell">Vf mm/min</div></div>
+<div class="formulaCard"><h3>Battute/corse per dente Bd</h3><label>Corse Wc (str/min)<input id="gf_bd_b" type="number" step="any"></label><label>Giri pezzo Np (giri/min)<input id="gf_bd_np" type="number" step="any"></label><label>Denti pezzo Zp<input id="gf_bd_zp" type="number" step="1"></label><div class="formulaText">Bd = B / (Np × Zp)</div><div class="formulaNote">Usare questa relazione quando ogni ciclo di generazione corrisponde al passaggio di un dente; verificare la cinematica della macchina.</div><div id="gf_bd_out" class="resultCell outputCell">Battute/dente</div></div>
+<div class="formulaCard"><h3>Corse/min da Bd</h3><label>Battute/corse per dente Bd<input id="gf_b_bdg" type="number" step="any"></label><label>Giri pezzo Np (giri/min)<input id="gf_b_np" type="number" step="any"></label><label>Denti pezzo Zp<input id="gf_b_zp" type="number" step="1"></label><div class="formulaText">B = Bd × Np × Zp</div><div id="gf_b_out" class="resultCell outputCell">Corse/min</div></div>
+<div class="formulaCard"><h3>Tempo teorico di generazione</h3><label>Battute per dente Bd<input id="gf_t_bd" type="number" step="any"></label><label>Denti pezzo Zp<input id="gf_t_zp" type="number" step="1"></label><label>Corse Wc (str/min)<input id="gf_t_b" type="number" step="any"></label><div class="formulaText">T = (Bd × Zp) / B</div><div class="formulaNote">Tempo teorico per una passata, senza indicizzazione, infeed e movimenti ausiliari.</div><div id="gf_t_out" class="resultCell outputCell">Tempo min</div></div>
+</div>
+<div class="formulaNote"><b>Importante:</b> non usare una formula universale del tipo 2 × L × battute/min. Nella dentatura a coltello la corsa di taglio e quella di ritorno hanno tempi diversi; le macchine possono esprimere la frequenza come corse/min o DS/min. Per il calcolo Vc/Wc qui viene usata la relazione pubblicata da NACHI. Le battute/dente Maag sono un parametro separato.</div></div></section>
+<section id="creatore" class="page"><div class="calc"><h2>⚙️ Dentatura a creatore · formule dedicate</h2><p>Calcolo separato per dentatura a creatore. ⬜ Dati da inserire. 🟨 Risultato. Le relazioni sono basate sulla cinematica del processo HOB3D e sulla descrizione tecnica EMAG: la velocità di taglio deriva dalla velocità periferica del creatore; l'avanzamento è espresso in mm per giro del pezzo. Per ingranaggi elicoidali e condizioni speciali verificare sempre i dati macchina e utensile.</p>
+<div class="formulaGrid">
+<div class="formulaCard"><h3>Formula velocità di taglio Vc</h3><label>Diametro creatore Dh (mm)<input id="hf_vc_d" type="number" step="any"></label><label>Giri creatore Nh (rpm)<input id="hf_vc_n" type="number" step="any"></label><div class="formulaText">Vc = 3,14 × Dh × Nh / 1000</div><div id="hf_vc_out" class="resultCell outputCell">Vc m/min</div></div>
+<div class="formulaCard"><h3>Formula giri creatore Nh</h3><label>Vc (m/min)<input id="hf_n_vc" type="number" step="any"></label><label>Dh (mm)<input id="hf_n_d" type="number" step="any"></label><div class="formulaText">Nh = Vc × 1000 / (3,14 × Dh)</div><div id="hf_n_out" class="resultCell outputCell">Nh rpm</div></div>
+<div class="formulaCard"><h3>Formula giri pezzo Np</h3><label>Giri creatore Nh (rpm)<input id="hf_p_nh" type="number" step="any"></label><label>Numero principi creatore Zc<input id="hf_p_zc" type="number" step="1"></label><label>Numero denti pezzo Zp<input id="hf_p_zp" type="number" step="1"></label><div class="formulaText">Np = Nh × Zc / Zp</div><div id="hf_p_out" class="resultCell outputCell">Np rpm</div></div>
+<div class="formulaCard"><h3>Formula avanzamento assiale</h3><label>Avanzamento fa (mm/giro pezzo)<input id="hf_f_fa" type="number" step="any"></label><label>Giri pezzo Np (rpm)<input id="hf_f_np" type="number" step="any"></label><div class="formulaText">Vf = fa × Np</div><div id="hf_f_out" class="resultCell outputCell">Vf mm/min</div></div>
+<div class="formulaCard"><h3>Formula tempo teorico</h3><label>Corsa assiale L (mm)<input id="hf_t_l" type="number" step="any"></label><label>Vf (mm/min)<input id="hf_t_vf" type="number" step="any"></label><div class="formulaText">T = L / Vf</div><div id="hf_t_out" class="resultCell outputCell">Tempo min</div></div>
+</div><p class="formulaNote"><b>Fonte tecnica:</b> HOB3D tratta modulo, numero denti, diametro creatore, avanzamento assiale e velocità di taglio come dati del processo e descrive la cinematica sincronizzata creatore/pezzo. EMAG specifica che nella dentatura a creatore la velocità di taglio è legata al diametro/velocità del creatore e che l'avanzamento è espresso in mm per giro del pezzo.</p></div></section>
+<section id="produttori" class="page"><div class="calc"><h2>🏭 Produttori</h2><p>Elenco dei produttori e riferimenti del catalogo.</p><div class="searchgrid"><input id="manufacturerSearch" placeholder="Cerca produttore…"><select id="manufacturerType"><option value="">Tutti i tipi</option><option value="inserti">Inserti</option><option value="utensili">Utensili</option><option value="portautensili">Portautensili</option><option value="ISO">ISO</option></select></div><div id="manufacturerList" class="problemList"><div class="result">Caricamento produttori…</div></div></div></section>
+<section id="problemi" class="page">
+<div class="calc"><h2>🛠️ Problemi di lavorazione · diagnosi e soluzioni</h2>
+<p>Guida pratica per tornitura, foratura, fresatura e rettifica. Le indicazioni sono organizzate come diagnosi: sintomo → cause possibili → controlli → correzione. Parti dal sintomo, controlla una variabile alla volta e modifica i parametri con piccoli incrementi. I valori sono indicativi: utensile, grado, materiale, macchina e fissaggio possono richiedere impostazioni diverse.</p>
+<div class="searchgrid"><input id="problemSearch" placeholder="Cerca problema, sintomo o soluzione…"><select id="problemArea"><option value="">Tutte le lavorazioni</option><option>Tornitura</option><option>Foratura</option><option>Fresatura</option><option>Rettifica</option><option>Dentatura a coltello</option><option>Dentatura a creatore</option><option>Generale</option></select></div>
+<div id="problemList" class="problemList"></div>
+</div></section>
+<div id="refreshOverlay" class="refreshOverlay" hidden><div class="refreshCard"><div class="refreshTitle">🔄 Aggiornamento dati</div><div class="refreshText" id="refreshText">Controllo dei dati più recenti…</div><div class="progressTrack"><div class="progressBar" id="progressBar"></div></div><div class="progressPct" id="progressPct">0%</div></div></div>
+<div id="toolModal" class="modal" hidden>
+  <div class="modalCard">
+    <button class="closeModal" id="closeModal" type="button">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+</main>
+
+<script>
+const R=(category,code,geom,material,vc,f,ap,maker="ISO / dati indicativi")=>({category,code,geom,material,vc,f,ap,maker});
+const fallbackData=[{"category":"Tornitura · Sgrossatura","code":"CNMG 120412","geom":"Rombo 80° · SGROSSATURA · R1,2","material":"P Acciaio · M Inox · K Ghisa","vc":"120–210","f":"0,18–0,40","ap":"1–5","maker":"Sandvik / ISO"},{"category":"Tornitura · Sgrossatura","code":"CNMG 120408","geom":"Rombo 80° · SGROSSATURA/MEDIA · R0,8","material":"P Acciaio · M Inox · K Ghisa","vc":"140–230","f":"0,15–0,35","ap":"0,8–4","maker":"Sandvik / ISO"},{"category":"Tornitura · Finitura","code":"CNMG 120404","geom":"Rombo 80° · FINITURA · R0,4","material":"P Acciaio · M Inox · K Ghisa","vc":"160–240","f":"0,10–0,25","ap":"0,5–2","maker":"Sandvik / ISO"},{"category":"Tornitura esterna","code":"CNMG 120404","geom":"Rombo 80° · finitura/media","material":"P Acciaio · M Inox · K Ghisa","vc":"160–240","f":"0,10–0,25","ap":"0,5–3","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"CNMG 120408","geom":"Rombo 80° · media/sgrossatura","material":"P Acciaio · M Inox · K Ghisa","vc":"140–230","f":"0,15–0,35","ap":"0,8–4","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"CNMG 120412","geom":"Rombo 80° · sgrossatura","material":"P Acciaio · M Inox · K Ghisa","vc":"120–210","f":"0,18–0,40","ap":"1–5","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"CNMG 160612","geom":"Rombo 80° · sgrossatura pesante","material":"P Acciaio · K Ghisa","vc":"110–190","f":"0,22–0,45","ap":"2–6","maker":"ISO"},{"category":"Tornitura esterna","code":"DNMG 110404","geom":"Rombo 55° · finitura/profilatura","material":"P Acciaio · M Inox","vc":"150–240","f":"0,06–0,18","ap":"0,3–1,5","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"DNMG 110408","geom":"Rombo 55° · profilatura","material":"P Acciaio · M Inox","vc":"120–210","f":"0,08–0,22","ap":"0,5–2,5","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"DNMG 150408","geom":"Rombo 55° · media","material":"P Acciaio · M Inox · K Ghisa","vc":"110–190","f":"0,12–0,30","ap":"0,8–3","maker":"ISO"},{"category":"Tornitura esterna","code":"SNMG 120408","geom":"Quadrato 90° · media","material":"P Acciaio · M Inox · K Ghisa","vc":"120–210","f":"0,16–0,32","ap":"1–4","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"SNMG 120412","geom":"Quadrato 90° · sgrossatura","material":"P Acciaio · K Ghisa","vc":"100–190","f":"0,20–0,40","ap":"1,5–5","maker":"ISO"},{"category":"Tornitura esterna","code":"SNMG 190616","geom":"Quadrato 90° · pesante","material":"P Acciaio · K Ghisa","vc":"80–160","f":"0,25–0,55","ap":"2–8","maker":"ISO"},{"category":"Tornitura esterna","code":"WNMG 080408","geom":"Trigon 80° · generale","material":"P Acciaio · M Inox · K Ghisa","vc":"130–220","f":"0,12–0,30","ap":"0,8–3","maker":"Sandvik / ISCAR"},{"category":"Tornitura esterna","code":"WNMG 080412","geom":"Trigon 80° · media","material":"P Acciaio · M Inox · K Ghisa","vc":"110–190","f":"0,16–0,35","ap":"1–4","maker":"ISO"},{"category":"Profilatura / finitura","code":"VNMG 160404","geom":"Rombo 35° · finitura","material":"P Acciaio · M Inox","vc":"150–260","f":"0,05–0,16","ap":"0,2–1,2","maker":"Sandvik / ISCAR"},{"category":"Profilatura / finitura","code":"VNMG 160408","geom":"Rombo 35° · profilatura","material":"P Acciaio · M Inox","vc":"110–190","f":"0,06–0,18","ap":"0,3–1,8","maker":"ISO"},{"category":"Profilatura / finitura","code":"VBMT 160404","geom":"Rombo 35° · positivo","material":"P Acciaio · M Inox · N Alluminio","vc":"160–300","f":"0,04–0,15","ap":"0,2–1,2","maker":"ISO"},{"category":"Profilatura / finitura","code":"VBMT 160408","geom":"Rombo 35° · positivo","material":"P Acciaio · N Alluminio","vc":"140–300","f":"0,05–0,18","ap":"0,3–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"DCMT 11T304","geom":"Rombo 55° · positivo","material":"N Alluminio · P Acciaio","vc":"250–700","f":"0,04–0,18","ap":"0,2–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"DCMT 11T308","geom":"Rombo 55° · positivo","material":"P Acciaio · M Inox","vc":"90–180","f":"0,05–0,16","ap":"0,2–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"DCGT 11T304","geom":"Rombo 55° · affilato","material":"N Alluminio · rame","vc":"300–900","f":"0,04–0,20","ap":"0,2–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"CCMT 09T304","geom":"Rombo 80° · positivo","material":"N Alluminio · P Acciaio","vc":"250–800","f":"0,04–0,20","ap":"0,2–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"CCMT 09T308","geom":"Rombo 80° · positivo","material":"P Acciaio · M Inox","vc":"120–220","f":"0,05–0,18","ap":"0,3–1,8","maker":"ISO"},{"category":"Profilatura / finitura","code":"CCGT 09T304","geom":"Rombo 80° · affilato","material":"N Alluminio · ottone","vc":"350–1000","f":"0,04–0,22","ap":"0,2–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"TCMT 16T304","geom":"Triangolo 60° · finitura","material":"P Acciaio · N Alluminio","vc":"180–500","f":"0,04–0,16","ap":"0,2–1,2","maker":"ISO"},{"category":"Profilatura / finitura","code":"TCMT 16T308","geom":"Triangolo 60° · generale","material":"P Acciaio · M Inox","vc":"100–200","f":"0,06–0,18","ap":"0,3–1,8","maker":"ISO"},{"category":"Profilatura / finitura","code":"TCGT 16T304","geom":"Triangolo 60° · affilato","material":"N Alluminio · ottone","vc":"300–900","f":"0,04–0,20","ap":"0,2–1,5","maker":"ISO"},{"category":"Profilatura / finitura","code":"RCMT 10T3M0","geom":"Tondo · profilatura","material":"P Acciaio · K Ghisa","vc":"100–220","f":"0,10–0,30","ap":"0,5–3","maker":"ISO"},{"category":"Profilatura / finitura","code":"RCMT 12T3M0","geom":"Tondo · sgrossatura","material":"P Acciaio · K Ghisa","vc":"90–180","f":"0,15–0,40","ap":"1–5","maker":"ISO"},{"category":"Scanalatura / troncatura","code":"MGMN 200-G","geom":"Inserto lama 2 mm","material":"P Acciaio · M Inox","vc":"60–160","f":"0,03–0,12","ap":"0,5–2","maker":"ISO"},{"category":"Scanalatura / troncatura","code":"MGMN 300-G","geom":"Inserto lama 3 mm","material":"P Acciaio · M Inox · K Ghisa","vc":"50–150","f":"0,04–0,14","ap":"0,5–3","maker":"ISO"},{"category":"Scanalatura / troncatura","code":"MGMN 400-G","geom":"Inserto lama 4 mm","material":"P Acciaio · M Inox","vc":"40–130","f":"0,04–0,12","ap":"0,5–3","maker":"ISO"},{"category":"Scanalatura / troncatura","code":"N123H2-0400","geom":"Troncatura 4 mm","material":"P Acciaio · M Inox · S Superleghe","vc":"50–140","f":"0,04–0,15","ap":"fino a 3","maker":"Sandvik / ISO"},{"category":"Filettatura","code":"16ER AG60","geom":"Esterno 60°","material":"P Acciaio · M Inox","vc":"60–160","f":"0,05–0,25","ap":"passate multiple","maker":"ISO"},{"category":"Filettatura","code":"16IR AG60","geom":"Interno 60°","material":"P Acciaio · M Inox","vc":"50–140","f":"0,05–0,22","ap":"passate multiple","maker":"ISO"},{"category":"Filettatura","code":"16ER ISO","geom":"Esterno ISO 60°","material":"P Acciaio · M Inox","vc":"60–150","f":"0,05–0,25","ap":"passate multiple","maker":"ISO"},{"category":"Filettatura","code":"11IR ISO","geom":"Interno ISO 60°","material":"P Acciaio · M Inox","vc":"50–140","f":"0,05–0,22","ap":"passate multiple","maker":"ISO"},{"category":"Foratura","code":"Punta integrale Ø6","geom":"Metallo duro · 2 taglienti","material":"P Acciaio · M Inox · K","vc":"40–120","f":"0,05–0,14 mm/giro","ap":"—","maker":"ISO / produttore"},{"category":"Foratura","code":"Punta integrale Ø10","geom":"Metallo duro · 2 taglienti","material":"P Acciaio · M Inox · K","vc":"40–120","f":"0,08–0,20 mm/giro","ap":"—","maker":"Sandvik / ISO"},{"category":"Foratura","code":"Punta integrale Ø12","geom":"Metallo duro · 2 taglienti","material":"P Acciaio · M Inox","vc":"30–90","f":"0,10–0,24 mm/giro","ap":"—","maker":"ISO"},{"category":"Foratura","code":"Punta a inserti Ø20","geom":"Testa indexabile","material":"P Acciaio · M Inox · K","vc":"70–160","f":"0,08–0,25 mm/giro","ap":"—","maker":"ISO"},{"category":"Foratura","code":"Punta modulare Ø25","geom":"Testa modulare","material":"P Acciaio · K Ghisa","vc":"60–140","f":"0,10–0,30 mm/giro","ap":"—","maker":"ISO"},{"category":"Fresatura","code":"Fresa a candela Ø10","geom":"Metallo duro · 4 taglienti","material":"P Acciaio · M Inox · N","vc":"60–180","f":"0,02–0,08 mm/dente","ap":"0,5–3","maker":"ISO"},{"category":"Fresatura","code":"Fresa a candela Ø16","geom":"Metallo duro · 4 taglienti","material":"P Acciaio · M Inox · N","vc":"50–150","f":"0,02–0,07 mm/dente","ap":"0,5–3","maker":"ISO"},{"category":"Fresatura","code":"Fresa a candela Ø20","geom":"Metallo duro · 3–4 taglienti","material":"N Alluminio","vc":"250–700","f":"0,04–0,14 mm/dente","ap":"1–5","maker":"ISO"},{"category":"Fresatura","code":"Fresa sferica Ø10","geom":"Ball nose · 2–4 taglienti","material":"P Acciaio · M Inox","vc":"60–160","f":"0,02–0,08 mm/dente","ap":"0,2–2","maker":"ISO"},{"category":"Spianatura","code":"Fresa a spianare Ø50","geom":"Inserti indexabili","material":"P Acciaio · K Ghisa · N","vc":"100–220","f":"0,10–0,30 mm/dente","ap":"1–5","maker":"ISO"},{"category":"Spianatura","code":"Fresa a spianare Ø63","geom":"Inserti indexabili","material":"P Acciaio · K Ghisa","vc":"90–200","f":"0,10–0,35 mm/dente","ap":"1–6","maker":"ISO"},{"category":"Portautensili","code":"PCLNR 2020K12","geom":"Esterno per CNMG","material":"CNMG 12","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"PDJNR 2020K15","geom":"Esterno per DNMG","material":"DNMG 15","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"SVJBR 2020K16","geom":"Esterno per VBMT/VNMG","material":"VBMT/VNMG","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"SCLCR 2020K09","geom":"Interno per CCMT","material":"CCMT 09","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"SDJCR 1212H07","geom":"Interno per DCMT","material":"DCMT 07","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"SER 2020K16","geom":"Filettatura esterna","material":"16ER","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"MGEHR 2020-2","geom":"Scanalatura","material":"MGMN 2 mm","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Portautensili","code":"MGEHR 2020-3","geom":"Scanalatura","material":"MGMN 3 mm","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Mandrini / adattatori","code":"ER32","geom":"Pinza portautensile","material":"Frese / punte","vc":"—","f":"—","ap":"—","maker":"ISO"},{"category":"Mandrini / adattatori","code":"ER40","geom":"Pinza portautensile","material":"Frese / punte","vc":"—","f":"—","ap":"—","maker":"ISO"}];
+let data=[];
+
+const groups=[
+["CNMG","CNMG · rombo 80°","Inserti negativi per tornitura esterna, da finitura a sgrossatura."],
+["DNMG","DNMG · rombo 55°","Profilatura e finitura con accesso più favorevole."],
+["SNMG","SNMG · quadrato 90°","Inserto robusto a 4 taglienti per tornitura e sgrossatura."],
+["WNMG","WNMG · trigon 80°","Geometria versatile per tornitura e profilatura."],
+["VNMG","VNMG · rombo 35°","Profilatura e finitura di spallamenti/contorni."],
+["VBMT","VBMT · positivo 35°","Finitura e profilatura con tagliente positivo."],
+["DCMT","DCMT / DCGT · rombo 55°","Finitura, barenatura e tornitura positiva."],
+["CCMT","CCMT / CCGT · rombo 80°","Finitura positiva, barenatura e piccoli diametri."],
+["TCMT","TCMT / TCGT · triangolo 60°","Finitura e tornitura interna/esterna."],
+["RCMT","RCMT · tondo","Profilatura, copie e lavorazioni con taglio multidirezionale."],
+["G","G / MGMN / N123 · scanalatura","Scanalatura, gole e troncatura."],
+["L","16ER / 16IR / 11ER / 11IR · filettatura","Inserti per filetti esterni e interni."],
+["DRILL","Punte · integrali / inserti / modulari","Foratura con metallo duro e teste indexabili."],
+["MILL","Frese a candela","Fresatura di cave, contorni, tasche e spallamenti."],
+["FACE","Frese a spianare","Spianatura con inserti indexabili."],
+["HOLDER","Portautensili","Portautensili esterni, interni, filettatura e scanalatura."],
+["ADAPTER","Mandrini / adattatori","Interfacce ER e adattatori per utensili rotanti."]
+];
+
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
+const q=document.getElementById("q"),cat=document.getElementById("cat"),mat=document.getElementById("mat"),maker=document.getElementById("maker"),rows=document.getElementById("rows");
+function fillFilters(){cat.innerHTML="<option value=\"\">Tutte le categorie</option>";mat.innerHTML="<option value=\"\">Tutti i materiali</option>";maker.innerHTML="<option value=\"\">Tutti i produttori</option>";[...new Set(data.map(x=>x.category))].forEach(x=>cat.add(new Option(x,x)));
+const mats=[...new Set(data.flatMap(x=>x.material.split(" · ")))].filter(x=>x&&x!=="—").sort();mats.forEach(x=>mat.add(new Option(x,x)));
+[...new Set(data.map(x=>x.maker))].sort().forEach(x=>maker.add(new Option(x,x)));
+}
+
+let selected=null;
+function render(){
+ const t=q.value.toLowerCase(),c=cat.value,m=mat.value,k=maker.value;
+ const a=data.filter(x=>(!t||Object.values(x).join(" ").toLowerCase().includes(t))&&(!c||x.category===c)&&(!m||x.material.includes(m))&&(!k||x.maker===k));
+ rows.innerHTML=a.map((x,i)=>'<tr class="data" data-i="'+data.indexOf(x)+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code">'+esc(x.code)+'</td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>').join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
+ document.getElementById("status").textContent=a.length+" righe · tocca una riga per caricare i dati nella barra dei parametri";
+ rows.querySelectorAll("tr.data").forEach(tr=>{
+ tr.onclick=()=>{const x=data[+tr.dataset.i];select(x);openTool(x)};
+ const code=tr.querySelector(".code");
+ if(code)code.onclick=e=>{e.stopPropagation();openTool(data[+tr.dataset.i])};
+});
+}
+function select(x){selected=x;document.getElementById("fc").textContent=x.code;document.getElementById("fm").textContent=x.material;document.getElementById("fv").textContent=x.vc;document.getElementById("ff").textContent=x.f;document.getElementById("fa").textContent=x.ap}
+[q,cat,mat,maker].forEach(e=>e.addEventListener("input",render));
+document.querySelectorAll(".navtab").forEach(btn=>btn.addEventListener("click",()=>{
+  const page=btn.dataset.page;
+  document.querySelectorAll(".navtab").forEach(b=>b.classList.toggle("active",b===btn));
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===page));
+  window.scrollTo({top:0,behavior:"smooth"});
+}));
+let currentCatalogUpdatedAt=null;
+async function loadCatalog(options={}){
+ const manual=options.manual===true;
+ try{
+  if(manual) showRefreshProgress(8,"Connessione al database…");
+  const r=await fetch("./catalog.json?v="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw new Error("HTTP "+r.status);
+  const pack=await r.json();
+  if(manual) showRefreshProgress(48,"Download dei dati completato…");
+  data=Array.isArray(pack)?pack:pack.items;
+  if(!Array.isArray(data)||!data.length)throw new Error("catalogo vuoto");
+  try{localStorage.setItem("ctl_catalog",JSON.stringify({updatedAt:pack.updatedAt||Date.now(),items:data}));}catch(_){}
+  fillFilters();render();
+  const updated=new Date(pack.updatedAt||Date.now());
+  currentCatalogUpdatedAt=pack.updatedAt||updated.toISOString();
+  const nowUpdate=new Date();
+  let checkTime=nowUpdate;
+  try{
+   const sr=await fetch("./update-status.json?ts="+Date.now(),{cache:"no-store"});
+   if(sr.ok){
+    const ss=await sr.json();
+    if(ss.updatedAt) checkTime=new Date(ss.updatedAt);
+   }
+  }catch(_){}
+  document.getElementById("status").textContent=data.length+" righe · ultimo controllo automatico: "+checkTime.toLocaleString("it-IT");
+  document.getElementById("lastUpdate").textContent=checkTime.toLocaleString("it-IT",{dateStyle:"short",timeStyle:"short"});
+  document.getElementById("updateState").textContent="🟢 Dati verificati automaticamente";
+  if(manual) showRefreshProgress(78,"Aggiornamento completato…");
+ }catch(e){
+  let local=null;
+  try{local=JSON.parse(localStorage.getItem("ctl_catalog")||"null")}catch(_){}
+  data=local&&Array.isArray(local.items)?local.items:fallbackData;
+  fillFilters();render();
+  document.getElementById("status").textContent=data.length+" righe · modalità offline";
+  document.getElementById("updateState").textContent="🟠 Catalogo locale disponibile";
+  if(manual) showRefreshProgress(100,"Modalità offline: dati locali caricati.");
+ }
+}
+let refreshRunning=false;
+function showRefreshProgress(p,text){document.getElementById("refreshOverlay").hidden=false;document.getElementById("progressBar").style.width=Math.max(0,Math.min(100,p))+"%";document.getElementById("progressPct").textContent=Math.round(p)+"%";document.getElementById("refreshText").textContent=text||"Aggiornamento in corso…"}
+async function manualRefresh(message="Avvio aggiornamento…"){
+ if(refreshRunning)return;
+ refreshRunning=true;
+ showRefreshProgress(2,message);
+ try{
+  await loadCatalog({manual:true});
+  showRefreshProgress(82,"Database caricato e verificato…");
+  showRefreshProgress(94,"Preparazione del ricaricamento…");
+  setTimeout(()=>{showRefreshProgress(100,"Database aggiornato. Attendere, grazie.");setTimeout(()=>location.reload(),650)},450);
+ }catch(e){
+  showRefreshProgress(100,"Aggiornamento non riuscito.");
+  setTimeout(()=>{document.getElementById("refreshOverlay").hidden=true;refreshRunning=false},1200);
+ }
+}
+async function checkForDatabaseUpdate(){
+ if(refreshRunning)return;
+ try{
+  const r=await fetch("./catalog.json?check="+Date.now(),{cache:"no-store"});
+  if(!r.ok)return;
+  const pack=await r.json();
+  const remote=pack.updatedAt||"";
+  if(currentCatalogUpdatedAt && remote && remote!==currentCatalogUpdatedAt){
+   await manualRefresh("Aggiornamento automatico in corso. Attendere, grazie.");
+  }
+ }catch(_){}
+}
+loadCatalog();
+setInterval(checkForDatabaseUpdate,60*1000);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkForDatabaseUpdate()});
+document.getElementById("refreshData").onclick=()=>manualRefresh();
+
+if("serviceWorker" in navigator){
+ navigator.serviceWorker.register("sw.js").then(reg=>{
+   let updateTimer=null;
+   const finishUpdate=()=>{
+     showRefreshProgress(100,"Aggiornamento completato. Attendere…");
+     clearTimeout(updateTimer);
+     updateTimer=setTimeout(()=>location.reload(),650);
+   };
+   const watch=()=>{
+     const installing=reg.installing;
+     if(!installing)return;
+     showRefreshProgress(8,"ATTENDI — AGGIORNAMENTO IN CORSO");
+     const steps=()=>{
+       if(installing.state==="installing"){
+         showRefreshProgress(35,"ATTENDI — AGGIORNAMENTO IN CORSO");
+       }else if(installing.state==="installed"){
+         if(navigator.serviceWorker.controller){
+           showRefreshProgress(82,"ATTENDI — AGGIORNAMENTO IN CORSO");
+           setTimeout(()=>finishUpdate(),350);
+         }else{
+           document.getElementById("refreshOverlay").hidden=true;
+         }
+       }else if(installing.state==="redundant"){
+         document.getElementById("refreshOverlay").hidden=true;
+       }
+     };
+     installing.addEventListener("statechange",steps);
+     steps();
+   };
+   reg.addEventListener("updatefound",watch);
+   navigator.serviceWorker.addEventListener("controllerchange",()=>{
+     showRefreshProgress(92,"ATTENDI — AGGIORNAMENTO IN CORSO");
+     setTimeout(()=>finishUpdate(),250);
+   });
+   reg.update();
+   setInterval(()=>reg.update(),60*1000);
+ }).catch(()=>{});
+}
+let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.getElementById("installApp").hidden=false});document.getElementById("installApp").onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById("installApp").hidden=true};
+document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
+
+const photoMap={
+CNMG:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale CNMG · riferimento ufficiale stabile"],
+ISCAR_CNMG:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale CNMG generica · riferimento geometrico compatibile · non specifica ISCAR"],
+INGERSOLL_CNMG:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale Ingersoll CNMG · famiglia ufficiale"],
+DNMG:["https://cdn.hoffmann-group.com/derivatives/41979/jpg_1200/jpg_1200_b250754_hb7010-1.jpg","Foto reale DNMG"],
+SNMG:["https://i.ebayimg.com/images/g/yGEAAeSw~J5ogEPZ/s-l400.jpg","Foto reale SNMG"],
+WNMG:["https://image.made-in-china.com/2f0j00ijokScJGMBqpG/Grewin-CNC-Lathe-Tools-Tungsten-Carbide-Turning-Inserts-Solid-Carbide-Wnmg-080408-for-Aluminium-Steel-Stainless-Steel.webp","Foto reale WNMG"],
+VNMG:["https://i.ebayimg.com/images/g/2xYAAOSw2g5lKf6R/s-l1600.jpg","Foto reale VNMG"],
+VBMT:["https://darxton.ru/files/_images/60/6029e45a-864a-11eb-9ea2-000c29fafacd_fa11638e-5c20-11ec-a91a-000c2925a1b1.jpg","Foto reale VBMT"],
+DCMT:["https://img2.tradewheel.com/uploads/images/products/6/9/cnc-lathe-tool-carbide-twist-drill2-0183441001627070172.jpg","Foto reale DCMT"],
+CCMT:["https://cdn.dgisupply.ca/img/product-images/Asset_URL/Sandvik_Coromant_7080694.jpg","Foto reale CCMT"],
+TCMT:["https://i.ebayimg.com/images/g/bZIAAOSwKupkOESi/s-l1600.jpg","Foto reale TCMT"],
+RCMT:["https://cdn11.bigcommerce.com/s-4s9liwcv/images/stencil/original/products/670336/819830/6088861-24__48554.1682537263.jpg?c=2&imbypass=on","Foto reale RCMT"],
+G:["https://www.gen3industrial.com/cdn/shop/files/83cebe6f-dde6-414a-9a46-6b301af44980.jpg?v=1760043945&width=4096","Foto reale utensile per scanalatura/troncatura"],
+L:["https://i.ebayimg.com/images/g/GGEAAOSwwYVk9qGC/s-l1600.jpg","Foto reale portautensile per filettatura"],
+DRILL:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta"],
+MILL:["https://cdn11.bigcommerce.com/s-kvzeeygcn8/images/stencil/1280x1280/products/28579/131031/smt40917-sandvik-coromill-plura-20mm-carbide-endmill-5-flutes-rm-300re-24748-loc1884b__22210.1662992430.jpg?c=1","Foto reale fresa"],
+FACE:["https://i.ebayimg.com/images/g/~g4AAOSwUfdjoOwq/s-l960.jpg","Foto reale fresa a spianare"],
+TURN_R12:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale CNMG · riferimento ufficiale Ingersoll"],
+TURN_R08:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale CNMG · riferimento ufficiale Ingersoll"],
+TURN_R04:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale CNMG · riferimento ufficiale Ingersoll"],
+DRILL_INDEX:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta a inserti"],
+DRILL_MOD:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta modulare"],
+HOLDER:["https://www.gen3industrial.com/cdn/shop/files/02c4af41-71d5-4cad-a060-0b4fe2a95461.jpg?v=1760387843&width=1200","Foto reale portautensile"],
+ADAPTER:["https://www.gen3industrial.com/cdn/shop/files/02c4af41-71d5-4cad-a060-0b4fe2a95461.jpg?v=1760387843&width=1200","Foto reale mandrino/adattatore"],
+GENERIC_INSERT:["https://i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale di inserto · riferimento geometria compatibile"]
+};
+function realReferenceFor(x){
+ const k=(String(x?.code||'')+' '+String(x?.category||'')+' '+String(x?.geom||'')).toUpperCase();
+ const maker=String(x?.maker||'').toUpperCase();
+ if(maker.includes('ISCAR') && k.includes('CNMG')) return {url:photoMap.ISCAR_CNMG[0],note:photoMap.ISCAR_CNMG[1]};
+ if(maker.includes('INGERSOLL')){
+   if(k.includes('SNMG433MGP')) return {url:"https://ssl.ingersoll-imc.com/resources/product-images/snmg432mgp/snmg432mgp_Enlarge.jpg",note:"Foto reale Ingersoll · riferimento ufficiale della serie SNMG MGP"};
+   if(k.includes('VNMG332MT')) return {url:"https://ssl.ingersoll-imc.com/resources/product-images/vnmg_mt/vnmg_mt_Enlarge.jpg",note:"Foto reale Ingersoll · riferimento ufficiale della serie VNMG MT"};
+   if(k.includes('DNMG')) return {url:"https://ssl.ingersoll-imc.com/resources/product-images/dnmg/dnmg_Enlarge.jpg",note:"Foto reale Ingersoll · riferimento ufficiale della serie DNMG"};
+   if(k.includes('CNMG')) return {url:photoMap.INGERSOLL_CNMG[0],note:photoMap.INGERSOLL_CNMG[1]};
+ }
+ const refs={
+  CNMG:'CNMG',DNMG:'DNMG',SNMG:'SNMG',WNMG:'WNMG',VNMG:'VNMG',VBMT:'VBMT',
+  DCMT:'DCMT',CCMT:'CCMT',TCMT:'TCMT',RCMT:'RCMT',
+  DCGT:'DCMT',CCGT:'CCMT',TCGT:'TCMT',
+  MGMN:'G',MGEHR:'G',GROOVING:'G',PARTING:'G',
+  SUMOCHAM:'DRILL',DR:'DRILL',CORODRIL:'DRILL',PUNTA:'DRILL',DRILLS:'DRILL',DEEP:'DRILL',
+  FRESA:'MILL',MILLING:'MILL',ENDMILL:'MILL',ENDMILLS:'MILL',SOLID:'MILL',
+  THREADIN:'L',THREAD:'L',TAPS:'L',TUNGTAP:'L'
+ };
+ for(const key of Object.keys(refs)){
+   if(k.includes(key) && photoMap[refs[key]]) return {
+     url:photoMap[refs[key]][0],
+     note:'Foto reale di riferimento · geometria/famiglia compatibile · produttore diverso dal record'
+   };
+ }
+ const family=familyFor(x);
+ if(photoMap[family]) return {
+   url:photoMap[family][0],
+   note:'Foto reale di riferimento · famiglia compatibile · produttore diverso dal record'
+ };
+ if(String(x?.category||'').toUpperCase().includes('INSERT')) return {
+   url:photoMap.GENERIC_INSERT[0],
+   note:photoMap.GENERIC_INSERT[1]
+ };
+ return null;
+}
+function toolPhoto(x){
+ const official=x&&x.productUrl?String(x.productUrl):"";
+ const ref=realReferenceFor(x);
+ const family=familyFor(x);
+ const familyPhoto=photoMap[family]&&photoMap[family][0]?String(photoMap[family][0]):"";
+ const photoSource=String(x?.photoSource||"").toLowerCase();
+ const exact=(x&&x.photoUrl&&(/manufacturer|official/.test(photoSource)))?String(x.photoUrl):"";
+ const isCnmg=(String(x?.code||"")+" "+String(x?.category||"")+" "+String(x?.geom||"")).toUpperCase().includes("CNMG");
+ const cnmgStable="https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg";
+ const fallback= isCnmg ? cnmgStable : (ref?.url||familyPhoto);
+ const fallback2= isCnmg ? (familyPhoto||ref?.url) : (ref?.url&&ref.url!==familyPhoto?ref.url:"");
+ const rawCandidates=[exact||"",fallback||"",fallback2||""].filter(Boolean);
+ const unique=[...new Set(rawCandidates)];
+ const proxyBase="https://cutting-tools-lab.spaggiari.workers.dev/product-image";
+ const photoVersion=encodeURIComponent(String(x?.photoUpdatedAt||x?.photoVerifiedAt||"stable"));
+ const src=unique.length?proxyBase+"?v="+photoVersion+"&"+unique.map((u,i)=>(i?"fallback":"url")+"="+encodeURIComponent(u)).join("&"):"";
+ const alt=esc((x&&x.maker||"")+" "+(x&&x.code||""));
+ const sourceLabel=exact
+   ? "Foto reale del produttore"
+   : (ref ? ref.note : "Foto reale di riferimento · geometria/famiglia compatibile");
+ const link=official
+   ? '<a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda ufficiale del produttore</a>'
+   : '';
+ if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Nessuna foto reale disponibile per questo utensile.</div>'+link+'</div>';
+ const candidateData=encodeURIComponent(JSON.stringify(unique));
+ return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(src)+'" alt="'+alt+'" data-open-code="'+esc(x.code)+'" data-photo-candidates="'+candidateData+'" role="button" tabindex="0"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div><button type="button" class="previewButton" data-preview-code="'+esc(x.code)+'">🔍 Apri anteprima</button>'+link+'</div>';
+}
+document.addEventListener("error",e=>{
+ const img=e.target;
+ if(!(img instanceof HTMLImageElement)||!img.classList.contains("recDraw"))return;
+ let list=[];
+ try{list=JSON.parse(decodeURIComponent(img.dataset.photoCandidates||"[]"));}catch(_){}
+ const n=Number(img.dataset.photoFallbackIndex||"0");
+ if(n<list.length){
+   img.dataset.photoFallbackIndex=String(n+1);
+   img.src=list[n];
+   return;
+ }
+ img.style.display="none";
+ const wrap=img.closest(".photoWrap");
+ if(wrap&&!wrap.querySelector(".photoEmpty")){
+   const d=document.createElement("div");
+   d.className="photoEmpty";
+   d.textContent="📷 Nessuna foto reale raggiungibile per questa famiglia.";
+   wrap.insertBefore(d,wrap.firstChild);
+ }
+},true);
+
+function familyFor(x){
+ const k=(x.code+' '+x.category+' '+x.geom).toUpperCase();
+ if(k.includes('FORATURA')){
+   if(k.includes('INSERTI')) return 'DRILL_INDEX';
+   if(k.includes('MODULARE')) return 'DRILL_MOD';
+   return 'DRILL';
+ }
+ if(k.includes('FRESATURA')) return 'MILL';
+ if(k.includes('SPIANATURA')) return 'FACE';
+ if(k.includes('CNMG')){
+   const r=insertRadius(x);
+   if(r===1.2) return 'TURN_R12';
+   if(r===0.8) return 'TURN_R08';
+   if(r===0.4) return 'TURN_R04';
+ }
+ for(const f of Object.keys(photoMap)) if(k.includes(f) && !['ISCAR_CNMG','INGERSOLL_CNMG','GENERIC_INSERT'].includes(f)) return f;
+ if(k.includes('INSERT') || k.includes('WSP') || k.includes('INSERTI')) return 'GENERIC_INSERT';
+ return 'HOLDER';
+}
+function renderRecommendations(target,filter){
+ const list=data.filter(x=>filter(x)).slice(0,4);
+ target.innerHTML=list.length?list.map(x=>'<div class="recCard">'+toolPhoto(x)+'<div class="recMeta"><b>'+esc(x.code)+'</b><br>'+esc(x.geom)+'<br><span>Materiale: '+esc(x.material)+'</span><div class="params"><b>Vc:</b> '+esc(x.vc)+' · <b>f/fz:</b> '+esc(x.f)+' · <b>ap:</b> '+esc(x.ap)+'</div><button type="button" data-code="'+esc(x.code)+'">Apri utensile</button></div></div>').join(''):'<div class="result">Nessun utensile del catalogo corrisponde ai criteri.</div>';
+ target.querySelectorAll('button[data-code]').forEach(b=>b.onclick=()=>{const x=data.find(v=>v.code===b.dataset.code);if(x)openTool(x)});
+}
+let manufacturers=[];
+async function loadManufacturers(){try{const r=await fetch("./manufacturers.json",{cache:"no-store"});manufacturers=await r.json();renderManufacturers()}catch(e){document.getElementById("manufacturerList").innerHTML="<div class=\"result\">Registro produttori non disponibile.</div>"}}
+function renderManufacturers(){const q=String(document.getElementById("manufacturerSearch")?.value||"").toLowerCase(),t=document.getElementById("manufacturerType")?.value||"";const list=(manufacturers.groups||[]).filter(x=>(!t||x.type===t)&&(!q||JSON.stringify(x).toLowerCase().includes(q)));document.getElementById("manufacturerList").innerHTML=list.map(x=>"<article class=\"problemCard\"><h3>"+esc(x.name)+"</h3><p><b>Tipo:</b> "+esc(x.type)+"</p><p><b>Assortimento:</b> "+esc(x.catalogScope||"—")+"</p><p><b>Disegni:</b> "+esc(x.drawings||"—")+"</p>"+(x.catalog?("<a href=\""+x.catalog+"\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block;margin-top:7px;color:#185b8f;font-weight:800\">📚 Apri catalogo / documentazione</a>"):"<p class=\"cause\">ISO: categoria standard separata, senza catalogo di un singolo produttore.</p>")+"</article>").join("")||"<div class=\"result\">Nessun produttore trovato.</div>"}
+document.getElementById("manufacturerSearch").oninput=renderManufacturers;document.getElementById("manufacturerType").onchange=renderManufacturers;loadManufacturers();
+const gearProblems=[
+['Creatore','Usura del creatore','Usura progressiva del fianco/tagliente, condizioni di taglio, materiale e refrigerazione possono ridurre precisione e vita utensile.','Controlla uniformità dell’usura, stato dei taglienti, rivestimento, velocità, avanzamento e refrigerazione; confronta il limite di usura con il costruttore del creatore.'],
+['Creatore','Impastamento / materiale aderente','Materiale aderente al tagliente, refrigerazione insufficiente, utensile/materiale non abbinati o condizioni termiche sfavorevoli.','Controlla refrigerazione e filtrazione, specifica/rivestimento del creatore e parametri; elimina il materiale aderente prima di continuare se compromette il tagliente.'],
+['Creatore','Profilo dente fuori specifica','Errore di set-up, creatore errato, usura, posizione assiale/radiale o dati nominali non corretti.','Verifica codice e geometria del creatore, interassi, orientamento, profondità, sincronizzazione e compensazioni; misura il profilo prima di correggere.'],
+['Creatore','Errore di passo / divisione','Errore di sincronizzazione, macchina, montaggio o utensile; gioco o posizionamento non corretti.','Controlla sincronismo creatore-pezzo, serraggio, giochi e dati macchina; verificare con controllo dimensionale del pezzo.'],
+['Creatore','Conicità o variazione lungo la fascia','Allineamento, inclinazione del creatore, posizione assiale, deflessione o usura non uniforme.','Controlla allineamento e orientamento, posizionamento assiale e rigidità; verifica la distribuzione dell’usura sul creatore.'],
+['Creatore','Rugosità elevata sul fianco','Velocità/avanzamento, vibrazioni, usura, runout o condizioni di taglio non ottimali.','Controlla runout e serraggio, stabilità, velocità, avanzamento e stato del creatore; confronta con il catalogo utensile.'],
+['Creatore','Striature / righe sul fianco','Taglienti danneggiati, runout, vibrazione, truciolo ricircolato o refrigerante contaminato.','Controlla taglienti, runout, bilanciamento, filtrazione e scarico truciolo.'],
+['Creatore','Bava eccessiva','Condizioni di uscita, utensile usurato, sovrametallo, parametri o geometria non corretti.','Controlla usura e strategia di uscita; verifica parametri e successive operazioni di sbavatura previste dal processo.'],
+['Creatore','Truciolo lungo / evacuazione difficile','Forma del truciolo, refrigerazione, evacuazione e condizioni di taglio.','Migliora flusso del refrigerante e scarico truciolo; verifica parametri e geometria del creatore.'],
+['Creatore','Vibrazioni / chatter','Rigidezza insufficiente, sbalzo, macchina, pezzo, creatore o condizioni di velocità/avanzamento.','Riduci sbalzo e verifica serraggi; controlla bilanciamento e varia le condizioni di taglio secondo i dati del costruttore.'],
+['Creatore','Surriscaldamento / bruciature','Carico termico eccessivo, refrigerazione insufficiente o parametri non idonei.','Controlla refrigerante, velocità e carico; verifica eventuali danni termici e interrompi se la superficie mostra alterazioni.'],
+['Coltello','Usura del coltello','Usura dei taglienti, materiale lavorato, velocità, avanzamento e condizioni di refrigerazione.','Controlla usura uniforme e differenze tra taglienti; verifica parametri e specifica del coltello e pianifica riaffilatura entro i limiti del costruttore.'],
+['Coltello','Impastamento del coltello','Materiale aderente, refrigerazione insufficiente o geometria/rivestimento non adatti.','Controlla refrigerazione e specifica del coltello; riduci il carico termico e verifica il materiale aderente sui taglienti.'],
+['Coltello','Profilo dente errato','Coltello non corretto, riaffilatura non conforme, profondità/set-up o compensazioni errati.','Verifica profilo e codice del coltello, stato della riaffilatura, posizione e profondità di lavoro; misura il profilo.'],
+['Coltello','Errore di passo','Sincronizzazione macchina, gioco, posizionamento o utensile non corretti.','Controlla sincronizzazione e giochi, serraggio e dati del coltello; verificare il passo con strumento di misura appropriato.'],
+['Coltello','Errore di elica','Orientamento della testa, guida elicoidale, dati macchina o set-up non corretti.','Verifica angolo e verso dell’elica, guida/asse della macchina e parametri di impostazione.'],
+['Coltello','Fianco rigato / superficie ondulata','Vibrazioni, tagliente danneggiato, runout o condizioni di taglio instabili.','Controlla macchina, portautensile, runout e taglienti; stabilizza il processo e verifica i parametri.'],
+['Coltello','Bava eccessiva','Uscita del coltello, usura, geometria o condizioni di taglio.','Controlla usura e uscita del tagliente, parametri e sovrametallo; verificare l’operazione di sbavatura prevista.'],
+['Coltello','Rumore anomalo / colpi','Interferenza, gioco, serraggio o sincronizzazione errata.','Fermare la macchina e verificare in sicurezza interferenze, serraggi, sincronismo e posizione utensile.'],
+['Coltello','Dente sottosquadra / interferenza','Geometria utensile, profondità, numero denti o dati di progetto non coerenti.','Verifica disegno, modulo, angolo di pressione, utensile e profondità di generazione prima di modificare il set-up.'],
+['Coltello','Quota varia tra pezzi','Usura, temperatura, compensazione o variazione del serraggio.','Stabilizza temperatura, controllo e serraggio; monitora usura e applica compensazioni secondo procedura macchina.']
+];
+function renderGearProblems(){
+ const q=String(document.getElementById('gearSearch').value||'').toLowerCase(),m=document.getElementById('gearMethod').value;
+ const list=gearProblems.filter(p=>(!m||p[0]===m)&&(!q||p.join(' ').toLowerCase().includes(q)));
+ document.getElementById('gearProblemList').innerHTML=list.map(p=>'<article class="problemCard"><h3>'+esc(p[0])+' · '+esc(p[1])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(p[2])+'</p><div class="solution"><b>Soluzione:</b> '+esc(p[3])+'</div></article>').join('')||'<div class="result">Nessun problema trovato.</div>';
+}
+document.getElementById('gearSearch').oninput=renderGearProblems;document.getElementById('gearMethod').oninput=renderGearProblems;renderGearProblems();
+
+document.getElementById('rDa')?.addEventListener('input',calcReaming);document.getElementById('rVc')?.addEventListener('input',calcReaming);document.getElementById('rN')?.addEventListener('input',calcReaming);document.getElementById('rF')?.addEventListener('input',calcReaming);document.getElementById('rL')?.addEventListener('input',calcReaming);
+function calcReaming(){const D=parseFloat(document.getElementById('rDa')?.value),Vc=parseFloat(document.getElementById('rVc')?.value),N=parseFloat(document.getElementById('rN')?.value),f=parseFloat(document.getElementById('rF')?.value),L=parseFloat(document.getElementById('rL')?.value);let out=[];if(D&&Vc)out.push('n = '+(Vc*1000/(3.14*D)).toFixed(1)+' rpm');if(D&&N)out.push('Vc = '+(3.14*D*N/1000).toFixed(2)+' m/min');if(N&&f)out.push('Vf = '+(f*N).toFixed(2)+' mm/min');if(L&&N&&f)out.push('T = '+(L/(f*N)).toFixed(3)+' min');const e=document.getElementById('rResults');if(e)e.textContent=out.join(' · ')||'Inserisci i dati necessari per calcolare.'}
+
+function num(id){const e=document.getElementById(id);const v=parseFloat(e?.value);return Number.isFinite(v)?v:null}
+function setVal(id,v){if(v!=null&&Number.isFinite(v)){const e=document.getElementById(id);if(e)e.value=(Math.round(v*100000)/100000).toString()}}
+function val(id){const e=document.getElementById(id);const v=parseFloat(e?.value);return Number.isFinite(v)?v:null}
+function put(id,v){const e=document.getElementById(id);if(!e)return;e.textContent=v==null?'':Number(v).toFixed(3);e.classList.add('resultCell');}
+function bindCalc(ids,fn){const run=()=>fn();ids.forEach(id=>{const e=document.getElementById(id);if(e){e.addEventListener('input',run);e.addEventListener('change',run);}});run();}
+function calcHobbing(){
+ const a=val('hf_vc_d'),b=val('hf_vc_n');put('hf_vc_out',a!=null&&b!=null?3.14*a*b/1000:null);
+ const c=val('hf_n_vc'),d=val('hf_n_d');put('hf_n_out',c!=null&&d>0?c*1000/(3.14*d):null);
+ const nh=val('hf_p_nh'),zc=val('hf_p_zc'),zp=val('hf_p_zp');put('hf_p_out',nh!=null&&zc>0&&zp>0?nh*zc/zp:null);
+ const fa=val('hf_f_fa'),np=val('hf_f_np');put('hf_f_out',fa!=null&&np!=null?fa*np:null);
+ const l=val('hf_t_l'),vf=val('hf_t_vf');put('hf_t_out',l!=null&&vf>0?l/vf:null);
+}
+bindCalc(['hf_vc_d','hf_vc_n','hf_n_vc','hf_n_d','hf_p_nh','hf_p_zc','hf_p_zp','hf_f_fa','hf_f_np','hf_t_l','hf_t_vf'],calcHobbing);
+function calcSeparate(){
+ const v=(a,b)=>{const x=val(a),y=val(b);return x!=null&&y!=null?x*y:null};
+ const a=val('tf_vc_d'),b=val('tf_vc_n');put('tf_vc_out',a!=null&&b!=null?3.14*a*b/1000:null);
+ const c=val('tf_n_vc'),d=val('tf_n_d');put('tf_n_out',c!=null&&d>0?c*1000/(3.14*d):null);
+ put('tf_vf_out',v('tf_vf_f','tf_vf_n'));const tl=val('tf_t_l'),tv=val('tf_t_vf');put('tf_t_out',tl!=null&&tv>0?tl/tv:null);
+ const da=val('df_vc_d'),dn=val('df_vc_n');put('df_vc_out',da!=null&&dn!=null?3.14*da*dn/1000:null);
+ const dc=val('df_n_vc'),dd=val('df_n_d');put('df_n_out',dc!=null&&dd>0?dc*1000/(3.14*dd):null);
+ put('df_vf_out',v('df_vf_f','df_vf_n'));const ef=val('df_fz_f'),ez=val('df_fz_z');put('df_fz_out',ef!=null&&ez>0?ef/ez:null);
+ const ra=val('rf_vc_d'),rb=val('rf_vc_n');put('rf_vc_out',ra!=null&&rb!=null?3.14*ra*rb/1000:null);
+ const rc=val('rf_n_vc'),rd=val('rf_n_d');put('rf_n_out',rc!=null&&rd>0?rc*1000/(3.14*rd):null);
+ put('rf_vf_out',v('rf_vf_f','rf_vf_n'));const rl=val('rf_t_l'),rv=val('rf_t_vf');put('rf_t_out',rl!=null&&rv>0?rl/rv:null);
+ const ma=val('mf_vc_d'),mb=val('mf_vc_n');put('mf_vc_out',ma!=null&&mb!=null?3.14*ma*mb/1000:null);
+ const mc=val('mf_n_vc'),md=val('mf_n_d');put('mf_n_out',mc!=null&&md>0?mc*1000/(3.14*md):null);
+ const mz=val('mf_vf_fz'),mn=val('mf_vf_n'),mz2=val('mf_vf_z');put('mf_vf_out',mz!=null&&mn!=null&&mz2>0?mz*mn*mz2:null);
+ const qv=val('mf_fz_vf'),qn=val('mf_fz_n'),qz=val('mf_fz_z');put('mf_fz_out',qv!=null&&qn>0&&qz>0?qv/(qn*qz):null);
+ const qa=val('mf_q_ap'),qe=val('mf_q_ae'),qf=val('mf_q_vf');put('mf_q_out',qa!=null&&qe!=null&&qf!=null?qa*qe*qf/1000:null);
+ const gl=val('gf_vc_l'),gs=val('gf_vc_s');put('gf_vc_out',gl!=null&&gs!=null?gl*gs/1000:null);
+ const gv=val('gf_s_vc'),gll=val('gf_s_l');put('gf_s_out',gv!=null&&gll>0?gv*1000/gll:null);
+ put('gf_f_out',v('gf_f_f','gf_f_s'));const gtl=val('gf_t_l'),gtv=val('gf_t_vf');put('gf_t_out',gtl!=null&&gtv>0?gtl/gtv:null);
+}
+bindCalc(['tf_vc_d','tf_vc_n','tf_n_vc','tf_n_d','tf_vf_f','tf_vf_n','tf_t_l','tf_t_vf','df_vc_d','df_vc_n','df_n_vc','df_n_d','df_vf_f','df_vf_n','df_fz_f','df_fz_z','rf_vc_d','rf_vc_n','rf_n_vc','rf_n_d','rf_vf_f','rf_vf_n','rf_t_l','rf_t_vf','mf_vc_d','mf_vc_n','mf_n_vc','mf_n_d','mf_vf_fz','mf_vf_n','mf_vf_z','mf_fz_vf','mf_fz_n','mf_fz_z','mf_q_ap','mf_q_ae','mf_q_vf','gf_vc_l','gf_vc_s','gf_s_vc','gf_s_l','gf_f_f','gf_f_s','gf_t_l','gf_t_vf'],calcSeparate);
+// Calcolo robusto anche su Safari/iPhone: ascolto delegato sui campi di input.
+document.addEventListener('input',function(e){if(e.target && e.target.matches && e.target.matches('.formulaCard input:not(.resultCell)')){calcSeparate();calcHobbing();}});
+document.addEventListener('change',function(e){if(e.target && e.target.matches && e.target.matches('.formulaCard input:not(.resultCell)')){calcSeparate();calcHobbing();}});
+window.addEventListener('pageshow',function(){setTimeout(function(){calcSeparate();calcHobbing();},0);});
+// Fallback Safari/iPhone: ricalcolo periodico dei campi formula, indipendente dagli eventi tastiera.
+setInterval(function(){calcSeparate();calcHobbing();},300);
+
+
+
+function calcTurning(){
+ let D=num('tDm'),Vc=num('tVc'),n=num('tN'),f=num('tFn'),ap=num('tAp'),L=num('tLm'),kc=num('tKc'),ka=num('tKapr');
+ if(Vc==null&&D!=null&&n!=null) Vc=3.14*D*n/1000;
+ if(n==null&&Vc!=null&&D!=null&&D>0) n=Vc*1000/(3.14*D);
+ if(Vc!=null&&D!=null&&n!=null){setVal('tVc',Vc);setVal('tN',n)}
+ const vf=f!=null&&n!=null?f*n:null,Q=Vc!=null&&ap!=null&&f!=null?Vc*ap*f:null,T=L!=null&&f!=null&&n!=null&&f*n>0?L/(f*n):null,P=Vc!=null&&ap!=null&&f!=null&&kc!=null?Vc*ap*f*kc/60000:null;
+ const s=ka!=null?Math.sin(ka*Math.PI/180):null,hm=f!=null&&s!=null?f*s:null,hex=f!=null&&s!=null&&s!==0?f/s:null;
+ document.getElementById('tResults').innerHTML=[['Vc','m/min',Vc],['n','rpm',n],['Vf','mm/min',vf],['Q','cm³/min',Q],['Tc','min',T],['Pc','kW',P],['hm','mm',hm],['hex','mm',hex]].filter(x=>x[2]!=null).map(x=>'<b>'+x[0]+'</b> = '+x[2].toFixed(3)+' '+x[1]).join(' · ')||'Inserisci almeno i dati necessari per calcolare.';
+}
+function calcDrilling(){
+ let D=num('dDc'),Vc=num('dVc'),n=num('dN'),f=num('dF'),L=num('dL'),z=num('dZ'),kc=num('dKc'),extra=num('dExtra')||0;
+ if(Vc==null&&D!=null&&n!=null) Vc=3.14*D*n/1000;
+ if(n==null&&Vc!=null&&D!=null&&D>0) n=Vc*1000/(3.14*D);
+ if(Vc!=null&&D!=null&&n!=null){setVal('dVc',Vc);setVal('dN',n)}
+ const vf=f!=null&&n!=null?f*n:null,Q=D!=null&&vf!=null?3.14*D*D*vf/4000:null,T=L!=null&&vf!=null&&vf>0?L/vf+extra:null,fz=f!=null&&z!=null&&z>0?f/z:null,P=Vc!=null&&D!=null&&f!=null&&kc!=null?Vc*(3.14*D*D/4)*f*kc/60000:null;
+ document.getElementById('dResults').innerHTML=[['Vc','m/min',Vc],['n','rpm',n],['Vf','mm/min',vf],['Q','cm³/min',Q],['T','min',T],['fz','mm/dente',fz],['Pc','kW',P]].filter(x=>x[2]!=null).map(x=>'<b>'+x[0]+'</b> = '+x[2].toFixed(3)+' '+x[1]).join(' · ')||'Inserisci almeno i dati necessari per calcolare.';
+}
+function calcMilling(){
+ let D=num('mD'),Vc=num('mVc'),n=num('mN'),fz=num('mFz'),fn=num('mFn'),z=num('mZ'),ap=num('mAp'),ae=num('mAe'),kc=num('mKc');
+ if(Vc==null&&D!=null&&n!=null) Vc=3.14*D*n/1000;
+ if(n==null&&Vc!=null&&D!=null&&D>0) n=Vc*1000/(3.14*D);
+ if(fz!=null&&n!=null&&z!=null) fn=fz*z;
+ if(fn!=null&&n!=null&&z!=null&&z>0) fz=fn/z;
+ if(Vc!=null&&D!=null&&n!=null){setVal('mVc',Vc);setVal('mN',n)}
+ if(fn!=null) setVal('mFn',fn); if(fz!=null)setVal('mFz',fz);
+ const vf=fz!=null&&n!=null&&z!=null?fz*n*z:null,Q=ap!=null&&ae!=null&&vf!=null?ap*ae*vf/1000:null,P=ae!=null&&ap!=null&&vf!=null&&kc!=null?ae*ap*vf*kc/60000000:null,M=P!=null&&n!=null&&n>0?P*30000/(3.14*n):null;
+ document.getElementById('mResults').innerHTML=[['Vc','m/min',Vc],['n','rpm',n],['fz','mm/dente',fz],['fn','mm/giro',fn],['Vf','mm/min',vf],['Q','cm³/min',Q],['Pc','kW',P],['Mc','Nm',M]].filter(x=>x[2]!=null).map(x=>'<b>'+x[0]+'</b> = '+x[2].toFixed(3)+' '+x[1]).join(' · ')||'Inserisci almeno i dati necessari per calcolare.';
+}
+['tDm','tVc','tN','tFn','tAp','tLm','tKc','tKapr','dDc','dVc','dN','dF','dL','dZ','dKc','dExtra','mD','mVc','mN','mFz','mFn','mZ','mAp','mAe','mKc'].forEach(id=>{const e=document.getElementById(id);if(e)e.addEventListener('input',()=>{calcTurning();calcDrilling();calcMilling()})});
+calcTurning();calcDrilling();calcMilling();
+
+const toolModal=document.getElementById("toolModal");
+const closeModal=document.getElementById("closeModal");
+const modalBody=document.getElementById("modalBody");
+function openTool(x){
+ const kind=familyFor(x), p=photoMap[kind]||photoMap.HOLDER;
+ let body='<h2>'+esc(x.code)+'</h2><p><b>Fornitore:</b> '+esc(x.maker||'—')+'</p><p><b>Categoria:</b> '+esc(x.category)+'</p><p>'+esc(x.geom)+'</p>'+toolPhoto(x)+'<p><b>Materiale:</b> '+esc(x.material)+'</p><div class="formulaBox">Vc: '+esc(x.vc)+' m/min · f/fz: '+esc(x.f)+' · ap: '+esc(x.ap)+'</div><p class="photo-caption">'+esc(x.photoNote||x.photoSource||'Fonte fotografica non specificata')+'. Il codice preciso, grado e quote devono essere verificati sulla scheda del produttore.</p>';
+ modalBody.innerHTML=body;toolModal.hidden=false;
+}
+closeModal.onclick=()=>toolModal.hidden=true;
+toolModal.onclick=e=>{if(e.target===toolModal)toolModal.hidden=true};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")toolModal.hidden=true});
+
+/* iPhone/touch: apertura anteprima diretta. Windows invariato. */
+let lastTouchOpen=0;
+function openPhotoFromTouch(e){
+ const img=e.target.closest(".photoWrap .recDraw");
+ if(!img)return;
+ const coarse=e.pointerType==="touch" || (window.matchMedia && window.matchMedia("(pointer:coarse)").matches);
+ if(!coarse)return;
+ const code=img.dataset.openCode || img.closest(".recCard")?.querySelector("button[data-code]")?.dataset.code;
+ if(!code)return;
+ const x=data.find(v=>v.code===code);
+ if(!x)return;
+ e.preventDefault();
+ e.stopPropagation();
+ lastTouchOpen=Date.now();
+ openTool(x);
+}
+document.addEventListener("pointerup",openPhotoFromTouch,{passive:false});
+document.addEventListener("click",e=>{
+ if(Date.now()-lastTouchOpen<700)return;
+ openPhotoFromTouch(e);
+});
+function openInsertPreview(x){
+ if(!x)return;
+ const ref=realReferenceFor(x);
+ const family=familyFor(x);
+ const familyPhoto=photoMap[family]&&photoMap[family][0]?String(photoMap[family][0]):"";
+ const official=x.productUrl?String(x.productUrl):"";
+ const source=String(x.photoSource||"").toLowerCase();
+ const exact=(x.photoUrl&&(/manufacturer|official/.test(source)))?String(x.photoUrl):"";
+ const isCnmg=(String(x.code||"")+" "+String(x.category||"")+" "+String(x.geom||"")).toUpperCase().includes("CNMG");
+ const stable="https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg";
+ const candidates=[exact||"",isCnmg?stable:(ref?.url||familyPhoto),isCnmg?(familyPhoto||ref?.url):"",official].filter(Boolean);
+ const unique=[...new Set(candidates)];
+ const proxy="https://cutting-tools-lab.spaggiari.workers.dev/product-image";
+ const urls=unique.map((u,i)=>i===0&&exact?proxy+"?url="+encodeURIComponent(u)+"&v=preview":proxy+"?url="+encodeURIComponent(u)+"&v=preview");
+ let i=0;
+ modalBody.innerHTML='<h2>Anteprima inserto · '+esc(x.code)+'</h2><p><b>'+esc(x.maker||"")+'</b> · '+esc(x.geom||"")+'</p><div class="insertPreviewFrame"><img id="insertPreviewImage" class="modalImg" src="'+esc(urls[0]||"")+'" alt="'+esc(x.code)+'" referrerpolicy="no-referrer"><div id="insertPreviewStatus" class="photo-caption">Caricamento foto reale…</div></div><p class="photo-caption">La foto è un riferimento reale della famiglia/geometria; codice, grado e quote vanno verificati sulla scheda del produttore.</p>';
+ toolModal.hidden=false;
+ const img=document.getElementById("insertPreviewImage"), status=document.getElementById("insertPreviewStatus");
+ if(!img){return;}
+ img.onerror=function(){
+   i++;
+   if(i<urls.length){status.textContent="Cambio fonte fotografica…";img.src=urls[i];}
+   else{img.style.display="none";status.textContent="📷 Nessuna foto reale raggiungibile per questo inserto.";}
+ };
+ img.onload=function(){status.textContent="Foto reale caricata · fonte "+(i+1)+" di "+urls.length;};
+}
+document.addEventListener("click",function(e){
+ const b=e.target.closest && e.target.closest(".previewButton");
+ if(!b)return;
+ const code=b.dataset.previewCode;
+ const x=data.find(v=>v.code===code);
+ if(x){e.preventDefault();e.stopPropagation();openInsertPreview(x);}
+});
+</script>
+<script>
+/* Formule: una sola voce principale, poi l'utente sceglie quale lavorazione aprire. */
+(function(){
+  const host=document.getElementById("formule");
+  if(!host)return;
+  const ids=["tornitura","foratura","alesatura","fresatura","dentatura","creatore"];
+  const names={
+    tornitura:"🔩 Tornitura",
+    foratura:"🕳️ Foratura",
+    alesatura:"🔧 Alesatura",
+    fresatura:"⚙️ Fresatura",
+    dentatura:"⚙️ Dentatura a coltello",
+    creatore:"⚙️ Dentatura a creatore"
+  };
+  const chooser=document.createElement("div");
+  chooser.className="formulaChooser";
+  chooser.innerHTML='<h2>📐 Formule</h2><p>Seleziona la lavorazione da aprire:</p><div class="formulaChoices">'+ids.map(id=>'<button type="button" class="formulaChoice" data-formula="'+id+'">'+names[id]+'</button>').join("")+'</div>';
+  host.querySelector(".calc").replaceWith(chooser);
+  ids.forEach(function(id){
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.classList.remove("page","active");
+    el.style.display="none";
+    host.appendChild(el);
+  });
+  function openFormula(id){
+    ids.forEach(function(x){
+      const el=document.getElementById(x);
+      if(el)el.style.display=x===id?"block":"none";
+    });
+    chooser.querySelectorAll(".formulaChoice").forEach(function(b){
+      b.classList.toggle("selected",b.dataset.formula===id);
+    });
+  }
+  chooser.querySelectorAll(".formulaChoice").forEach(function(b){
+    b.addEventListener("click",function(){openFormula(b.dataset.formula);});
+  });
+  openFormula("tornitura");
+})();
+</script>
+<script>
+(function(){
+  const baseProblems=[["Tornitura","Vibrazioni / chatter","Sbalzo utensile elevato; pezzo poco rigido; serraggio debole; inserto usurato; Vc o f troppo elevati.","Controlla sbalzo, altezza punta, serraggio, runout, usura e impronta del truciolo; verifica se la vibrazione compare solo in una certa zona.","Riduci lo sbalzo e irrigidisci il sistema. Come prova iniziale riduci Vc di circa 10–20% oppure f di circa 10–15%, una variabile alla volta.","Valori di prova: Vc −10/20% oppure f −10/15%; poi confronta con la tabella del grado inserto."],["Tornitura","Usura sul fianco troppo rapida","Vc eccessiva; grado non adatto; tagliente troppo sollecitato; refrigerazione insufficiente.","Osserva VB, controlla Vc reale, materiale/durezza e stato del refrigerante.","Riduci Vc e verifica grado/rivestimento. Se il carico è alto, riduci anche f o ap e usa un grado adatto al materiale.","Prova tipica: Vc −10/20%; mantenere f e ap costanti per capire la causa."],["Tornitura","Usura a cratere","Temperatura elevata e velocità alta; materiale con forte affinità; grado/rivestimento non adatto.","Controlla faccia di spoglia, Vc, materiale, rivestimento e presenza di craterizzazione.","Riduci Vc e passa a un grado/rivestimento più resistente alla craterizzazione; controlla il refrigerante.","Prova tipica: Vc −10/15%; non aumentare contemporaneamente f."],["Tornitura","Scheggiatura del tagliente","Interruzioni, urti, materiale duro, inserto troppo fragile, runout o profondità eccessiva.","Controlla impronta della rottura, serraggio, geometria, grado e presenza di interruzioni.","Usa un grado più tenace, riduci ap/f se l'urto è elevato e correggi runout e serraggio.","Se il taglio è intermittente, partire con f/ap ridotti e verificare il grado consigliato dal produttore."],["Tornitura","Rugosità elevata","f troppo alto rispetto al raggio punta; vibrazioni; inserto usurato; naso danneggiato.","Controlla f, raggio punta, VB, stabilità e segni periodici sulla superficie.","Riduci f, usa un raggio coerente con la profondità e aumenta la rigidità; sostituisci l'inserto se usurato.","Per finitura, ridurre f a piccoli passi; il valore finale dipende da rε e dalla geometria reale."],["Tornitura","Bava in uscita","Tagliente usurato; geometria poco adatta; uscita troppo aggressiva; materiale duttile.","Controlla lato di uscita, raggio, usura e direzione di avanzamento.","Riduci f vicino all'uscita, usa geometria positiva/rompitruciolo adatta e programma un'uscita controllata.","Valore di prova: ridurre f nell'ultima zona del 20–30% se la macchina lo consente."],["Tornitura","Truciolo troppo lungo","Rompitruciolo non adatto; f troppo basso; Vc elevata; profondità fuori dalla finestra del rompitruciolo.","Controlla forma del truciolo e intervallo di lavoro del rompitruciolo del produttore.","Aumenta f entro i limiti dell'inserto o scegli un rompitruciolo corretto; valuta Vc più bassa.","Non usare f fuori dal campo del produttore: la finestra dipende da geometria e ap."],["Tornitura","Truciolo troppo corto / polverizzato","Taglio troppo aggressivo, materiale fragile o inserto non adatto.","Controlla f, ap, Vc e stato del tagliente.","Riduci il carico specifico e verifica geometria e grado; evita condizioni che generano urti ripetuti.","Correzione iniziale: ridurre f o ap di circa 10–15%, poi rivalutare."],["Tornitura","Diametro finale fuori quota","Usura utensile; compensazione errata; dilatazione termica; runout; misura instabile.","Misura pezzo e utensile, controlla offset, temperatura e ripetibilità del serraggio.","Correggi offset dopo una misura stabile; controlla usura e temperatura prima di modificare i parametri.","Non correggere solo l'offset se la deriva continua: prima verificare usura e temperatura."],["Tornitura","Conicità sul pezzo","Pezzo o utensile non allineati; flessione; contropunta disallineata; serraggio non uniforme.","Misura diametro a più posizioni e controlla allineamento e pressione di serraggio.","Correggi allineamento e rigidità; riduci ap o f se la flessione è la causa.","Con pezzi flessibili, provare passate più leggere e supporto più vicino alla zona di taglio."],["Tornitura","Solco / rigatura periodica","Runout, inserto doppio, utensile non serrato o vibrazione sincronica.","Controlla il periodo delle righe rispetto a giri mandrino e numero taglienti.","Controlla serraggio e runout; cambia inserto e verifica se il difetto segue l'utensile.","Se il difetto segue sempre lo stesso rpm, prova una variazione di Vc del 5–10% per diagnosticare la risonanza."],["Tornitura","Temperatura pezzo elevata","Vc alta; refrigerazione insufficiente; ap/f non equilibrati; materiale difficile.","Controlla Vc, quantità/direzione refrigerante e accumulo di calore.","Riduci Vc, migliora refrigerazione e valuta geometria/grado specifici.","Come test: Vc −10/20% mantenendo il resto invariato."],["Foratura","Foro fuori diametro","Punta usurata; runout; centraggio errato; geometria non adatta.","Misura il foro e controlla runout al naso, usura dei margini e serraggio.","Correggi runout/centraggio e sostituisci la punta se usurata; verifica la tabella del produttore.","Per diagnosi: controllare prima runout e usura, poi Vc e f."],["Foratura","Foro sovradimensionato","Runout, punta non centrata, labbri non equivalenti, materiale che spinge l'utensile.","Misura runout e differenza dei due taglienti; controlla boccola/mandrino.","Riduci runout e ripristina la simmetria della punta; controlla geometria e rivestimento.","Runout: misurare al diametro utensile prima di cambiare i parametri."],["Foratura","Foro sottodimensionato","Usura, deflessione, punta non corretta o condizioni troppo leggere.","Controlla usura, rettilineità e materiale; verifica che il diametro nominale sia corretto.","Sostituisci/affila l'utensile e correggi Vc/f secondo il costruttore.","Non compensare il diametro con un aumento casuale di Vc: prima eliminare la causa geometrica."],["Foratura","Vibrazioni","Sbalzo lungo; serraggio debole; punta non centrata; parametri eccessivi.","Controlla lunghezza utensile, runout, centraggio e fissaggio del pezzo.","Riduci sbalzo, migliora serraggio e usa parametri più conservativi.","Prova iniziale: Vc −10/15% e/o f −10%, una modifica per volta."],["Foratura","Punta si rompe all'ingresso","Centraggio errato; superficie inclinata; punta troppo aggressiva; runout.","Controlla superficie d'ingresso, punta pilota, runout e stato dei taglienti.","Prepara un ingresso stabile, riduci il carico iniziale e correggi runout/serraggio.","Per ingresso difficile usare un ciclo/parametro di entrata previsto dal costruttore."],["Foratura","Punta si rompe in profondità","Scarico truciolo insufficiente; refrigerazione interna assente; f troppo alto; foro profondo.","Controlla lunghezza foro, tipo truciolo, pressione refrigerante e ciclo di evacuazione.","Usa refrigerazione e ciclo adatti, riduci f se necessario e migliora lo scarico.","Per fori profondi seguire il ciclo di pecking e i limiti L/D del produttore."],["Foratura","Truciolo si incastra","Materiale duttile; f troppo basso/alto rispetto alla geometria; refrigerazione insufficiente.","Osserva il truciolo e verifica la finestra f/Vc della punta.","Correggi f nella finestra del rompitruciolo e aumenta lo scarico/refrigerazione.","Evitare di uscire dal campo f del produttore: il comportamento dipende dalla punta."],["Foratura","Foro non rettilineo","Entrata non stabile; punta flessibile; materiale con durezza variabile; fissaggio insufficiente.","Controlla runout e lunghezza libera, misura l'asse del foro e verifica il serraggio.","Riduci sbalzo, migliora l'ingresso e usa geometria più stabile.","Per L/D elevati considerare preforo, guida o utensile specifico."],["Foratura","Bava in uscita","Tagliente usurato; uscita troppo veloce; materiale duttile.","Controlla uscita e stato dei taglienti.","Riduci il carico nell'uscita e usa geometria appropriata; valuta smusso o operazione di sbavatura.","Prova: ridurre f nell'ultima fase secondo le possibilità del ciclo."],["Foratura","Superficie interna rigata","Margini danneggiati, runout, truciolo ricircolante o refrigerazione insufficiente.","Controlla margini, truciolo e segni longitudinali.","Sostituisci la punta se danneggiata e migliora evacuazione/refrigerazione.","Se il segno segue la rotazione, verificare runout prima di cambiare Vc."],["Fresatura","Chatter / vibrazioni","Sbalzo elevato; frequenza di passaggio denti in risonanza; ae/ap eccessivi; serraggio debole.","Controlla sbalzo, runout, numero denti, rpm e profondità radiale/assiale.","Riduci sbalzo e correggi rpm; riduci ae o ap se il carico è eccessivo.","Prova diagnostica: varia rpm del 5–10% oppure riduci ae; non cambiare tutto insieme."],["Fresatura","Usura uniforme dei taglienti","Carico termico o meccanico elevato; Vc/fz non adeguati.","Controlla usura su tutti i denti e confronta Vc/fz con il catalogo.","Correggi Vc e fz; verifica grado, materiale e refrigerazione.","Come test: Vc −10/15% se prevale usura termica; fz −10% se prevale carico meccanico."],["Fresatura","Scheggiatura denti","Urti, ingresso non corretto, runout, grado troppo fragile o ae/ap elevati.","Controlla forma della scheggiatura e ingresso/uscita del dente.","Riduci ae/ap, correggi ingresso e usa grado più tenace se necessario.","Per taglio intermittente adottare condizioni e geometria specifiche del produttore."],["Fresatura","Superficie ondulata","Vibrazioni, runout, utensile inclinato o passo denti non stabile.","Controlla runout, serraggio, inclinazione e stato dei denti.","Correggi runout e rigidità; varia rpm per uscire dalla risonanza.","Variazione rpm di prova: circa ±5–10%, poi verificare la finitura."],["Fresatura","Bava sul bordo","Uscita del dente aggressiva; utensile usurato; direzione di fresatura non ottimale.","Controlla bordo di uscita e usura.","Riduci fz nell'ultima zona, migliora ingresso/uscita e valuta strategia concorde.","La correzione dipende da materiale e geometria; mantenere fz entro il campo utensile."],["Fresatura","Potenza macchina troppo alta","fz, ae o ap elevati; utensile poco efficiente; materiale difficile.","Controlla carico mandrino e asportazione Q.","Riduci ae/ap o fz e verifica Vc; per sgrossatura valuta utensile con più taglienti se compatibile.","Per diagnosi, ridurre una sola variabile del 10–15% e osservare il carico."],["Fresatura","Truciolo caldo / ricolorato","Vc elevata; scarso smaltimento calore; attrito eccessivo.","Controlla colore del truciolo, Vc, refrigerazione e materiale.","Riduci Vc e migliora evacuazione; verificare rivestimento e grado.","Prova: Vc −10/20% se il problema è chiaramente termico."],["Fresatura","Utensile si sfila dal portautensile","Serraggio insufficiente; contaminazione; forze assiali elevate.","Controlla cono, pinza/mandrino, pulizia e direzione delle forze.","Pulisci superfici, correggi serraggio e usa sistema adeguato alle forze.","Non compensare un problema di serraggio aumentando il parametro di taglio."],["Rettifica","Bruciature sul pezzo","Energia termica elevata; mola non ravvivata; refrigerazione insufficiente; pressione eccessiva.","Controlla colore/temperatura, ravvivatura, portata e direzione del refrigerante.","Ravviva la mola, migliora refrigerazione e riduci il carico per passata.","Ridurre profondità di passata e/o avanzamento per testare l'origine termica."],["Rettifica","Mola si intasa / carica","Materiale duttile; mola troppo chiusa; refrigerazione insufficiente.","Controlla superficie della mola e frequenza di ravvivatura.","Usa specifica di mola più adatta e aumenta efficacia della ravvivatura/refrigerazione.","Seguire specifica della mola: non modificare solo la velocità senza verificare il legante."],["Rettifica","Finitura irregolare","Ravvivatura non uniforme; vibrazioni; mola danneggiata.","Controlla profilo mola, runout e condizioni del mandrino.","Ravviva correttamente e verifica equilibrio/serraggio della mola.","Controllare equilibrio e ravvivatura prima di cambiare il ciclo."],["Rettifica","Rumore / vibrazioni","Squilibrio, mola non centrata, mandrino o appoggio instabile.","Controlla equilibrio, montaggio, flange e supporti.","Ferma il processo se necessario, controlla montaggio ed equilibrio prima di ripartire.","Non aumentare i giri per 'superare' una vibrazione senza diagnosi."],["Dentatura a coltello","Profilo fuori specifica","Dati pezzo/coltello errati, correzione profilo non corretta, usura o impostazione macchina errata.","Controlla modulo, numero denti, angolo di pressione, spessore, correzioni e dati utensile.","Confronta dati di preparazione con disegno e scheda utensile; applica correzioni solo dopo misura.","Verificare dati GDE/DIN 4000 o scheda macchina quando disponibili."],["Dentatura a coltello","Bave sui fianchi","Tagliente usurato; uscita aggressiva; gioco/posizionamento non corretto.","Controlla usura e zona di uscita, misura bava sui due fianchi.","Riduci carico nell'uscita, controlla coltello e correzioni; valuta passata di finitura.","Per finitura usare la finestra di battute/dente documentata e i parametri del costruttore."],["Dentatura a coltello","Vibrazioni durante la corsa","Sbalzo/serraggio; frequenza corse; pezzo poco rigido; coltello usurato.","Controlla serraggio, corse/min, runout e supporto pezzo.","Riduci corse/min o modifica la condizione di taglio, irrigidisci e controlla utensile.","Variare Wc di circa 5–10% può essere utile per diagnosi di risonanza, poi verificare il risultato."],["Dentatura a coltello","Tempo ciclo troppo lungo","Corse/min basse; troppe passate; avanzamento conservativo; percorso ausiliario elevato.","Separare tempo di taglio da infeed, ritorno, indicizzazione e movimenti ausiliari.","Ottimizzare Wc/fc entro limiti macchina e utensile; ridurre movimenti non produttivi.","Non aumentare Wc oltre la finestra documentata senza verificare macchina e coltello."],["Dentatura a coltello","Usura coltello elevata","Vc alta; battute/dente eccessive; materiale duro; raffreddamento o grado non adeguati.","Controlla Vc, Bd, materiale e forma dell'usura.","Riduci Vc/Bd e verifica grado/rivestimento e refrigerazione.","Per i valori di battute/dente usare la tabella documentata e non extrapolare automaticamente oltre il campo della fonte."],["Dentatura a creatore","Profilo / passo fuori specifica","Sincronismo creatore-pezzo errato; dati Zp/Zc errati; elica o verso di rotazione errati.","Controlla rapporto Nh/Np, numero principi, denti pezzo, angoli e verso.","Correggi i dati cinematici e riesegui simulazione/verifica prima del taglio.","Relazione base: Np = Nh × Zc / Zp; per elicoidali verificare compensazioni macchina."],["Dentatura a creatore","Vibrazioni / chatter","Sbalzo creatore, serraggio, diametro piccolo, rpm o avanzamento non adatti.","Controlla runout, supporto, inclinazione testa e carico mandrino.","Riduci sbalzo e modifica rpm/feed; verifica diametro e numero principi del creatore.","Variare rpm del 5–10% è una prova diagnostica; non sostituisce la tabella utensile."],["Dentatura a creatore","Bava sui fianchi","Creatore usurato; uscita non ottimizzata; parametri eccessivi.","Controlla usura, Vc, avanzamento e zona di uscita.","Riduci carico di finitura, controlla creatore e valuta passata di finitura.","Mantenere Vc e feed entro la finestra del costruttore del creatore."],["Dentatura a creatore","Usura rapida del creatore","Vc elevata; materiale difficile; lubrorefrigerazione insufficiente; utensile non adatto.","Controlla usura per dente, Vc, feed e materiale.","Riduci Vc e verifica qualità del creatore, rivestimento e refrigerazione.","Come test iniziale: Vc −10/20%; poi confrontare vita utensile."],["Dentatura a creatore","Potenza mandrino elevata","Feed, profondità o larghezza di ingaggio elevate; creatore poco efficiente.","Controlla potenza, coppia e carico in funzione della posizione.","Riduci feed o profondità di passata e verifica Vc; valuta creatore più adatto.","Riduzione diagnostica iniziale del feed di circa 10–15%."],["Dentatura a creatore","Tempo ciclo elevato","Feed basso, passate eccessive, percorso assiale lungo o dati di macchina conservativi.","Scomponi il ciclo in avvicinamento, taglio, uscita e ritorno.","Ottimizza feed e movimenti ausiliari entro limiti macchina; valuta strategia e numero passate.","La programmazione dovrebbe separare dati pezzo, creatore, sincronismo e sequenza di lavorazione."],["Generale","Durata utensile insufficiente","Parametri fuori finestra; grado errato; materiale/durezza variabili; rigidità insufficiente.","Confronta Vc/f/fz/ap/ae con il catalogo e controlla macchina e materiale reale.","Correggi prima la causa dominante, poi ottimizza un parametro alla volta.","Registrare Vc, f/fz, ap/ae, tempo utensile e tipo di usura per ogni prova."],["Generale","Risultati non ripetibili","Serraggio variabile; runout; materiale non uniforme; temperatura; utensili di lotti diversi.","Ripetere la misura e confrontare utensile, pezzo, offset e temperatura.","Standardizza presetting, serraggio, refrigerante e misura; registra i parametri reali.","Tenere una scheda di processo con parametri e vita utensile."],["Generale","Errore dopo cambio utensile","Presetting o offset errato; utensile/famiglia non corrispondente.","Confronta codice, geometria, offset e lunghezza/diametro misurati.","Correggi presetting e offset; verifica un pezzo di prova prima della serie.","Controllo consigliato: codice + geometria + offset + misura reale prima dell'avvio."],["Generale","Refrigerazione inefficace","Portata bassa; ugello fuori zona; emulsione/olio non corretti; filtro sporco.","Controlla portata, pressione, direzione e stato del refrigerante.","Pulire circuito/filtro, orientare ugelli e ripristinare concentrazione prevista.","Registrare concentrazione e pressione; seguire le specifiche del fluido e del costruttore."],["Generale","Macchina sovraccarica","Asportazione eccessiva; utensile usurato; materiale più duro del previsto; serraggio insufficiente.","Controlla carico mandrino, potenza, coppia e forma del truciolo.","Riduci ap/ae/f/fz e verifica utensile e materiale prima di riprendere la produzione.","Come prova: ridurre il parametro che determina il carico del 10–15% e misurare la risposta."],["Generale","Collisione / rischio di interferenza","Dati utensile o pezzo errati; percorso non verificato; offset errato.","Controlla simulazione, lunghezze, diametri, zero pezzo e avvicinamenti.","Eseguire simulazione e prova a bassa velocità/override prima della produzione.","Per lavorazioni di dentatura usare dati utensile/pezzo verificati e simulazione quando disponibile."]];  function renderProblems(){
+    const q=String(document.getElementById("problemSearch")?.value||"").toLowerCase();
+    const area=document.getElementById("problemArea")?.value||"";
+    const all=baseProblems.concat((window.gearProblems||[]).map(p=>[p[0],p[1],p[2],p[3]]));
+    const list=all.filter(p=>(!area||p[0]===area)&&(!q||p.join(" ").toLowerCase().includes(q)));
+    const el=document.getElementById("problemList");
+    if(el)el.innerHTML=list.map(p=>'<article class="problemCard"><h3>'+esc(p[0])+' · '+esc(p[1])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(p[2])+'</p><p><b>Controlli:</b> '+esc(p[3]||"Verificare macchina, utensile, serraggio e parametri.")+'</p><div class="solution"><b>Soluzione / correzione:</b> '+esc(p[4]||p[3])+'</div><p><b>Valori / regolazione di prova:</b> '+esc(p[5]||"Usare i valori del catalogo del produttore e modificare una variabile alla volta.")+'</p></article>').join("")||'<div class="result">Nessun problema trovato.</div>';
+  }
+  window.renderProblems=renderProblems;
+  document.getElementById("problemSearch")?.addEventListener("input",renderProblems);
+  document.getElementById("problemArea")?.addEventListener("change",renderProblems);
+  setTimeout(renderProblems,0);
+})();
+</script>
+
+<script>
+(function(){
+  function n(id){var e=document.getElementById(id);var v=e?parseFloat(e.value):NaN;return Number.isFinite(v)?v:null;}
+  function o(id,v){var e=document.getElementById(id);if(!e)return;e.textContent=(v==null||!Number.isFinite(v))?"":Number(v).toFixed(3);e.classList.add("resultCell");}
+  function f(a,b){var x=n(a),y=n(b);return x!=null&&y!=null?x*y:null;}
+  window.forceFormulaCalculations=function(){
+    var x,y;
+    x=n("tf_vc_d");y=n("tf_vc_n");o("tf_vc_out",x!=null&&y!=null?3.14*x*y/1000:null);
+    x=n("tf_n_vc");y=n("tf_n_d");o("tf_n_out",x!=null&&y>0?x*1000/(3.14*y):null);
+    o("tf_vf_out",f("tf_vf_f","tf_vf_n"));x=n("tf_t_l");y=n("tf_t_vf");o("tf_t_out",x!=null&&y>0?x/y:null);
+    x=n("df_vc_d");y=n("df_vc_n");o("df_vc_out",x!=null&&y!=null?3.14*x*y/1000:null);
+    x=n("df_n_vc");y=n("df_n_d");o("df_n_out",x!=null&&y>0?x*1000/(3.14*y):null);
+    o("df_vf_out",f("df_vf_f","df_vf_n"));x=n("df_fz_f");y=n("df_fz_z");o("df_fz_out",x!=null&&y>0?x/y:null);
+    x=n("rf_vc_d");y=n("rf_vc_n");o("rf_vc_out",x!=null&&y!=null?3.14*x*y/1000:null);
+    x=n("rf_n_vc");y=n("rf_n_d");o("rf_n_out",x!=null&&y>0?x*1000/(3.14*y):null);
+    o("rf_vf_out",f("rf_vf_f","rf_vf_n"));x=n("rf_t_l");y=n("rf_t_vf");o("rf_t_out",x!=null&&y>0?x/y:null);
+    x=n("mf_vc_d");y=n("mf_vc_n");o("mf_vc_out",x!=null&&y!=null?3.14*x*y/1000:null);
+    x=n("mf_n_vc");y=n("mf_n_d");o("mf_n_out",x!=null&&y>0?x*1000/(3.14*y):null);
+    x=n("mf_vf_fz");y=n("mf_vf_n");var z=n("mf_vf_z");o("mf_vf_out",x!=null&&y!=null&&z>0?x*y*z:null);
+    x=n("mf_fz_vf");y=n("mf_fz_n");z=n("mf_fz_z");o("mf_fz_out",x!=null&&y>0&&z>0?x/(y*z):null);
+    x=n("mf_q_ap");y=n("mf_q_ae");var q=n("mf_q_vf");o("mf_q_out",x!=null&&y!=null&&q!=null?x*y*q/1000:null);
+    x=n("gf_vc_l");y=n("gf_vc_s");o("gf_vc_out",x!=null&&y!=null?y*(x+6)*3.14/1000:null);
+    x=n("gf_s_vc");y=n("gf_s_l");o("gf_s_out",x!=null&&y>=0?x*1000/((y+6)*3.14):null);
+    o("gf_f_out",f("gf_f_f","gf_f_s"));x=n("gf_bd_b");y=n("gf_bd_np");var z=n("gf_bd_zp");o("gf_bd_out",x!=null&&y>0&&z>0?x/(y*z):null);x=n("gf_b_bdg");y=n("gf_b_np");z=n("gf_b_zp");o("gf_b_out",x!=null&&y!=null&&z>0?x*y*z:null);x=n("gf_t_bd");y=n("gf_t_zp");z=n("gf_t_b");o("gf_t_out",x!=null&&y>0&&z>0?x*y/z:null);
+    x=n("hf_vc_d");y=n("hf_vc_n");o("hf_vc_out",x!=null&&y!=null?3.14*x*y/1000:null);
+    x=n("hf_n_vc");y=n("hf_n_d");o("hf_n_out",x!=null&&y>0?x*1000/(3.14*y):null);
+    x=n("hf_p_nh");y=n("hf_p_zc");z=n("hf_p_zp");o("hf_p_out",x!=null&&y>0&&z>0?x*y/z:null);
+    x=n("hf_f_fa");y=n("hf_f_np");o("hf_f_out",x!=null&&y!=null?x*y:null);
+    x=n("hf_t_l");y=n("hf_t_vf");o("hf_t_out",x!=null&&y>0?x/y:null);
+  };
+  var ids=document.querySelectorAll(".formulaCard input:not(.resultCell)");
+  ids.forEach(function(e){e.addEventListener("input",window.forceFormulaCalculations);e.addEventListener("change",window.forceFormulaCalculations);e.addEventListener("keyup",keyupHandler);});
+  function keyupHandler(){window.forceFormulaCalculations();}
+  window.forceFormulaCalculations();
+  setInterval(window.forceFormulaCalculations,500);
+})();
+</script>
+
+<script>
+(function(){
+const css=document.createElement('style');
+css.textContent='.gearRangeBanner{margin:0 0 12px;padding:10px 12px;background:#eaf2f8;border:1px solid var(--line);border-radius:10px;color:#123a5a;font-size:13px}.gearProgramBox{margin-top:16px;border:1px solid var(--line);border-radius:12px;background:#f8fbfd;padding:14px}.gearProgramBox h3{margin:0 0 8px;color:#123a5a}.gearProgramIntro{font-size:13px;color:#455b6d}.gearProgramGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.gearProgramGrid>div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:13px;line-height:1.45}.gearProgramGrid ul,.gearProgramGrid ol{margin:7px 0 0;padding-left:20px}.gearProgramNote{margin-top:10px;font-size:11px;color:#607487;line-height:1.5}@media(max-width:760px){.gearProgramGrid{grid-template-columns:1fr}}.gearSourceBox{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:#f8fbfd;padding:12px}.gearSourceBox h3{margin:0 0 8px;color:#123a5a}.gearSourceBox table{min-width:0;width:100%;border-collapse:collapse}.gearSourceBox th,.gearSourceBox td{border:1px solid var(--line);padding:7px;font-size:12px}.gearSourceBox th{position:static}.gearSourceNote{font-size:11px;color:#607487;margin-top:8px;line-height:1.45}.gearSourceBadge{display:inline-block;background:#e9f2fb;color:#185b8f;border-radius:999px;padding:3px 7px;font-weight:800;font-size:11px}';
+document.head.appendChild(css);
+const esc2=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function make(title,items,type){
+return '<div class="gearSourceBox"><h3>'+esc2(title)+'</h3><span class="gearSourceBadge">PARAMETRI DOCUMENTATI</span><table><thead><tr><th>Condizione</th><th>Materiale</th><th>Vc / velocità</th><th>Avanzamento</th><th>Radiale / battute</th><th>Fonte</th></tr></thead><tbody>'+
+items.map(x=>'<tr><td>'+esc2(x.titolo)+'</td><td>'+esc2(x.materiale||'—')+'</td><td>'+esc2(x.vc||x.giri_creatore||'—')+'</td><td>'+esc2(x.feed_circolare||x.feed||'—')+'</td><td>'+esc2((x.feed_radiale||'—')+(x.corse?' · '+x.corse:''))+'</td><td>'+esc2(x.fonte)+'</td></tr>').join('')+
+'</tbody></table>'+
+(type==='coltello'?'<div class="gearSourceNote"><b>Legenda:</b> Vc = velocità di taglio (m/min); feed/corsa = avanzamento applicato a ogni battuta; feed radiale = avanzamento radiale per battuta; corse/min = battute del coltello al minuto. I valori NACHI sono condizioni pubblicate e vanno adattati alla macchina.</div>':'<div class="gearSourceNote"><b>Legenda:</b> Vc = velocità di taglio; feed = avanzamento secondo la condizione originale della fonte; rpm = giri/min. I dati del creatore sono riportati nella loro unità originale e non sono valori universali.</div>')+
+'</div>';
+}
+const addStrokeTable=(d)=>{
+const sh=document.querySelector('#dentatura .calc'); if(!sh||sh.querySelector('.strokeTableBox')||!d.battute_dente_documentate)return;
+const q=d.battute_dente_documentate, rows=q.valori.map(v=>'<tr><td>'+esc2(v.modulo)+'</td><td>'+esc2(v.one_finish[0])+'</td><td>'+esc2(v.one_finish[1])+'</td><td>'+esc2(v.two_rough[0])+'</td><td>'+esc2(v.two_rough[1])+'</td><td>'+esc2(v.two_finish[0])+'</td><td>'+esc2(v.two_finish[1])+'</td></tr>').join('');
+sh.insertAdjacentHTML('beforeend','<div class="gearSourceBox strokeTableBox"><h3>📊 Battute per dente · valori documentati Maag</h3><span class="gearSourceBadge">BATTUTE/DENTE</span><table><thead><tr><th>Modulo m</th><th>1 passata finitura<br>Z 12–25</th><th>1 passata finitura<br>Z 26–70</th><th>2 passate sgrossatura<br>Z 12–25</th><th>2 passate sgrossatura<br>Z 26–70</th><th>2 passate finitura<br>Z 12–25</th><th>2 passate finitura<br>Z 26–70</th></tr></thead><tbody>'+rows+'</tbody></table><div class="gearSourceNote"><b>Bd</b> = battute/corse per dente. Sono intervalli generalmente adottati e documentati; il valore cresce con il modulo e varia con il numero di denti e la strategia di passata. Per due coltelli accoppiati la fonte indica di usare i valori della sgrossatura. Fonte: Maag Gear Shaper Cutter.</div></div>');
+};
+fetch('./gear-parameters.json?ts='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(d=>{
+const sh=document.querySelector('#dentatura .calc'),ho=document.querySelector('#creatore .calc');
+if(sh&&!sh.querySelector('.gearSourceBox'))sh.insertAdjacentHTML('beforeend',make('Valori consigliati e documentati · dentatura a coltello',d.coltello,'coltello')); addStrokeTable(d);
+if(ho&&!ho.querySelector('.gearSourceBox'))ho.insertAdjacentHTML('beforeend',make('Valori consigliati e documentati · dentatura a creatore',d.creatore,'creatore'));
+}).catch(()=>{});
+})();
+</script>
+
+<script>
+(function(){
+  /*
+   * Rettifica — base tecnica ampliata.
+   * Fonti: UNITED GRINDING / STUDER-MÄGERLE-BLOHM-JUNG; ricerca IWT Bremen
+   * e FH Cologne / Prof. Wilfried Saxler. Le fonti sono richiamate nella UI.
+   * Le correzioni operative restano indicative: verificare sempre mola,
+   * macchina, materiale e parametri del costruttore.
+   */
+  const grindingEvidence=[
+    {
+      area:"Rettifica interna",
+      source:"UNITED GRINDING · tecnologia di rettifica / refrigerazione; principi di processo verificati su documentazione tecnica.",
+      problems:[
+        ["Bruciature / alterazione termica","Energia termica troppo elevata; mola troppo chiusa o dura; ravvivatura troppo fine; refrigerazione insufficiente o non raggiunge la zona interna.","Controlla colore e microstruttura, segni termici, ravvivatura, portata/direzione del refrigerante, specifica della mola e carico per passata.","Ravviva in modo più aggressivo, migliora la refrigerazione nella zona interna e riduci profondità/avanzamento per passata; verifica una specifica di mola più aperta o più tenera.","Prova diagnostica: ridurre il carico di passata del 10–20% e correggere prima il raffreddamento."],
+        ["Foro fuori diametro / quota instabile","Usura della mola, ravvivatura insufficiente, deflessione del mandrino/quill, serraggio o temperatura variabili.","Misura diametro in più punti; controlla runout del mandrino, usura mola, compensazioni e stabilità termica.","Ripristina la geometria della mola con ravvivatura corretta, verifica il mandrino e stabilizza il processo termico prima di correggere l'offset.","Non correggere continuamente l'offset se la deriva segue usura o temperatura."],
+        ["Conicità nel foro","Mandrino/quill non rigido o non allineato; ravvivatura non parallela; deflessione sotto carico; errore di posizionamento.","Misura il diametro all'imbocco e al fondo; controlla allineamento, sporgenza del quill e profilo della mola.","Riduci lo sbalzo del mandrino, correggi allineamento e ravvivatura e riduci il carico se la deflessione è dominante.","Per diagnosi confrontare errore di forma con direzione e posizione del carico."],
+        ["Ovalità / forma lobata","Vibrazioni, mandrino non centrato, mola non equilibrata, pezzo poco rigido o condizioni di contatto instabili.","Controlla forma a più angoli, runout, equilibrio mola e rigidità del pezzo/mandrino.","Equilibra e ravviva la mola, correggi il serraggio e riduci le condizioni che eccitano la vibrazione.","Se il difetto è periodico, variare la velocità del 5–10% è una prova diagnostica."],
+        ["Rigature longitudinali nel foro","Mola danneggiata o intasata; trucioli/refrigerante contaminato; ravvivatura irregolare.","Ispeziona la superficie della mola e filtra il refrigerante; verifica se il passo delle righe segue la cinematica.","Ravviva/pulisci la mola, migliora filtrazione e flusso del refrigerante e controlla il dressing.","Non aumentare la velocità prima di aver escluso contaminazione e danno della mola."],
+        ["Mola che si carica","Materiale duttile; struttura troppo chiusa; ravvivatura troppo fine; refrigerazione/filtrazione insufficienti.","Controlla pori della mola, materiale aderente e frequenza di ravvivatura.","Usa una specifica più aperta/adatta al materiale, aumenta l'efficacia della ravvivatura e migliora il lavaggio della zona.","La documentazione UNITED GRINDING segnala che il carico della mola aumenta attrito, temperatura e rischio di bruciatura."],
+        ["Vibrazioni / chatter","Sbalzo elevato del mandrino, mola non equilibrata, serraggio insufficiente, interferenze esterne.","Controlla equilibrio, runout, supporti, sporgenza e sorgenti di vibrazione della macchina.","Riduci lo sbalzo, correggi equilibrio/serraggio e isola le vibrazioni esterne; poi ottimizza la velocità.","Non compensare una vibrazione meccanica aumentando semplicemente i giri."],
+        ["Rugosità elevata","Mola smussata/carica, ravvivatura troppo fine o irregolare, vibrazioni, refrigerazione non corretta.","Controlla Ra/Rz, stato della mola, dressing e segni periodici sulla superficie.","Ravviva correttamente, verifica specifica della mola e stabilizza refrigerazione e rigidezza.","La superficie deve essere valutata insieme a dressing, mola e refrigerante, non con il solo parametro di avanzamento."]
+      ]
+    },
+    {
+      area:"Rettifica evolvente",
+      source:"UNITED GRINDING / ricerca Prof. B. Karpuschewski, IWT Bremen · gear profile grinding e refrigerazione; documentazione tecnica sul controllo del grinding burn.",
+      problems:[
+        ["Bruciature sui fianchi dell'evolvente","Carico termico elevato; refrigerazione non efficace; mola troppo chiusa/dura; dressing troppo fine.","Controlla discolorazioni, danno termico, frequenza di dressing, velocità mola/pezzo e posizione ugelli.","Migliora il getto nella zona di contatto, correggi dressing e riduci il carico per passata; valuta una mola più aperta o tenera.","Per applicazioni di profilo, UNITED GRINDING riporta la ricerca IWT sull'efficacia della velocità del refrigerante sincronizzata con la mola."],
+        ["Profilo evolvente fuori tolleranza","Profilo della mola errato o usurato; dressing non corretto; dati macchina/pezzo non coerenti; compensazione errata.","Controlla profilo della mola, dressing, dati modulo/angolo di pressione, compensazioni e misura del profilo.","Ravviva o correggi la mola, verifica i dati nominali e applica la compensazione solo dopo una misura affidabile.","Separare sempre errore di profilo da errore di posizione prima di modificare il ciclo."],
+        ["Errore di passo / divisione","Sincronismo macchina, indicizzazione, dati denti o riferimento del pezzo errati.","Controlla numero denti, indicizzazione, sincronismo e misura del passo su più denti.","Correggi i dati cinematici o di indicizzazione e ripeti la verifica dopo un pezzo di prova.","Non compensare un errore di divisione con una modifica casuale del profilo."],
+        ["Errore di elica","Orientamento, dati dell'angolo d'elica, asse macchina o dressing non coerenti.","Misura elica su più denti e confronta dati nominali, orientamento e compensazioni.","Correggi orientamento e dati macchina; verifica il dressing della mola prima di cambiare la velocità.","Per ingranaggi elicoidali verificare sempre la cinematica specifica della macchina."],
+        ["Rugosità elevata sul fianco","Mola smussata/carica, dressing troppo fine, vibrazioni o refrigerazione non corretta.","Controlla topografia della mola, dressing, equilibrio e segni periodici sul fianco.","Ravviva con parametri appropriati, correggi equilibrio e stabilizza il refrigerante.","Una ravvivatura troppo fine può ridurre l'aggressività della mola e aumentare il rischio termico."],
+        ["Striature / righe periodiche","Mola non equilibrata; dressing irregolare; vibrazioni; contaminazione del refrigerante.","Confronta il passo delle righe con la cinematica di mola e pezzo; controlla dressing e filtrazione.","Correggi equilibrio/dressing, pulisci e filtra il refrigerante e verifica eventuali sorgenti esterne di vibrazione.","La diagnosi dal pattern superficiale è particolarmente utile nella rettifica."],
+        ["Usura rapida della mola","Carico specifico elevato, specifica non adatta, dressing troppo aggressivo o raffreddamento inefficace.","Controlla volume asportato per dressing, forma della mola, refrigerante e carico termico.","Ottimizza specifica della mola e dressing; migliora refrigerazione e riduci il sovraccarico per passata.","Per il dressing, modificare una variabile alla volta e registrare vita/forma della mola."],
+        ["Bave / micro-scheggiature sul fianco","Uscita o carico eccessivo, mola danneggiata, parametri non adatti o materiale con risposta critica.","Controlla bordo del dente, stato della mola e distribuzione del carico lungo il fianco.","Riduci il carico di finitura, correggi dressing e verifica la specifica della mola.","Misurare il difetto prima e dopo ogni correzione per distinguere causa geometrica da termica."]
+      ]
+    },
+    {
+      area:"Rettifica di diametri esterni",
+      source:"UNITED GRINDING · STUDER / BLOHM / JUNG · errori tipici di rettifica cilindrica esterna, dressing, vibrazioni e refrigerazione.",
+      problems:[
+        ["Diametro esterno fuori quota","Usura mola, compensazione errata, deriva termica o ravvivatura insufficiente.","Misura il diametro lungo il pezzo; controlla usura, compensazione, temperatura e dressing.","Ripristina la mola con dressing corretto e correggi la compensazione dopo stabilizzazione termica.","Se la quota deriva nel tempo, registrare temperatura e vita mola prima di modificare il ciclo."],
+        ["Conicità sul diametro esterno","Mola non parallela al movimento tavola, dressing inclinato, allineamento errato o deflessione.","Misura diametro a più posizioni; controlla parallelismo, dressing tool e allineamento.","Correggi il dressing e l'allineamento; verifica usura/spostamento del ravvivatore.","UNITED GRINDING associa questo difetto a una superficie mola non parallela alla corsa della tavola."],
+        ["Pattern a spirale / filetto sulla superficie","Ravvivatura non uniforme, ravvivatore che si sposta o si usura, mola non parallela.","Osserva il passo della spirale e controlla direzione/velocità di dressing.","Ravviva in modo uniforme e controlla usura e raffreddamento del ravvivatore; correggi il parallelismo.","È un difetto diagnostico tipico della rettifica cilindrica esterna."],
+        ["Chatter / righe parallele all'asse","Squilibrio mola, vibrazioni esterne, pezzo flessibile, rapporto velocità non adatto.","Controlla equilibrio, supporto pezzo, steady rest, runout e sorgenti di vibrazione.","Equilibra la mola, irrigidisci/supporta il pezzo e varia la velocità per uscire dalla risonanza.","UNITED GRINDING indica anche sorgenti esterne come pompe, ventole e macchine vicine."],
+        ["Bruciature gialle/marroni","Surriscaldamento, refrigerazione insufficiente, mola troppo dura/chiusa o dressing troppo fine.","Controlla discolorazione, refrigerante, portata/ugello, dressing e specifica della mola.","Migliora refrigerazione, correggi dressing, riduci il carico e valuta mola più tenera/aperta.","Il grinding burn può causare modifiche della struttura superficiale e rischio di cricche."],
+        ["Righe corte a virgola","Particelle di dressing o contaminanti nel refrigerante premute nella zona di contatto.","Controlla filtrazione, vasca, ugelli e protezioni della mola.","Filtra/pulisci il refrigerante e rimuovi contaminanti; pulisci la zona di rettifica.","UNITED GRINDING identifica questo pattern come tipico di refrigerante contaminato da grani di dressing."],
+        ["Finitura a specchio / mola che non taglia","Mola troppo finemente ravvivata, intasata o abrasivo troppo fine.","Controlla porosità, carico della mola e parametri di dressing.","Aumenta la capacità di taglio con dressing più aperto/aggressivo o specifica più adatta; pulisci i pori.","Una mola ravvivata troppo finemente può aumentare la tendenza alla bruciatura."],
+        ["Vibrazione del pezzo lungo / ovalità","Pezzo poco rigido, supporto insufficiente, squilibrio o vibrazioni trasmesse dalla macchina.","Controlla concentricità, supporto/steady rest, equilibrio mola e fonti esterne.","Aggiungi/supporta il pezzo, correggi equilibrio e isola le vibrazioni esterne.","Per pezzi lunghi e flessibili il supporto deve essere parte del processo, non una correzione finale."]
+      ]
+    }
+  ];
+
+  function renderGrindingExtension(){
+    const list=document.getElementById("problemList");
+    if(!list)return;
+    const q=String(document.getElementById("problemSearch")?.value||"").toLowerCase();
+    const area=document.getElementById("problemArea")?.value||"";
+    if(area && !/^Rettifica/.test(area))return;
+    const wanted=grindingEvidence.filter(g=>!area||g.area===area)
+      .flatMap(g=>g.problems.map(p=>({area:g.area,source:g.source,p})))
+      .filter(x=>!q||[x.area,x.source,...x.p].join(" ").toLowerCase().includes(q));
+    if(!wanted.length)return;
+    const html=wanted.map(x=>'<article class="problemCard grindingCard"><h3>'+esc(x.area)+' · '+esc(x.p[0])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(x.p[1])+'</p><p><b>Controlli:</b> '+esc(x.p[2])+'</p><div class="solution"><b>Soluzione / correzione:</b> '+esc(x.p[3])+'</div><p><b>Valori / regolazione di prova:</b> '+esc(x.p[4])+'</p><p class="photo-caption"><b>Fonte tecnica:</b> '+esc(x.source)+'</p></article>').join("");
+    if(area==="Rettifica") list.insertAdjacentHTML("beforeend",html);
+    else if(!area){
+      const head='<div class="result grindingIntro"><b>Rettifica ampliata:</b> interna · evolvente · diametri esterni. Diagnosi basata su documentazione tecnica UNITED GRINDING e ricerca IWT Bremen.</div>';
+      list.insertAdjacentHTML("beforeend",head+html);
+    }
+  }
+
+  const oldRender=window.renderProblems;
+  window.renderProblems=function(){
+    if(typeof oldRender==="function")oldRender();
+    renderGrindingExtension();
+  };
+  document.getElementById("problemSearch")?.addEventListener("input",()=>setTimeout(renderGrindingExtension,0));
+  document.getElementById("problemArea")?.addEventListener("change",()=>setTimeout(renderGrindingExtension,0));
+  setTimeout(renderGrindingExtension,50);
+})();
+</script>
+</body></html>
