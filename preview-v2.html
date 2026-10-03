@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="it">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Anteprima inserti v2</title>
+<style>body{font-family:system-ui;margin:0;background:#f5f7fa;color:#17212b}header{background:#0f172a;color:#fff;padding:16px}main{padding:16px;max-width:1000px;margin:auto}.btn{background:#2563eb;color:#fff;border:0;border-radius:10px;padding:14px 18px;font-size:16px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:16px}.item{background:#fff;border:1px solid #cbd5e1;border-radius:10px;padding:12px;text-align:left}.modal{position:fixed;inset:0;background:#0f172acc;display:none;align-items:center;justify-content:center;padding:16px;z-index:99}.modal.open{display:flex}.card{background:#fff;border-radius:12px;padding:18px;max-width:600px;width:100%;max-height:85vh;overflow:auto}pre{background:#f1f5f9;padding:10px;border-radius:8px;overflow:auto;font-size:12px}</style>
+</head><body><header><h1>Anteprima inserti — v2</h1></header><main>
+<button class="btn" id="test">Prova apertura scheda</button>
+<div id="status" style="margin-top:16px">Caricamento…</div>
+<div id="grid" class="grid"></div>
+</main><div id="modal" class="modal"><div class="card" id="card"></div></div>
+<script>
+const modal=document.getElementById('modal'),card=document.getElementById('card');
+document.getElementById('test').addEventListener('pointerdown',()=>open({title:'Test funzionante',body:'Se vedi questo messaggio, apertura e deploy funzionano.'}));
+function open(d){card.innerHTML='<h2></h2><p></p><pre></pre><button class="btn" id="close">Chiudi</button>';card.querySelector('h2').textContent=d.title;card.querySelector('p').textContent=d.body;card.querySelector('pre').textContent=d.data||'';card.querySelector('#close').addEventListener('pointerdown',()=>modal.classList.remove('open'));modal.classList.add('open')}
+modal.addEventListener('pointerdown',e=>{if(e.target===modal)modal.classList.remove('open')});
+const pick=(o,k)=>k.map(x=>o?.[x]).find(v=>v!==undefined&&v!==null&&v!=='');
+function rows(d){let a=[];(function w(v){if(Array.isArray(v))v.forEach(w);else if(v&&typeof v==='object'){if(pick(v,['name','designation','code','model','title']))a.push(v);Object.values(v).forEach(w)}})(d);return a}
+fetch('catalog.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(d=>{const items=rows(d);document.getElementById('status').textContent='Catalogo caricato: '+items.length+' elementi';const g=document.getElementById('grid');items.slice(0,100).forEach(t=>{const b=document.createElement('button');b.className='item';b.textContent=pick(t,['name','designation','code','model','title'])||'Inserto';b.addEventListener('pointerdown',()=>open({title:pick(t,['name','designation','code','model','title'])||'Inserto',body:'Dati dell’inserto selezionato.',data:JSON.stringify(t,null,2).slice(0,3000)}));g.appendChild(b)})}).catch(e=>document.getElementById('status').textContent='Errore catalogo: '+e.message);
+</script></body></html>
