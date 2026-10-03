@@ -89,7 +89,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
   table{min-width:880px;}
 }
 </style>
-</head>
+\n<style id="insert-preview-fix">.insertPreviewFrame{margin-top:12px;background:#f8fbfd;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}.insertPreviewFrame .modalImg{height:min(58vh,520px);min-height:260px;object-fit:contain}.insertPreviewFrame .photo-caption{margin:8px 0 2px}</style>\n</head>
 <body><main>
 <header class="appHeader"><div><h1>🔧 CUTTING TOOLS LAB</h1><p>Foglio utensili · inserti · portautensili · velocità e parametri di taglio</p></div><div class="lastUpdate">Ultimo aggiornamento<br><b id="lastUpdate">—</b></div></header>
 
@@ -626,14 +626,38 @@ document.addEventListener("click",e=>{
  if(Date.now()-lastTouchOpen<700)return;
  openPhotoFromTouch(e);
 });
+function openInsertPreview(x){
+ if(!x)return;
+ const ref=realReferenceFor(x);
+ const family=familyFor(x);
+ const familyPhoto=photoMap[family]&&photoMap[family][0]?String(photoMap[family][0]):"";
+ const official=x.productUrl?String(x.productUrl):"";
+ const source=String(x.photoSource||"").toLowerCase();
+ const exact=(x.photoUrl&&(/manufacturer|official/.test(source)))?String(x.photoUrl):"";
+ const isCnmg=(String(x.code||"")+" "+String(x.category||"")+" "+String(x.geom||"")).toUpperCase().includes("CNMG");
+ const stable="https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg";
+ const candidates=[exact||"",isCnmg?stable:(ref?.url||familyPhoto),isCnmg?(familyPhoto||ref?.url):"",official].filter(Boolean);
+ const unique=[...new Set(candidates)];
+ const proxy="https://cutting-tools-lab.spaggiari.workers.dev/product-image";
+ const urls=unique.map((u,i)=>i===0&&exact?proxy+"?url="+encodeURIComponent(u)+"&v=preview":proxy+"?url="+encodeURIComponent(u)+"&v=preview");
+ let i=0;
+ modalBody.innerHTML='<h2>Anteprima inserto · '+esc(x.code)+'</h2><p><b>'+esc(x.maker||"")+'</b> · '+esc(x.geom||"")+'</p><div class="insertPreviewFrame"><img id="insertPreviewImage" class="modalImg" src="'+esc(urls[0]||"")+'" alt="'+esc(x.code)+'" referrerpolicy="no-referrer"><div id="insertPreviewStatus" class="photo-caption">Caricamento foto reale…</div></div><p class="photo-caption">La foto è un riferimento reale della famiglia/geometria; codice, grado e quote vanno verificati sulla scheda del produttore.</p>';
+ toolModal.hidden=false;
+ const img=document.getElementById("insertPreviewImage"), status=document.getElementById("insertPreviewStatus");
+ if(!img){return;}
+ img.onerror=function(){
+   i++;
+   if(i<urls.length){status.textContent="Cambio fonte fotografica…";img.src=urls[i];}
+   else{img.style.display="none";status.textContent="📷 Nessuna foto reale raggiungibile per questo inserto.";}
+ };
+ img.onload=function(){status.textContent="Foto reale caricata · fonte "+(i+1)+" di "+urls.length;};
+}
 document.addEventListener("click",function(e){
  const b=e.target.closest && e.target.closest(".previewButton");
- const wrap=e.target.closest && e.target.closest(".photoWrap");
- const img=e.target.closest && e.target.closest(".photoWrap .recDraw");
- if(!b && !wrap && !img)return;
- const code=(b&&b.dataset.previewCode)||(wrap&&wrap.dataset.openCode)||(img&&img.dataset.openCode);
+ if(!b)return;
+ const code=b.dataset.previewCode;
  const x=data.find(v=>v.code===code);
- if(x){e.preventDefault();e.stopPropagation();openTool(x);}
+ if(x){e.preventDefault();e.stopPropagation();openInsertPreview(x);}
 });
 </script>
 <script>
