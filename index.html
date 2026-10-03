@@ -233,9 +233,9 @@ function render(){
  rows.innerHTML=a.map((x,i)=>'<tr class="data" data-i="'+data.indexOf(x)+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code">'+esc(x.code)+'</td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>').join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
  document.getElementById("status").textContent=a.length+" righe · tocca una riga per caricare i dati nella barra dei parametri";
  rows.querySelectorAll("tr.data").forEach(tr=>{
- tr.onclick=()=>{const x=data[+tr.dataset.i];select(x);openTool(x)};
+ tr.onclick=()=>{const x=data[+tr.dataset.i];select(x);if(isInsertRecord(x))openInsertPreview(x);else openTool(x)};
  const code=tr.querySelector(".code");
- if(code)code.onclick=e=>{e.stopPropagation();openTool(data[+tr.dataset.i])};
+ if(code)code.onclick=e=>{e.stopPropagation();const x=data[+tr.dataset.i];if(isInsertRecord(x))openInsertPreview(x);else openTool(x)};
 });
 }
 function select(x){selected=x;document.getElementById("fc").textContent=x.code;document.getElementById("fm").textContent=x.material;document.getElementById("fv").textContent=x.vc;document.getElementById("ff").textContent=x.f;document.getElementById("fa").textContent=x.ap}
@@ -607,8 +607,11 @@ calcTurning();calcDrilling();calcMilling();
 const toolModal=document.getElementById("toolModal");
 const closeModal=document.getElementById("closeModal");
 const modalBody=document.getElementById("modalBody");
+function isInsertRecord(x){
+ const s=(String(x?.category||"")+" "+String(x?.code||"")+" "+String(x?.geom||"")).toUpperCase();
+ return /INSERT|CNMG|DNMG|SNMG|WNMG|VNMG|VBMT|DCMT|DCGT|CCMT|CCGT|TCMT|TCGT|RCMT|MGMN|N123|16ER|16IR|11ER|11IR/.test(s);
+}
 function openTool(x){
- const kind=familyFor(x), p=photoMap[kind]||photoMap.HOLDER;
  let body='<h2>'+esc(x.code)+'</h2><p><b>Fornitore:</b> '+esc(x.maker||'—')+'</p><p><b>Categoria:</b> '+esc(x.category)+'</p><p>'+esc(x.geom)+'</p>'+toolPhoto(x)+'<p><b>Materiale:</b> '+esc(x.material)+'</p><div class="formulaBox">Vc: '+esc(x.vc)+' m/min · f/fz: '+esc(x.f)+' · ap: '+esc(x.ap)+'</div><p class="photo-caption">'+esc(x.photoNote||x.photoSource||'Fonte fotografica non specificata')+'. Il codice preciso, grado e quote devono essere verificati sulla scheda del produttore.</p>';
  modalBody.innerHTML=body;toolModal.hidden=false;
 }
@@ -650,7 +653,7 @@ function openInsertPreview(x){
  const candidates=[exact||"",isCnmg?stable:(ref?.url||familyPhoto),isCnmg?(familyPhoto||ref?.url):"",official].filter(Boolean);
  const unique=[...new Set(candidates)];
  const proxy="https://cutting-tools-lab.spaggiari.workers.dev/product-image";
- const urls=unique.map((u,i)=>i===0&&exact?proxy+"?url="+encodeURIComponent(u)+"&v=preview":proxy+"?url="+encodeURIComponent(u)+"&v=preview");
+ const urls=[]; unique.forEach((u)=>{urls.push(proxy+"?url="+encodeURIComponent(u)+"&v=preview");urls.push(u);});
  let i=0;
  modalBody.innerHTML='<h2>Anteprima inserto · '+esc(x.code)+'</h2><p><b>'+esc(x.maker||"")+'</b> · '+esc(x.geom||"")+'</p><div class="insertPreviewFrame"><img id="insertPreviewImage" class="modalImg" src="'+esc(urls[0]||"")+'" alt="'+esc(x.code)+'" referrerpolicy="no-referrer"><div id="insertPreviewStatus" class="photo-caption">Caricamento foto reale…</div></div><p class="photo-caption">La foto è un riferimento reale della famiglia/geometria; codice, grado e quote vanno verificati sulla scheda del produttore.</p>';
  toolModal.hidden=false;
