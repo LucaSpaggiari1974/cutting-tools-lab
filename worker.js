@@ -3,7 +3,9 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === "/product-image") {
-      const targetRaw = url.searchParams.get("url");
+      const rawTarget = url.searchParams.get("url");
+      const cleanUrl = value => String(value || "").replace(/&amp;/gi, "&").replace(/\\\//g, "/").trim();
+      const targetRaw = cleanUrl(rawTarget);
       if (!targetRaw) return new Response("Missing url", { status: 400 });
 
       let target;
@@ -51,7 +53,7 @@ export default {
       if (!allowed) return new Response("Image host not allowed", { status: 403 });
 
       const candidates = [targetRaw]
-        .concat(url.searchParams.getAll("fallback"))
+        .concat(url.searchParams.getAll("fallback").map(cleanUrl))
         .filter(Boolean)
         .slice(0, 4);
 
@@ -79,7 +81,7 @@ export default {
 
         for (const requestHeaders of headerSets) {
           try {
-            const upstream = await fetch(candidate.toString(), { headers: requestHeaders });
+            const upstream = await fetch(candidate.toString(), { headers: requestHeaders, cf: { cacheTtl: 86400, cacheEverything: true } });
             if (!upstream.ok) continue;
 
             const contentType = upstream.headers.get("content-type") || "";
