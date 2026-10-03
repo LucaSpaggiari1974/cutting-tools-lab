@@ -756,4 +756,87 @@ if(ho&&!ho.querySelector('.gearSourceBox'))ho.insertAdjacentHTML('beforeend',mak
 }).catch(()=>{});
 })();
 </script>
+
+<script>
+(function(){
+  /*
+   * Rettifica — base tecnica ampliata.
+   * Fonti: UNITED GRINDING / STUDER-MÄGERLE-BLOHM-JUNG; ricerca IWT Bremen
+   * e FH Cologne / Prof. Wilfried Saxler. Le fonti sono richiamate nella UI.
+   * Le correzioni operative restano indicative: verificare sempre mola,
+   * macchina, materiale e parametri del costruttore.
+   */
+  const grindingEvidence=[
+    {
+      area:"Rettifica interna",
+      source:"UNITED GRINDING · tecnologia di rettifica / refrigerazione; principi di processo verificati su documentazione tecnica.",
+      problems:[
+        ["Bruciature / alterazione termica","Energia termica troppo elevata; mola troppo chiusa o dura; ravvivatura troppo fine; refrigerazione insufficiente o non raggiunge la zona interna.","Controlla colore e microstruttura, segni termici, ravvivatura, portata/direzione del refrigerante, specifica della mola e carico per passata.","Ravviva in modo più aggressivo, migliora la refrigerazione nella zona interna e riduci profondità/avanzamento per passata; verifica una specifica di mola più aperta o più tenera.","Prova diagnostica: ridurre il carico di passata del 10–20% e correggere prima il raffreddamento."],
+        ["Foro fuori diametro / quota instabile","Usura della mola, ravvivatura insufficiente, deflessione del mandrino/quill, serraggio o temperatura variabili.","Misura diametro in più punti; controlla runout del mandrino, usura mola, compensazioni e stabilità termica.","Ripristina la geometria della mola con ravvivatura corretta, verifica il mandrino e stabilizza il processo termico prima di correggere l'offset.","Non correggere continuamente l'offset se la deriva segue usura o temperatura."],
+        ["Conicità nel foro","Mandrino/quill non rigido o non allineato; ravvivatura non parallela; deflessione sotto carico; errore di posizionamento.","Misura il diametro all'imbocco e al fondo; controlla allineamento, sporgenza del quill e profilo della mola.","Riduci lo sbalzo del mandrino, correggi allineamento e ravvivatura e riduci il carico se la deflessione è dominante.","Per diagnosi confrontare errore di forma con direzione e posizione del carico."],
+        ["Ovalità / forma lobata","Vibrazioni, mandrino non centrato, mola non equilibrata, pezzo poco rigido o condizioni di contatto instabili.","Controlla forma a più angoli, runout, equilibrio mola e rigidità del pezzo/mandrino.","Equilibra e ravviva la mola, correggi il serraggio e riduci le condizioni che eccitano la vibrazione.","Se il difetto è periodico, variare la velocità del 5–10% è una prova diagnostica."],
+        ["Rigature longitudinali nel foro","Mola danneggiata o intasata; trucioli/refrigerante contaminato; ravvivatura irregolare.","Ispeziona la superficie della mola e filtra il refrigerante; verifica se il passo delle righe segue la cinematica.","Ravviva/pulisci la mola, migliora filtrazione e flusso del refrigerante e controlla il dressing.","Non aumentare la velocità prima di aver escluso contaminazione e danno della mola."],
+        ["Mola che si carica","Materiale duttile; struttura troppo chiusa; ravvivatura troppo fine; refrigerazione/filtrazione insufficienti.","Controlla pori della mola, materiale aderente e frequenza di ravvivatura.","Usa una specifica più aperta/adatta al materiale, aumenta l'efficacia della ravvivatura e migliora il lavaggio della zona.","La documentazione UNITED GRINDING segnala che il carico della mola aumenta attrito, temperatura e rischio di bruciatura."],
+        ["Vibrazioni / chatter","Sbalzo elevato del mandrino, mola non equilibrata, serraggio insufficiente, interferenze esterne.","Controlla equilibrio, runout, supporti, sporgenza e sorgenti di vibrazione della macchina.","Riduci lo sbalzo, correggi equilibrio/serraggio e isola le vibrazioni esterne; poi ottimizza la velocità.","Non compensare una vibrazione meccanica aumentando semplicemente i giri."],
+        ["Rugosità elevata","Mola smussata/carica, ravvivatura troppo fine o irregolare, vibrazioni, refrigerazione non corretta.","Controlla Ra/Rz, stato della mola, dressing e segni periodici sulla superficie.","Ravviva correttamente, verifica specifica della mola e stabilizza refrigerazione e rigidezza.","La superficie deve essere valutata insieme a dressing, mola e refrigerante, non con il solo parametro di avanzamento."]
+      ]
+    },
+    {
+      area:"Rettifica evolvente",
+      source:"UNITED GRINDING / ricerca Prof. B. Karpuschewski, IWT Bremen · gear profile grinding e refrigerazione; documentazione tecnica sul controllo del grinding burn.",
+      problems:[
+        ["Bruciature sui fianchi dell'evolvente","Carico termico elevato; refrigerazione non efficace; mola troppo chiusa/dura; dressing troppo fine.","Controlla discolorazioni, danno termico, frequenza di dressing, velocità mola/pezzo e posizione ugelli.","Migliora il getto nella zona di contatto, correggi dressing e riduci il carico per passata; valuta una mola più aperta o tenera.","Per applicazioni di profilo, UNITED GRINDING riporta la ricerca IWT sull'efficacia della velocità del refrigerante sincronizzata con la mola."],
+        ["Profilo evolvente fuori tolleranza","Profilo della mola errato o usurato; dressing non corretto; dati macchina/pezzo non coerenti; compensazione errata.","Controlla profilo della mola, dressing, dati modulo/angolo di pressione, compensazioni e misura del profilo.","Ravviva o correggi la mola, verifica i dati nominali e applica la compensazione solo dopo una misura affidabile.","Separare sempre errore di profilo da errore di posizione prima di modificare il ciclo."],
+        ["Errore di passo / divisione","Sincronismo macchina, indicizzazione, dati denti o riferimento del pezzo errati.","Controlla numero denti, indicizzazione, sincronismo e misura del passo su più denti.","Correggi i dati cinematici o di indicizzazione e ripeti la verifica dopo un pezzo di prova.","Non compensare un errore di divisione con una modifica casuale del profilo."],
+        ["Errore di elica","Orientamento, dati dell'angolo d'elica, asse macchina o dressing non coerenti.","Misura elica su più denti e confronta dati nominali, orientamento e compensazioni.","Correggi orientamento e dati macchina; verifica il dressing della mola prima di cambiare la velocità.","Per ingranaggi elicoidali verificare sempre la cinematica specifica della macchina."],
+        ["Rugosità elevata sul fianco","Mola smussata/carica, dressing troppo fine, vibrazioni o refrigerazione non corretta.","Controlla topografia della mola, dressing, equilibrio e segni periodici sul fianco.","Ravviva con parametri appropriati, correggi equilibrio e stabilizza il refrigerante.","Una ravvivatura troppo fine può ridurre l'aggressività della mola e aumentare il rischio termico."],
+        ["Striature / righe periodiche","Mola non equilibrata; dressing irregolare; vibrazioni; contaminazione del refrigerante.","Confronta il passo delle righe con la cinematica di mola e pezzo; controlla dressing e filtrazione.","Correggi equilibrio/dressing, pulisci e filtra il refrigerante e verifica eventuali sorgenti esterne di vibrazione.","La diagnosi dal pattern superficiale è particolarmente utile nella rettifica."],
+        ["Usura rapida della mola","Carico specifico elevato, specifica non adatta, dressing troppo aggressivo o raffreddamento inefficace.","Controlla volume asportato per dressing, forma della mola, refrigerante e carico termico.","Ottimizza specifica della mola e dressing; migliora refrigerazione e riduci il sovraccarico per passata.","Per il dressing, modificare una variabile alla volta e registrare vita/forma della mola."],
+        ["Bave / micro-scheggiature sul fianco","Uscita o carico eccessivo, mola danneggiata, parametri non adatti o materiale con risposta critica.","Controlla bordo del dente, stato della mola e distribuzione del carico lungo il fianco.","Riduci il carico di finitura, correggi dressing e verifica la specifica della mola.","Misurare il difetto prima e dopo ogni correzione per distinguere causa geometrica da termica."]
+      ]
+    },
+    {
+      area:"Rettifica di diametri esterni",
+      source:"UNITED GRINDING · STUDER / BLOHM / JUNG · errori tipici di rettifica cilindrica esterna, dressing, vibrazioni e refrigerazione.",
+      problems:[
+        ["Diametro esterno fuori quota","Usura mola, compensazione errata, deriva termica o ravvivatura insufficiente.","Misura il diametro lungo il pezzo; controlla usura, compensazione, temperatura e dressing.","Ripristina la mola con dressing corretto e correggi la compensazione dopo stabilizzazione termica.","Se la quota deriva nel tempo, registrare temperatura e vita mola prima di modificare il ciclo."],
+        ["Conicità sul diametro esterno","Mola non parallela al movimento tavola, dressing inclinato, allineamento errato o deflessione.","Misura diametro a più posizioni; controlla parallelismo, dressing tool e allineamento.","Correggi il dressing e l'allineamento; verifica usura/spostamento del ravvivatore.","UNITED GRINDING associa questo difetto a una superficie mola non parallela alla corsa della tavola."],
+        ["Pattern a spirale / filetto sulla superficie","Ravvivatura non uniforme, ravvivatore che si sposta o si usura, mola non parallela.","Osserva il passo della spirale e controlla direzione/velocità di dressing.","Ravviva in modo uniforme e controlla usura e raffreddamento del ravvivatore; correggi il parallelismo.","È un difetto diagnostico tipico della rettifica cilindrica esterna."],
+        ["Chatter / righe parallele all'asse","Squilibrio mola, vibrazioni esterne, pezzo flessibile, rapporto velocità non adatto.","Controlla equilibrio, supporto pezzo, steady rest, runout e sorgenti di vibrazione.","Equilibra la mola, irrigidisci/supporta il pezzo e varia la velocità per uscire dalla risonanza.","UNITED GRINDING indica anche sorgenti esterne come pompe, ventole e macchine vicine."],
+        ["Bruciature gialle/marroni","Surriscaldamento, refrigerazione insufficiente, mola troppo dura/chiusa o dressing troppo fine.","Controlla discolorazione, refrigerante, portata/ugello, dressing e specifica della mola.","Migliora refrigerazione, correggi dressing, riduci il carico e valuta mola più tenera/aperta.","Il grinding burn può causare modifiche della struttura superficiale e rischio di cricche."],
+        ["Righe corte a virgola","Particelle di dressing o contaminanti nel refrigerante premute nella zona di contatto.","Controlla filtrazione, vasca, ugelli e protezioni della mola.","Filtra/pulisci il refrigerante e rimuovi contaminanti; pulisci la zona di rettifica.","UNITED GRINDING identifica questo pattern come tipico di refrigerante contaminato da grani di dressing."],
+        ["Finitura a specchio / mola che non taglia","Mola troppo finemente ravvivata, intasata o abrasivo troppo fine.","Controlla porosità, carico della mola e parametri di dressing.","Aumenta la capacità di taglio con dressing più aperto/aggressivo o specifica più adatta; pulisci i pori.","Una mola ravvivata troppo finemente può aumentare la tendenza alla bruciatura."],
+        ["Vibrazione del pezzo lungo / ovalità","Pezzo poco rigido, supporto insufficiente, squilibrio o vibrazioni trasmesse dalla macchina.","Controlla concentricità, supporto/steady rest, equilibrio mola e fonti esterne.","Aggiungi/supporta il pezzo, correggi equilibrio e isola le vibrazioni esterne.","Per pezzi lunghi e flessibili il supporto deve essere parte del processo, non una correzione finale."]
+      ]
+    }
+  ];
+
+  function renderGrindingExtension(){
+    const list=document.getElementById("problemList");
+    if(!list)return;
+    const q=String(document.getElementById("problemSearch")?.value||"").toLowerCase();
+    const area=document.getElementById("problemArea")?.value||"";
+    if(area && !/^Rettifica/.test(area))return;
+    const wanted=grindingEvidence.filter(g=>!area||g.area===area)
+      .flatMap(g=>g.problems.map(p=>({area:g.area,source:g.source,p})))
+      .filter(x=>!q||[x.area,x.source,...x.p].join(" ").toLowerCase().includes(q));
+    if(!wanted.length)return;
+    const html=wanted.map(x=>'<article class="problemCard grindingCard"><h3>'+esc(x.area)+' · '+esc(x.p[0])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(x.p[1])+'</p><p><b>Controlli:</b> '+esc(x.p[2])+'</p><div class="solution"><b>Soluzione / correzione:</b> '+esc(x.p[3])+'</div><p><b>Valori / regolazione di prova:</b> '+esc(x.p[4])+'</p><p class="photo-caption"><b>Fonte tecnica:</b> '+esc(x.source)+'</p></article>').join("");
+    if(area==="Rettifica") list.insertAdjacentHTML("beforeend",html);
+    else if(!area){
+      const head='<div class="result grindingIntro"><b>Rettifica ampliata:</b> interna · evolvente · diametri esterni. Diagnosi basata su documentazione tecnica UNITED GRINDING e ricerca IWT Bremen.</div>';
+      list.insertAdjacentHTML("beforeend",head+html);
+    }
+  }
+
+  const oldRender=window.renderProblems;
+  window.renderProblems=function(){
+    if(typeof oldRender==="function")oldRender();
+    renderGrindingExtension();
+  };
+  document.getElementById("problemSearch")?.addEventListener("input",()=>setTimeout(renderGrindingExtension,0));
+  document.getElementById("problemArea")?.addEventListener("change",()=>setTimeout(renderGrindingExtension,0));
+  setTimeout(renderGrindingExtension,50);
+})();
+</script>
 </body></html>
