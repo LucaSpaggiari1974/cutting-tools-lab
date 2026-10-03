@@ -1,5 +1,5 @@
 {
-  "version": "1.2",
+  "version": "1.3",
   "title": "Parametri documentati per dentatura",
   "disclaimer": "Valori tratti da fonti tecniche o studi sperimentali. Sono valori iniziali/documentati, non universali: verificare sempre macchina, utensile, materiale, durezza, corsa, refrigerazione e dati del costruttore.",
   "coltello": [
@@ -185,5 +185,68 @@
         ]
       }
     ]
+  },
+  "moduli_supportati": {
+    "coltello": {
+      "minimo_documentato": 0.7,
+      "massimo_operativo_app": 10,
+      "nota": "L'applicazione estende il selettore fino a modulo 10; i parametri oltre il campo delle fonti devono essere verificati sulla macchina e sul coltello specifici."
+    },
+    "creatore": {
+      "minimo_documentato": 3,
+      "massimo_operativo_app": 20,
+      "nota": "L'applicazione estende il selettore fino a modulo 20; la capacità reale dipende da macchina, creatore, diametro, potenza e pezzo."
+    }
+  },
+  "programmazione_creatore": {
+    "titolo": "Programmazione fresa a creatore",
+    "scopo": "Preparazione parametrica del processo, non generazione automatica di un programma CNC universale.",
+    "dati_pezzo": [
+      "modulo m",
+      "numero denti Zp",
+      "diametro primitivo",
+      "larghezza dentatura",
+      "angolo di pressione",
+      "angolo d'elica",
+      "verso elica",
+      "materiale e durezza",
+      "correzione profilo"
+    ],
+    "dati_creatore": [
+      "diametro Dh",
+      "numero principi Zc",
+      "angolo d'elica creatore",
+      "lunghezza utile",
+      "grado/materiale",
+      "rivestimento",
+      "verso di rotazione"
+    ],
+    "parametri": [
+      "Vc",
+      "Nh",
+      "Np",
+      "avanzamento assiale fa",
+      "Vf",
+      "profondità/infeed",
+      "numero passate",
+      "eventuale shift"
+    ],
+    "sincronismo": [
+      "Np = Nh × Zc / Zp per ingranaggio cilindrico secondo la convenzione indicata; per elicoidali e macchine specifiche applicare la compensazione/cinematica della macchina."
+    ],
+    "sequenza": [
+      "richiamo dati pezzo e creatore",
+      "controllo geometrie e interferenze",
+      "avvicinamento sicuro",
+      "posizionamento/inclinazione testa",
+      "sincronizzazione creatore-pezzo",
+      "infeed radiale",
+      "taglio con avanzamento assiale",
+      "uscita controllata",
+      "ritorno e ritiro",
+      "eventuale shift",
+      "misura e correzione"
+    ],
+    "riferimento_liebherr": "LHGearTec supporta dati pezzo/utensile, import/export GDE e dati utensile DIN 4000, visualizzazione 3D e simulazione/programmazione di lavorazioni combinate."
   }
 }
