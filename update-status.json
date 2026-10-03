@@ -1,9 +1,9 @@
 {
-  "updatedAt": "2026-10-03T10:26:43Z",
+  "updatedAt": "2026-10-03T14:37:14Z",
   "run": "daily",
   "changed": false,
-  "pagesChecked": 474,
-  "pagesFailed": 8,
+  "pagesChecked": 468,
+  "pagesFailed": 14,
   "photosUpdated": 0,
   "newProducts": 0,
   "catalogItems": 555,
@@ -11,6 +11,7 @@
   "sourcesChecked": 21,
   "note": "Gli aggiornamenti automatici usano solo dati rilevati da pagine/cataloghi ufficiali. Parametri di taglio non verificati non vengono inventati.",
   "errors": [
+    "<urlopen error timed out>",
     "HTTP Error 404: "
   ]
 }
