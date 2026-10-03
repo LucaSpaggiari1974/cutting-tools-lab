@@ -9,36 +9,39 @@ body{font-family:system-ui,sans-serif;margin:0;background:#f5f7fa;color:#17212b}
 header{background:#0f172a;color:#fff;padding:18px 24px}h1{margin:0;font-size:20px}
 main{max-width:1100px;margin:24px auto;padding:0 16px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
-.item{background:#fff;border:1px solid #dbe2ea;border-radius:10px;padding:14px;cursor:pointer;position:relative}
-.item:hover{border-color:#2563eb;box-shadow:0 6px 18px rgba(37,99,235,.12)}
+.item{background:#fff;border:1px solid #dbe2ea;border-radius:10px;padding:14px;cursor:pointer;position:relative;width:100%;text-align:left}
+.item:hover,.item:focus-visible{border-color:#2563eb;box-shadow:0 6px 18px rgba(37,99,235,.12)}
 .name{font-weight:700}.meta{font-size:13px;color:#52606d;margin-top:4px}
 .preview{position:absolute;z-index:30;width:300px;background:#fff;border:1px solid #cbd5e1;border-radius:12px;box-shadow:0 18px 40px rgba(15,23,42,.22);padding:12px;display:none}
 .preview img{width:100%;height:180px;object-fit:contain;background:#f8fafc;border-radius:8px}
 .badge{display:inline-block;font-size:11px;padding:3px 7px;border-radius:999px;background:#e0f2fe;color:#075985;margin-top:8px}
 .badge.fallback{background:#fef3c7;color:#92400e}
 .modal{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
-.modal.open{display:flex}.card{background:#fff;border-radius:14px;max-width:640px;width:100%;padding:20px}
+.modal.open{display:flex}.card{background:#fff;border-radius:14px;max-width:640px;width:100%;padding:20px;max-height:90vh;overflow:auto}
 .card img{width:100%;max-height:340px;object-fit:contain;background:#f8fafc;border-radius:10px}
 .source{font-size:12px;color:#64748b;margin-top:10px}
 .empty{padding:30px;background:#fff;border:1px dashed #cbd5e1;border-radius:12px}
+pre{white-space:pre-wrap;word-break:break-word;background:#f1f5f9;padding:10px;border-radius:8px;font-size:12px}
 </style>
 </head>
 <body>
 <header><h1>Cutting Tools Lab — test anteprima inserti</h1></header>
 <main>
-<p>Passa col mouse su un inserto per l’anteprima; clicca per aprire la scheda. Le immagini senza fonte esatta sono etichettate come riferimento.</p>
+<p>Tocca o clicca un inserto: la scheda deve aprirsi sempre. Su PC passa anche col mouse per l’anteprima rapida.</p>
 <div id="status" class="empty">Caricamento catalogo…</div>
+<div id="debug"></div>
 <div id="grid" class="grid"></div>
 </main>
 <div id="modal" class="modal"><div class="card" id="card"></div></div>
 <script>
-const grid=document.getElementById('grid'),statusEl=document.getElementById('status'),modal=document.getElementById('modal'),card=document.getElementById('card');
+const grid=document.getElementById('grid'),statusEl=document.getElementById('status'),debugEl=document.getElementById('debug'),modal=document.getElementById('modal'),card=document.getElementById('card');
 const pick=(o,keys)=>keys.map(k=>o?.[k]).find(v=>v!==undefined&&v!==null&&v!=='');
 function normalize(d){let rows=[];const walk=(v)=>{if(Array.isArray(v)){v.forEach(walk)}else if(v&&typeof v==='object'){if(pick(v,['name','designation','code','model','title']))rows.push(v);Object.values(v).forEach(walk)}};walk(d);return rows}
 function imageFor(t){const direct=pick(t,['image','image_url','imageUrl','photo','photo_url','img','thumbnail','thumb']);if(direct)return{url:direct,exact:true};const eq=pick(t,['equivalent_image','fallback_image','reference_image','image_alternative']);if(eq)return{url:eq,exact:false};return{url:'',exact:false}}
-function render(items){statusEl.style.display='none';grid.innerHTML='';items.slice(0,200).forEach(t=>{const name=pick(t,['name','designation','code','model','title'])||'Inserto';const maker=pick(t,['manufacturer','maker','brand','supplier'])||'—';const img=imageFor(t);const el=document.createElement('div');el.className='item';el.innerHTML='<div class="name"></div><div class="meta"></div>';el.querySelector('.name').textContent=name;el.querySelector('.meta').textContent=maker;const pv=document.createElement('div');pv.className='preview';pv.innerHTML=img.url?'<img alt=""><div class="badge'+(img.exact?'':' fallback')+'"></div>':'<div class="badge fallback">Anteprima immagine non disponibile</div>';if(img.url){pv.querySelector('img').src=img.url;pv.querySelector('.badge').textContent=img.exact?'Foto del produttore / fonte catalogo':'Immagine di riferimento'}el.appendChild(pv);el.addEventListener('mouseenter',()=>{const r=el.getBoundingClientRect();pv.style.display='block';pv.style.left=Math.min(r.left,window.innerWidth-320)+'px';pv.style.top=(r.bottom+8)+'px'});el.addEventListener('mouseleave',()=>pv.style.display='none');el.addEventListener('click',()=>{card.innerHTML='<h2></h2><p class="meta"></p>'+(img.url?'<img alt="">':'')+'<div class="badge'+(img.exact?'':' fallback')+'"></div><div class="source"></div>';card.querySelector('h2').textContent=name;card.querySelector('.meta').textContent=maker;if(img.url)card.querySelector('img').src=img.url;card.querySelector('.badge').textContent=img.exact?'Immagine dichiarata per questo inserto':'Immagine di riferimento, non necessariamente il modello esatto';card.querySelector('.source').textContent='Fonte: '+(pick(t,['image_source','source','source_url','catalog','datasource'])||'da verificare');modal.classList.add('open')});grid.appendChild(el)})}
+function openCard(t){const name=pick(t,['name','designation','code','model','title'])||'Inserto';const maker=pick(t,['manufacturer','maker','brand','supplier'])||'—';const img=imageFor(t);card.innerHTML='<h2></h2><p class="meta"></p>'+(img.url?'<img alt="">':'')+'<div class="badge'+(img.exact?'':' fallback')+'"></div><div class="source"></div><pre></pre>';card.querySelector('h2').textContent=name;card.querySelector('.meta').textContent=maker;if(img.url)card.querySelector('img').src=img.url;card.querySelector('.badge').textContent=img.exact?'Immagine dichiarata per questo inserto':(img.url?'Immagine di riferimento':'Nessuna immagine presente nel catalogo');card.querySelector('.source').textContent='Fonte: '+(pick(t,['image_source','source','source_url','catalog','datasource'])||'da verificare');card.querySelector('pre').textContent=JSON.stringify(t,null,2).slice(0,4000);modal.classList.add('open')}
+function render(items){statusEl.style.display='none';grid.innerHTML='';const sample=items[0]||{};debugEl.innerHTML='<details><summary>Diagnostica catalogo</summary><pre></pre></details>';debugEl.querySelector('pre').textContent='Elementi: '+items.length+'\nChiavi primo elemento: '+Object.keys(sample).join(', ')+'\nPrimo elemento:\n'+JSON.stringify(sample,null,2).slice(0,3000);items.slice(0,200).forEach(t=>{const name=pick(t,['name','designation','code','model','title'])||'Inserto';const maker=pick(t,['manufacturer','maker','brand','supplier'])||'—';const img=imageFor(t);const el=document.createElement('button');el.type='button';el.className='item';el.innerHTML='<div class="name"></div><div class="meta"></div>';el.querySelector('.name').textContent=name;el.querySelector('.meta').textContent=maker;const pv=document.createElement('div');pv.className='preview';pv.innerHTML=img.url?'<img alt=""><div class="badge'+(img.exact?'':' fallback')+'"></div>':'<div class="badge fallback">Anteprima immagine non disponibile</div>';if(img.url){pv.querySelector('img').src=img.url;pv.querySelector('.badge').textContent=img.exact?'Foto del produttore / fonte catalogo':'Immagine di riferimento'}el.appendChild(pv);el.addEventListener('mouseenter',()=>{const r=el.getBoundingClientRect();pv.style.display='block';pv.style.left=Math.min(r.left,window.innerWidth-320)+'px';pv.style.top=(r.bottom+8)+'px'});el.addEventListener('mouseleave',()=>pv.style.display='none');el.addEventListener('pointerdown',e=>{e.preventDefault();openCard(t)});grid.appendChild(el)})}
 modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
-fetch('catalog.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(d=>{const items=normalize(d);statusEl.textContent=items.length?('Trovati '+items.length+' elementi nel catalogo.'):'Nessun inserto riconosciuto nel catalogo.';render(items)}).catch(e=>{statusEl.textContent='Impossibile caricare catalog.json: '+e.message})
+fetch('catalog.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(d=>{const items=normalize(d);statusEl.textContent=items.length?('Trovati '+items.length+' elementi nel catalogo. Tocca un inserto.'):'Nessun inserto riconosciuto nel catalogo.';render(items)}).catch(e=>{statusEl.textContent='Impossibile caricare catalog.json: '+e.message})
 </script>
 </body>
 </html>
