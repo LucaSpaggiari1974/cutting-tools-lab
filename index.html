@@ -177,20 +177,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <div class="formulaCard"><h3>Formula giri pezzo Np</h3><label>Giri creatore Nh (rpm)<input id="hf_p_nh" type="number" step="any"></label><label>Numero principi creatore Zc<input id="hf_p_zc" type="number" step="1"></label><label>Numero denti pezzo Zp<input id="hf_p_zp" type="number" step="1"></label><div class="formulaText">Np = Nh × Zc / Zp</div><div id="hf_p_out" class="resultCell outputCell">Np rpm</div></div>
 <div class="formulaCard"><h3>Formula avanzamento assiale</h3><label>Avanzamento fa (mm/giro pezzo)<input id="hf_f_fa" type="number" step="any"></label><label>Giri pezzo Np (rpm)<input id="hf_f_np" type="number" step="any"></label><div class="formulaText">Vf = fa × Np</div><div id="hf_f_out" class="resultCell outputCell">Vf mm/min</div></div>
 <div class="formulaCard"><h3>Formula tempo teorico</h3><label>Corsa assiale L (mm)<input id="hf_t_l" type="number" step="any"></label><label>Vf (mm/min)<input id="hf_t_vf" type="number" step="any"></label><div class="formulaText">T = L / Vf</div><div id="hf_t_out" class="resultCell outputCell">Tempo min</div></div>
-</div><div class="gearProgramBox">
-<h3>🧭 PROGRAMMAZIONE FRESA A CREATORE · schema parametrico</h3>
-<p class="gearProgramIntro">Questa sezione prepara i dati di processo e la sequenza di lavorazione. Non genera un G-code universale: il programma finale dipende da CNC, cinematica e cicli della macchina.</p>
-<div class="gearProgramGrid">
-<div><b>1 · DATI PEZZO</b><ul><li>Modulo <b>m</b>: fino a <b>20</b> nell'app</li><li>Numero denti <b>Zp</b></li><li>Diametro primitivo</li><li>Larghezza dentatura</li><li>Angolo di pressione</li><li>Angolo e verso dell'elica</li><li>Materiale e durezza</li><li>Correzione profilo</li></ul></div>
-<div><b>2 · DATI CREATORE</b><ul><li>Diametro <b>Dh</b></li><li>Numero principi <b>Zc</b></li><li>Angolo elica e verso</li><li>Lunghezza utile</li><li>Materiale / grado / rivestimento</li></ul></div>
-<div><b>3 · PARAMETRI</b><ul><li><b>Vc</b> velocità di taglio</li><li><b>Nh</b> giri creatore</li><li><b>Np</b> giri pezzo</li><li><b>fa</b> avanzamento assiale</li><li><b>Vf</b> avanzamento lineare</li><li>Infeed radiale e numero passate</li><li>Eventuale shift del creatore</li></ul></div>
-<div><b>4 · SINCRONISMO</b><ul><li><b>Np = Nh × Zc / Zp</b> secondo la convenzione base del calcolatore</li><li>Per elicoidali applicare la cinematica/compensazione della macchina</li><li>Verificare sempre verso di rotazione e inclinazione testa</li></ul></div>
-<div><b>5 · SEQUENZA CICLO</b><ol><li>Richiamo dati pezzo e creatore</li><li>Controllo geometrie/interferenze</li><li>Avvicinamento sicuro</li><li>Posizionamento testa</li><li>Sincronizzazione creatore–pezzo</li><li>Infeed radiale</li><li>Taglio con avanzamento assiale</li><li>Uscita controllata</li><li>Ritiro / ritorno / eventuale shift</li><li>Misura e correzione</li></ol></div>
-<div><b>6 · LOGICA LIEBHERR</b><ul><li>Preparare dati utensile e pezzo prima della lavorazione</li><li>Usare GDE per i dati di ingranaggio quando disponibile</li><li>Usare dati utensile DIN 4000 quando disponibili</li><li>Simulare il processo e verificare il risultato 3D</li><li>Trasferire al CNC solo dopo il controllo dei dati</li></ul></div>
-</div>
-<div class="gearProgramNote"><b>Riferimento:</b> Liebherr descrive LHGearTec come sistema per inserimento dati pezzo/utensile, import/export GDE, dati utensile DIN 4000, visualizzazione 3D e programmazione/simulazione delle lavorazioni combinate. L'app riprende questa logica in forma di preparazione parametrica.</div>
-</div>
-<p class="formulaNote"><b>Fonte tecnica:</b> HOB3D tratta modulo, numero denti, diametro creatore, avanzamento assiale e velocità di taglio come dati del processo e descrive la cinematica sincronizzata creatore/pezzo. EMAG specifica che nella dentatura a creatore la velocità di taglio è legata al diametro/velocità del creatore e che l'avanzamento è espresso in mm per giro del pezzo.</p></div></section>
+</div><p class="formulaNote"><b>Fonte tecnica:</b> HOB3D tratta modulo, numero denti, diametro creatore, avanzamento assiale e velocità di taglio come dati del processo e descrive la cinematica sincronizzata creatore/pezzo. EMAG specifica che nella dentatura a creatore la velocità di taglio è legata al diametro/velocità del creatore e che l'avanzamento è espresso in mm per giro del pezzo.</p></div></section>
 <section id="produttori" class="page"><div class="calc"><h2>🏭 Produttori</h2><p>Elenco dei produttori e riferimenti del catalogo.</p><div class="searchgrid"><input id="manufacturerSearch" placeholder="Cerca produttore…"><select id="manufacturerType"><option value="">Tutti i tipi</option><option value="inserti">Inserti</option><option value="utensili">Utensili</option><option value="portautensili">Portautensili</option><option value="ISO">ISO</option></select></div><div id="manufacturerList" class="problemList"><div class="result">Caricamento produttori…</div></div></div></section>
 <section id="problemi" class="page">
 <div class="calc"><h2>🛠️ Problemi di lavorazione · diagnosi e soluzioni</h2>
@@ -361,13 +348,13 @@ let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDe
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
 const photoMap={
-CNMG:["https://i.ebayimg.com/images/g/MrIAAOSwoYxbgIBS/s-l1600.jpg","Foto reale CNMG · riferimento ufficiale stabile"],
-ISCAR_CNMG:["https://i.ebayimg.com/images/g/MrIAAOSwoYxbgIBS/s-l1600.jpg","Foto reale CNMG generica · riferimento geometrico compatibile · non specifica ISCAR"],
-INGERSOLL_CNMG:["https://i.ebayimg.com/images/g/MrIAAOSwoYxbgIBS/s-l1600.jpg","Foto reale Ingersoll CNMG · famiglia ufficiale"],
-DNMG:["https://static1.industrybuying.com/products/tooling-and-cutting/inserts/turning-inserts/TOO.TUR.332971358_1747837688878.webp","Foto reale DNMG"],
-SNMG:["https://c.cdnmp.net/713071415/p/m/0/placuta-strunjire-inveio-sandvik-coromant-snmg-15-06-12-pm-4425~5110.jpg","Foto reale SNMG"],
-WNMG:["https://images.nexusapp.co/assets/f0/82/32/391385201.jpg","Foto reale WNMG"],
-VNMG:["https://i.ebayimg.com/images/g/n2sAAOSwGNRnNPYb/s-l1200.png","Foto reale VNMG"],
+CNMG:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale CNMG · riferimento ufficiale stabile"],
+ISCAR_CNMG:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale CNMG generica · riferimento geometrico compatibile · non specifica ISCAR"],
+INGERSOLL_CNMG:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale Ingersoll CNMG · famiglia ufficiale"],
+DNMG:["https://cdn.hoffmann-group.com/derivatives/41979/jpg_1200/jpg_1200_b250754_hb7010-1.jpg","Foto reale DNMG"],
+SNMG:["https://i.ebayimg.com/images/g/yGEAAeSw~J5ogEPZ/s-l400.jpg","Foto reale SNMG"],
+WNMG:["https://image.made-in-china.com/2f0j00ijokScJGMBqpG/Grewin-CNC-Lathe-Tools-Tungsten-Carbide-Turning-Inserts-Solid-Carbide-Wnmg-080408-for-Aluminium-Steel-Stainless-Steel.webp","Foto reale WNMG"],
+VNMG:["https://i.ebayimg.com/images/g/2xYAAOSw2g5lKf6R/s-l1600.jpg","Foto reale VNMG"],
 VBMT:["https://darxton.ru/files/_images/60/6029e45a-864a-11eb-9ea2-000c29fafacd_fa11638e-5c20-11ec-a91a-000c2925a1b1.jpg","Foto reale VBMT"],
 DCMT:["https://img2.tradewheel.com/uploads/images/products/6/9/cnc-lathe-tool-carbide-twist-drill2-0183441001627070172.jpg","Foto reale DCMT"],
 CCMT:["https://cdn.dgisupply.ca/img/product-images/Asset_URL/Sandvik_Coromant_7080694.jpg","Foto reale CCMT"],
@@ -378,9 +365,9 @@ L:["https://i.ebayimg.com/images/g/GGEAAOSwwYVk9qGC/s-l1600.jpg","Foto reale por
 DRILL:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta"],
 MILL:["https://cdn11.bigcommerce.com/s-kvzeeygcn8/images/stencil/1280x1280/products/28579/131031/smt40917-sandvik-coromill-plura-20mm-carbide-endmill-5-flutes-rm-300re-24748-loc1884b__22210.1662992430.jpg?c=1","Foto reale fresa"],
 FACE:["https://i.ebayimg.com/images/g/~g4AAOSwUfdjoOwq/s-l960.jpg","Foto reale fresa a spianare"],
-TURN_R12:["https://i.ebayimg.com/images/g/MrIAAOSwoYxbgIBS/s-l1600.jpg","Foto reale CNMG · riferimento ufficiale Ingersoll"],
-TURN_R08:["https://i.ebayimg.com/images/g/MrIAAOSwoYxbgIBS/s-l1600.jpg","Foto reale CNMG · riferimento ufficiale Ingersoll"],
-TURN_R04:["https://i.ebayimg.com/images/g/MrIAAOSwoYxbgIBS/s-l1600.jpg","Foto reale CNMG · riferimento ufficiale Ingersoll"],
+TURN_R12:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale CNMG · riferimento ufficiale Ingersoll"],
+TURN_R08:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale CNMG · riferimento ufficiale Ingersoll"],
+TURN_R04:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale CNMG · riferimento ufficiale Ingersoll"],
 DRILL_INDEX:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta a inserti"],
 DRILL_MOD:["https://www.maxodeals.com/media/catalog/product/4/f/4f9ee9ba6222eb42c45af04ac37158dc.jpg","Foto reale punta modulare"],
 HOLDER:["https://www.gen3industrial.com/cdn/shop/files/02c4af41-71d5-4cad-a060-0b4fe2a95461.jpg?v=1760387843&width=1200","Foto reale portautensile"],
@@ -431,7 +418,7 @@ function toolPhoto(x){
  const photoSource=String(x?.photoSource||"").toLowerCase();
  const exact=(x&&x.photoUrl&&(/manufacturer|official/.test(photoSource)))?String(x.photoUrl):"";
  const isCnmg=(String(x?.code||"")+" "+String(x?.category||"")+" "+String(x?.geom||"")).toUpperCase().includes("CNMG");
- const cnmgStable="https://cdn.mscdirect.com/global/images/ProductImages/6534470-21.jpg";
+ const cnmgStable="https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg";
  const fallback= isCnmg ? cnmgStable : (ref?.url||familyPhoto);
  const fallback2= isCnmg ? (familyPhoto||ref?.url) : (ref?.url&&ref.url!==familyPhoto?ref.url:"");
  const rawCandidates=[exact||"",fallback||"",fallback2||""].filter(Boolean);
@@ -459,15 +446,15 @@ document.addEventListener("error",e=>{
  if(n<list.length){
    img.dataset.photoFallbackIndex=String(n+1);
    img.src=list[n];
- }else{
-   img.style.display="none";
-   const wrap=img.closest(".photoWrap");
-   if(wrap&&!wrap.querySelector(".photoEmpty")){
-     const d=document.createElement("div");
-     d.className="photoEmpty";
-     d.textContent="📷 Foto reale temporaneamente non raggiungibile. Riprova tra poco.";
-     wrap.insertBefore(d,wrap.firstChild);
-   }
+   return;
+ }
+ img.style.display="none";
+ const wrap=img.closest(".photoWrap");
+ if(wrap&&!wrap.querySelector(".photoEmpty")){
+   const d=document.createElement("div");
+   d.className="photoEmpty";
+   d.textContent="📷 Nessuna foto reale raggiungibile per questa famiglia.";
+   wrap.insertBefore(d,wrap.firstChild);
  }
 },true);
 
