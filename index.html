@@ -2,6 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
+<meta name="app-version" content="2026.10.03.02">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123a5a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -916,4 +917,35 @@ const grindingEvidence=[
   setTimeout(renderGrindingExtension,50);
 })();
 </script>
+
+/* APP UPDATE WATCHER: detects every published app change independently of manual data refresh. */
+(function(){
+  const meta=document.querySelector('meta[name="app-version"]');
+  const localKey="ctl_app_version";
+  const current=meta?.content||"";
+  try{ if(current) localStorage.setItem(localKey,current); }catch(_){}
+  let checking=false;
+  async function checkPublishedVersion(){
+    if(checking||document.hidden)return;
+    checking=true;
+    try{
+      const r=await fetch("./index.html?app-check="+Date.now(),{cache:"no-store",headers:{"Cache-Control":"no-cache"}});
+      if(!r.ok)return;
+      const html=await r.text();
+      const m=html.match(/<meta\s+name=["']app-version["']\s+content=["']([^"']+)["']/i);
+      const remote=m&&m[1]||"";
+      if(remote&&current&&remote!==current){
+        showRefreshProgress(8,"ATTENDI — AGGIORNAMENTO IN CORSO");
+        showRefreshProgress(35,"ATTENDI — AGGIORNAMENTO IN CORSO");
+        showRefreshProgress(82,"ATTENDI — AGGIORNAMENTO IN CORSO");
+        try{localStorage.setItem(localKey,remote)}catch(_){}
+        showRefreshProgress(94,"ATTENDI — AGGIORNAMENTO IN CORSO");
+        setTimeout(()=>{showRefreshProgress(100,"AGGIORNAMENTO COMPLETATO — ATTENDERE");setTimeout(()=>location.reload(),500)},250);
+      }
+    }catch(_){}finally{checking=false}
+  }
+  setTimeout(checkPublishedVersion,2500);
+  setInterval(checkPublishedVersion,15000);
+  document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")setTimeout(checkPublishedVersion,300)});
+})();
 </body></html>
