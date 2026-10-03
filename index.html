@@ -857,7 +857,7 @@ if(ho&&!ho.querySelector('.gearSourceBox'))ho.insertAdjacentHTML('beforeend',mak
       .filter(x=>!q||[x.area,x.source,...x.p].join(" ").toLowerCase().includes(q));
     if(!wanted.length)return;
     const html=wanted.map(x=>'<article class="problemCard grindingCard"><h3>'+esc(x.area)+' · '+esc(x.p[0])+'</h3><p class="cause"><b>Possibili cause:</b> '+esc(x.p[1])+'</p><p><b>Controlli:</b> '+esc(x.p[2])+'</p><div class="solution"><b>Soluzione / correzione:</b> '+esc(x.p[3])+'</div><p><b>Valori / regolazione di prova:</b> '+esc(x.p[4])+'</p><p class="photo-caption"><b>Fonte tecnica:</b> '+esc(x.source)+'</p></article>').join("");
-    if(area==="Rettifica") list.insertAdjacentHTML("beforeend",html);
+    if(/^Rettifica(?: foro| evolvente| diametri esterni)?$/.test(area)) list.insertAdjacentHTML("beforeend",html);
     else if(!area){
       const head='<div class="result grindingIntro"><b>Rettifica ampliata:</b> foro · evolvente · diametri esterni. Diagnosi basata su documentazione tecnica UNITED GRINDING e ricerca IWT Bremen.</div>';
       list.insertAdjacentHTML("beforeend",head+html);
