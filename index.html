@@ -711,18 +711,34 @@ function openInsertPreview(x){
  const candidates=[exact||"",isCnmg?stable:(ref?.url||familyPhoto),isCnmg?(familyPhoto||ref?.url):"",official].filter(Boolean);
  const unique=[...new Set(candidates)];
  const proxy="https://cutting-tools-lab.spaggiari.workers.dev/product-image";
- const urls=[]; unique.forEach((u)=>{urls.push(proxy+"?url="+encodeURIComponent(u)+"&v=preview");urls.push(u);});
- let i=0;
- modalBody.innerHTML='<h2>Anteprima inserto · '+esc(x.code)+'</h2><p><b>'+esc(x.maker||"")+'</b> · '+esc(x.geom||"")+'</p><div class="insertPreviewFrame"><img id="insertPreviewImage" class="modalImg" src="'+esc(urls[0]||"")+'" alt="'+esc(x.code)+'" referrerpolicy="no-referrer"><div id="insertPreviewStatus" class="photo-caption">Caricamento foto reale…</div></div><p class="photo-caption">La foto è un riferimento reale della famiglia/geometria; codice, grado e quote vanno verificati sulla scheda del produttore.</p>';
+ const urls=[];
+ unique.forEach(u=>{urls.push(u);urls.push(proxy+"?url="+encodeURIComponent(u)+"&v=preview");});
+ modalBody.innerHTML=
+   '<h2>Anteprima inserto · '+esc(x.code)+'</h2>'+
+   '<div class="insertPreviewFrame"><img id="insertPreviewImage" class="modalImg" alt="'+esc(x.code)+'" referrerpolicy="no-referrer"><div id="insertPreviewStatus" class="photo-caption">Caricamento foto reale…</div></div>'+
+   '<div class="problemCard" style="margin-top:12px">'+
+   '<p><b>Produttore:</b> '+esc(x.maker||"—")+'</p>'+
+   '<p><b>Geometria:</b> '+esc(x.geom||"—")+'</p>'+
+   '<p><b>Categoria:</b> '+esc(x.category||"—")+'</p>'+
+   '<p><b>Materiali:</b> '+esc(x.material||"—")+'</p>'+
+   '<p><b>Velocità Vc:</b> '+esc(x.vc||"—")+' m/min</p>'+
+   '<p><b>Avanzamento f/fz:</b> '+esc(x.f||"—")+'</p>'+
+   '<p><b>Profondità ap:</b> '+esc(x.ap||"—")+'</p>'+
+   '<p><b>Descrizione:</b> Inserto '+esc(x.code||"")+" · "+esc(x.geom||"")+" · consigliato per "+esc(x.material||"materiali indicati")+"."+
+   (ref?.note?'<br><span class="photo-caption">'+esc(ref.note)+'</span>':"")+
+   (official?'<br><a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:#185b8f;font-weight:800">📎 Apri scheda del produttore</a>':"")+
+   '</div>';
  toolModal.hidden=false;
- const img=document.getElementById("insertPreviewImage"), status=document.getElementById("insertPreviewStatus");
- if(!img){return;}
+ const img=document.getElementById("insertPreviewImage"),status=document.getElementById("insertPreviewStatus");
+ if(!img)return;
+ let i=0;
  img.onerror=function(){
    i++;
    if(i<urls.length){status.textContent="Cambio fonte fotografica…";img.src=urls[i];}
    else{img.style.display="none";status.textContent="📷 Nessuna foto reale raggiungibile per questo inserto.";}
  };
  img.onload=function(){status.textContent="Foto reale caricata · fonte "+(i+1)+" di "+urls.length;};
+ img.src=urls[0]||"";
 }
 document.addEventListener("click",function(e){
  const b=e.target.closest && e.target.closest(".previewButton");
