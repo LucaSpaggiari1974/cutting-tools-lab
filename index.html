@@ -431,32 +431,51 @@ function realReferenceFor(x){
  };
  return null;
 }
-function toolPhoto(x){
- const official=x&&x.productUrl?String(x.productUrl):"";
+function normalizePhotoUrl(u){
+ const s=String(u||"").trim();
+ if(!s)return "";
+ return s.replace(/\\\//g,"/").replace(/&amp;/gi,"&");
+}
+function photoCandidates(x){
  const ref=realReferenceFor(x);
  const family=familyFor(x);
  const familyPhoto=photoMap[family]&&photoMap[family][0]?String(photoMap[family][0]):"";
- const photoSource=String(x?.photoSource||"").toLowerCase();
- const exact=(x&&x.photoUrl&&(/manufacturer|official/.test(photoSource)))?String(x.photoUrl):"";
- const isCnmg=(String(x?.code||"")+" "+String(x?.category||"")+" "+String(x?.geom||"")).toUpperCase().includes("CNMG");
- const cnmgStable="https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg";
- const fallback= isCnmg ? cnmgStable : (ref?.url||familyPhoto);
- const fallback2= isCnmg ? (familyPhoto||ref?.url) : (ref?.url&&ref.url!==familyPhoto?ref.url:"");
- const rawCandidates=[exact||"",fallback||"",fallback2||""].filter(Boolean);
- const unique=[...new Set(rawCandidates)];
- const proxyBase="https://cutting-tools-lab.spaggiari.workers.dev/product-image";
- const photoVersion=encodeURIComponent(String(x?.photoUpdatedAt||x?.photoVerifiedAt||"stable"));
- const src=unique.length?proxyBase+"?v="+photoVersion+"&"+unique.map((u,i)=>(i?"fallback":"url")+"="+encodeURIComponent(u)).join("&"):"";
+ const raw=[
+   x&&x.photoUrl,
+   ref&&ref.url,
+   familyPhoto,
+   String(x&&x.category||"").toUpperCase().includes("INSERT")?photoMap.GENERIC_INSERT[0]:"",
+   x&&x.productUrl
+ ].map(normalizePhotoUrl).filter(Boolean);
+ const unique=[...new Set(raw)];
+ return unique;
+}
+function imageProxyCandidates(u,mode){
+ const url=normalizePhotoUrl(u);
+ if(!url)return [];
+ const encoded=encodeURIComponent(url);
+ return [
+   "https://cutting-tools-lab.spaggiari.workers.dev/product-image?url="+encoded+"&v="+encodeURIComponent(mode||"image"),
+   "https://wsrv.nl/?url="+encoded+"&output=jpg&q=88",
+   url
+ ];
+}
+function toolPhoto(x){
+ const official=x&&x.productUrl?normalizePhotoUrl(x.productUrl):"";
+ const candidates=photoCandidates(x);
+ const urls=[];
+ candidates.forEach(u=>imageProxyCandidates(u,"catalog").forEach(v=>urls.push(v)));
+ const unique=[...new Set(urls)];
  const alt=esc((x&&x.maker||"")+" "+(x&&x.code||""));
- const sourceLabel=exact
-   ? "Foto reale del produttore"
-   : (ref ? ref.note : "Foto reale di riferimento · geometria/famiglia compatibile");
+ const sourceLabel=(x&&x.photoUrl)
+   ? "Foto reale associata al record; se non raggiungibile, fallback sulla stessa geometria/famiglia"
+   : "Foto reale di riferimento · geometria/famiglia compatibile";
  const link=official
    ? '<a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px;color:#185b8f;font-weight:800">📎 Scheda ufficiale del produttore</a>'
    : '';
- if(!src)return '<div class="photoWrap"><div class="photoEmpty">📷 Nessuna foto reale disponibile per questo utensile.</div>'+link+'</div>';
+ if(!unique.length)return '<div class="photoWrap"><div class="photoEmpty">📷 Nessuna foto reale disponibile.</div>'+link+'</div>';
  const candidateData=encodeURIComponent(JSON.stringify(unique));
- return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(src)+'" alt="'+alt+'" data-open-code="'+esc(x.code)+'" data-photo-candidates="'+candidateData+'" role="button" tabindex="0"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div><button type="button" class="previewButton" data-preview-code="'+esc(x.code)+'">🔍 Apri anteprima</button>'+link+'</div>';
+ return '<div class="photoWrap"><img class="recDraw" loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(unique[0])+'" alt="'+alt+'" data-open-code="'+esc(x.code)+'" data-photo-candidates="'+candidateData+'" role="button" tabindex="0"><div class="photo-caption">'+sourceLabel+' · '+esc(x&&x.maker||"")+'</div><button type="button" class="previewButton" data-preview-code="'+esc(x.code)+'">🔍 Apri anteprima</button>'+link+'</div>';
 }
 document.addEventListener("error",e=>{
  const img=e.target;
@@ -464,9 +483,9 @@ document.addEventListener("error",e=>{
  let list=[];
  try{list=JSON.parse(decodeURIComponent(img.dataset.photoCandidates||"[]"));}catch(_){}
  const n=Number(img.dataset.photoFallbackIndex||"0");
- if(n<list.length){
+ if(n<list.length-1){
    img.dataset.photoFallbackIndex=String(n+1);
-   img.src=list[n];
+   img.src=list[n+1];
    return;
  }
  img.style.display="none";
@@ -474,8 +493,8 @@ document.addEventListener("error",e=>{
  if(wrap&&!wrap.querySelector(".photoEmpty")){
    const d=document.createElement("div");
    d.className="photoEmpty";
-   d.textContent="📷 Nessuna foto reale raggiungibile per questa famiglia.";
-   wrap.insertBefore(d,wrap.firstChild);
+   d.textContent="📷 Foto non raggiungibile; verificare la scheda del produttore.";
+   wrap.insertBefore(d,img);
  }
 },true);
 
@@ -654,13 +673,12 @@ document.addEventListener("click",e=>{
 /* Windows: anteprima al passaggio del mouse sulla riga di un inserto. */
 let hoverInsertPreview=null,hoverHideTimer=null,hoverImageIndex=0;
 function hoverCandidates(x){
- const ref=realReferenceFor(x), family=familyFor(x), familyPhoto=photoMap[family]&&photoMap[family][0]?String(photoMap[family][0]):"";
- const source=String(x.photoSource||"").toLowerCase();
- const exact=(x.photoUrl&&(/manufacturer|official/.test(source)))?String(x.photoUrl):"";
- const isCnmg=(String(x.code||"")+" "+String(x.category||"")+" "+String(x.geom||"")).toUpperCase().includes("CNMG");
- const stable="https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg";
- return [...new Set([exact||"",isCnmg?stable:(ref?.url||familyPhoto),isCnmg?(familyPhoto||ref?.url):"",x.productUrl?String(x.productUrl):""] .filter(Boolean))];
+ const candidates=photoCandidates(x);
+ const urls=[];
+ candidates.forEach(u=>imageProxyCandidates(u,"hover").forEach(v=>urls.push(v)));
+ return [...new Set(urls)];
 }
+
 function hideHoverInsertPreview(){if(hoverHideTimer)clearTimeout(hoverHideTimer);if(hoverInsertPreview)hoverInsertPreview.style.display="none";}
 function showHoverInsertPreview(x,e){
  if(!x||!isInsertRecord(x)||!e||e.pointerType==='touch')return;
@@ -700,22 +718,11 @@ document.addEventListener('mousemove',function(e){
 
 function openInsertPreview(x){
  if(!x)return;
+ const official=x.productUrl?normalizePhotoUrl(x.productUrl):"";
  const ref=realReferenceFor(x);
- const family=familyFor(x);
- const familyPhoto=photoMap[family]&&photoMap[family][0]?String(photoMap[family][0]):"";
- const official=x.productUrl?String(x.productUrl):"";
- const source=String(x.photoSource||"").toLowerCase();
- const exact=(x.photoUrl&&(/manufacturer|official/.test(source)))?String(x.photoUrl):"";
- const isCnmg=(String(x.code||"")+" "+String(x.category||"")+" "+String(x.geom||"")).toUpperCase().includes("CNMG");
- const stable="https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg";
- const candidates=[exact||"",isCnmg?stable:(ref?.url||familyPhoto),isCnmg?(familyPhoto||ref?.url):"",official].filter(Boolean);
- const unique=[...new Set(candidates)];
- const proxy="https://cutting-tools-lab.spaggiari.workers.dev/product-image";
- const urls=[];
- unique.forEach(u=>{urls.push(u);urls.push(proxy+"?url="+encodeURIComponent(u)+"&v=preview");});
  modalBody.innerHTML=
    '<h2>Anteprima inserto · '+esc(x.code)+'</h2>'+
-   '<div class="insertPreviewFrame"><img id="insertPreviewImage" class="modalImg" alt="'+esc(x.code)+'" referrerpolicy="no-referrer"><div id="insertPreviewStatus" class="photo-caption">Caricamento foto reale…</div></div>'+
+   toolPhoto(x)+
    '<div class="problemCard" style="margin-top:12px">'+
    '<p><b>Produttore:</b> '+esc(x.maker||"—")+'</p>'+
    '<p><b>Geometria:</b> '+esc(x.geom||"—")+'</p>'+
@@ -725,21 +732,13 @@ function openInsertPreview(x){
    '<p><b>Avanzamento f/fz:</b> '+esc(x.f||"—")+'</p>'+
    '<p><b>Profondità ap:</b> '+esc(x.ap||"—")+'</p>'+
    '<p><b>Descrizione:</b> Inserto '+esc(x.code||"")+" · "+esc(x.geom||"")+" · consigliato per "+esc(x.material||"materiali indicati")+"."+
+   (x.photoNote?'<br><span class="photo-caption">'+esc(x.photoNote)+'</span>':"")+
    (ref?.note?'<br><span class="photo-caption">'+esc(ref.note)+'</span>':"")+
    (official?'<br><a href="'+esc(official)+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:#185b8f;font-weight:800">📎 Apri scheda del produttore</a>':"")+
    '</div>';
  toolModal.hidden=false;
- const img=document.getElementById("insertPreviewImage"),status=document.getElementById("insertPreviewStatus");
- if(!img)return;
- let i=0;
- img.onerror=function(){
-   i++;
-   if(i<urls.length){status.textContent="Cambio fonte fotografica…";img.src=urls[i];}
-   else{img.style.display="none";status.textContent="📷 Nessuna foto reale raggiungibile per questo inserto.";}
- };
- img.onload=function(){status.textContent="Foto reale caricata · fonte "+(i+1)+" di "+urls.length;};
- img.src=urls[0]||"";
 }
+
 document.addEventListener("click",function(e){
  const b=e.target.closest && e.target.closest(".previewButton");
  if(!b)return;
