@@ -840,11 +840,7 @@ document.addEventListener("click",function(e){
   window.forceFormulaCalculations();
   setInterval(window.forceFormulaCalculations,500);
 })();
-setInterval(window.forceFormulaCalculations,500);
-})();
 
-/* Anteprima inserti: fallback affidabile per iPhone, iPad e Windows. */
-(function () {
   const tbody = document.querySelector('tbody');
   if (!tbody || typeof data === 'undefined' || typeof select !== 'function' || typeof openTool !== 'function') {
     return;
