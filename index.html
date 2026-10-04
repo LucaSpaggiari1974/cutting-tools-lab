@@ -840,6 +840,74 @@ document.addEventListener("click",function(e){
   window.forceFormulaCalculations();
   setInterval(window.forceFormulaCalculations,500);
 })();
+  /* Anteprima inserti: fallback affidabile per iPhone, iPad e Windows. */
+(function () {
+  let lastPreviewOpen = 0;
+
+  function getToolFromTouch(target) {
+    const row = target && target.closest
+      ? target.closest('tr.data[data-i]')
+      : null;
+
+    if (!row || typeof data === 'undefined') return null;
+
+    const index = Number(row.dataset.i);
+    return Number.isInteger(index) ? data[index] || null : null;
+  }
+
+  function openToolPreview(target) {
+    const tool = getToolFromTouch(target);
+    if (!tool) return false;
+
+    try {
+      select(tool);
+
+      if (isInsertRecord(tool)) {
+        openInsertPreview(tool);
+      } else {
+        openTool(tool);
+      }
+
+      return true;
+    } catch (error) {
+      console.error('Errore apertura anteprima utensile', error);
+      return false;
+    }
+  }
+
+  rows.addEventListener(
+    'pointerup',
+    function (event) {
+      if (
+        event.pointerType === 'mouse' &&
+        !event.target.closest('.code')
+      ) {
+        return;
+      }
+
+      if (openToolPreview(event.target)) {
+        lastPreviewOpen = Date.now();
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    },
+    true
+  );
+
+  rows.addEventListener(
+    'click',
+    function (event) {
+      if (Date.now() - lastPreviewOpen < 700) return;
+
+      if (openToolPreview(event.target)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    },
+    true
+  );
+})();
+
 </script>
 
 <script>
