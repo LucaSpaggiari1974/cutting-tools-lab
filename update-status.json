@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-06T21:27:56Z",
+  "updatedAt": "2026-10-06T22:28:21Z",
   "run": "daily",
   "changed": false,
   "pagesChecked": 474,
@@ -11,6 +11,7 @@
   "sourcesChecked": 21,
   "note": "Gli aggiornamenti automatici usano solo dati rilevati da pagine/cataloghi ufficiali. Parametri di taglio non verificati non vengono inventati.",
   "errors": [
+    "HTTP Error 500: Internal Server Error",
     "HTTP Error 404: "
   ]
 }
