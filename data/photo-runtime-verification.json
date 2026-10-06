@@ -1,0 +1,1412 @@
+{
+  "runAt": "2026-10-06T04:05:51.700928+00:00",
+  "records": 555,
+  "photoUrlsChecked": 513,
+  "photoUrlsReachable": 60,
+  "photoUrlsFailed": 453,
+  "recordsMissingPhotoStatus": 0,
+  "genericPhotoFields": 0,
+  "policy": "manufacturer-exact-preferred; real reference photos are allowed only when explicitly marked and hosted on an approved reference domain",
+  "errors": [
+    {
+      "index": 4,
+      "code": "CCMT 09T304-WG IC807",
+      "maker": "ISCAR",
+      "error": "not an image: ",
+      "url": "https://rinaldi-tools.com/5517-home_default/ccmt-rt300.webp"
+    },
+    {
+      "index": 5,
+      "code": "CCMT 09T308-WG IC807",
+      "maker": "ISCAR",
+      "error": "not an image: ",
+      "url": "https://rinaldi-tools.com/5517-home_default/ccmt-rt300.webp"
+    },
+    {
+      "index": 12,
+      "code": "VNMG160408P K313",
+      "maker": "Kennametal",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://ssl.ingersoll-imc.com/resources/product-images/vnmg_mt/vnmg_mt_Enlarge.jpg"
+    },
+    {
+      "index": 13,
+      "code": "VNMG160404P KCU10",
+      "maker": "Kennametal",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://ssl.ingersoll-imc.com/resources/product-images/vnmg_mt/vnmg_mt_Enlarge.jpg"
+    },
+    {
+      "index": 14,
+      "code": "VNMG160412MP KCS10B",
+      "maker": "Kennametal",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://ssl.ingersoll-imc.com/resources/product-images/vnmg_mt/vnmg_mt_Enlarge.jpg"
+    },
+    {
+      "index": 15,
+      "code": "DNMG150608-MW KCP25",
+      "maker": "Kennametal",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://ssl.ingersoll-imc.com/resources/product-images/dnmg/dnmg_Enlarge.jpg"
+    },
+    {
+      "index": 16,
+      "code": "CNMG120412-MP",
+      "maker": "Kennametal",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg"
+    },
+    {
+      "index": 17,
+      "code": "CNMG120408UN KC9320",
+      "maker": "Kennametal",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg"
+    },
+    {
+      "index": 18,
+      "code": "CNMG120404-MP",
+      "maker": "Kennametal",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg"
+    },
+    {
+      "index": 19,
+      "code": "WNMG 08 04 08-PM",
+      "maker": "Sandvik Coromant",
+      "error": "HTTP Error 400: Bad Request",
+      "url": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&f=catcover.jpg&catalogid=1248927"
+    },
+    {
+      "index": 21,
+      "code": "VNMG 16 04 08-PM",
+      "maker": "Sandvik Coromant",
+      "error": "HTTP Error 400: Bad Request",
+      "url": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&f=catcover.jpg&catalogid=1248927"
+    },
+    {
+      "index": 22,
+      "code": "VNMG 16 04 04-QM",
+      "maker": "Sandvik Coromant",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://ssl.ingersoll-imc.com/resources/product-images/vnmg_mt/vnmg_mt_Enlarge.jpg"
+    },
+    {
+      "index": 27,
+      "code": "CNMG 12 04 04-PF",
+      "maker": "Sandvik Coromant",
+      "error": "HTTP Error 400: Bad Request",
+      "url": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&f=catcover.jpg&catalogid=1248936"
+    },
+    {
+      "index": 28,
+      "code": "VNMG160404-NMS WSM10S",
+      "maker": "Walter",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://ssl.ingersoll-imc.com/resources/product-images/vnmg_mt/vnmg_mt_Enlarge.jpg"
+    },
+    {
+      "index": 29,
+      "code": "SNMG150608-MP5 WPP20G",
+      "maker": "Walter",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://ssl.ingersoll-imc.com/resources/product-images/snmg432mgp/snmg432mgp_Enlarge.jpg"
+    },
+    {
+      "index": 30,
+      "code": "DNMG150412-MW5 WPP20G",
+      "maker": "Walter",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://ssl.ingersoll-imc.com/resources/product-images/dnmg/dnmg_Enlarge.jpg"
+    },
+    {
+      "index": 31,
+      "code": "DNMG150408-MW5 WPP20G",
+      "maker": "Walter",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://ssl.ingersoll-imc.com/resources/product-images/dnmg/dnmg_Enlarge.jpg"
+    },
+    {
+      "index": 32,
+      "code": "CNMG120412-MU5 WMP20S",
+      "maker": "Walter",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg"
+    },
+    {
+      "index": 33,
+      "code": "CNMG120408-MU5 WPP20S",
+      "maker": "Walter",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg"
+    },
+    {
+      "index": 34,
+      "code": "CNMG120404-MU5 WPP10G",
+      "maker": "Walter",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg"
+    },
+    {
+      "index": 48,
+      "code": "WNMG 080408",
+      "maker": "ISO",
+      "error": "HTTP Error 403: Forbidden",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/44.jpg"
+    },
+    {
+      "index": 49,
+      "code": "WNMG 080412",
+      "maker": "ISO",
+      "error": "HTTP Error 403: Forbidden",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/44.jpg"
+    },
+    {
+      "index": 57,
+      "code": "CCMT 09T304",
+      "maker": "ISO",
+      "error": "not an image: ",
+      "url": "https://rinaldi-tools.com/5517-home_default/ccmt-rt300.webp"
+    },
+    {
+      "index": 58,
+      "code": "CCMT 09T308",
+      "maker": "ISO",
+      "error": "not an image: ",
+      "url": "https://rinaldi-tools.com/5517-home_default/ccmt-rt300.webp"
+    },
+    {
+      "index": 59,
+      "code": "CCGT 09T304",
+      "maker": "ISO",
+      "error": "not an image: ",
+      "url": "https://rinaldi-tools.com/5517-home_default/ccmt-rt300.webp"
+    },
+    {
+      "index": 86,
+      "code": "SVJBR 2020K16",
+      "maker": "ISO",
+      "error": "not an image: text/html",
+      "url": "https://www.bwintools.com/sale-35599364-vbmt-160402-turning-carbide-inserts-stainless-steel-110302-cnc-turning-inserts.html"
+    },
+    {
+      "index": 87,
+      "code": "SCLCR 2020K09",
+      "maker": "ISO",
+      "error": "not an image: ",
+      "url": "https://rinaldi-tools.com/5517-home_default/ccmt-rt300.webp"
+    },
+    {
+      "index": 94,
+      "code": "CNMG120408-MF1 TH1000",
+      "maker": "Seco Tools",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg"
+    },
+    {
+      "index": 95,
+      "code": "CNMG120408-MR4 883",
+      "maker": "Seco Tools",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg"
+    },
+    {
+      "index": 96,
+      "code": "CNMG120412-M3 TP3501",
+      "maker": "Seco Tools",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg"
+    },
+    {
+      "index": 100,
+      "code": "CNMG120408N-FE AC8025P",
+      "maker": "Sumitomo Electric Hardmetal",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg"
+    },
+    {
+      "index": 101,
+      "code": "CNMG120408N-FB T1500A",
+      "maker": "Sumitomo Electric Hardmetal",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg"
+    },
+    {
+      "index": 102,
+      "code": "CNMG120408-VM NC3010",
+      "maker": "KORLOY",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://webshop.iscaritalia.it/images/Fittings/hq/System_Images/ISC/App_Pic/21.jpg"
+    },
+    {
+      "index": 103,
+      "code": "DNMG150608-VM NC3010",
+      "maker": "KORLOY",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://ssl.ingersoll-imc.com/resources/product-images/dnmg/dnmg_Enlarge.jpg"
+    },
+    {
+      "index": 104,
+      "code": "SUMOCHAM Ø4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 105,
+      "code": "SUMOCHAM Ø4,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 106,
+      "code": "SUMOCHAM Ø4,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 107,
+      "code": "SUMOCHAM Ø4,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 108,
+      "code": "SUMOCHAM Ø4,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 109,
+      "code": "SUMOCHAM Ø4,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 110,
+      "code": "SUMOCHAM Ø4,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 111,
+      "code": "SUMOCHAM Ø4,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 112,
+      "code": "SUMOCHAM Ø4,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 113,
+      "code": "SUMOCHAM Ø4,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 114,
+      "code": "SUMOCHAM Ø5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 115,
+      "code": "SUMOCHAM Ø5,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 116,
+      "code": "SUMOCHAM Ø5,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 117,
+      "code": "SUMOCHAM Ø5,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 118,
+      "code": "SUMOCHAM Ø5,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 119,
+      "code": "SUMOCHAM Ø5,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 120,
+      "code": "SUMOCHAM Ø5,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 121,
+      "code": "SUMOCHAM Ø5,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 122,
+      "code": "SUMOCHAM Ø5,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 123,
+      "code": "SUMOCHAM Ø5,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 124,
+      "code": "SUMOCHAM Ø6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 125,
+      "code": "SUMOCHAM Ø6,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 126,
+      "code": "SUMOCHAM Ø6,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 127,
+      "code": "SUMOCHAM Ø6,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 128,
+      "code": "SUMOCHAM Ø6,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 129,
+      "code": "SUMOCHAM Ø6,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 130,
+      "code": "SUMOCHAM Ø6,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 131,
+      "code": "SUMOCHAM Ø6,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 132,
+      "code": "SUMOCHAM Ø6,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 133,
+      "code": "SUMOCHAM Ø6,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 134,
+      "code": "SUMOCHAM Ø7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 135,
+      "code": "SUMOCHAM Ø7,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 136,
+      "code": "SUMOCHAM Ø7,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 137,
+      "code": "SUMOCHAM Ø7,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 138,
+      "code": "SUMOCHAM Ø7,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 139,
+      "code": "SUMOCHAM Ø7,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 140,
+      "code": "SUMOCHAM Ø7,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 141,
+      "code": "SUMOCHAM Ø7,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 142,
+      "code": "SUMOCHAM Ø7,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 143,
+      "code": "SUMOCHAM Ø7,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 144,
+      "code": "SUMOCHAM Ø8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 145,
+      "code": "SUMOCHAM Ø8,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 146,
+      "code": "SUMOCHAM Ø8,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 147,
+      "code": "SUMOCHAM Ø8,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 148,
+      "code": "SUMOCHAM Ø8,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 149,
+      "code": "SUMOCHAM Ø8,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 150,
+      "code": "SUMOCHAM Ø8,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 151,
+      "code": "SUMOCHAM Ø8,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 152,
+      "code": "SUMOCHAM Ø8,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 153,
+      "code": "SUMOCHAM Ø8,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 154,
+      "code": "SUMOCHAM Ø9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 155,
+      "code": "SUMOCHAM Ø9,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 156,
+      "code": "SUMOCHAM Ø9,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 157,
+      "code": "SUMOCHAM Ø9,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 158,
+      "code": "SUMOCHAM Ø9,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 159,
+      "code": "SUMOCHAM Ø9,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 160,
+      "code": "SUMOCHAM Ø9,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 161,
+      "code": "SUMOCHAM Ø9,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 162,
+      "code": "SUMOCHAM Ø9,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 163,
+      "code": "SUMOCHAM Ø9,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 164,
+      "code": "SUMOCHAM Ø10",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 165,
+      "code": "SUMOCHAM Ø10,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 166,
+      "code": "SUMOCHAM Ø10,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 167,
+      "code": "SUMOCHAM Ø10,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 168,
+      "code": "SUMOCHAM Ø10,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 169,
+      "code": "SUMOCHAM Ø10,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 170,
+      "code": "SUMOCHAM Ø10,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 171,
+      "code": "SUMOCHAM Ø10,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 172,
+      "code": "SUMOCHAM Ø10,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 173,
+      "code": "SUMOCHAM Ø10,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 174,
+      "code": "SUMOCHAM Ø11",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 175,
+      "code": "SUMOCHAM Ø11,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 176,
+      "code": "SUMOCHAM Ø11,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 177,
+      "code": "SUMOCHAM Ø11,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 178,
+      "code": "SUMOCHAM Ø11,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 179,
+      "code": "SUMOCHAM Ø11,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 180,
+      "code": "SUMOCHAM Ø11,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 181,
+      "code": "SUMOCHAM Ø11,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 182,
+      "code": "SUMOCHAM Ø11,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 183,
+      "code": "SUMOCHAM Ø11,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 184,
+      "code": "SUMOCHAM Ø12",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 185,
+      "code": "SUMOCHAM Ø12,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 186,
+      "code": "SUMOCHAM Ø12,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 187,
+      "code": "SUMOCHAM Ø12,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 188,
+      "code": "SUMOCHAM Ø12,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 189,
+      "code": "SUMOCHAM Ø12,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 190,
+      "code": "SUMOCHAM Ø12,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 191,
+      "code": "SUMOCHAM Ø12,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 192,
+      "code": "SUMOCHAM Ø12,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 193,
+      "code": "SUMOCHAM Ø12,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 194,
+      "code": "SUMOCHAM Ø13",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 195,
+      "code": "SUMOCHAM Ø13,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 196,
+      "code": "SUMOCHAM Ø13,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 197,
+      "code": "SUMOCHAM Ø13,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 198,
+      "code": "SUMOCHAM Ø13,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 199,
+      "code": "SUMOCHAM Ø13,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 200,
+      "code": "SUMOCHAM Ø13,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 201,
+      "code": "SUMOCHAM Ø13,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 202,
+      "code": "SUMOCHAM Ø13,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 203,
+      "code": "SUMOCHAM Ø13,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 204,
+      "code": "SUMOCHAM Ø14",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 205,
+      "code": "SUMOCHAM Ø14,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 206,
+      "code": "SUMOCHAM Ø14,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 207,
+      "code": "SUMOCHAM Ø14,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 208,
+      "code": "SUMOCHAM Ø14,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 209,
+      "code": "SUMOCHAM Ø14,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 210,
+      "code": "SUMOCHAM Ø14,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 211,
+      "code": "SUMOCHAM Ø14,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 212,
+      "code": "SUMOCHAM Ø14,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 213,
+      "code": "SUMOCHAM Ø14,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 214,
+      "code": "SUMOCHAM Ø15",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 215,
+      "code": "SUMOCHAM Ø15,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 216,
+      "code": "SUMOCHAM Ø15,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 217,
+      "code": "SUMOCHAM Ø15,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 218,
+      "code": "SUMOCHAM Ø15,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 219,
+      "code": "SUMOCHAM Ø15,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 220,
+      "code": "SUMOCHAM Ø15,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 221,
+      "code": "SUMOCHAM Ø15,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 222,
+      "code": "SUMOCHAM Ø15,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 223,
+      "code": "SUMOCHAM Ø15,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 224,
+      "code": "SUMOCHAM Ø16",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 225,
+      "code": "SUMOCHAM Ø16,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 226,
+      "code": "SUMOCHAM Ø16,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 227,
+      "code": "SUMOCHAM Ø16,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 228,
+      "code": "SUMOCHAM Ø16,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 229,
+      "code": "SUMOCHAM Ø16,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 230,
+      "code": "SUMOCHAM Ø16,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 231,
+      "code": "SUMOCHAM Ø16,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 232,
+      "code": "SUMOCHAM Ø16,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 233,
+      "code": "SUMOCHAM Ø16,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 234,
+      "code": "SUMOCHAM Ø17",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 235,
+      "code": "SUMOCHAM Ø17,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 236,
+      "code": "SUMOCHAM Ø17,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 237,
+      "code": "SUMOCHAM Ø17,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 238,
+      "code": "SUMOCHAM Ø17,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 239,
+      "code": "SUMOCHAM Ø17,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 240,
+      "code": "SUMOCHAM Ø17,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 241,
+      "code": "SUMOCHAM Ø17,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 242,
+      "code": "SUMOCHAM Ø17,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 243,
+      "code": "SUMOCHAM Ø17,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 244,
+      "code": "SUMOCHAM Ø18",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 245,
+      "code": "SUMOCHAM Ø18,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 246,
+      "code": "SUMOCHAM Ø18,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 247,
+      "code": "SUMOCHAM Ø18,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 248,
+      "code": "SUMOCHAM Ø18,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 249,
+      "code": "SUMOCHAM Ø18,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 250,
+      "code": "SUMOCHAM Ø18,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 251,
+      "code": "SUMOCHAM Ø18,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 252,
+      "code": "SUMOCHAM Ø18,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 253,
+      "code": "SUMOCHAM Ø18,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 254,
+      "code": "SUMOCHAM Ø19",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 255,
+      "code": "SUMOCHAM Ø19,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 256,
+      "code": "SUMOCHAM Ø19,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 257,
+      "code": "SUMOCHAM Ø19,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 258,
+      "code": "SUMOCHAM Ø19,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 259,
+      "code": "SUMOCHAM Ø19,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 260,
+      "code": "SUMOCHAM Ø19,6",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 261,
+      "code": "SUMOCHAM Ø19,7",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 262,
+      "code": "SUMOCHAM Ø19,8",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 263,
+      "code": "SUMOCHAM Ø19,9",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 264,
+      "code": "SUMOCHAM Ø20",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 265,
+      "code": "SUMOCHAM Ø20,1",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 266,
+      "code": "SUMOCHAM Ø20,2",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 267,
+      "code": "SUMOCHAM Ø20,3",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 268,
+      "code": "SUMOCHAM Ø20,4",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    },
+    {
+      "index": 269,
+      "code": "SUMOCHAM Ø20,5",
+      "maker": "ISCAR",
+      "error": "photoUrl outside allowed manufacturer/reference domains",
+      "url": "https://tungaloy.com/wpdata/wp-content/uploads/product_Holemaking_DrillMeister-150x150.png"
+    }
+  ]
+}

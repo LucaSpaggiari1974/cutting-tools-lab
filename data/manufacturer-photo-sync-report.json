@@ -1,0 +1,12 @@
+{
+  "runAt": "2026-10-06T03:59:56.509100+00:00",
+  "recordsChecked": 555,
+  "officialPhotosFound": 8,
+  "recordsUpdated": 8,
+  "nonManufacturerPhotosCleared": 0,
+  "policy": {
+    "mode": "manufacturer-exact-preferred-reference-allowed",
+    "rule": "Preferire foto ufficiali del produttore collegate al codice esatto; se non verificabili, preservare una foto reale di riferimento esplicitamente marcata come tale.",
+    "lastRun": "2026-10-06T03:59:56.509100+00:00"
+  }
+}
