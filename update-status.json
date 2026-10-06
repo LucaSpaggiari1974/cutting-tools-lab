@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-10-06T04:30:05Z",
+  "updatedAt": "2026-10-06T05:29:06Z",
   "run": "daily",
-  "changed": true,
+  "changed": false,
   "pagesChecked": 474,
   "pagesFailed": 8,
-  "photosUpdated": 33,
+  "photosUpdated": 0,
   "newProducts": 0,
   "catalogItems": 555,
   "backup": "backups/catalog-latest.json",
