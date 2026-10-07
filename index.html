@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="2026.10.07.04">
+<meta name="app-version" content="2026.10.07.05">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123a5a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -38,12 +38,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 @media(max-width:760px){.appHeader{align-items:center}.lastUpdate{font-size:10px}.lastUpdate b{font-size:11px}}
 @media(max-width:760px){main{padding:8px}header{border-radius:12px}.searchgrid{grid-template-columns:1fr 1fr}.formula{grid-template-columns:1fr 1fr}.formula button{grid-column:1/-1;width:100%}.tablewrap{max-height:66vh}.drawingbox{grid-template-columns:1fr}h1{font-size:21px}.appbar{position:sticky;bottom:0;z-index:10;flex-wrap:wrap}.appbar span{flex-basis:100%}.appbar button{flex:1}.toolbar{top:0}} @media(min-width:1200px){main{max-width:1500px}.sheet{min-height:80vh}.tablewrap{max-height:68vh}table{min-width:1250px}.formula{grid-template-columns:1.7fr 1fr 1fr 1fr 1fr auto}}
 
-/* Windows hover preview: anteprima reale dell'inserto al passaggio del mouse */
-.hoverInsertPreview{position:fixed;z-index:2147483647;pointer-events:none;width:320px;background:#fff;border:2px solid #123a5a;border-radius:12px;padding:8px;box-shadow:0 12px 35px #0004;display:none}
-.hoverInsertPreview img{display:block;width:100%;height:235px;object-fit:contain;background:#f8fbfd;border-radius:8px}
-.hoverInsertPreview .hoverTitle{font-weight:800;color:#123a5a;font-size:13px;margin-top:6px}
-.hoverInsertPreview .hoverStatus{font-size:11px;color:#607487;margin-top:3px}
-@media(max-width:760px){.hoverInsertPreview{display:none!important}}
+/* Insert preview: only on explicit click */
 .photoWrap{cursor:pointer}.photoWrap .previewButton{display:block;width:auto;margin-top:7px;padding:8px 12px;background:#123a5a;color:#fff;border:0;border-radius:8px;font-weight:800;cursor:pointer}.photoWrap .recDraw{cursor:pointer}
 .formulaChooser{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 2px 12px #0001;margin-bottom:12px}.formulaChooser h2{margin:0;color:#123a5a}.formulaChooser p{margin:6px 0 14px;color:#607487}.formulaChoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.formulaChoice{background:#eef4f8;color:#123a5a;border:1px solid var(--line);font-weight:800;text-align:left}.formulaChoice.selected{background:#123a5a;color:#fff}@media(max-width:760px){.formulaChoices{grid-template-columns:1fr}.formulaChoice{min-height:48px}}
 .navtabs{display:flex;gap:6px;overflow:auto;margin:0 0 12px;padding:5px;background:#fff;border:1px solid var(--line);border-radius:12px;position:sticky;top:0;z-index:20}.navtab{white-space:nowrap;width:auto;padding:10px 14px;background:#eef4f8;color:#123a5a}.navtab.active{background:#123a5a;color:#fff}.page{display:none}.page.active{display:block}.calcgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.calc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 2px 12px #0001}.calc h2{margin-top:0;color:#123a5a}.calc label{display:block;font-weight:700;margin:9px 0}.calc label input{margin-top:5px}.formulaBox{background:#102f47;color:#fff;padding:14px;border-radius:10px;font-size:18px;font-weight:800;line-height:1.8}.unitNote{font-size:12px;opacity:.8}.formulaGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.formulaCard{border:1px solid var(--line);border-radius:12px;padding:12px;background:#f8fbfd}.formulaCard h3{margin:0 0 8px;color:#123a5a}.formulaCard label{margin:7px 0}.formulaCard input{width:100%;box-sizing:border-box}.formulaCard .resultCell{background:#fff3a6!important;border:2px solid #d6b900;font-weight:900}.outputCell{display:flex;align-items:center;min-height:42px;padding:8px 10px;box-sizing:border-box;color:#123a5a;font-size:16px;border-radius:6px}.formulaCard .formulaText{font-weight:800;margin:8px 0;color:#123a5a}.formulaNote{font-size:12px;color:#607487}@media(max-width:760px){.formulaGrid{grid-template-columns:1fr}}.result{margin-top:12px;padding:12px;background:#eaf2f8;border-radius:9px;font-weight:800;color:#123a5a}.modal{position:fixed;inset:0;background:#0008;z-index:100;display:flex;align-items:center;justify-content:center;padding:14px}.modal[hidden]{display:none}.modalCard{position:relative;background:#fff;border-radius:16px;width:min(760px,100%);max-height:90vh;overflow:auto;padding:20px}.closeModal{position:absolute;right:12px;top:12px;width:auto;background:#123a5a;padding:8px 12px}.modalCard .photoWrap .recDraw{width:100%;height:420px;object-fit:contain;background:#f8fbfd;border:1px solid var(--line);border-radius:10px;padding:4px}.photoEmpty{width:100%;min-height:180px;display:flex;align-items:center;justify-content:center;background:#f8fbfd;border:1px solid var(--line);border-radius:10px;color:#607487;font-weight:700;text-align:center;padding:20px}.modalImg{display:block;width:100%;max-height:420px;object-fit:contain;background:#f8fbfd;border-radius:10px;margin-top:12px}@media(max-width:760px){.navtabs{top:0}.calcgrid{grid-template-columns:1fr}.navtab{padding:9px 11px;font-size:13px}.modalCard{padding:14px}}
@@ -243,8 +238,6 @@ function render(){
  rows.innerHTML=a.map((x,i)=>{const ri=data.indexOf(x);return '<tr class="data" data-i="'+ri+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code"><button type="button" class="codeButton" data-row-index="'+ri+'" aria-label="Apri anteprima '+esc(x.code)+'">'+esc(x.code)+'</button></td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>';}).join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
  document.getElementById("status").textContent=a.length+" righe · tocca una riga per caricare i dati nella barra dei parametri";
  rows.querySelectorAll("tr.data").forEach(tr=>{
- tr.onpointerenter=e=>{if(e.pointerType==="mouse"){const x=data[+tr.dataset.i];if(isInsertRecord(x))showHoverInsertPreview(x,e)}};
- tr.onpointerleave=e=>{if(e.pointerType==="mouse")hideHoverInsertPreview()};
  const codeButton=tr.querySelector(".codeButton");
  if(codeButton)codeButton.addEventListener("click",e=>{
    const x=data[+tr.dataset.i];
@@ -528,10 +521,18 @@ function familyFor(x){
  if(k.includes('FRESATURA')) return 'MILL';
  if(k.includes('SPIANATURA')) return 'FACE';
  if(k.includes('CNMG')){
-   const r=insertRadius(x);
-   if(r===1.2) return 'TURN_R12';
-   if(r===0.8) return 'TURN_R08';
-   if(r===0.4) return 'TURN_R04';
+   const m=k.match(/(?:CNMG\s*)?\d{4}(?:\s*[-_]?\s*[A-Z0-9]+)?/);
+   const r=(k.match(/(?:^|[^0-9])(?:R|RAD|RADIUS)\s*(\d+(?:[.,]\d+)?)/)||[])[1];
+   if(r){
+     const rv=Number(String(r).replace(",","."));
+     if(rv===1.2) return 'TURN_R12';
+     if(rv===0.8) return 'TURN_R08';
+     if(rv===0.4) return 'TURN_R04';
+   }
+   if(/120412|160612|120812|080412/.test(k)) return 'TURN_R12';
+   if(/120408|080408|160608/.test(k)) return 'TURN_R08';
+   if(/120404|080404|160604/.test(k)) return 'TURN_R04';
+   return 'CNMG';
  }
  for(const f of Object.keys(photoMap)) if(k.includes(f) && !['ISCAR_CNMG','INGERSOLL_CNMG','GENERIC_INSERT'].includes(f)) return f;
  if(k.includes('INSERT') || k.includes('WSP') || k.includes('INSERTI')) return 'GENERIC_INSERT';
@@ -659,56 +660,7 @@ document.addEventListener("click",e=>{
  openPhotoFromTouch(e);
 });
 
-/* Windows: anteprima al passaggio del mouse sulla riga di un inserto. */
-let hoverInsertPreview=null,hoverHideTimer=null,hoverImageIndex=0;
-function hoverCandidates(x){
- const candidates=photoCandidates(x);
- const urls=[];
- candidates.forEach(u=>imageProxyCandidates(u,"hover").forEach(v=>urls.push(v)));
- return [...new Set(urls)];
-}
-
-function hideHoverInsertPreview(){if(hoverHideTimer)clearTimeout(hoverHideTimer);if(hoverInsertPreview)hoverInsertPreview.style.display="none";}
-function showHoverInsertPreview(x,e){
- if(!x||!isInsertRecord(x)||!e||e.pointerType==='touch')return;
- if(!document.body.contains(hoverInsertPreview))hoverInsertPreview=null;
- if(!hoverInsertPreview){
-   hoverInsertPreview=document.createElement('div');hoverInsertPreview.className='hoverInsertPreview';
-   hoverInsertPreview.innerHTML='<img alt=""><div class="hoverTitle"></div><div class="hoverStatus">Caricamento foto reale…</div>';
-   document.body.appendChild(hoverInsertPreview);
- }
- if(hoverHideTimer)clearTimeout(hoverHideTimer);
- const img=hoverInsertPreview.querySelector('img'),title=hoverInsertPreview.querySelector('.hoverTitle'),status=hoverInsertPreview.querySelector('.hoverStatus');
- title.textContent=(x.code||'Inserto')+' · '+(x.maker||'');status.textContent='Caricamento foto reale…';img.style.display='block';
- const urls=hoverCandidates(x);
- hoverImageIndex=0;
- img.onerror=function(){hoverImageIndex++;if(hoverImageIndex<urls.length){img.src=urls[hoverImageIndex];status.textContent='Cambio fonte fotografica…';}else{img.style.display='none';status.textContent='📷 Foto non raggiungibile';}};
- img.onload=function(){status.textContent='Foto reale · anteprima Windows';};
- if(!urls.length){img.style.display='none';status.textContent='📷 Foto non disponibile';}else{img.src=urls[0];}
- hoverInsertPreview.style.display='block';
- const left=Math.min(e.clientX+18,window.innerWidth-318),top=Math.min(e.clientY+18,window.innerHeight-290);
- hoverInsertPreview.style.left=Math.max(8,left)+'px';hoverInsertPreview.style.top=Math.max(8,top)+'px';
-}
-document.addEventListener('pointerover',function(e){
- if(e.pointerType&&e.pointerType!=='mouse')return;
- const tr=e.target.closest&&e.target.closest('tr.data');if(!tr)return;
- if(e.relatedTarget&&tr.contains(e.relatedTarget))return;
- const x=data[+tr.dataset.i];
- if(isInsertRecord(x))showHoverInsertPreview(x,e);
-});
-document.addEventListener('pointerout',function(e){
- if(e.pointerType&&e.pointerType!=='mouse')return;
- const tr=e.target.closest&&e.target.closest('tr.data');if(!tr)return;
- if(e.relatedTarget&&tr.contains(e.relatedTarget))return;
- hoverHideTimer=setTimeout(hideHoverInsertPreview,80);
-});
-document.addEventListener('mousemove',function(e){
- if(!hoverInsertPreview||hoverInsertPreview.style.display==='none')return;
- const tr=e.target.closest&&e.target.closest('tr.data');if(!tr)return;
- const left=Math.min(e.clientX+18,window.innerWidth-318),top=Math.min(e.clientY+18,window.innerHeight-290);
- hoverInsertPreview.style.left=Math.max(8,left)+'px';hoverInsertPreview.style.top=Math.max(8,top)+'px';
-});
-
+/* Windows: insert preview is intentionally click-only. */
 function openInsertPreview(x){
  if(!x)return;
  const official=x.productUrl?normalizePhotoUrl(x.productUrl):"";
