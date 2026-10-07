@@ -26,6 +26,7 @@ jobs:
       - name: Checkout versione pubblicata
         uses: actions/checkout@v4
         with:
+          fetch-depth: 2
           ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
 
       - name: Setup Python
@@ -45,3 +46,11 @@ jobs:
           if [ -f architect-guardian-report.json ]; then
             cat architect-guardian-report.json
           fi
+
+      - name: Conserva report Guardian
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: architect-guardian-report
+          path: architect-guardian-report.json
+          if-no-files-found: ignore
