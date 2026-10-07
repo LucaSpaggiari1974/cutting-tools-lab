@@ -5,6 +5,12 @@ on:
     # Controllo e aggiornamento ogni ora, 24/7
     - cron: "17 * * * *"
   workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - "scripts/official_catalog_ingest.py"
+      - "scripts/promote_official_catalog.py"
+      - "official-catalog-sources.json"
 
 permissions:
   contents: write
