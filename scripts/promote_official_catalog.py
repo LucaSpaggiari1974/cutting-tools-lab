@@ -37,8 +37,29 @@ def norm(s):
 def clean_code(s):
     return re.sub(r"\s+", " ", str(s or "").strip())
 
-def classify(code, context):
-    c, t = clean_code(code).upper(), str(context or "").lower()
+def classify(code, context, source_category=""):
+    c = clean_code(code).upper()
+    t = str(context or "").lower()
+    sc = str(source_category or "").lower()
+
+    # The official Sumitomo insert catalog labels its pages as
+    # "Tornitura · Inserto ufficiale". Treat that explicit source
+    # classification as authoritative instead of requiring English
+    # keywords to appear in the extracted page context.
+    if "tornitura" in sc or "turning" in sc:
+        if any(w in t for w in ("finish", "finishing", "finitura")):
+            return "Tornitura · Finitura"
+        if any(w in t for w in ("rough", "roughing", "sgross")):
+            return "Tornitura · Sgrossatura"
+        return "Tornitura · Media"
+
+    if "filettatura" in sc or "thread" in sc:
+        return "Filettatura"
+    if "foratura" in sc or "drill" in sc:
+        return "Foratura"
+    if "fresatura" in sc or "mill" in sc:
+        return "Fresatura"
+
     if TURNING.match(c):
         if any(w in t for w in ("finish", "finishing", "finitura")):
             return "Tornitura · Finitura"
@@ -92,7 +113,7 @@ def main():
         if not maker or not strong_insert_code(code):
             skipped.append({"code": code, "reason": "weak-code"})
             continue
-        category = classify(code, cand.get("sourceContext",""))
+        category = classify(code, cand.get("sourceContext",""), cand.get("category",""))
         if not category:
             skipped.append({"code": code, "reason": "category-ambiguous"})
             continue
