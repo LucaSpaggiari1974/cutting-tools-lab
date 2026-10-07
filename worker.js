@@ -48,7 +48,9 @@ export default {
         "gen3industrial.com",
         "www.maxodeals.com",
         "ssl.ingersoll-imc.com",
-        "ingersoll-imc.com"
+        "ingersoll-imc.com",
+        "www.suncoasttools.com",
+        "cdn.grovesindustrial.com"
       ];
 
       const allowed = allowedHosts.some(
