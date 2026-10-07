@@ -1,6 +1,6 @@
 {
-  "version": "2.8-real-photo-reference-auto",
-  "updatedAt": "2026-10-06T04:30:05Z",
+  "version": "2.9-real-photo-preview",
+  "updatedAt": "2026-10-07T04:28:51.901Z",
   "source": "Cataloghi ufficiali + foto reali; quando manca la foto esatta del codice viene mostrata una foto reale rappresentativa della stessa geometria/famiglia.",
   "items": [
     {
@@ -102,9 +102,11 @@
       "f": "0,08–0,22",
       "ap": "0,2–1,5",
       "maker": "Ingersoll",
-      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto.",
+      "photoNote": "Foto reale verificata del codice o della stessa famiglia/geometria Ingersoll; usata come anteprima fotografica.",
       "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=39560",
-      "photoStatus": "unavailable"
+      "photoStatus": "reference",
+      "photoUrl": "https://cdn.grovesindustrial.com/img/groves/product_images/1/Ingersoll_5523013_HR.jpg",
+      "photoSource": "real-reference"
     },
     {
       "category": "Tornitura · Media",
@@ -115,9 +117,11 @@
       "f": "0,10–0,30",
       "ap": "0,5–4",
       "maker": "Ingersoll",
-      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto.",
+      "photoNote": "Foto reale verificata del codice o della stessa famiglia/geometria Ingersoll; usata come anteprima fotografica.",
       "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=6180310",
-      "photoStatus": "unavailable"
+      "photoStatus": "reference",
+      "photoUrl": "https://ssl.ingersoll-imc.com/resources/product-images/snmg432mgp/snmg432mgp_Enlarge.jpg",
+      "photoSource": "real-reference"
     },
     {
       "category": "Tornitura · Media",
@@ -128,9 +132,11 @@
       "f": "0,08–0,24",
       "ap": "0,3–2,5",
       "maker": "Ingersoll",
-      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto.",
+      "photoNote": "Foto reale verificata del codice o della stessa famiglia/geometria Ingersoll; usata come anteprima fotografica.",
       "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=39098",
-      "photoStatus": "unavailable"
+      "photoStatus": "reference",
+      "photoUrl": "https://www.suncoasttools.com/crm/Resizer/resizeimg.aspx?img=%2Fcrm%2FItemImages%2FINGERSOLL-6241238.jpg&width=1500",
+      "photoSource": "real-reference"
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -141,9 +147,11 @@
       "f": "0,18–0,40",
       "ap": "1–5",
       "maker": "Ingersoll",
-      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto.",
+      "photoNote": "Foto reale verificata del codice o della stessa famiglia/geometria Ingersoll; usata come anteprima fotografica.",
       "productUrl": "https://www.ingersoll-imc.com/product-family/301775",
-      "photoStatus": "unavailable"
+      "photoStatus": "reference",
+      "photoUrl": "https://www.suncoasttools.com/crm/Resizer/resizeimg.aspx?img=%2Fcrm%2FItemImages%2FINGERSOLL-6236059.jpg&width=1500",
+      "photoSource": "real-reference"
     },
     {
       "category": "Tornitura · Media",
@@ -154,9 +162,11 @@
       "f": "0,12–0,30",
       "ap": "0,5–3",
       "maker": "Ingersoll",
-      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto.",
+      "photoNote": "Foto reale verificata del codice o della stessa famiglia/geometria Ingersoll; usata come anteprima fotografica.",
       "productUrl": "https://www.ingersoll-imc.com/product-family/301775",
-      "photoStatus": "unavailable"
+      "photoStatus": "reference",
+      "photoUrl": "https://i.ebayimg.com/images/g/Aj4AAOSwnFJfunQU/s-l1200.jpg",
+      "photoSource": "real-reference"
     },
     {
       "category": "Tornitura · Finitura",
@@ -167,9 +177,11 @@
       "f": "0,08–0,20",
       "ap": "0,3–2",
       "maker": "Ingersoll",
-      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto.",
+      "photoNote": "Foto reale di riferimento della stessa famiglia CNMG RT; il formato fotografato è CNMG 120408 RT, non il codice esatto.",
       "productUrl": "https://www.ingersoll-imc.com/product-family/301775",
-      "photoStatus": "unavailable"
+      "photoStatus": "reference",
+      "photoUrl": "https://i.ebayimg.com/images/g/Aj4AAOSwnFJfunQU/s-l1200.jpg",
+      "photoSource": "real-reference"
     },
     {
       "category": "Tornitura · Media",
