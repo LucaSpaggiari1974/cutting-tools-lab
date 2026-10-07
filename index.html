@@ -245,6 +245,15 @@ function render(){
  rows.querySelectorAll("tr.data").forEach(tr=>{
  tr.onpointerenter=e=>{if(e.pointerType==="mouse"){const x=data[+tr.dataset.i];if(isInsertRecord(x))showHoverInsertPreview(x,e)}};
  tr.onpointerleave=e=>{if(e.pointerType==="mouse")hideHoverInsertPreview()};
+ const codeButton=tr.querySelector(".codeButton");
+ if(codeButton)codeButton.addEventListener("click",e=>{
+   const x=data[+tr.dataset.i];
+   if(!x)return;
+   e.preventDefault();
+   e.stopPropagation();
+   select(x);
+   if(isInsertRecord(x))openInsertPreview(x);else openTool(x);
+ });
  });
 }
 function openCatalogRowFromEvent(e){
