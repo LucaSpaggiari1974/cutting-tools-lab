@@ -1,0 +1,139 @@
+#!/usr/bin/env python3
+"""Promote only strong official-catalog candidates into the visible insert catalog.
+
+Staging remains the source of truth for candidates. This promoter:
+- never invents codes;
+- promotes only insert-shaped codes from official insert sources;
+- deduplicates by manufacturer + normalized code;
+- classifies turning by ISO geometry/context and otherwise uses context;
+- preserves source evidence;
+- leaves ambiguous candidates in staging.
+"""
+import json, re
+from datetime import datetime, timezone
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+STAGING = ROOT / "official-catalog-extracted.json"
+CATALOG = ROOT / "catalog.json"
+BACKUP = ROOT / "backups" / "catalog-before-promotion.json"
+REPORT = ROOT / "official-catalog-promotion-report.json"
+
+ALLOWED = [
+    "Tornitura · Finitura", "Tornitura · Media", "Tornitura · Sgrossatura",
+    "Fresatura", "Foratura", "Filettatura"
+]
+TURNING = re.compile(r"^(CNMG|DNMG|SNMG|TNMG|VNMG|WNMG|CCMT|DCMT|TCMT|VCMT|VBMT|VBGT|CCGT|DCGT|TCGT|VCGT|CNGA|DNGA|TNGA|VNGA|WNGA)\b", re.I)
+MILLING = re.compile(r"^(APMT|APKT|SEHT|SEKT|RDMW|RPMT|SPMT|SOMT|XPMT|LNMU|ADMX|SDMT|SDXT|ONHU|ODMX|XDET|LOGX)\b", re.I)
+DRILLING = re.compile(r"^(WCMX|SPMX|SCMX|SOMX|XCMT|XOMX|WCMT)\b", re.I)
+THREADING = re.compile(r"^(16ER|16IR|11ER|11IR|22ER|22IR|27ER|27IR|08ER|08IR|06ER|06IR)\b", re.I)
+
+def now():
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00","Z")
+
+def norm(s):
+    return re.sub(r"[^A-Z0-9]", "", str(s or "").upper())
+
+def clean_code(s):
+    return re.sub(r"\s+", " ", str(s or "").strip())
+
+def classify(code, context):
+    c, t = clean_code(code).upper(), str(context or "").lower()
+    if TURNING.match(c):
+        if any(w in t for w in ("finish", "finishing", "finitura")):
+            return "Tornitura · Finitura"
+        if any(w in t for w in ("rough", "roughing", "sgross")):
+            return "Tornitura · Sgrossatura"
+        return "Tornitura · Media"
+    if THREADING.match(c) or any(w in t for w in ("threading insert", "filettatura", "thread insert")):
+        return "Filettatura"
+    if DRILLING.match(c) or any(w in t for w in ("drilling insert", "drill insert", "foratura")):
+        return "Foratura"
+    if MILLING.match(c) or any(w in t for w in ("milling insert", "milling cutter", "fresatura")):
+        return "Fresatura"
+    return None
+
+def strong_insert_code(code):
+    c = clean_code(code).upper()
+    # ISO-like insert: shape + 5-11 alphanumeric body, optionally chipbreaker suffix.
+    if not re.fullmatch(r"[A-Z]{2,5} [0-9][0-9A-Z]{4,10}(?:-[0-9A-Z]{1,10})?", c):
+        if not re.fullmatch(r"[A-Z]{2,5}[0-9][0-9A-Z]{4,10}(?:-[0-9A-Z]{1,10})?", c):
+            return False
+    # Reject obvious grade/material labels.
+    if c in {"SUMIBORON","SUMIDIA","SUMICRYSTAL"} or re.fullmatch(r"[A-Z]{1,5}[0-9]{2,6}[A-Z]?", c):
+        return False
+    return True
+
+def main():
+    staging = json.loads(STAGING.read_text(encoding="utf-8"))
+    catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
+    items = list(catalog.get("items", []))
+    BACKUP.parent.mkdir(parents=True, exist_ok=True)
+    BACKUP.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    existing = {(str(x.get("maker","")).strip().lower(), norm(x.get("code"))) for x in items}
+    promoted, skipped, duplicates = [], [], 0
+
+    for cand in staging.get("items", []):
+        if str(cand.get("scope","")).lower() != "inserts":
+            skipped.append({"code": cand.get("code"), "reason": "non-insert-scope"})
+            continue
+        code = clean_code(cand.get("code"))
+        maker = str(cand.get("maker","")).strip()
+        if not maker or not strong_insert_code(code):
+            skipped.append({"code": code, "reason": "weak-code"})
+            continue
+        category = classify(code, cand.get("sourceContext",""))
+        if not category:
+            skipped.append({"code": code, "reason": "category-ambiguous"})
+            continue
+        key = (maker.lower(), norm(code))
+        if key in existing:
+            duplicates += 1
+            continue
+
+        row = {
+            "category": category,
+            "code": code,
+            "maker": maker,
+            "verificationStatus": "official-order-code-verified",
+            "sourceOfficial": cand.get("sourceOfficial", True),
+            "sourceType": cand.get("sourceType", "official-catalog"),
+            "sourcePage": cand.get("sourcePage"),
+            "sourceContext": cand.get("sourceContext",""),
+            "photoStatus": "unavailable",
+            "photoNote": "Foto esatta non ancora verificata; nessun logo o immagine generica usata."
+        }
+        if cand.get("sourceUrl"):
+            row["sourceUrl"] = cand["sourceUrl"]
+        items.append(row)
+        existing.add(key)
+        promoted.append({"maker": maker, "code": code, "category": category, "sourcePage": cand.get("sourcePage")})
+
+    def sort_key(x):
+        return (ALLOWED.index(x.get("category")) if x.get("category") in ALLOWED else 99,
+                str(x.get("maker","")).lower(), norm(x.get("code")))
+
+    items.sort(key=sort_key)
+    catalog["items"] = items
+    catalog["version"] = "4.0-official-staging-promotion"
+    catalog["updatedAt"] = now()
+    catalog["source"] = "Catalogo globale: promozione conservativa da cataloghi ufficiali correnti; nessun codice inventato."
+    CATALOG.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    report = {
+        "updatedAt": now(),
+        "stagingItems": len(staging.get("items", [])),
+        "promoted": len(promoted),
+        "duplicates": duplicates,
+        "skipped": len(skipped),
+        "catalogItemsAfter": len(items),
+        "policy": "Solo codici forti provenienti da scope inserts ufficiale; ambigui mantenuti in staging.",
+        "promotedSample": promoted[:50],
+        "skippedReasons": {r: sum(1 for x in skipped if x["reason"] == r) for r in sorted({x["reason"] for x in skipped})}
+    }
+    REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(report, ensure_ascii=False))
+
+if __name__ == "__main__":
+    main()
