@@ -1,0 +1,13 @@
+{
+  "updatedAt": "2026-10-07T09:38:04Z",
+  "stagingItems": 2613,
+  "promoted": 0,
+  "duplicates": 0,
+  "skipped": 2613,
+  "catalogItemsAfter": 56,
+  "policy": "Solo codici forti provenienti da scope inserts ufficiale; ambigui mantenuti in staging.",
+  "promotedSample": [],
+  "skippedReasons": {
+    "non-insert-scope": 2613
+  }
+}
