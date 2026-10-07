@@ -51,13 +51,59 @@ jobs:
         run: python scripts/promote_official_catalog.py
 
       - name: Commit e push
+        id: commit
         run: |
           git config user.name "Cutting Tools LAB Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add catalog.json update-status.json complete-tools.json official-catalog-extracted.json official-catalog-promotion-report.json backups/catalog-latest.json backups/catalog-before-update.json backups/complete-tools-before-update.json
           if git diff --cached --quiet; then
             echo "Nessuna modifica."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "chore: indicizzazione cataloghi ufficiali correnti"
             git push origin main
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Setup Node per pubblicazione immediata
+        if: steps.commit.outputs.changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Pubblicazione immediata su Cloudflare
+        if: steps.commit.outputs.changed == 'true'
+        run: npx wrangler@latest deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Verifica immediata versione online
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          PUBLIC_BASE_URL: https://cutting-tools-lab.spaggiari.workers.dev
+        run: |
+          python - <<'PY'
+          import json, os, time, urllib.request
+          with open("catalog.json", encoding="utf-8") as f:
+              local=json.load(f)
+          expected=(local.get("updatedAt"), len(local.get("items", [])))
+          url=os.environ["PUBLIC_BASE_URL"].rstrip("/")+"/catalog.json"
+          last=None
+          for attempt in range(12):
+              try:
+                  req=urllib.request.Request(url,headers={"Cache-Control":"no-cache","User-Agent":"Cutting-Tools-LAB-Deploy-Verify/1.0"})
+                  with urllib.request.urlopen(req,timeout=20) as r:
+                      online=json.loads(r.read().decode("utf-8"))
+                  got=(online.get("updatedAt"), len(online.get("items", [])))
+                  print(f"Tentativo {attempt+1}: online={got} atteso={expected}")
+                  if got == expected:
+                      print("OK: catalogo aggiornato online.")
+                      break
+                  last=got
+              except Exception as e:
+                  last=str(e)
+                  print(f"Tentativo {attempt+1}: {e}")
+              time.sleep(5)
+          else:
+              raise SystemExit(f"ERRORE: Cloudflare non risulta aggiornato dopo il deploy. online={last} atteso={expected}")
