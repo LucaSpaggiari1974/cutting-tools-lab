@@ -75,7 +75,16 @@ def main():
     promoted, skipped, duplicates = [], [], 0
 
     for cand in staging.get("items", []):
-        if str(cand.get("scope","")).lower() != "inserts":
+        candidate_scope = str(cand.get("scope","")).lower()
+        candidate_type = str(cand.get("toolType","")).lower()
+        candidate_category = str(cand.get("category","")).lower()
+        is_insert_candidate = (
+            candidate_scope == "inserts"
+            or candidate_type == "insert"
+            or "inserto" in candidate_category
+            or candidate_category.strip() == "inserts"
+        )
+        if not is_insert_candidate:
             skipped.append({"code": cand.get("code"), "reason": "non-insert-scope"})
             continue
         code = clean_code(cand.get("code"))
@@ -116,7 +125,7 @@ def main():
 
     items.sort(key=sort_key)
     catalog["items"] = items
-    catalog["version"] = "4.0-official-staging-promotion"
+    catalog["version"] = "4.1-official-staging-promotion-fixed"
     catalog["updatedAt"] = now()
     catalog["source"] = "Catalogo globale: promozione conservativa da cataloghi ufficiali correnti; nessun codice inventato."
     CATALOG.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
