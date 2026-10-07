@@ -695,7 +695,7 @@ function showHoverInsertPreview(x,e){
  if(hoverHideTimer)clearTimeout(hoverHideTimer);
  const img=hoverInsertPreview.querySelector('img'),title=hoverInsertPreview.querySelector('.hoverTitle'),status=hoverInsertPreview.querySelector('.hoverStatus');
  title.textContent=(x.code||'Inserto')+' · '+(x.maker||'');status.textContent='Caricamento foto reale…';img.style.display='block';
- const urls=[];hoverCandidates(x).forEach(u=>{urls.push('https://cutting-tools-lab.spaggiari.workers.dev/product-image?url='+encodeURIComponent(u)+'&v=hover');urls.push(u)});
+ const urls=hoverCandidates(x);
  hoverImageIndex=0;
  img.onerror=function(){hoverImageIndex++;if(hoverImageIndex<urls.length){img.src=urls[hoverImageIndex];status.textContent='Cambio fonte fotografica…';}else{img.style.display='none';status.textContent='📷 Foto non raggiungibile';}};
  img.onload=function(){status.textContent='Foto reale · anteprima Windows';};
