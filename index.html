@@ -248,13 +248,19 @@ function render(){
  tr.onpointerleave=e=>{if(e.pointerType==="mouse")hideHoverInsertPreview()};
  tr.onclick=openRow;
  tr.addEventListener("pointerdown",e=>{if(e.pointerType==="touch"){e.preventDefault();e.stopPropagation();openRow()}},{passive:false});
- const code=tr.querySelector(".code");
- if(code){
-   code.onclick=e=>{e.stopPropagation();openRow()};
-   code.addEventListener("pointerdown",e=>{if(e.pointerType==="touch"){e.preventDefault();e.stopPropagation();openRow()}},{passive:false});
- }
-});
+ });
 }
+document.addEventListener("click",function(e){
+ const code=e.target.closest&&e.target.closest("tr.data td.code");
+ if(!code)return;
+ const tr=code.closest("tr.data");
+ const x=tr&&data[+tr.dataset.i];
+ if(!x)return;
+ e.preventDefault();
+ e.stopPropagation();
+ select(x);
+ if(isInsertRecord(x))openInsertPreview(x);else openTool(x);
+});
 function select(x){selected=x;document.getElementById("fc").textContent=x.code;document.getElementById("fm").textContent=x.material;document.getElementById("fv").textContent=x.vc;document.getElementById("ff").textContent=x.f;document.getElementById("fa").textContent=x.ap}
 [q,cat,mat,maker].forEach(e=>e.addEventListener("input",render));
 document.querySelectorAll(".navtab").forEach(btn=>btn.addEventListener("click",()=>{
@@ -451,8 +457,7 @@ function photoCandidates(x){
    x&&x.photoUrl,
    ref&&ref.url,
    familyPhoto,
-   String(x&&x.category||"").toUpperCase().includes("INSERT")?photoMap.GENERIC_INSERT[0]:"",
-   x&&x.productUrl
+   String(x&&x.category||"").toUpperCase().includes("INSERT")?photoMap.GENERIC_INSERT[0]:""
  ].map(normalizePhotoUrl).filter(Boolean);
  const unique=[...new Set(raw)];
  return unique;
@@ -730,9 +735,11 @@ function openInsertPreview(x){
  if(!x)return;
  const official=x.productUrl?normalizePhotoUrl(x.productUrl):"";
  const ref=realReferenceFor(x);
+ let photoHtml="";
+ try{photoHtml=toolPhoto(x)}catch(_){photoHtml='<div class="photoEmpty">📷 Foto non disponibile in anteprima; la scheda del produttore resta disponibile.</div>'}
  modalBody.innerHTML=
    '<h2>Anteprima inserto · '+esc(x.code)+'</h2>'+
-   toolPhoto(x)+
+   photoHtml+
    '<div class="problemCard" style="margin-top:12px">'+
    '<p><b>Produttore:</b> '+esc(x.maker||"—")+'</p>'+
    '<p><b>Geometria:</b> '+esc(x.geom||"—")+'</p>'+
