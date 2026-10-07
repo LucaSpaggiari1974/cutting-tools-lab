@@ -706,7 +706,7 @@ function showHoverInsertPreview(x,e){
  hoverImageIndex=0;
  img.onerror=function(){hoverImageIndex++;if(hoverImageIndex<urls.length){img.src=urls[hoverImageIndex];status.textContent='Cambio fonte fotografica…';}else{img.style.display='none';status.textContent='📷 Foto non raggiungibile';}};
  img.onload=function(){status.textContent='Foto reale · anteprima Windows';};
- img.src=urls[0]||'';
+ if(!urls.length){img.style.display='none';status.textContent='📷 Foto non disponibile';}else{img.src=urls[0];}
  hoverInsertPreview.style.display='block';
  const left=Math.min(e.clientX+18,window.innerWidth-318),top=Math.min(e.clientY+18,window.innerHeight-290);
  hoverInsertPreview.style.left=Math.max(8,left)+'px';hoverInsertPreview.style.top=Math.max(8,top)+'px';
