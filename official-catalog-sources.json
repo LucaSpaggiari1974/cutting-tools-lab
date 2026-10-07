@@ -1,0 +1,153 @@
+{
+  "version": "1.0-official-catalog-registry",
+  "updatedAt": "2026-10-07T09:15:00+02:00",
+  "purpose": "Sorgenti primarie ufficiali per l'indicizzazione del catalogo utensili. Le famiglie non equivalgono a codici verificati.",
+  "rule": "Indicizzare solo codici/articoli realmente presenti nelle fonti ufficiali correnti; nessun codice inventato.",
+  "sources": [
+    {
+      "maker": "ISCAR",
+      "catalog": "https://www.iscar.com/en-hq/catalog",
+      "type": "official online catalog",
+      "scope": [
+        "turning",
+        "milling",
+        "drilling",
+        "reaming",
+        "threading",
+        "grooving"
+      ]
+    },
+    {
+      "maker": "Sandvik Coromant",
+      "catalog": "https://www.sandvik.coromant.com/",
+      "type": "official product catalog/site",
+      "scope": [
+        "inserts",
+        "turning",
+        "milling",
+        "drilling",
+        "solid round tools",
+        "threading",
+        "boring",
+        "reaming"
+      ]
+    },
+    {
+      "maker": "Walter",
+      "catalog": "https://elibrary.walter-tools.com/frontend/getcatalog.do?catalogId=1271531&catalogVersion=3&lang=en-gb",
+      "type": "official 2026-1 product innovations catalog",
+      "scope": [
+        "turning",
+        "drilling",
+        "milling",
+        "threading",
+        "adaptors"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "catalog": "https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/",
+      "type": "official 2025-2026 general catalog",
+      "scope": [
+        "inserts",
+        "turning",
+        "grooving",
+        "threading",
+        "milling",
+        "endmills",
+        "drills",
+        "reamers",
+        "tooling"
+      ]
+    },
+    {
+      "maker": "KYOCERA SGS Precision Tools",
+      "catalog": "https://www.kyocera-sgstool.com/catalogs",
+      "type": "official Global Product Catalog v26.1",
+      "scope": [
+        "end mills",
+        "drills",
+        "micro tools",
+        "reamers",
+        "routers",
+        "holemaking"
+      ]
+    },
+    {
+      "maker": "KORLOY",
+      "catalog": "https://www.korloy.com/en/download/cata.do",
+      "type": "official 2025-2026 catalogs and digital catalog",
+      "scope": [
+        "turning",
+        "rotating",
+        "solid tools",
+        "milling",
+        "endmilling",
+        "holemaking",
+        "threading"
+      ]
+    },
+    {
+      "maker": "TaeguTec",
+      "catalog": "https://www.taegutec.com/pages/en/publications/cutting-tools-catalogs/",
+      "type": "official cutting tools catalogs",
+      "scope": [
+        "turning",
+        "parting",
+        "grooving",
+        "threading",
+        "holemaking",
+        "milling",
+        "solid end mills",
+        "tooling"
+      ]
+    },
+    {
+      "maker": "CERATIZIT",
+      "catalog": "https://downloads.ceratizit.com/frontend/catalogs/740159/5/pdf/save/bk_3.pdf",
+      "type": "official e-catalog",
+      "scope": [
+        "solid drilling",
+        "indexable drilling",
+        "reaming",
+        "taps",
+        "thread milling",
+        "thread turning",
+        "turning",
+        "grooving",
+        "solid carbide milling",
+        "indexable milling"
+      ]
+    },
+    {
+      "maker": "Guhring",
+      "catalog": "https://guhring.com/products",
+      "type": "official product catalog/database",
+      "scope": [
+        "drills",
+        "end mills",
+        "taps",
+        "thread mills",
+        "grooving",
+        "reamers",
+        "countersinks",
+        "tool holders"
+      ]
+    },
+    {
+      "maker": "ZCC Cutting Tools",
+      "catalog": "https://en.zccct.com/CatalogDownload/list.aspx",
+      "type": "official catalog download center",
+      "scope": [
+        "turning",
+        "milling",
+        "drills",
+        "inserts",
+        "parting",
+        "grooving",
+        "threading"
+      ]
+    }
+  ],
+  "ingestionStatus": "official-sources-collected; code-level indexing in progress"
+}
