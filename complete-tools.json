@@ -1,6 +1,6 @@
 {
   "version": "1.0-complete-tools-recovery",
-  "updatedAt": "2026-10-07T06:20:00.000Z",
+  "updatedAt": "2026-10-07T06:40:00.000Z",
   "scope": "Utensili completi separati dal catalogo inserti.",
   "status": "recovery-and-official-verification-in-progress",
   "mediaPolicy": {
@@ -7037,5 +7037,38 @@
     "historicalItemCount": 505,
     "recoveredItemCount": 434,
     "rule": "Recupero conservativo della base storica; la completezza produttore per produttore sarà certificata solo dopo verifica delle fonti ufficiali correnti."
-  }
+  },
+  "manufacturerVerification": {
+    "ISCAR": {
+      "status": "official-source-verified-family-scope",
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07",
+      "sourceOfficial": "https://www.iscar.com/en-hq/catalog",
+      "sourceType": "official-online-catalog-and-current-product-pages",
+      "verifiedScopes": [
+        "Fresatura",
+        "Foratura",
+        "Alesatura",
+        "Filettatura",
+        "Tornitura",
+        "Scanalatura"
+      ],
+      "currentFamilies": [
+        "SUMOCHAM",
+        "CHAMIQDRILL",
+        "QUICK-3-CHAM",
+        "COMBICHAM",
+        "MODUDRILL",
+        "DR-TWIST",
+        "DR-BIG",
+        "Solid Carbide Drills",
+        "BAYO-T-REAM",
+        "SOLID-H-REAM",
+        "INDEX-H-REAM"
+      ],
+      "indexedItemCount": 351,
+      "rule": "Verifica di famiglia ufficiale; non equivale all'indicizzazione completa di tutti i codici ordinabili."
+    }
+  },
+  "verificationPolicy": "Un produttore passa a complete solo dopo indicizzazione effettiva dei codici ordinabili dal catalogo ufficiale corrente; la sola presenza della famiglia non basta."
 }
