@@ -1,7 +1,7 @@
 {
-  "version": "3.4-insert-only-global-expansion",
-  "updatedAt": "2026-10-07T05:31:59.662Z",
-  "source": "Catalogo globale di inserti indicizzati per produttore; ogni produttore deve essere indicizzato a partire dalle fonti ufficiali più aggiornate e verificato senza inventare codici.",
+  "version": "3.5-insert-only-pipeline-hardened",
+  "updatedAt": "2026-10-07T05:34:49.236Z",
+  "source": "Catalogo globale di inserti indicizzati per produttore; fonti ufficiali prioritarie, verifica incrementale e nessuna generazione automatica di codici non classificati.",
   "items": [
     {
       "category": "Tornitura · Finitura",
@@ -48,20 +48,6 @@
       "productUrl": "https://webshop.iscar.de/catalogue/product/1907631",
       "drawingUrl": "https://webshop.iscar.de/catalogue/product/1907631",
       "photoStatus": "reference"
-    },
-    {
-      "category": "Tornitura · Finitura",
-      "code": "CNMG 120404",
-      "geom": "Rombo 80° · FINITURA · R0,4",
-      "material": "P Acciaio · M Inox · K Ghisa",
-      "vc": "160–240",
-      "f": "0,10–0,25",
-      "ap": "0,5–2",
-      "maker": "ISO",
-      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
-      "photoSource": "real-reference",
-      "photoNote": "Anteprima non disponibile: nessuna fonte ufficiale verificabile associata al produttore.",
-      "photoStatus": "unavailable"
     },
     {
       "category": "Tornitura · Finitura",
@@ -116,13 +102,9 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
-      "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248936",
-      "photoSource": "manufacturer",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
+      "photoNote": "Foto ufficiale del codice esatto non verificata; nessuna immagine generica usata.",
       "photoVerified": true,
-      "photoVerifiedAt": "2026-10-06T04:00:28.897943+00:00",
-      "photoStatus": "available"
+      "photoStatus": "unavailable"
     },
     {
       "category": "Tornitura · Finitura",
@@ -135,11 +117,8 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=14",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=14",
-      "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "unavailable",
-      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248927",
-      "photoSource": "manufacturer"
+      "photoNote": "Foto ufficiale del codice esatto non verificata; nessuna immagine generica usata.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Tornitura · Finitura",
@@ -370,11 +349,8 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
-      "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "unavailable",
-      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248936",
-      "photoSource": "manufacturer"
+      "photoNote": "Foto ufficiale del codice esatto non verificata; nessuna immagine generica usata.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Tornitura · Media",
@@ -387,13 +363,9 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
-      "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248927",
-      "photoSource": "manufacturer",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
+      "photoNote": "Foto ufficiale del codice esatto non verificata; nessuna immagine generica usata.",
       "photoVerified": true,
-      "photoVerifiedAt": "2026-10-06T04:00:18.363993+00:00",
-      "photoStatus": "available"
+      "photoStatus": "unavailable"
     },
     {
       "category": "Tornitura · Media",
@@ -406,13 +378,9 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=29",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=29",
-      "photoUpdatedAt": "2026-10-07T05:30:16Z",
-      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248927",
-      "photoSource": "manufacturer",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
+      "photoNote": "Foto ufficiale del codice esatto non verificata; nessuna immagine generica usata.",
       "photoVerified": true,
-      "photoVerifiedAt": "2026-10-06T04:00:15.313161+00:00",
-      "photoStatus": "reference"
+      "photoStatus": "unavailable"
     },
     {
       "maker": "Seco Tools",
@@ -519,11 +487,8 @@
       "ap": "1–5",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/product/turning/t505/",
-      "photoUpdatedAt": "2026-10-07T05:30:16Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "reference",
-      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/product_logo_t505.png",
-      "photoSource": "manufacturer"
+      "photoNote": "Foto ufficiale del codice esatto non verificata; nessuna immagine generica usata.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Tornitura · Media",
@@ -666,34 +631,6 @@
     },
     {
       "category": "Tornitura · Sgrossatura",
-      "code": "CNMG 120408",
-      "geom": "Rombo 80° · SGROSSATURA/MEDIA · R0,8",
-      "material": "P Acciaio · M Inox · K Ghisa",
-      "vc": "140–230",
-      "f": "0,15–0,35",
-      "ap": "0,8–4",
-      "maker": "ISO",
-      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
-      "photoSource": "real-reference",
-      "photoNote": "Anteprima non disponibile: nessuna fonte ufficiale verificabile associata al produttore.",
-      "photoStatus": "unavailable"
-    },
-    {
-      "category": "Tornitura · Sgrossatura",
-      "code": "CNMG 120412",
-      "geom": "Rombo 80° · SGROSSATURA · R1,2",
-      "material": "P Acciaio · M Inox · K Ghisa",
-      "vc": "120–210",
-      "f": "0,18–0,40",
-      "ap": "1–5",
-      "maker": "ISO",
-      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
-      "photoSource": "real-reference",
-      "photoNote": "Anteprima non disponibile: nessuna fonte ufficiale verificabile associata al produttore.",
-      "photoStatus": "unavailable"
-    },
-    {
-      "category": "Tornitura · Sgrossatura",
       "code": "CNMG120412-MP",
       "geom": "Rombo 80° · sgrossatura · R1,2",
       "material": "P Acciaio · M Inox · K Ghisa",
@@ -746,11 +683,8 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
-      "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "unavailable",
-      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248936",
-      "photoSource": "manufacturer"
+      "photoNote": "Foto ufficiale del codice esatto non verificata; nessuna immagine generica usata.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -763,11 +697,8 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=19",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=19",
-      "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "unavailable",
-      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248927",
-      "photoSource": "manufacturer"
+      "photoNote": "Foto ufficiale del codice esatto non verificata; nessuna immagine generica usata.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -780,11 +711,8 @@
       "maker": "Sandvik Coromant",
       "productUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
-      "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "unavailable",
-      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&amp;f=catcover.jpg&amp;catalogid=1248927",
-      "photoSource": "manufacturer"
+      "photoNote": "Foto ufficiale del codice esatto non verificata; nessuna immagine generica usata.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -867,62 +795,6 @@
       "productUrl": "https://www.sandvik.coromant.com/",
       "photoStatus": "unavailable",
       "photoNote": "Nessuna foto reale verificata del codice esatto; scheda ufficiale usata come fonte."
-    },
-    {
-      "category": "Filettatura",
-      "code": "11IR ISO",
-      "geom": "Interno ISO 60°",
-      "material": "P Acciaio · M Inox",
-      "vc": "50–140",
-      "f": "0,05–0,22",
-      "ap": "passate multiple",
-      "maker": "ISO",
-      "photoType": "official_product_page",
-      "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=53334",
-      "photoNote": "Nessuna foto reale verificata disponibile: rimossa immagine generica/di altro produttore per evitare associazioni errate.",
-      "photoStatus": "unavailable"
-    },
-    {
-      "category": "Filettatura",
-      "code": "16ER AG60",
-      "geom": "Esterno 60°",
-      "material": "P Acciaio · M Inox",
-      "vc": "60–160",
-      "f": "0,05–0,25",
-      "ap": "passate multiple",
-      "maker": "ISO",
-      "photoType": "official_product_page",
-      "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=51825",
-      "photoNote": "Nessuna foto reale verificata disponibile: rimossa immagine generica/di altro produttore per evitare associazioni errate.",
-      "photoStatus": "unavailable"
-    },
-    {
-      "category": "Filettatura",
-      "code": "16ER ISO",
-      "geom": "Esterno ISO 60°",
-      "material": "P Acciaio · M Inox",
-      "vc": "60–150",
-      "f": "0,05–0,25",
-      "ap": "passate multiple",
-      "maker": "ISO",
-      "photoType": "official_product_page",
-      "productUrl": "https://www.ingersoll-imc.com/product?id=5901951",
-      "photoNote": "Nessuna foto reale verificata disponibile: rimossa immagine generica/di altro produttore per evitare associazioni errate.",
-      "photoStatus": "unavailable"
-    },
-    {
-      "category": "Filettatura",
-      "code": "16IR AG60",
-      "geom": "Interno 60°",
-      "material": "P Acciaio · M Inox",
-      "vc": "50–140",
-      "f": "0,05–0,22",
-      "ap": "passate multiple",
-      "maker": "ISO",
-      "photoType": "official_product_page",
-      "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=314824",
-      "photoNote": "Nessuna foto reale verificata disponibile: rimossa immagine generica/di altro produttore per evitare associazioni errate.",
-      "photoStatus": "unavailable"
     }
   ],
   "photoPolicy": {
@@ -932,206 +804,458 @@
   },
   "coverage": {
     "scope": "global",
-    "groupedBy": "maker",
-    "manufacturerCount": 18,
-    "allowedCategories": [
-      "Fresatura",
-      "Foratura",
-      "Filettatura",
+    "groupedBy": "maker-and-code",
+    "categoryOrder": [
       "Tornitura · Finitura",
       "Tornitura · Media",
-      "Tornitura · Sgrossatura"
+      "Tornitura · Sgrossatura",
+      "Fresatura",
+      "Foratura",
+      "Filettatura"
     ],
+    "allowedCategories": [
+      "Tornitura · Finitura",
+      "Tornitura · Media",
+      "Tornitura · Sgrossatura",
+      "Fresatura",
+      "Foratura",
+      "Filettatura"
+    ],
+    "itemCount": 56,
     "completenessPolicy": {
       "mode": "official-source-exhaustive-index",
-      "rule": "Solo codici inserto effettivamente verificati; distinguere geometria, dimensione, rompitruciolo e grado. Mai usare utensili completi, punte integrali o famiglie generiche come record inserto.",
+      "rule": "Solo codici inserto/varianti ordinabili verificati; geometria, dimensione, rompitruciolo, raggio e grado distinti quando presenti nel codice.",
       "status": "incremental-verification-in-progress",
-      "lastVerification": "2026-10-07T05:07:43.181Z"
+      "lastVerification": "2026-10-07T05:34:49.236Z",
+      "neverClaimCompleteWithoutOfficialSourceIndex": true
     },
-    "manufacturerCatalogRule": "Ogni maker deve avere il proprio catalogo completo degli inserti verificati da e-catalog/cataloghi ufficiali; lo stato di completezza va tracciato per produttore e non dichiarato completo senza verifica.",
+    "photoPolicy": {
+      "mode": "manufacturer-exact-preferred-reference-allowed",
+      "rule": "Foto reale del codice esatto preferita; altrimenti foto reale della stessa geometria marcata reference. Mai loghi, hero generiche o immagini aziendali."
+    },
     "manufacturerRegistry": [
-      {
-        "maker": "ISCAR",
-        "status": "indexed-incrementally",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-      },
       {
         "maker": "Sandvik Coromant",
         "status": "indexed-incrementally",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=5",
+        "sourceType": "Catalogo Cutting Tools 26-1",
+        "indexedItemCount": 10,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+      },
+      {
+        "maker": "ISCAR",
+        "status": "indexed-incrementally",
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.iscar.com/ecat/it/toolshopmanual.pdf",
+        "sourceType": "eCatalog / Toolshop manual",
+        "indexedItemCount": 4,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
       },
       {
         "maker": "Walter",
         "status": "indexed-incrementally",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://elibrary.walter-tools.com/frontend/getcatalog.do?catalogId=944350&catalogVersion=2&lang=en-gb",
+        "sourceType": "Programme and Innovations 2025",
+        "indexedItemCount": 13,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
       },
       {
         "maker": "Kennametal",
         "status": "indexed-incrementally",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-      },
-      {
-        "maker": "Seco Tools",
-        "status": "indexed-incrementally",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-      },
-      {
-        "maker": "Tungaloy",
-        "status": "indexed-incrementally",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-      },
-      {
-        "maker": "Mitsubishi Materials",
-        "status": "pending-official-index",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-      },
-      {
-        "maker": "Kyocera",
-        "status": "pending-official-index",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-      },
-      {
-        "maker": "Sumitomo Electric Hardmetal",
-        "status": "indexed-incrementally",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-      },
-      {
-        "maker": "KORLOY",
-        "status": "indexed-incrementally",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-      },
-      {
-        "maker": "TaeguTec",
-        "status": "pending-official-index",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.kennametal.com/it/it/products/metalworking-tools/turning.html",
+        "sourceType": "Turning / Metalworking Tools",
+        "indexedItemCount": 7,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
       },
       {
         "maker": "Ingersoll",
         "status": "indexed-incrementally",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.ingersoll-imc.com/catalogs",
+        "sourceType": "Cataloghi Ingersoll",
+        "indexedItemCount": 6,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+      },
+      {
+        "maker": "Seco Tools",
+        "status": "indexed-incrementally",
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.secotools.com/article/homepage?language=it",
+        "sourceType": "Seco Catalogs",
+        "indexedItemCount": 8,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+      },
+      {
+        "maker": "Mitsubishi Materials",
+        "status": "pending-official-index",
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.mmtc.co.jp/en/support/catalog/",
+        "sourceType": "General Catalog / Catalog Download",
+        "indexedItemCount": 0,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+      },
+      {
+        "maker": "Sumitomo Electric Hardmetal",
+        "status": "indexed-incrementally",
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/",
+        "sourceType": "Cutting Tools General Catalog 2025-2026",
+        "indexedItemCount": 2,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+      },
+      {
+        "maker": "Tungaloy",
+        "status": "indexed-incrementally",
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://tungaloy.com/it/publications/catalog/",
+        "sourceType": "Cataloghi Tungaloy",
+        "indexedItemCount": 4,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+      },
+      {
+        "maker": "Kyocera",
+        "status": "pending-official-index",
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
+        "sourceType": "General Catalog 2024-2026",
+        "indexedItemCount": 0,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
       },
       {
         "maker": "Ceratizit",
         "status": "pending-official-index",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://ceratizit.com/int/it/news-and-media/downloads.html",
+        "sourceType": "Downloads / Cutting Tool Solutions",
+        "indexedItemCount": 0,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+      },
+      {
+        "maker": "TaeguTec",
+        "status": "pending-official-index",
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.taegutec.com/pages/vi/publications/industrial-products-catalogs/",
+        "sourceType": "Industrial Products Catalogs",
+        "indexedItemCount": 0,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+      },
+      {
+        "maker": "YG-1",
+        "status": "pending-official-index",
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.yg1usa.com/litera/indexable-catalogs.asp",
+        "sourceType": "YG-1 Indexable Inserts Catalog",
+        "indexedItemCount": 0,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+      },
+      {
+        "maker": "NTK",
+        "status": "pending-official-index",
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.ntkcuttingtools.com/",
+        "sourceType": "NTK Cutting Tools",
+        "indexedItemCount": 0,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
       },
       {
         "maker": "Dormer Pramet",
         "status": "pending-official-index",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.dormerpramet.com/",
+        "sourceType": "Dormer Pramet",
+        "indexedItemCount": 0,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+      },
+      {
+        "maker": "WIDIA",
+        "status": "pending-official-index",
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.widia.com/",
+        "sourceType": "WIDIA Metal Cutting",
+        "indexedItemCount": 0,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+      },
+      {
+        "maker": "ZCC",
+        "status": "pending-official-index",
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.zccct.com/",
+        "sourceType": "ZCC-CT",
+        "indexedItemCount": 0,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
       },
       {
         "maker": "Guhring",
         "status": "pending-official-index",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.guhring.com/",
+        "sourceType": "Guhring Cutting Tools",
+        "indexedItemCount": 0,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
       },
       {
-        "maker": "NTK Cutting Tools",
+        "maker": "MAPAL",
         "status": "pending-official-index",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://mapal.com/en/catalogs",
+        "sourceType": "MAPAL documentation",
+        "indexedItemCount": 0,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
       },
       {
-        "maker": "ZCC Cutting Tools",
+        "maker": "Paul Horn",
         "status": "pending-official-index",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.horn-group.com/",
+        "sourceType": "HORN Cutting Tools",
+        "indexedItemCount": 0,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
       },
       {
-        "maker": "Toyo Tanso/NTK",
-        "status": "pending-official-index",
-        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+        "maker": "KORLOY",
+        "status": "indexed-incrementally",
+        "completeness": "not-complete",
+        "verifiedAt": "2026-10-07T05:34:49.236Z",
+        "sourceOfficial": "https://www.korloy.com/",
+        "sourceType": "KORLOY Metal Cutting Tools",
+        "indexedItemCount": 2,
+        "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
       }
     ]
   },
   "manufacturerRegistry": [
     {
-      "maker": "ISCAR",
-      "status": "indexed-incrementally",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-    },
-    {
       "maker": "Sandvik Coromant",
       "status": "indexed-incrementally",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=5",
+      "sourceType": "Catalogo Cutting Tools 26-1",
+      "indexedItemCount": 10,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+    },
+    {
+      "maker": "ISCAR",
+      "status": "indexed-incrementally",
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.iscar.com/ecat/it/toolshopmanual.pdf",
+      "sourceType": "eCatalog / Toolshop manual",
+      "indexedItemCount": 4,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
     },
     {
       "maker": "Walter",
       "status": "indexed-incrementally",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://elibrary.walter-tools.com/frontend/getcatalog.do?catalogId=944350&catalogVersion=2&lang=en-gb",
+      "sourceType": "Programme and Innovations 2025",
+      "indexedItemCount": 13,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
     },
     {
       "maker": "Kennametal",
       "status": "indexed-incrementally",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-    },
-    {
-      "maker": "Seco Tools",
-      "status": "indexed-incrementally",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-    },
-    {
-      "maker": "Tungaloy",
-      "status": "indexed-incrementally",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-    },
-    {
-      "maker": "Mitsubishi Materials",
-      "status": "pending-official-index",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-    },
-    {
-      "maker": "Kyocera",
-      "status": "pending-official-index",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-    },
-    {
-      "maker": "Sumitomo Electric Hardmetal",
-      "status": "indexed-incrementally",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-    },
-    {
-      "maker": "KORLOY",
-      "status": "indexed-incrementally",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
-    },
-    {
-      "maker": "TaeguTec",
-      "status": "pending-official-index",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.kennametal.com/it/it/products/metalworking-tools/turning.html",
+      "sourceType": "Turning / Metalworking Tools",
+      "indexedItemCount": 7,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
     },
     {
       "maker": "Ingersoll",
       "status": "indexed-incrementally",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.ingersoll-imc.com/catalogs",
+      "sourceType": "Cataloghi Ingersoll",
+      "indexedItemCount": 6,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+    },
+    {
+      "maker": "Seco Tools",
+      "status": "indexed-incrementally",
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.secotools.com/article/homepage?language=it",
+      "sourceType": "Seco Catalogs",
+      "indexedItemCount": 8,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+    },
+    {
+      "maker": "Mitsubishi Materials",
+      "status": "pending-official-index",
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.mmtc.co.jp/en/support/catalog/",
+      "sourceType": "General Catalog / Catalog Download",
+      "indexedItemCount": 0,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "status": "indexed-incrementally",
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/",
+      "sourceType": "Cutting Tools General Catalog 2025-2026",
+      "indexedItemCount": 2,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+    },
+    {
+      "maker": "Tungaloy",
+      "status": "indexed-incrementally",
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://tungaloy.com/it/publications/catalog/",
+      "sourceType": "Cataloghi Tungaloy",
+      "indexedItemCount": 4,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+    },
+    {
+      "maker": "Kyocera",
+      "status": "pending-official-index",
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://tool-global.kyocera.com/en/prdct/tool/catalog/",
+      "sourceType": "General Catalog 2024-2026",
+      "indexedItemCount": 0,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
     },
     {
       "maker": "Ceratizit",
       "status": "pending-official-index",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://ceratizit.com/int/it/news-and-media/downloads.html",
+      "sourceType": "Downloads / Cutting Tool Solutions",
+      "indexedItemCount": 0,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+    },
+    {
+      "maker": "TaeguTec",
+      "status": "pending-official-index",
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.taegutec.com/pages/vi/publications/industrial-products-catalogs/",
+      "sourceType": "Industrial Products Catalogs",
+      "indexedItemCount": 0,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+    },
+    {
+      "maker": "YG-1",
+      "status": "pending-official-index",
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.yg1usa.com/litera/indexable-catalogs.asp",
+      "sourceType": "YG-1 Indexable Inserts Catalog",
+      "indexedItemCount": 0,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+    },
+    {
+      "maker": "NTK",
+      "status": "pending-official-index",
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.ntkcuttingtools.com/",
+      "sourceType": "NTK Cutting Tools",
+      "indexedItemCount": 0,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
     },
     {
       "maker": "Dormer Pramet",
       "status": "pending-official-index",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.dormerpramet.com/",
+      "sourceType": "Dormer Pramet",
+      "indexedItemCount": 0,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+    },
+    {
+      "maker": "WIDIA",
+      "status": "pending-official-index",
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.widia.com/",
+      "sourceType": "WIDIA Metal Cutting",
+      "indexedItemCount": 0,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+    },
+    {
+      "maker": "ZCC",
+      "status": "pending-official-index",
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.zccct.com/",
+      "sourceType": "ZCC-CT",
+      "indexedItemCount": 0,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
     },
     {
       "maker": "Guhring",
       "status": "pending-official-index",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.guhring.com/",
+      "sourceType": "Guhring Cutting Tools",
+      "indexedItemCount": 0,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
     },
     {
-      "maker": "NTK Cutting Tools",
+      "maker": "MAPAL",
       "status": "pending-official-index",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://mapal.com/en/catalogs",
+      "sourceType": "MAPAL documentation",
+      "indexedItemCount": 0,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
     },
     {
-      "maker": "ZCC Cutting Tools",
+      "maker": "Paul Horn",
       "status": "pending-official-index",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.horn-group.com/",
+      "sourceType": "HORN Cutting Tools",
+      "indexedItemCount": 0,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
     },
     {
-      "maker": "Toyo Tanso/NTK",
-      "status": "pending-official-index",
-      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      "maker": "KORLOY",
+      "status": "indexed-incrementally",
+      "completeness": "not-complete",
+      "verifiedAt": "2026-10-07T05:34:49.236Z",
+      "sourceOfficial": "https://www.korloy.com/",
+      "sourceType": "KORLOY Metal Cutting Tools",
+      "indexedItemCount": 2,
+      "rule": "Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
     }
   ]
 }
