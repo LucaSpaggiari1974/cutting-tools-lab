@@ -1,6 +1,6 @@
 {
   "version": "2.0-official-catalog-extraction",
-  "updatedAt": "2026-10-07T22:26:30.073061+00:00",
+  "updatedAt": "2026-10-07T23:24:56.232937+00:00",
   "status": "official-catalog-extraction-in-progress",
   "rule": "Importare articolo per articolo dai cataloghi ufficiali correnti. Nessun codice viene inventato; nessuna famiglia viene considerata completa finché i relativi articoli non sono stati indicizzati.",
   "policy": "Questo file è staging. Le righe estratte non diventano visibili come articoli verificati finché codice, contesto d'ordine e fonte ufficiale non sono stati normalizzati e controllati.",
