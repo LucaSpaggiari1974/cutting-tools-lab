@@ -81,7 +81,11 @@ def main():
 
     counts=Counter(x.get("category") for x in items)
     for c in ALLOWED:
-        if counts[c]==0: warnings.append(f"Categoria senza record: {c}")
+        if counts[c]==0:
+            if c in ("Foratura","Filettatura"):
+                errors.append(f"Categoria obbligatoria senza record: {c}")
+            else:
+                warnings.append(f"Categoria senza record: {c}")
     if sum(counts.get(c,0) for c in ALLOWED[:3])==0:
         errors.append("Sono sparite tutte le categorie di tornitura")
 
