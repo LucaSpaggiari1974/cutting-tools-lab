@@ -1,0 +1,47 @@
+name: Cutting Tools LAB · Architect Guardian
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy Cutting Tool Lab to Cloudflare Worker
+    types:
+      - completed
+  workflow_dispatch:
+  schedule:
+    - cron: "47 * * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cutting-tools-architect-guardian
+  cancel-in-progress: true
+
+jobs:
+  guardian:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout versione pubblicata
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Controllo architetturale indipendente
+        env:
+          PUBLIC_BASE_URL: https://cutting-tools-lab.spaggiari.workers.dev
+        run: python scripts/architect_guardian.py
+
+      - name: Pubblica report Guardian
+        if: always()
+        run: |
+          git status --short
+          if [ -f architect-guardian-report.json ]; then
+            cat architect-guardian-report.json
+          fi
