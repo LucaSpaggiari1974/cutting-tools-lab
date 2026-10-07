@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="2026.10.07.06">
+<meta name="app-version" content="2026.10.07.07">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123a5a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -226,7 +226,7 @@ const groups=[
 
 function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
 const q=document.getElementById("q"),cat=document.getElementById("cat"),mat=document.getElementById("mat"),maker=document.getElementById("maker"),rows=document.getElementById("rows");
-function fillFilters(){cat.innerHTML="<option value=\"\">Tutte le categorie</option>";mat.innerHTML="<option value=\"\">Tutti i materiali</option>";maker.innerHTML="<option value=\"\">Tutti i produttori</option>";[...new Set(data.map(x=>x.category))].forEach(x=>cat.add(new Option(x,x)));
+function fillFilters(){cat.innerHTML="<option value=\"\">Tutte le categorie</option>";mat.innerHTML="<option value=\"\">Tutti i materiali</option>";maker.innerHTML="<option value=\"\">Tutti i produttori</option>";const allowedCategories=["Fresatura","Foratura","Filettatura","Tornitura · Finitura","Tornitura · Media","Tornitura · Sgrossatura"];allowedCategories.filter(x=>data.some(r=>r.category===x)).forEach(x=>cat.add(new Option(x,x)));
 const mats=[...new Set(data.flatMap(x=>x.material.split(" · ")))].filter(x=>x&&x!=="—").sort();mats.forEach(x=>mat.add(new Option(x,x)));
 [...new Set(data.map(x=>x.maker))].sort().forEach(x=>maker.add(new Option(x,x)));
 }
