@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 """
-Daily manufacturer updater for Cutting Tools LAB.
+Conservative daily catalog verifier.
 
-Safe rules:
-- GitHub remains the source of truth for the main catalog.
-- Existing manually entered fields are preserved.
-- Product pages already referenced by the catalog are checked first.
-- Official og:image / twitter:image / JSON-LD Product images can refresh photos.
-- New products are added only when an official source exposes a clear Product
-  JSON-LD record with sku/mpn + name + image; uncertain pages are reported,
-  not invented.
-- A complete catalog snapshot is written before every run.
+This job NEVER invents or auto-adds catalog records. It:
+- validates that every record is an allowed cutting insert category;
+- removes only generic/non-insert/duplicate records that are unambiguously invalid;
+- keeps existing valid records;
+- sorts the catalog by requested category order, manufacturer and code;
+- checks official manufacturer source URLs;
+- refreshes a photo only when the exact catalog code is exposed by Product JSON-LD
+  on an already-associated official product page;
+- maintains per-manufacturer source, verification date and completeness state.
+
+New insert codes must be added only after an official source has been explicitly
+classified as an insert record. Generic Product JSON-LD pages are never enough.
 """
-import json, re, sys, hashlib, urllib.request, urllib.parse, urllib.error
+import json, re, urllib.request, urllib.parse, urllib.error
 from datetime import datetime, timezone
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -22,45 +25,44 @@ CATALOG=ROOT/"catalog.json"
 MANUFACTURERS=ROOT/"manufacturers.json"
 BACKUP=ROOT/"backups/catalog-latest.json"
 STATUS=ROOT/"update-status.json"
-UA="Cutting-Tools-LAB-Daily-Updater/1.0 (+https://cutting-tools-lab.pages.dev/)"
+UA="Cutting-Tools-LAB-Daily-Verifier/2.0 (+https://cutting-tools-lab.pages.dev/)"
+
+ALLOWED=[
+    "Tornitura · Finitura",
+    "Tornitura · Media",
+    "Tornitura · Sgrossatura",
+    "Fresatura",
+    "Foratura",
+    "Filettatura",
+]
+CATEGORY_ORDER={v:i for i,v in enumerate(ALLOWED)}
+CANONICAL={"Ingersoll Cutting Tools":"Ingersoll","Kyocera Cutting Tools":"Kyocera",
+           "NTK Cutting Tools":"NTK","ZCC Cutting Tools":"ZCC"}
 
 def now():
     return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00","Z")
 
-def get(url, timeout=18, max_bytes=900_000):
-    req=urllib.request.Request(url, headers={"User-Agent":UA,"Accept":"text/html,application/xhtml+xml,application/json,*/*"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        data=r.read(max_bytes+1)
-        if len(data)>max_bytes: data=data[:max_bytes]
-        return r.geturl(), r.headers.get("content-type",""), data
+def norm(s):
+    return re.sub(r"[^A-Z0-9]","",str(s or "").upper())
 
 def clean_url(u, base):
     if not u: return ""
-    u=urllib.parse.urljoin(base,u.strip())
+    u=urllib.parse.urljoin(base,str(u).strip())
     p=urllib.parse.urlsplit(u)
     if p.scheme not in ("http","https"): return ""
     return urllib.parse.urlunsplit((p.scheme,p.netloc,p.path,p.query,""))
 
-def html_image(html, base):
-    candidates=[]
-    for pat in [
-        r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)',
-        r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image',
-        r'<meta[^>]+name=["\']twitter:image["\'][^>]+content=["\']([^"\']+)',
-        r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+name=["\']twitter:image',
-    ]:
-        candidates += re.findall(pat, html, re.I)
-    for x in candidates:
-        u=clean_url(x,base)
-        if u: return u
-    return ""
+def get(url, timeout=20, max_bytes=1200000):
+    req=urllib.request.Request(url, headers={"User-Agent":UA,"Accept":"text/html,application/xhtml+xml,application/json,*/*"})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        data=r.read(max_bytes+1)
+        return r.geturl(),r.headers.get("content-type",""),data[:max_bytes]
 
 def jsonld_products(html, base):
     out=[]
     blocks=re.findall(r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',html,re.I|re.S)
     for raw in blocks:
-        raw=re.sub(r'<!--[\s\S]*?-->','',raw).strip()
-        try: obj=json.loads(raw)
+        try: obj=json.loads(re.sub(r'<!--|-->','',raw).strip())
         except Exception: continue
         stack=obj if isinstance(obj,list) else [obj]
         while stack:
@@ -73,11 +75,10 @@ def jsonld_products(html, base):
                 if isinstance(img,list): img=img[0] if img else ""
                 if isinstance(img,dict): img=img.get("url","")
                 out.append({
-                    "name":str(x.get("name") or "").strip(),
                     "sku":str(x.get("sku") or "").strip(),
                     "mpn":str(x.get("mpn") or "").strip(),
-                    "image":clean_url(str(img),base) if img else "",
-                    "url":clean_url(str(x.get("url") or ""),base),
+                    "name":str(x.get("name") or "").strip(),
+                    "image":clean_url(img,base) if img else "",
                 })
             for key in ("@graph","mainEntity","itemListElement"):
                 y=x.get(key)
@@ -85,140 +86,144 @@ def jsonld_products(html, base):
                 elif isinstance(y,dict): stack.append(y)
     return out
 
-def extract_products(url, maker):
+def check_url(url):
+    try:
+        final,ctype,data=get(url)
+        return {"ok":True,"url":url,"final":final,"contentType":ctype,"bytes":len(data),"error":""}
+    except Exception as e:
+        return {"ok":False,"url":url,"final":url,"contentType":"","bytes":0,"error":str(e)[:240]}
+
+def exact_product_image(url, code):
     try:
         final,ctype,data=get(url)
         html=data.decode("utf-8","ignore")
-        products=jsonld_products(html,final)
-        img=html_image(html,final)
-        return {"url":url,"maker":maker,"ok":True,"final":final,"image":img,"products":products,
-                "hash":hashlib.sha256(data).hexdigest()[:16]}
-    except Exception as e:
-        return {"url":url,"maker":maker,"ok":False,"error":str(e)[:240],"products":[],"image":""}
-
-def same_code(a,b):
-    def norm(s): return re.sub(r"[^A-Z0-9]","",str(s).upper())
-    return norm(a)==norm(b) and bool(norm(a))
+        for p in jsonld_products(html,final):
+            if norm(p["sku"])==norm(code) or norm(p["mpn"])==norm(code):
+                image=p.get("image","")
+                if image and not re.search(r"(logo|brand|hero|catcover)",image,re.I):
+                    return image
+    except Exception:
+        pass
+    return ""
 
 def main():
     started=now()
     catalog=json.loads(CATALOG.read_text(encoding="utf-8"))
     manufacturers=json.loads(MANUFACTURERS.read_text(encoding="utf-8"))
-    items=catalog.get("items",[])
     old=json.dumps(catalog,ensure_ascii=False,sort_keys=True)
-
     BACKUP.parent.mkdir(parents=True,exist_ok=True)
-    BACKUP.write_text(json.dumps(catalog,ensure_ascii=False,indent=2),encoding="utf-8")
+    BACKUP.write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 
-    # Check every existing product URL, but in parallel.
-    jobs=[]
+    # Remove only unambiguous generic/non-insert records and exact duplicates.
+    before=len(catalog.get("items",[]))
+    removed=[]
+    items=[]
+    seen=set()
+    for x in catalog.get("items",[]):
+        if x.get("maker")=="ISO" or x.get("category") not in ALLOWED or not x.get("code"):
+            removed.append({"maker":x.get("maker"),"code":x.get("code"),"reason":"generic/non-insert"})
+            continue
+        key=norm(x.get("maker"))+"|"+norm(x.get("code"))
+        if key in seen:
+            removed.append({"maker":x.get("maker"),"code":x.get("code"),"reason":"duplicate"})
+            continue
+        seen.add(key)
+        # Never expose a generic manufacturer cover/logo as an insert photo.
+        if x.get("photoSource")=="manufacturer" and re.search(r"(catcover|logo|brand|hero)",str(x.get("photoUrl") or ""),re.I):
+            x.pop("photoUrl",None); x.pop("photoSource",None)
+            x.pop("photoUpdatedAt",None); x.pop("photoVerifiedAt",None)
+            x["photoStatus"]="unavailable"
+            x["photoNote"]="Foto ufficiale del codice esatto non verificata; nessuna immagine generica usata."
+        items.append(x)
+
+    items.sort(key=lambda x:(CATEGORY_ORDER.get(x.get("category"),99),str(x.get("maker","")).casefold(),norm(x.get("code"))))
+    catalog["items"]=items
+
+    # Official manufacturer source audit. This is verification, not auto-indexing.
+    source_jobs=[]
+    for g in manufacturers.get("groups",[]):
+        if g.get("name")=="ISO": continue
+        u=g.get("catalog")
+        if u: source_jobs.append((g.get("name",""),u))
+    source_results={}
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        futures={ex.submit(check_url,u):(name,u) for name,u in source_jobs}
+        for f in as_completed(futures):
+            name,u=futures[f]
+            try: source_results[name]=f.result()
+            except Exception as e: source_results[name]={"ok":False,"url":u,"error":str(e)[:240]}
+
+    # Exact-page photo refresh only. Never replace a reference image with a generic page image.
+    photo_updates=0
+    photo_jobs=[]
     for i,x in enumerate(items):
         u=x.get("productUrl")
         if u and u.startswith(("http://","https://")):
-            jobs.append((i,u,x.get("maker","")))
-    results=[]
-    with ThreadPoolExecutor(max_workers=12) as ex:
-        futs=[ex.submit(extract_products,u,m) for _,u,m in jobs]
-        for (i,u,m),f in zip(jobs,futs):
-            try: results.append((i,f.result()))
-            except Exception as e: results.append((i,{"ok":False,"error":str(e)}))
+            photo_jobs.append((i,u,x.get("code","")))
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        futures={ex.submit(exact_product_image,u,code):(i,code) for i,u,code in photo_jobs}
+        for f in as_completed(futures):
+            i,code=futures[f]
+            try: image=f.result()
+            except Exception: image=""
+            if image and image != items[i].get("photoUrl"):
+                items[i]["photoUrl"]=image
+                items[i]["photoSource"]="manufacturer"
+                items[i]["photoStatus"]="available"
+                items[i]["photoNote"]="Foto reale del codice esatto rilevata dalla scheda ufficiale."
+                items[i]["photoUpdatedAt"]=started
+                photo_updates+=1
 
-    photos_changed=0
-    page_checked=0
-    failed=0
-    for i,r in results:
-        x=items[i]
-        if not r.get("ok"):
-            failed+=1; continue
-        page_checked+=1
-        products=r.get("products") or []
-        image=r.get("image") or ""
-        matched=None
-        for p in products:
-            if same_code(p.get("sku"),x.get("code")) or same_code(p.get("mpn"),x.get("code")):
-                matched=p; break
-        candidate=(matched or {}).get("image") or image
-        if candidate and candidate != x.get("photoUrl"):
-            # Only trust images discovered on the same official product page
-            # already stored in the catalog.
-            x["photoUrl"]=candidate
-            x["photoSource"]="manufacturer"
-            x["photoNote"]="Foto ufficiale rilevata automaticamente dalla scheda prodotto."
-            x.pop("photoWarning",None)
-            x["photoUpdatedAt"]=started
-            photos_changed+=1
+    counts={}
+    for x in items: counts[x["maker"]]=counts.get(x["maker"],0)+1
 
-    # Monitor the official manufacturer source pages. We do not fabricate
-    # catalog rows from generic catalog pages; JSON-LD Product rows are eligible
-    # only when they contain a clear code and image.
-    source_results=[]
-    for m in manufacturers.get("groups",[]):
-        u=m.get("catalog")
-        if not u: continue
-        r=extract_products(u,m.get("name",""))
-        source_results.append(r)
+    registry=[]
+    for g in manufacturers.get("groups",[]):
+        if g.get("name")=="ISO": continue
+        maker=CANONICAL.get(g.get("name"),g.get("name"))
+        src=source_results.get(g.get("name"),{})
+        registry.append({
+            "maker":maker,
+            "status":"indexed-incrementally" if counts.get(maker,0) else "pending-official-index",
+            "completeness":"not-complete",
+            "verifiedAt":started,
+            "sourceOfficial":g.get("catalog") or None,
+            "sourceType":g.get("catalogLabel") or "official manufacturer source",
+            "sourceReachable":bool(src.get("ok")),
+            "sourceCheckedUrl":src.get("final") or src.get("url") or g.get("catalog") or None,
+            "indexedItemCount":counts.get(maker,0),
+            "rule":"Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
+        })
 
-    discovered=[]
-    existing_codes=[x.get("code","") for x in items]
-    for r in source_results:
-        for p in r.get("products",[]):
-            code=p.get("sku") or p.get("mpn")
-            if not code or not p.get("name") or not p.get("image"): continue
-            if any(same_code(code,c) for c in existing_codes): continue
-            # Conservative auto-add: code must look like a machining product
-            # code (letters/numbers, at least 5 chars). No invented cutting data.
-            norm=re.sub(r"[^A-Z0-9]","",code.upper())
-            if len(norm)<5: continue
-            discovered.append({
-                "category":"Nuovo prodotto · da catalogo ufficiale",
-                "code":code,
-                "geom":p.get("name",""),
-                "material":"da catalogo produttore",
-                "vc":"da catalogo produttore",
-                "f":"da catalogo produttore",
-                "ap":"da catalogo produttore",
-                "maker":r.get("maker",""),
-                "photoUrl":p.get("image"),
-                "photoSource":"manufacturer",
-                "photoNote":"Nuovo prodotto rilevato automaticamente da dati Product ufficiali; parametri da verificare nel catalogo.",
-                "productUrl":p.get("url") or r.get("final") or r.get("url"),
-                "autoDiscoveredAt":started
-            })
-    # De-duplicate discoveries by normalized code.
-    seen=set()
-    for x in discovered:
-        k=re.sub(r"[^A-Z0-9]","",x["code"].upper())
-        if k in seen: continue
-        seen.add(k); items.append(x)
-    new_count=len(seen)
+    catalog["version"]="3.5-insert-only-pipeline-hardened"
+    catalog["updatedAt"]=started
+    catalog["coverage"]["itemCount"]=len(items)
+    catalog["coverage"]["lastRun"]=started
+    catalog["coverage"]["manufacturerRegistry"]=registry
+    catalog["manufacturerRegistry"]=registry
 
-    catalog["items"]=items
-    old_items=json.loads(old).get("items",[])
-    items_changed=(items!=old_items)
-    if items_changed:
-        catalog["updatedAt"]=started
-        if not str(catalog.get("version","")).endswith("-auto"):
-            catalog["version"]=str(catalog.get("version","2.5"))+"-auto"
     new=json.dumps(catalog,ensure_ascii=False,sort_keys=True)
     changed=(new!=old)
+    if changed:
+        CATALOG.write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 
     status={
         "updatedAt":started,
         "run":"daily",
         "changed":changed,
-        "pagesChecked":page_checked,
-        "pagesFailed":failed,
-        "photosUpdated":photos_changed,
-        "newProducts":new_count,
         "catalogItems":len(items),
-        "backup":"backups/catalog-latest.json",
+        "removedInvalidOrDuplicate":len(removed),
+        "removedDetails":removed[:100],
+        "photosUpdated":photo_updates,
         "sourcesChecked":len(source_results),
-        "note":"Gli aggiornamenti automatici usano solo dati rilevati da pagine/cataloghi ufficiali. Parametri di taglio non verificati non vengono inventati.",
-        "errors":[r.get("error","") for r in source_results if not r.get("ok")][:20]
+        "sourcesReachable":sum(1 for x in source_results.values() if x.get("ok")),
+        "sourcesFailed":sum(1 for x in source_results.values() if not x.get("ok")),
+        "newProducts":0,
+        "autoIndexing":"disabled-by-policy",
+        "note":"Il job non aggiunge mai automaticamente Product JSON-LD non classificati: nuovi codici devono essere verificati come inserti da fonte ufficiale prima dell'indicizzazione.",
+        "backup":"backups/catalog-latest.json",
+        "errors":[{"maker":k,"error":v.get("error","")} for k,v in source_results.items() if not v.get("ok")][:30]
     }
-
-    if changed:
-        CATALOG.write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     STATUS.write_text(json.dumps(status,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(status,ensure_ascii=False))
 
