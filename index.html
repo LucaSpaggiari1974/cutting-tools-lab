@@ -849,74 +849,7 @@ document.addEventListener("click",handleInsertPreviewButton);
   setInterval(window.forceFormulaCalculations,500);
 })();
 
-  const tbody = document.querySelector('tbody');
-  if (!tbody || typeof data === 'undefined' || typeof select !== 'function' || typeof openTool !== 'function') {
-    return;
-  }
 
-  let lastPreviewOpen = 0;
-
-  function getToolFromTouch(target) {
-    const row = target && target.closest ? target.closest('tr.data[data-i]') : null;
-    if (!row) return null;
-
-    const index = Number(row.dataset.i);
-    return Number.isInteger(index) ? data[index] || null : null;
-  }
-
-  function openToolPreview(target) {
-    const tool = getToolFromTouch(target);
-    if (!tool) return false;
-
-    try {
-      select(tool);
-
-      if (typeof isInsertRecord === 'function' && isInsertRecord(tool)) {
-        if (typeof openInsertPreview === 'function') {
-          openInsertPreview(tool);
-        } else {
-          openTool(tool);
-        }
-      } else {
-        openTool(tool);
-      }
-
-      return true;
-    } catch (error) {
-      console.error('Errore apertura anteprima utensile', error);
-      return false;
-    }
-  }
-
-  tbody.addEventListener(
-    'pointerup',
-    function (event) {
-      if (event.pointerType === 'mouse' && !event.target.closest('.code')) {
-        return;
-      }
-
-      if (openToolPreview(event.target)) {
-        lastPreviewOpen = Date.now();
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    },
-    true
-  );
-
-  tbody.addEventListener(
-    'click',
-    function (event) {
-      if (Date.now() - lastPreviewOpen < 700) return;
-
-      if (openToolPreview(event.target)) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    },
-    true
-  );
-})();
 
 </script>
 
