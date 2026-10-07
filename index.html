@@ -39,8 +39,8 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 @media(max-width:760px){main{padding:8px}header{border-radius:12px}.searchgrid{grid-template-columns:1fr 1fr}.formula{grid-template-columns:1fr 1fr}.formula button{grid-column:1/-1;width:100%}.tablewrap{max-height:66vh}.drawingbox{grid-template-columns:1fr}h1{font-size:21px}.appbar{position:sticky;bottom:0;z-index:10;flex-wrap:wrap}.appbar span{flex-basis:100%}.appbar button{flex:1}.toolbar{top:0}} @media(min-width:1200px){main{max-width:1500px}.sheet{min-height:80vh}.tablewrap{max-height:68vh}table{min-width:1250px}.formula{grid-template-columns:1.7fr 1fr 1fr 1fr 1fr auto}}
 
 /* Windows hover preview: anteprima reale dell'inserto al passaggio del mouse */
-.hoverInsertPreview{position:fixed;z-index:10000;pointer-events:none;width:300px;background:#fff;border:2px solid #123a5a;border-radius:12px;padding:8px;box-shadow:0 12px 35px #0004;display:none}
-.hoverInsertPreview img{display:block;width:100%;height:220px;object-fit:contain;background:#f8fbfd;border-radius:8px}
+.hoverInsertPreview{position:fixed;z-index:2147483647;pointer-events:none;width:320px;background:#fff;border:2px solid #123a5a;border-radius:12px;padding:8px;box-shadow:0 12px 35px #0004;display:none}
+.hoverInsertPreview img{display:block;width:100%;height:235px;object-fit:contain;background:#f8fbfd;border-radius:8px}
 .hoverInsertPreview .hoverTitle{font-weight:800;color:#123a5a;font-size:13px;margin-top:6px}
 .hoverInsertPreview .hoverStatus{font-size:11px;color:#607487;margin-top:3px}
 @media(max-width:760px){.hoverInsertPreview{display:none!important}}
@@ -693,6 +693,7 @@ function hoverCandidates(x){
 function hideHoverInsertPreview(){if(hoverHideTimer)clearTimeout(hoverHideTimer);if(hoverInsertPreview)hoverInsertPreview.style.display="none";}
 function showHoverInsertPreview(x,e){
  if(!x||!isInsertRecord(x)||!e||e.pointerType==='touch')return;
+ if(!document.body.contains(hoverInsertPreview))hoverInsertPreview=null;
  if(!hoverInsertPreview){
    hoverInsertPreview=document.createElement('div');hoverInsertPreview.className='hoverInsertPreview';
    hoverInsertPreview.innerHTML='<img alt=""><div class="hoverTitle"></div><div class="hoverStatus">Caricamento foto reale…</div>';
