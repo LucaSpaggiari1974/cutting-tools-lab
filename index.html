@@ -244,6 +244,8 @@ function render(){
  document.getElementById("status").textContent=a.length+" righe · tocca una riga per caricare i dati nella barra dei parametri";
  rows.querySelectorAll("tr.data").forEach(tr=>{
  const openRow=()=>{const x=data[+tr.dataset.i];if(!x)return;select(x);if(isInsertRecord(x))openInsertPreview(x);else openTool(x)};
+ tr.onpointerenter=e=>{if(e.pointerType==="mouse"){const x=data[+tr.dataset.i];if(isInsertRecord(x))showHoverInsertPreview(x,e)}};
+ tr.onpointerleave=e=>{if(e.pointerType==="mouse")hideHoverInsertPreview()};
  tr.onclick=openRow;
  tr.addEventListener("pointerdown",e=>{if(e.pointerType==="touch"){e.preventDefault();e.stopPropagation();openRow()}},{passive:false});
  const code=tr.querySelector(".code");
