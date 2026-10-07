@@ -47,11 +47,14 @@ jobs:
       - name: Estrazione cataloghi ufficiali correnti
         run: python scripts/official_catalog_ingest.py
 
+      - name: Promozione codici ufficiali verificabili
+        run: python scripts/promote_official_catalog.py
+
       - name: Commit e push
         run: |
           git config user.name "Cutting Tools LAB Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add catalog.json update-status.json complete-tools.json official-catalog-extracted.json backups/catalog-latest.json backups/catalog-before-update.json backups/complete-tools-before-update.json
+          git add catalog.json update-status.json complete-tools.json official-catalog-extracted.json official-catalog-promotion-report.json backups/catalog-latest.json backups/catalog-before-update.json backups/complete-tools-before-update.json
           if git diff --cached --quiet; then
             echo "Nessuna modifica."
           else
