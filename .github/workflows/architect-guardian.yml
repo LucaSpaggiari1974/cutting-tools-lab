@@ -4,6 +4,7 @@ on:
   workflow_run:
     workflows:
       - Deploy Cutting Tool Lab to Cloudflare Worker
+      - Cutting Tools LAB · aggiornamento continuo 24/7
     types:
       - completed
   workflow_dispatch:
