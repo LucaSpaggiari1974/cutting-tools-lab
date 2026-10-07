@@ -35,7 +35,7 @@ jobs:
         run: |
           git fetch origin main
           git checkout -B main origin/main
-          SNAPSHOT="backup-$(date -u +%Y%m%d-%H%M%S)"
+          SNAPSHOT="backup-$(date -u +%Y%m%d-%H%M%S)-${GITHUB_RUN_ID}"
           git tag "$SNAPSHOT" origin/main
           git push origin "$SNAPSHOT"
 
