@@ -1005,7 +1005,7 @@ const grindingEvidence=[
   setTimeout(renderGrindingExtension,50);
 })();
 </script>
-
+<script>
 /* APP UPDATE WATCHER: detects every published app change independently of manual data refresh. */
 (function(){
   const meta=document.querySelector('meta[name="app-version"]');
@@ -1036,4 +1036,5 @@ const grindingEvidence=[
   setInterval(checkPublishedVersion,15000);
   document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")setTimeout(checkPublishedVersion,300)});
 })();
+</script>
 </body></html>
