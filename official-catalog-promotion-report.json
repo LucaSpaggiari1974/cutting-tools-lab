@@ -1,14 +1,314 @@
 {
-  "updatedAt": "2026-10-07T16:32:10Z",
+  "updatedAt": "2026-10-07T16:49:59Z",
   "stagingItems": 2613,
-  "promoted": 0,
-  "duplicates": 1309,
-  "skipped": 1304,
-  "catalogItemsAfter": 1365,
+  "promoted": 1285,
+  "duplicates": 1312,
+  "skipped": 16,
+  "catalogItemsAfter": 2650,
   "policy": "Solo codici forti provenienti da scope inserts ufficiale; ambigui mantenuti in staging.",
-  "promotedSample": [],
+  "promotedSample": [
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X1003L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X1003L-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X1003R-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X1003R-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X101L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X101L-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X101R-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X101R-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X102L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X102L-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X102R-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X102R-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X104L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X104L-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X104R-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X104R-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 66
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003L-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003R-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003R-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101L-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101R-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101R-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102L-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102R-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102R-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X104L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X104L-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X104R-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X104R-FYS",
+      "category": "Tornitura · Media",
+      "sourcePage": 67
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602003L-FX",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602003L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602003R-FX",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602003R-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602008L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602008R-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602018L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602018R-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060201L-FX",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060201L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060201R-FX",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060201R-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060202L-FX",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060202L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060202R-FX",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060202R-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060204L-FX",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060204L-FY",
+      "category": "Tornitura · Media",
+      "sourcePage": 68
+    }
+  ],
   "skippedReasons": {
-    "category-ambiguous": 1288,
     "non-insert-scope": 16
   }
 }
