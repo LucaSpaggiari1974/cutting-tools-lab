@@ -1,6 +1,6 @@
 {
-  "version": "2.9-real-photo-preview",
-  "updatedAt": "2026-10-07T04:28:51.901Z",
+  "version": "2.9-real-photo-preview-cnmg",
+  "updatedAt": "2026-10-07T04:39:46.305Z",
   "source": "Cataloghi ufficiali + foto reali; quando manca la foto esatta del codice viene mostrata una foto reale rappresentativa della stessa geometria/famiglia.",
   "items": [
     {
@@ -12,9 +12,9 @@
       "f": "0,35–0,70",
       "ap": "3–7",
       "maker": "ISCAR",
-      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
+      "photoUrl": "https://assets.hoffmann-group.com/7/5/6/7/75679996-e7b8-4f31-af42-957a2342ea37/jpg_600_b250158_hb7010-2.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale di riferimento della stessa famiglia/geometria; il codice esatto non è stato verificato.",
+      "photoNote": "Foto reale GARANT/Hoffmann di un CNMG 120408; stessa geometria ISO CNMG, usata esclusivamente come riferimento fotografico esemplificativo e non come foto originale ISCAR.",
       "productUrl": "https://webshop.iscar.in/catalogue/product/1907633",
       "drawingUrl": "https://webshop.iscar.in/catalogue/product/1907633",
       "photoStatus": "reference"
@@ -28,9 +28,9 @@
       "f": "0,15–0,45",
       "ap": "0,7–4,5",
       "maker": "ISCAR",
-      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
+      "photoUrl": "https://assets.hoffmann-group.com/7/5/6/7/75679996-e7b8-4f31-af42-957a2342ea37/jpg_600_b250158_hb7010-2.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale di riferimento della stessa famiglia/geometria; il codice esatto non è stato verificato.",
+      "photoNote": "Foto reale GARANT/Hoffmann di un CNMG 120408; stessa geometria ISO CNMG, usata esclusivamente come riferimento fotografico esemplificativo e non come foto originale ISCAR.",
       "drawingUrl": "https://webshop.iscar.de/catalogue/product/1907077",
       "photoStatus": "reference"
     },
@@ -43,9 +43,9 @@
       "f": "0,08–0,20",
       "ap": "0,3–1,5",
       "maker": "ISCAR",
-      "photoUrl": "https://www.insertcarbide.com/photo/pt197049087-discount_cnmg120412_cnmg120408_cnmg120404_cnmg_cnmg431_cnmg432_carbide_cnc_cutting_turning_insert.jpg",
+      "photoUrl": "https://assets.hoffmann-group.com/7/5/6/7/75679996-e7b8-4f31-af42-957a2342ea37/jpg_600_b250158_hb7010-2.jpg",
       "photoSource": "real-reference",
-      "photoNote": "Foto reale di riferimento della stessa famiglia/geometria; il codice esatto non è stato verificato.",
+      "photoNote": "Foto reale GARANT/Hoffmann di un CNMG 120408; stessa geometria ISO CNMG, usata esclusivamente come riferimento fotografico esemplificativo e non come foto originale ISCAR.",
       "productUrl": "https://webshop.iscar.de/catalogue/product/1907631",
       "drawingUrl": "https://webshop.iscar.de/catalogue/product/1907631",
       "photoStatus": "reference"
