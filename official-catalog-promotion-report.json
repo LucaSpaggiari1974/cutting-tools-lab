@@ -1,12 +1,313 @@
 {
-  "updatedAt": "2026-10-07T18:34:32Z",
-  "stagingItems": 2752,
-  "promoted": 0,
-  "duplicates": 2736,
+  "updatedAt": "2026-10-07T19:33:23Z",
+  "stagingItems": 8474,
+  "promoted": 5631,
+  "duplicates": 2827,
   "skipped": 16,
-  "catalogItemsAfter": 2785,
+  "catalogItemsAfter": 8416,
   "policy": "Solo codici forti provenienti da scope inserts ufficiale; ambigui mantenuti in staging.",
-  "promotedSample": [],
+  "promotedSample": [
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DAL 0500H",
+      "category": "Foratura",
+      "sourcePage": 136
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DAL 0601H",
+      "category": "Foratura",
+      "sourcePage": 136
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DAL 0701H",
+      "category": "Foratura",
+      "sourcePage": 136
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DAL 0801H",
+      "category": "Foratura",
+      "sourcePage": 136
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DAL 0901H",
+      "category": "Foratura",
+      "sourcePage": 136
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DAL 1001H",
+      "category": "Foratura",
+      "sourcePage": 136
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DAL 1101H",
+      "category": "Foratura",
+      "sourcePage": 136
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DW 0570HX3",
+      "category": "Foratura",
+      "sourcePage": 105
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DW 0850HX5",
+      "category": "Foratura",
+      "sourcePage": 105
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DW 1020HY3",
+      "category": "Foratura",
+      "sourcePage": 112
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DW 1200HX3",
+      "category": "Foratura",
+      "sourcePage": 105
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DW 1250HY3",
+      "category": "Foratura",
+      "sourcePage": 112
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DW 1850HX5",
+      "category": "Foratura",
+      "sourcePage": 105
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 155D2S20-05",
+      "category": "Foratura",
+      "sourcePage": 176
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 155D3S20-05",
+      "category": "Foratura",
+      "sourcePage": 178
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 155D4S20-05",
+      "category": "Foratura",
+      "sourcePage": 180
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 155D5S20-05",
+      "category": "Foratura",
+      "sourcePage": 182
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 155D6S20-05",
+      "category": "Foratura",
+      "sourcePage": 184
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 155D7S20-05",
+      "category": "Foratura",
+      "sourcePage": 186
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 160D2S20-05",
+      "category": "Foratura",
+      "sourcePage": 176
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 160D3S20-05",
+      "category": "Foratura",
+      "sourcePage": 178
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 160D4S20-05",
+      "category": "Foratura",
+      "sourcePage": 180
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 160D5S20-05",
+      "category": "Foratura",
+      "sourcePage": 182
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 160D6S20-05",
+      "category": "Foratura",
+      "sourcePage": 184
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 160D7S20-05",
+      "category": "Foratura",
+      "sourcePage": 186
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 165D2S20-05",
+      "category": "Foratura",
+      "sourcePage": 176
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 165D3S20-05",
+      "category": "Foratura",
+      "sourcePage": 178
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 165D4S20-05",
+      "category": "Foratura",
+      "sourcePage": 180
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 165D5S20-05",
+      "category": "Foratura",
+      "sourcePage": 182
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 165D6S20-05",
+      "category": "Foratura",
+      "sourcePage": 184
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 165D7S20-05",
+      "category": "Foratura",
+      "sourcePage": 186
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 170D2S20-05",
+      "category": "Foratura",
+      "sourcePage": 176
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 170D3S20-05",
+      "category": "Foratura",
+      "sourcePage": 178
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 170D4S20-05",
+      "category": "Foratura",
+      "sourcePage": 180
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 170D5S20-05",
+      "category": "Foratura",
+      "sourcePage": 182
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 170D6S20-05",
+      "category": "Foratura",
+      "sourcePage": 184
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 170D7S20-05",
+      "category": "Foratura",
+      "sourcePage": 186
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 175D2S25-05",
+      "category": "Foratura",
+      "sourcePage": 176
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 175D3S25-05",
+      "category": "Foratura",
+      "sourcePage": 178
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 175D4S25-05",
+      "category": "Foratura",
+      "sourcePage": 180
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 175D5S25-05",
+      "category": "Foratura",
+      "sourcePage": 182
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 175D6S25-05",
+      "category": "Foratura",
+      "sourcePage": 184
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 175D7S25-05",
+      "category": "Foratura",
+      "sourcePage": 186
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 180D2S25-05",
+      "category": "Foratura",
+      "sourcePage": 176
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 180D3S25-05",
+      "category": "Foratura",
+      "sourcePage": 178
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 180D4S25-05",
+      "category": "Foratura",
+      "sourcePage": 180
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 180D5S25-05",
+      "category": "Foratura",
+      "sourcePage": 182
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 180D6S25-05",
+      "category": "Foratura",
+      "sourcePage": 184
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 180D7S25-05",
+      "category": "Foratura",
+      "sourcePage": 186
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "GDXH 185D2S25-06",
+      "category": "Foratura",
+      "sourcePage": 176
+    }
+  ],
   "skippedReasons": {
     "non-insert-scope": 16
   }
