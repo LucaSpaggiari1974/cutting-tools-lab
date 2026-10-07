@@ -1,6 +1,6 @@
 {
-  "version": "3.2-global-manufacturer-catalog-auto",
-  "updatedAt": "2026-10-07T05:30:16Z",
+  "version": "3.3-insert-only-global-expansion",
+  "updatedAt": "2026-10-07T05:31:43.256Z",
   "source": "Catalogo globale di inserti indicizzati per produttore; ogni produttore deve essere indicizzato a partire dalle fonti ufficiali più aggiornate e verificato senza inventare codici.",
   "items": [
     {
@@ -6414,11 +6414,8 @@
       "ap": "1–5",
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/product/turning/t505/",
-      "photoUpdatedAt": "2026-10-07T05:30:16Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "reference",
-      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/product_logo_t505.png",
-      "photoSource": "manufacturer"
+      "photoNote": "Immagine generica/logo rimossa: nessuna foto reale verificata del codice esatto disponibile.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Foratura",
@@ -6774,6 +6771,190 @@
       "status": "incremental-verification-in-progress",
       "lastVerification": "2026-10-07T05:07:43.181Z"
     },
-    "manufacturerCatalogRule": "Ogni maker deve avere il proprio catalogo completo degli inserti verificati da e-catalog/cataloghi ufficiali; lo stato di completezza va tracciato per produttore e non dichiarato completo senza verifica."
-  }
+    "manufacturerCatalogRule": "Ogni maker deve avere il proprio catalogo completo degli inserti verificati da e-catalog/cataloghi ufficiali; lo stato di completezza va tracciato per produttore e non dichiarato completo senza verifica.",
+    "manufacturerRegistry": [
+      {
+        "maker": "ISCAR",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "Sandvik Coromant",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "Walter",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "Kennametal",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "Seco Tools",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "Tungaloy",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "Mitsubishi Materials",
+        "status": "pending-official-index",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "Kyocera",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "Sumitomo Electric Hardmetal",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "KORLOY",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "TaeguTec",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "Ingersoll",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "Ceratizit",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "Dormer Pramet",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "Guhring",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "NTK Cutting Tools",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "ZCC Cutting Tools",
+        "status": "indexed-incrementally",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      },
+      {
+        "maker": "Toyo Tanso/NTK",
+        "status": "pending-official-index",
+        "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+      }
+    ]
+  },
+  "manufacturerRegistry": [
+    {
+      "maker": "ISCAR",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "Sandvik Coromant",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "Walter",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "Kennametal",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "Seco Tools",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "Tungaloy",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "Mitsubishi Materials",
+      "status": "pending-official-index",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "Kyocera",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "KORLOY",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "TaeguTec",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "Ingersoll",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "Ceratizit",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "Dormer Pramet",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "Guhring",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "NTK Cutting Tools",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "ZCC Cutting Tools",
+      "status": "indexed-incrementally",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    },
+    {
+      "maker": "Toyo Tanso/NTK",
+      "status": "pending-official-index",
+      "rule": "Solo codici inserto verificati da fonte ufficiale; nessun utensile completo o famiglia generica."
+    }
+  ]
 }
