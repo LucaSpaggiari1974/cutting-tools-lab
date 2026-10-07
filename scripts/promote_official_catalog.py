@@ -77,9 +77,12 @@ def classify(code, context, source_category=""):
 def strong_insert_code(code):
     c = clean_code(code).upper()
     # ISO-like insert: shape + 5-11 alphanumeric body, optionally chipbreaker suffix.
-    if not re.fullmatch(r"[A-Z]{2,5} [0-9][0-9A-Z]{4,10}(?:-[0-9A-Z]{1,10})?", c):
-        if not re.fullmatch(r"[A-Z]{2,5}[0-9][0-9A-Z]{4,10}(?:-[0-9A-Z]{1,10})?", c):
-            return False
+    iso_ok = bool(re.fullmatch(r"[A-Z]{2,5} [0-9][0-9A-Z]{4,10}(?:-[0-9A-Z]{1,10})?", c) or
+                  re.fullmatch(r"[A-Z]{2,5}[0-9][0-9A-Z]{4,10}(?:-[0-9A-Z]{1,10})?", c))
+    # Threading catalogs often use order codes such as 16ER A60-CB.
+    thread_ok = bool(re.fullmatch(r"(?:06|08|11|16|22|27|32|L?16)[EI]R?\s+[A-Z0-9]{2,8}(?:-[A-Z0-9]{1,10})?", c))
+    if not (iso_ok or thread_ok):
+        return False
     # Reject obvious grade/material labels.
     if c in {"SUMIBORON","SUMIDIA","SUMICRYSTAL"} or re.fullmatch(r"[A-Z]{1,5}[0-9]{2,6}[A-Z]?", c):
         return False
