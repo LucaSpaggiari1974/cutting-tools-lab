@@ -38,6 +38,7 @@ export default {
         "c.cdnmp.net",
         "images.nexusapp.co",
         "cdn.hoffmann-group.com",
+        "assets.hoffmann-group.com",
         "image.made-in-china.com",
         "img1.ecerimg.com",
         "cdn.hoffmann-group.com",
