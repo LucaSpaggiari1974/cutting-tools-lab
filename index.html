@@ -704,12 +704,15 @@ function showHoverInsertPreview(x,e){
  const left=Math.min(e.clientX+18,window.innerWidth-318),top=Math.min(e.clientY+18,window.innerHeight-290);
  hoverInsertPreview.style.left=Math.max(8,left)+'px';hoverInsertPreview.style.top=Math.max(8,top)+'px';
 }
-document.addEventListener('mouseover',function(e){
+document.addEventListener('pointerover',function(e){
+ if(e.pointerType&&e.pointerType!=='mouse')return;
  const tr=e.target.closest&&e.target.closest('tr.data');if(!tr)return;
  if(e.relatedTarget&&tr.contains(e.relatedTarget))return;
- const x=data[+tr.dataset.i];if(isInsertRecord(x))showHoverInsertPreview(x,e);
+ const x=data[+tr.dataset.i];
+ if(isInsertRecord(x))showHoverInsertPreview(x,e);
 });
-document.addEventListener('mouseout',function(e){
+document.addEventListener('pointerout',function(e){
+ if(e.pointerType&&e.pointerType!=='mouse')return;
  const tr=e.target.closest&&e.target.closest('tr.data');if(!tr)return;
  if(e.relatedTarget&&tr.contains(e.relatedTarget))return;
  hoverHideTimer=setTimeout(hideHoverInsertPreview,80);
