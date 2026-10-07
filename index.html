@@ -243,9 +243,14 @@ function render(){
  rows.innerHTML=a.map((x,i)=>'<tr class="data" data-i="'+data.indexOf(x)+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code">'+esc(x.code)+'</td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>').join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
  document.getElementById("status").textContent=a.length+" righe · tocca una riga per caricare i dati nella barra dei parametri";
  rows.querySelectorAll("tr.data").forEach(tr=>{
- tr.onclick=()=>{const x=data[+tr.dataset.i];select(x);if(isInsertRecord(x))openInsertPreview(x);else openTool(x)};
+ const openRow=()=>{const x=data[+tr.dataset.i];if(!x)return;select(x);if(isInsertRecord(x))openInsertPreview(x);else openTool(x)};
+ tr.onclick=openRow;
+ tr.addEventListener("pointerdown",e=>{if(e.pointerType==="touch"){e.preventDefault();e.stopPropagation();openRow()}},{passive:false});
  const code=tr.querySelector(".code");
- if(code)code.onclick=e=>{e.stopPropagation();const x=data[+tr.dataset.i];if(isInsertRecord(x))openInsertPreview(x);else openTool(x)};
+ if(code){
+   code.onclick=e=>{e.stopPropagation();openRow()};
+   code.addEventListener("pointerdown",e=>{if(e.pointerType==="touch"){e.preventDefault();e.stopPropagation();openRow()}},{passive:false});
+ }
 });
 }
 function select(x){selected=x;document.getElementById("fc").textContent=x.code;document.getElementById("fm").textContent=x.material;document.getElementById("fv").textContent=x.vc;document.getElementById("ff").textContent=x.f;document.getElementById("fa").textContent=x.ap}
@@ -369,9 +374,9 @@ let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDe
 document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
 const photoMap={
-CNMG:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale CNMG · riferimento ufficiale stabile"],
+CNMG:["https://i.ebayimg.com/images/g/SmEAAOSwS4Fmq-yi/s-l1600.jpg","Foto reale CNMG · riferimento fotografico stabile"],
 ISCAR_CNMG:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale CNMG generica · riferimento geometrico compatibile · non specifica ISCAR"],
-INGERSOLL_CNMG:["https://i.ebayimg.com/images/g/VvYAAOSwW8VnEDOL/s-l1600.jpg","Foto reale Ingersoll CNMG · famiglia ufficiale"],
+INGERSOLL_CNMG:["https://i.ebayimg.com/images/g/Aj4AAOSwnFJfunQU/s-l1200.jpg","Foto reale Ingersoll CNMG120408RT · riferimento di famiglia"],
 DNMG:["https://cdn.hoffmann-group.com/derivatives/41979/jpg_1200/jpg_1200_b250754_hb7010-1.jpg","Foto reale DNMG"],
 SNMG:["https://i.ebayimg.com/images/g/yGEAAeSw~J5ogEPZ/s-l400.jpg","Foto reale SNMG"],
 WNMG:["https://image.made-in-china.com/2f0j00ijokScJGMBqpG/Grewin-CNC-Lathe-Tools-Tungsten-Carbide-Turning-Inserts-Solid-Carbide-Wnmg-080408-for-Aluminium-Steel-Stainless-Steel.webp","Foto reale WNMG"],
@@ -739,13 +744,16 @@ function openInsertPreview(x){
  toolModal.hidden=false;
 }
 
-document.addEventListener("click",function(e){
+function handleInsertPreviewButton(e){
  const b=e.target.closest && e.target.closest(".previewButton");
  if(!b)return;
  const code=b.dataset.previewCode;
  const x=data.find(v=>v.code===code);
- if(x){e.preventDefault();e.stopPropagation();openInsertPreview(x);}
-});
+ if(!x)return;
+ e.preventDefault();e.stopPropagation();openInsertPreview(x);
+}
+document.addEventListener("pointerdown",function(e){if(e.pointerType==="touch")handleInsertPreviewButton(e)},{passive:false});
+document.addEventListener("click",handleInsertPreviewButton);
 </script>
 <script>
 /* Formule: una sola voce principale, poi l'utente sceglie quale lavorazione aprire. */
