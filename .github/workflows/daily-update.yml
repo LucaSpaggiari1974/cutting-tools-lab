@@ -2,7 +2,8 @@ name: Cutting Tools LAB · aggiornamento continuo 24/7
 
 on:
   schedule:
-    # Controllo e aggiornamento incrementale ogni ora, 24/7\n    - cron: "17 * * * *"\n    # Ciclo giornaliero completo in aggiunta al controllo orario\n    - cron: "17 3 * * *"
+    # Controllo e aggiornamento ogni ora, 24/7
+    - cron: "17 * * * *"
   workflow_dispatch:
   push:
     branches: ["main"]
