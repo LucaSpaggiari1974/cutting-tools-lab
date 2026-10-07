@@ -1,6 +1,6 @@
 {
   "version": "3.1-category-cleanup-photo-verification",
-  "updatedAt": "2026-10-07T05:04:14.462Z",
+  "updatedAt": "2026-10-07T05:05:13.570Z",
   "source": "Catalogo globale di inserti indicizzati per produttore; aggiornamento incrementale quotidiano tramite fonti ufficiali e cataloghi internazionali.",
   "items": [
     {
@@ -6431,10 +6431,8 @@
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
       "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "unavailable",
-      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
-      "photoSource": "manufacturer"
+      "photoNote": "Immagine aziendale generica rimossa: non viene usata come foto del prodotto.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Foratura",
@@ -6447,10 +6445,8 @@
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
       "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "unavailable",
-      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
-      "photoSource": "manufacturer"
+      "photoNote": "Immagine aziendale generica rimossa: non viene usata come foto del prodotto.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Foratura",
@@ -6463,10 +6459,8 @@
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
       "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "unavailable",
-      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
-      "photoSource": "manufacturer"
+      "photoNote": "Immagine aziendale generica rimossa: non viene usata come foto del prodotto.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Foratura",
@@ -6479,10 +6473,8 @@
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
       "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "unavailable",
-      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
-      "photoSource": "manufacturer"
+      "photoNote": "Immagine aziendale generica rimossa: non viene usata come foto del prodotto.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Fresatura",
@@ -6495,10 +6487,8 @@
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
       "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "unavailable",
-      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
-      "photoSource": "manufacturer"
+      "photoNote": "Immagine aziendale generica rimossa: non viene usata come foto del prodotto.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Fresatura",
@@ -6511,12 +6501,8 @@
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
       "photoUpdatedAt": "2026-10-01T19:28:37Z",
-      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
-      "photoSource": "manufacturer official website",
-      "photoNote": "Foto ufficiale verificata sulla pagina prodotto con corrispondenza esatta del codice.",
-      "photoVerified": true,
-      "photoVerifiedAt": "2026-10-06T04:05:09.358658+00:00",
-      "photoStatus": "available"
+      "photoNote": "Immagine aziendale generica rimossa: non viene usata come foto del prodotto.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Filettatura",
@@ -6529,10 +6515,8 @@
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
       "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "unavailable",
-      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
-      "photoSource": "manufacturer"
+      "photoNote": "Immagine aziendale generica rimossa: non viene usata come foto del prodotto.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Fresatura",
@@ -6545,10 +6529,8 @@
       "maker": "Tungaloy",
       "productUrl": "https://tungaloy.com/it/publications/catalog/",
       "photoUpdatedAt": "2026-10-06T04:30:05Z",
-      "photoNote": "Foto ufficiale rilevata automaticamente dalla scheda prodotto.",
-      "photoStatus": "unavailable",
-      "photoUrl": "https://tungaloy.com/wpdata/wp-content/uploads/logo_og.jpg",
-      "photoSource": "manufacturer"
+      "photoNote": "Immagine aziendale generica rimossa: non viene usata come foto del prodotto.",
+      "photoStatus": "unavailable"
     },
     {
       "category": "Tornitura · Finitura",
