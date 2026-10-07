@@ -243,18 +243,14 @@ function render(){
  rows.innerHTML=a.map((x,i)=>'<tr class="data" data-i="'+data.indexOf(x)+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code">'+esc(x.code)+'</td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>').join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
  document.getElementById("status").textContent=a.length+" righe · tocca una riga per caricare i dati nella barra dei parametri";
  rows.querySelectorAll("tr.data").forEach(tr=>{
- const openRow=()=>{const x=data[+tr.dataset.i];if(!x)return;select(x);if(isInsertRecord(x))openInsertPreview(x);else openTool(x)};
  tr.onpointerenter=e=>{if(e.pointerType==="mouse"){const x=data[+tr.dataset.i];if(isInsertRecord(x))showHoverInsertPreview(x,e)}};
  tr.onpointerleave=e=>{if(e.pointerType==="mouse")hideHoverInsertPreview()};
- tr.onclick=openRow;
- tr.addEventListener("pointerdown",e=>{if(e.pointerType==="touch"){e.preventDefault();e.stopPropagation();openRow()}},{passive:false});
  });
 }
 document.addEventListener("click",function(e){
- const code=e.target.closest&&e.target.closest("tr.data td.code");
- if(!code)return;
- const tr=code.closest("tr.data");
- const x=tr&&data[+tr.dataset.i];
+ const tr=e.target.closest&&e.target.closest("tr.data");
+ if(!tr)return;
+ const x=data[+tr.dataset.i];
  if(!x)return;
  e.preventDefault();
  e.stopPropagation();
