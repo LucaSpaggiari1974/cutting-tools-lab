@@ -1,16 +1,22 @@
 {
-  "updatedAt": "2026-10-07T05:30:16Z",
+  "updatedAt": "2026-10-07T07:19:33Z",
   "run": "daily",
   "changed": true,
-  "pagesChecked": 460,
-  "pagesFailed": 16,
-  "photosUpdated": 12,
-  "newProducts": 0,
-  "catalogItems": 505,
-  "backup": "backups/catalog-latest.json",
+  "catalogItems": 56,
+  "removedInvalidOrDuplicate": 0,
+  "removedDetails": [],
+  "photosUpdated": 0,
   "sourcesChecked": 21,
-  "note": "Gli aggiornamenti automatici usano solo dati rilevati da pagine/cataloghi ufficiali. Parametri di taglio non verificati non vengono inventati.",
+  "sourcesReachable": 20,
+  "sourcesFailed": 1,
+  "newProducts": 0,
+  "autoIndexing": "disabled-by-policy",
+  "note": "Il job non aggiunge mai automaticamente Product JSON-LD non classificati: nuovi codici devono essere verificati come inserti da fonte ufficiale prima dell'indicizzazione.",
+  "backup": "backups/catalog-latest.json",
   "errors": [
-    "HTTP Error 404: "
+    {
+      "maker": "MAPAL",
+      "error": "HTTP Error 404: "
+    }
   ]
 }
