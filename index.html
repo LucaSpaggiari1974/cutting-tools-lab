@@ -276,16 +276,22 @@ async function loadCatalog(options={}){
  const manual=options.manual===true;
  try{
   if(manual) showRefreshProgress(8,"Connessione al database…");
-  const r=await fetch("./catalog.json?v="+Date.now(),{cache:"no-store"});
-  if(!r.ok)throw new Error("HTTP "+r.status);
-  const pack=await r.json();
-  if(manual) showRefreshProgress(48,"Download dei dati completato…");
-  data=Array.isArray(pack)?pack:pack.items;
-  if(!Array.isArray(data)||!data.length)throw new Error("catalogo vuoto");
-  try{localStorage.setItem("ctl_catalog",JSON.stringify({updatedAt:pack.updatedAt||Date.now(),items:data}));}catch(_){}
-  fillFilters();render();
-  const updated=new Date(pack.updatedAt||Date.now());
-  currentCatalogUpdatedAt=pack.updatedAt||updated.toISOString();
+  const [ri,rt]=await Promise.all([
+    fetch("./catalog.json?v="+Date.now(),{cache:"no-store"}),
+    fetch("./complete-tools.json?v="+Date.now(),{cache:"no-store"})
+   ]);
+   if(!ri.ok)throw new Error("INSERTI HTTP "+ri.status);
+   if(!rt.ok)throw new Error("UTENSILI COMPLETI HTTP "+rt.status);
+   const pack=await ri.json(), toolPack=await rt.json();
+   if(manual) showRefreshProgress(48,"Download di inserti e utensili completato…");
+   const inserts=Array.isArray(pack)?pack:pack.items;
+   const complete=Array.isArray(toolPack)?toolPack:toolPack.items;
+   data=[...(inserts||[]),...(complete||[])];
+   if(!data.length)throw new Error("catalogo vuoto");
+   try{localStorage.setItem("ctl_catalog",JSON.stringify({updatedAt:pack.updatedAt||Date.now(),items:data}));}catch(_){}
+   fillFilters();render();
+   const updated=new Date(pack.updatedAt||Date.now());
+   currentCatalogUpdatedAt=pack.updatedAt||updated.toISOString();
   const nowUpdate=new Date();
   let checkTime=nowUpdate;
   try{
@@ -295,7 +301,7 @@ async function loadCatalog(options={}){
     if(ss.updatedAt) checkTime=new Date(ss.updatedAt);
    }
   }catch(_){}
-  document.getElementById("status").textContent=data.length+" righe · ultimo controllo automatico: "+checkTime.toLocaleString("it-IT");
+  document.getElementById("status").textContent=data.length+" righe (inserti + utensili completi) · ultimo controllo automatico: "+checkTime.toLocaleString("it-IT");
   document.getElementById("lastUpdate").textContent=checkTime.toLocaleString("it-IT",{dateStyle:"short",timeStyle:"short"});
   document.getElementById("updateState").textContent="🟢 Dati verificati automaticamente";
   if(manual) showRefreshProgress(78,"Aggiornamento completato…");
