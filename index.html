@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="2026.10.07.02">
+<meta name="app-version" content="2026.10.07.03">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123a5a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -621,37 +621,6 @@ window.addEventListener('pageshow',function(){setTimeout(function(){calcSeparate
 setInterval(function(){calcSeparate();calcHobbing();},300);
 
 
-
-function calcTurning(){
- let D=num('tDm'),Vc=num('tVc'),n=num('tN'),f=num('tFn'),ap=num('tAp'),L=num('tLm'),kc=num('tKc'),ka=num('tKapr');
- if(Vc==null&&D!=null&&n!=null) Vc=3.14*D*n/1000;
- if(n==null&&Vc!=null&&D!=null&&D>0) n=Vc*1000/(3.14*D);
- if(Vc!=null&&D!=null&&n!=null){setVal('tVc',Vc);setVal('tN',n)}
- const vf=f!=null&&n!=null?f*n:null,Q=Vc!=null&&ap!=null&&f!=null?Vc*ap*f:null,T=L!=null&&f!=null&&n!=null&&f*n>0?L/(f*n):null,P=Vc!=null&&ap!=null&&f!=null&&kc!=null?Vc*ap*f*kc/60000:null;
- const s=ka!=null?Math.sin(ka*Math.PI/180):null,hm=f!=null&&s!=null?f*s:null,hex=f!=null&&s!=null&&s!==0?f/s:null;
- document.getElementById('tResults').innerHTML=[['Vc','m/min',Vc],['n','rpm',n],['Vf','mm/min',vf],['Q','cm³/min',Q],['Tc','min',T],['Pc','kW',P],['hm','mm',hm],['hex','mm',hex]].filter(x=>x[2]!=null).map(x=>'<b>'+x[0]+'</b> = '+x[2].toFixed(3)+' '+x[1]).join(' · ')||'Inserisci almeno i dati necessari per calcolare.';
-}
-function calcDrilling(){
- let D=num('dDc'),Vc=num('dVc'),n=num('dN'),f=num('dF'),L=num('dL'),z=num('dZ'),kc=num('dKc'),extra=num('dExtra')||0;
- if(Vc==null&&D!=null&&n!=null) Vc=3.14*D*n/1000;
- if(n==null&&Vc!=null&&D!=null&&D>0) n=Vc*1000/(3.14*D);
- if(Vc!=null&&D!=null&&n!=null){setVal('dVc',Vc);setVal('dN',n)}
- const vf=f!=null&&n!=null?f*n:null,Q=D!=null&&vf!=null?3.14*D*D*vf/4000:null,T=L!=null&&vf!=null&&vf>0?L/vf+extra:null,fz=f!=null&&z!=null&&z>0?f/z:null,P=Vc!=null&&D!=null&&f!=null&&kc!=null?Vc*(3.14*D*D/4)*f*kc/60000:null;
- document.getElementById('dResults').innerHTML=[['Vc','m/min',Vc],['n','rpm',n],['Vf','mm/min',vf],['Q','cm³/min',Q],['T','min',T],['fz','mm/dente',fz],['Pc','kW',P]].filter(x=>x[2]!=null).map(x=>'<b>'+x[0]+'</b> = '+x[2].toFixed(3)+' '+x[1]).join(' · ')||'Inserisci almeno i dati necessari per calcolare.';
-}
-function calcMilling(){
- let D=num('mD'),Vc=num('mVc'),n=num('mN'),fz=num('mFz'),fn=num('mFn'),z=num('mZ'),ap=num('mAp'),ae=num('mAe'),kc=num('mKc');
- if(Vc==null&&D!=null&&n!=null) Vc=3.14*D*n/1000;
- if(n==null&&Vc!=null&&D!=null&&D>0) n=Vc*1000/(3.14*D);
- if(fz!=null&&n!=null&&z!=null) fn=fz*z;
- if(fn!=null&&n!=null&&z!=null&&z>0) fz=fn/z;
- if(Vc!=null&&D!=null&&n!=null){setVal('mVc',Vc);setVal('mN',n)}
- if(fn!=null) setVal('mFn',fn); if(fz!=null)setVal('mFz',fz);
- const vf=fz!=null&&n!=null&&z!=null?fz*n*z:null,Q=ap!=null&&ae!=null&&vf!=null?ap*ae*vf/1000:null,P=ae!=null&&ap!=null&&vf!=null&&kc!=null?ae*ap*vf*kc/60000000:null,M=P!=null&&n!=null&&n>0?P*30000/(3.14*n):null;
- document.getElementById('mResults').innerHTML=[['Vc','m/min',Vc],['n','rpm',n],['fz','mm/dente',fz],['fn','mm/giro',fn],['Vf','mm/min',vf],['Q','cm³/min',Q],['Pc','kW',P],['Mc','Nm',M]].filter(x=>x[2]!=null).map(x=>'<b>'+x[0]+'</b> = '+x[2].toFixed(3)+' '+x[1]).join(' · ')||'Inserisci almeno i dati necessari per calcolare.';
-}
-['tDm','tVc','tN','tFn','tAp','tLm','tKc','tKapr','dDc','dVc','dN','dF','dL','dZ','dKc','dExtra','mD','mVc','mN','mFz','mFn','mZ','mAp','mAe','mKc'].forEach(id=>{const e=document.getElementById(id);if(e)e.addEventListener('input',()=>{calcTurning();calcDrilling();calcMilling()})});
-calcTurning();calcDrilling();calcMilling();
 
 const toolModal=document.getElementById("toolModal");
 const closeModal=document.getElementById("closeModal");
