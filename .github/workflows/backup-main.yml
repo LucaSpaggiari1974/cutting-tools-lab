@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: "17 * * * *"
+    - cron: "17 2 * * *"
   workflow_dispatch:
 
 permissions:
@@ -27,6 +30,14 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
           git push origin "origin/main:refs/heads/$BACKUP_BRANCH" --force
+
+      - name: Crea snapshot orario immutabile
+        run: |
+          git fetch origin main
+          git checkout -B main origin/main
+          SNAPSHOT="backup-$(date -u +%Y%m%d-%H%M%S)"
+          git tag "$SNAPSHOT" origin/main
+          git push origin "$SNAPSHOT"
 
       - name: Archivia Gestione utensili interni dal repository
         run: |
