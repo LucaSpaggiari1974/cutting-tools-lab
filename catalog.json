@@ -1,7 +1,7 @@
 {
-  "version": "3.1-category-cleanup-photo-verification",
-  "updatedAt": "2026-10-07T05:05:13.570Z",
-  "source": "Catalogo globale di inserti indicizzati per produttore; aggiornamento incrementale quotidiano tramite fonti ufficiali e cataloghi internazionali.",
+  "version": "3.2-global-manufacturer-catalog",
+  "updatedAt": "2026-10-07T05:07:43.181Z",
+  "source": "Catalogo globale di inserti indicizzati per produttore; ogni produttore deve essere indicizzato a partire dalle fonti ufficiali più aggiornate e verificato senza inventare codici.",
   "items": [
     {
       "category": "Fresatura",
@@ -6751,6 +6751,13 @@
       "Tornitura · Finitura",
       "Tornitura · Media",
       "Tornitura · Sgrossatura"
-    ]
+    ],
+    "completenessPolicy": {
+      "mode": "official-source-exhaustive-index",
+      "rule": "Per ogni produttore indicizzare tutti gli inserti ordinabili effettivamente verificati nelle fonti ufficiali disponibili; distinguere codice, geometria, dimensione, rompitruciolo e grado. Non usare famiglie generiche, utensili completi o diametri di utensili come sostituti di codici inserto.",
+      "status": "incremental-verification-in-progress",
+      "lastVerification": "2026-10-07T05:07:43.181Z"
+    },
+    "manufacturerCatalogRule": "Ogni maker deve avere il proprio catalogo completo degli inserti verificati da e-catalog/cataloghi ufficiali; lo stato di completezza va tracciato per produttore e non dichiarato completo senza verifica."
   }
 }
