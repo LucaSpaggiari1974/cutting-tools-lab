@@ -223,6 +223,10 @@ def main():
             "f_or_fz":sum(1 for x in rows if has_value(x.get("f"))),
             "ap":sum(1 for x in rows if has_value(x.get("ap"))),
             "officialConditionContext":sum(1 for x in rows if str(x.get("cuttingConditions","")).strip()),
+            "recommendedConditionTables":sum(1 for x in rows if isinstance(x.get("recommendedConditions"),list) and len(x.get("recommendedConditions"))>0),
+            "geometry":sum(1 for x in rows if has_value(x.get("geom"))),
+            "material":sum(1 for x in rows if has_value(x.get("material"))),
+            "application":sum(1 for x in rows if has_value(x.get("application"))),
         }
 
     status={
