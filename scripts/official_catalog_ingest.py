@@ -22,6 +22,7 @@ SOURCES = [
     {"maker":"Sumitomo Electric Hardmetal","url":"https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/assets/pdf/f3.pdf","scope":"inserts","category":"Filettatura · Inserto ufficiale"},
     {"maker":"KORLOY","url":"https://www.korloy.com/en/ebook/2025-2026%20TURNING%28EI%29/assets/contents/download.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
     {"maker":"KORLOY","url":"https://korloy.com/en/ebook/Cutting%20Tools_Turning%2025-26%28EM%29/assets/contents/download.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
+    {"maker":"KORLOY","url":"https://www.korloy.com/en/ebook/2025-2025%20Turning%20Threading%28EM%29/assets/contents/download.pdf","scope":"inserts","category":"Filettatura · Inserto ufficiale"},
     {"maker":"KORLOY","url":"https://korloy.com/en/ebook/Cutting%20Tools_Solid%202025-2026/assets/contents/download.pdf","scope":"solid-tools","category":"Fresatura · Utensili completi"},
     {"maker":"TaeguTec","url":"https://www.taegutec.com/N/607e.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
     {"maker":"TaeguTec","url":"https://www.taegutec.com/N/611e.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
@@ -171,6 +172,18 @@ def extract_recommended_conditions(page_text):
     # Keep every distinct table block, bounded only by page payload size.
     return blocks[:12]
 
+def extract_local_metadata(page_text, code_line_index):
+    """Bind metadata and cutting tables to the local code block, not the whole PDF page."""
+    lines = [" ".join(x.split()) for x in page_text.splitlines()]
+    start = max(0, code_line_index - 12)
+    end = min(len(lines), code_line_index + 45)
+    local = lines[start:end]
+    text = " | ".join(x for x in local if x)
+    meta = extract_application_metadata("\n".join(local))
+    rec = extract_recommended_conditions("\n".join(local))
+    conditions = extract_cutting_condition_context("\n".join(local))
+    return meta, rec, conditions, text[:3500]
+
 def extract_application_metadata(page_text):
     """Extract conservative geometry/application/material labels printed on the same official page."""
     lines=[" ".join(x.split()) for x in page_text.splitlines() if x.strip()]
@@ -230,19 +243,31 @@ for src in SOURCES:
             else:
                 page_candidates = extract_tool_candidates(page)
             for code, context in page_candidates:
-                candidates.append((code, page_no, context[:500]))
+                raw_lines = page.splitlines()
+                normalized = " ".join(context.split())
+                line_index = 0
+                for idx, raw in enumerate(raw_lines):
+                    if normalized == " ".join(raw.split()):
+                        line_index = idx
+                        break
+                candidates.append((code, page_no, context[:1200], line_index))
 
         unique = {}
-        for code, page_no, context in candidates:
-            unique.setdefault(code, (page_no, context))
+        for code, page_no, context, line_index in candidates:
+            unique.setdefault(code, (page_no, context, line_index))
 
         added = 0
-        for code, (page_no, context) in sorted(unique.items()):
+        for code, (page_no, context, line_index) in sorted(unique.items()):
             key = (src["maker"], src["scope"], code)
             if key in seen:
                 continue
             seen.add(key)
-            explicit = extract_explicit_parameter_values(context)
+            local_meta, local_recommended, local_conditions, local_context = extract_local_metadata(
+                pages[page_no - 1], line_index
+            )
+            explicit = extract_explicit_parameter_values(local_context)
+            recommended = local_recommended or page_metadata.get(page_no, {}).get("recommendedConditions", [])
+            conditions = local_conditions or page_conditions.get(page_no, "")
             items.append({
                 "category": src["category"],
                 "code": code,
@@ -252,13 +277,13 @@ for src in SOURCES:
                 "sourceOfficial": src["url"],
                 "sourceType": "official-current-catalog-2025-2026",
                 "sourcePage": page_no,
-                "sourceContext": context,
-                "geom": page_metadata.get(page_no, {}).get("geom",""),
-                "material": page_metadata.get(page_no, {}).get("material",""),
-                "application": page_metadata.get(page_no, {}).get("application",""),
-                "cuttingConditions": page_conditions.get(page_no, ""),
-                "recommendedConditions": page_metadata.get(page_no, {}).get("recommendedConditions", []),
-                "parameterStatus": "explicit-order-line" if explicit else ("official-page-conditions-available" if page_conditions.get(page_no, "") else "not-found"),
+                "sourceContext": local_context,
+                "geom": local_meta.get("geom",""),
+                "material": local_meta.get("material",""),
+                "application": local_meta.get("application",""),
+                "cuttingConditions": conditions,
+                "recommendedConditions": recommended,
+                "parameterStatus": "explicit-order-line" if explicit else ("official-local-conditions-available" if conditions else "not-found"),
                 "vc": explicit.get("vc", "—"),
                 "f": explicit.get("f", "—"),
                 "ap": explicit.get("ap", "—"),
