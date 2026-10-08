@@ -133,3 +133,39 @@ jobs:
               time.sleep(5)
           else:
               raise SystemExit(f"ERRORE: Cloudflare non risulta aggiornato dopo il deploy. online={last} atteso={expected}")
+
+
+  verify_windows:
+    name: Verifica HTML + JavaScript su Windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Verifica HTML e JavaScript con Node.js
+        shell: pwsh
+        run: |
+          $html = Get-Content -Raw -Encoding UTF8 index.html
+          if ([string]::IsNullOrWhiteSpace($html)) { throw "index.html vuoto" }
+          if ($html -notmatch '<!doctype html>') { throw "DOCTYPE HTML mancante" }
+          $scripts = [regex]::Matches($html, '(?is)<script\\b[^>]*>(.*?)</script>')
+          if ($scripts.Count -eq 0) { throw "Nessun blocco JavaScript trovato" }
+          $i = 0
+          foreach ($m in $scripts) {
+            $i++
+            $p = Join-Path $env:TEMP ("cutting-tools-lab-win-{0}.js" -f $i)
+            Set-Content -Path $p -Value $m.Groups[1].Value -Encoding UTF8
+            node --check $p
+            if ($LASTEXITCODE -ne 0) { throw "Errore JavaScript nel blocco $i" }
+          }
+          Write-Host "OK Windows: HTML valido + $($scripts.Count) blocchi JavaScript verificati"
+      - name: Verifica pubblicazione Cloudflare
+        shell: pwsh
+        run: |
+          $base = "https://cutting-tools-lab.spaggiari.workers.dev"
+          $home = Invoke-WebRequest -Uri $base -UseBasicParsing -TimeoutSec 30
+          if ($home.StatusCode -ne 200) { throw "Homepage Cloudflare non raggiungibile" }
+          $cat = Invoke-WebRequest -Uri ($base + "/catalog.json") -UseBasicParsing -TimeoutSec 30
+          if ($cat.StatusCode -ne 200) { throw "catalog.json Cloudflare non raggiungibile" }
+          $json = $cat.Content | ConvertFrom-Json
+          if (-not $json.items) { throw "catalog.json pubblicato senza items" }
+          Write-Host "OK Cloudflare: $($json.items.Count) record pubblicati"
