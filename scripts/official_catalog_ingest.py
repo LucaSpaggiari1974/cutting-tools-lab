@@ -157,6 +157,20 @@ def extract_recommended_conditions_from_lines(lines, center=None, radius=65):
         })
     return blocks[:10]
 
+def extract_parameter_rows_from_lines(lines, center, radius=48):
+    """Keep raw table rows locally tied to the candidate, including rows whose
+    PDF text has lost column separators. This is the authoritative detail payload;
+    vc/f/ap scalar fields are only convenience fields."""
+    lo=max(0, center-radius); hi=min(len(lines), center+radius+1)
+    rows=[]
+    for line in lines[lo:hi]:
+        low=line.lower()
+        if not re.search(r"\\b(?:vc|cutting\\s*speed|feed|fz|feed\\s*rate|ap|depth\\s*of\\s*cut)\\b|m/min|mm/(?:rev|t|tooth)|mm/t", low):
+            continue
+        if line not in rows:
+            rows.append(line)
+    return rows[:80]
+
 def extract_cutting_condition_context_from_blocks(blocks):
     return " || ".join(b["raw"] for b in blocks)[:12000]
 
@@ -229,6 +243,7 @@ for src in SOURCES:
             lines = page_cache[page_no]
             local_meta = extract_application_metadata_from_lines(lines, line_index, 55)
             local_recommended = extract_recommended_conditions_from_lines(lines, line_index, 65)
+            local_parameter_rows = extract_parameter_rows_from_lines(lines, line_index, 48)
             local_conditions = extract_cutting_condition_context_from_blocks(local_recommended)
             local_context = " | ".join(lines[max(0,line_index-15):min(len(lines),line_index+66)])[:3500]
             explicit = extract_explicit_parameter_values(local_context)
@@ -249,6 +264,7 @@ for src in SOURCES:
                 "application": local_meta.get("application",""),
                 "cuttingConditions": conditions,
                 "recommendedConditions": recommended,
+                "parameterRows": local_parameter_rows,
                 "parameterStatus": "explicit-order-line" if explicit else ("official-local-conditions-available" if conditions else "not-found"),
                 "vc": explicit.get("vc", "—"),
                 "f": explicit.get("f", "—"),
@@ -273,7 +289,7 @@ for src in SOURCES:
         source_stats.append({**src, "status":"error", "error":str(e)})
 
 payload = {
-    "version": "2.2-fast-precise-local-parameter-extraction",
+    "version": "2.3-fast-precise-local-parameter-rows",
     "updatedAt": datetime.now(timezone.utc).isoformat(),
     "status": "official-catalog-extraction-in-progress",
     "rule": (
