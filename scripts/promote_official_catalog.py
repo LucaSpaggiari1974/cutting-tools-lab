@@ -96,6 +96,15 @@ def main():
     tools_pack = json.loads(TOOLS.read_text(encoding="utf-8"))
     items = list(catalog.get("items", []))
     tool_items = list(tools_pack.get("items", []))
+
+    # Images are temporarily removed from insert records/UI to keep the catalog
+    # focused on technical data. The pre-change catalog is backed up before this
+    # mutation so a future layout can restore the image metadata.
+    INSERT_IMAGE_FIELDS = ("photoUrl", "image", "imageUrl", "images", "thumbnail", "thumbnailUrl")
+    for x in items:
+        if x.get("category") in ALLOWED or str(x.get("toolType","")).lower() == "insert":
+            for field in INSERT_IMAGE_FIELDS:
+                x.pop(field, None)
     # Normalize the parameter schema on legacy complete-tool rows without inventing values.
     for x in tool_items:
         if x.get("toolType") == "complete-tool":
