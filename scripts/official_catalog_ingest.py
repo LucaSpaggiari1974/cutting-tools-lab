@@ -128,6 +128,29 @@ def extract_cutting_condition_context(page_text):
     hits.sort(key=len, reverse=True)
     return " || ".join(hits[:3])[:5000]
 
+def extract_application_metadata(page_text):
+    """Extract conservative geometry/application/material labels printed on the same official page."""
+    lines=[" ".join(x.split()) for x in page_text.splitlines() if x.strip()]
+    materials=[]; geometries=[]; operations=[]
+    for line in lines:
+        low=line.lower()
+        if re.search(r"\b(workpiece|work material|material)\b", low):
+            materials.append(line)
+        if re.search(r"\b(machining types?|application|chip breaker|geometry|relief angle|rake angle|cutting edge)\b", low):
+            geometries.append(line)
+        if re.search(r"\b(turning|finishing|medium|roughing|profiling|grooving|parting|threading|milling|drilling|reaming)\b", low):
+            operations.append(line)
+    def uniq(rows, limit=8):
+        out=[]
+        for x in rows:
+            if x not in out: out.append(x)
+        return " | ".join(out[:limit])[:3500]
+    return {
+        "material": uniq(materials),
+        "geom": uniq(geometries),
+        "application": uniq(operations),
+    }
+
 def extract_explicit_parameter_values(context):
     """Extract only values explicitly printed next to vc/f/ap in the same order/context line."""
     t = " ".join(str(context or "").split())
@@ -153,8 +176,10 @@ for src in SOURCES:
         pages = text.split("\f")
         candidates = []
         page_conditions = {}
+        page_metadata = {}
         for page_no, page in enumerate(pages, start=1):
             page_conditions[page_no] = extract_cutting_condition_context(page)
+            page_metadata[page_no] = extract_application_metadata(page)
             if src["scope"] == "inserts":
                 page_candidates = extract_insert_candidates(page)
             else:
@@ -183,6 +208,9 @@ for src in SOURCES:
                 "sourceType": "official-current-catalog-2025-2026",
                 "sourcePage": page_no,
                 "sourceContext": context,
+                "geom": page_metadata.get(page_no, {}).get("geom",""),
+                "material": page_metadata.get(page_no, {}).get("material",""),
+                "application": page_metadata.get(page_no, {}).get("application",""),
                 "cuttingConditions": page_conditions.get(page_no, ""),
                 "parameterStatus": "explicit-order-line" if explicit else ("official-page-conditions-available" if page_conditions.get(page_no, "") else "not-found"),
                 "vc": explicit.get("vc", "—"),
