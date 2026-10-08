@@ -231,16 +231,18 @@ function fillFilters(){
   mat.innerHTML="<option value=\"\">Tutti i materiali</option>";
   maker.innerHTML="<option value=\"\">Tutti i produttori</option>";
 
+  const insertTurningCategories=["Tornitura · Finitura","Tornitura · Media","Tornitura · Sgrossatura"];
   const allowedCategories=[
-    "Tornitura · Finitura","Tornitura · Media","Tornitura · Sgrossatura",
-    "Fresatura","Foratura","Filettatura",
+    "__TURNING_INSERTS__","Fresatura","Foratura","Filettatura",
     "Fresatura · Utensili completi","Foratura · Utensili completi",
     "Alesatura · Utensili completi","Filettatura · Utensili completi",
     "Tornitura · Utensili completi","Scanalatura · Utensili completi"
   ];
   const categoryCount=new Map();
   data.forEach(r=>categoryCount.set(r.category,(categoryCount.get(r.category)||0)+1));
-  allowedCategories.filter(x=>categoryCount.has(x)).forEach(x=>{
+  const turningInsertCount=insertTurningCategories.reduce((n,k)=>n+(categoryCount.get(k)||0),0);
+  if(turningInsertCount)cat.add(new Option("Tornitura ("+turningInsertCount+")","__TURNING_INSERTS__"));
+  allowedCategories.slice(1).filter(x=>categoryCount.has(x)).forEach(x=>{
     cat.add(new Option(x+" ("+categoryCount.get(x)+")",x));
   });
 
@@ -266,7 +268,7 @@ let selected=null;
 function render(){
  const t=q.value.toLowerCase(),c=cat.value,m=mat.value,k=maker.value;
  const categoryOrder={"Tornitura · Finitura":0,"Tornitura · Media":1,"Tornitura · Sgrossatura":2,"Fresatura":3,"Foratura":4,"Filettatura":5,"Fresatura · Utensili completi":6,"Foratura · Utensili completi":7,"Alesatura · Utensili completi":8,"Filettatura · Utensili completi":9,"Tornitura · Utensili completi":10,"Scanalatura · Utensili completi":11};
- const a=data.filter(x=>(!t||Object.values(x).join(" ").toLowerCase().includes(t))&&(!c||x.category===c)&&(!m||(m==="__missing__"?!String(x.material||"").trim()||String(x.material||"")==="—":String(x.material||"").includes(m)))&&(!k||x.maker===k)).sort((a,b)=>(categoryOrder[a.category]??99)-(categoryOrder[b.category]??99)||String(a.maker||"").localeCompare(String(b.maker||""))||String(a.code||"").localeCompare(String(b.code||"")));
+ const a=data.filter(x=>(!t||Object.values(x).join(" ").toLowerCase().includes(t))&&(!c||(c==="__TURNING_INSERTS__"?insertTurningCategories.includes(x.category):x.category===c))&&(!m||(m==="__missing__"?!String(x.material||"").trim()||String(x.material||"")==="—":String(x.material||"").includes(m)))&&(!k||x.maker===k)).sort((a,b)=>(categoryOrder[a.category]??99)-(categoryOrder[b.category]??99)||String(a.maker||"").localeCompare(String(b.maker||""))||String(a.code||"").localeCompare(String(b.code||"")));
  rows.innerHTML=a.map((x,i)=>{const ri=data.indexOf(x);return '<tr class="data" data-i="'+ri+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code"><button type="button" class="codeButton" data-row-index="'+ri+'" aria-label="Apri anteprima '+esc(x.code)+'">'+esc(x.code)+'</button></td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>';}).join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
  document.getElementById("status").textContent=a.length+" righe · tocca una riga per caricare i dati nella barra dei parametri";
  rows.querySelectorAll("tr.data").forEach(tr=>{
