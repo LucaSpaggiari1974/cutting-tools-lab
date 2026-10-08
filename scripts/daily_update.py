@@ -207,11 +207,33 @@ def main():
     if changed:
         CATALOG.write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 
+    tools_pack={}
+    try:
+        tools_pack=json.loads((ROOT/"complete-tools.json").read_text(encoding="utf-8"))
+    except Exception:
+        tools_pack={"items":[]}
+
+    def parameter_coverage(rows):
+        total=len(rows)
+        def has_value(x):
+            return str(x or "").strip() not in ("","—","-")
+        return {
+            "total":total,
+            "vc":sum(1 for x in rows if has_value(x.get("vc"))),
+            "f_or_fz":sum(1 for x in rows if has_value(x.get("f"))),
+            "ap":sum(1 for x in rows if has_value(x.get("ap"))),
+            "officialConditionContext":sum(1 for x in rows if str(x.get("cuttingConditions","")).strip()),
+        }
+
     status={
         "updatedAt":started,
         "run":"daily",
         "changed":changed,
         "catalogItems":len(items),
+        "parameterCoverage":{
+            "inserts":parameter_coverage(items),
+            "completeTools":parameter_coverage(tools_pack.get("items",[])),
+        },
         "removedInvalidOrDuplicate":len(removed),
         "removedDetails":removed[:100],
         "photosUpdated":photo_updates,
