@@ -108,6 +108,7 @@ def main():
     existing = {(str(x.get("maker","")).strip().lower(), norm(x.get("code"))) for x in items}
     existing_tools = {(str(x.get("maker","")).strip().lower(), norm(x.get("code"))) for x in tool_items}
     promoted, promoted_tools, skipped, duplicates, tool_duplicates = [], [], [], 0, 0
+    enriched, enriched_fields = [], 0
 
     for cand in staging.get("items", []):
         candidate_scope = str(cand.get("scope","")).lower()
@@ -133,6 +134,47 @@ def main():
             key = (maker.lower(), norm(code))
             if key in existing:
                 duplicates += 1
+                # Existing rows may predate the richer official extractor.
+                # Do not leave a verified code permanently "empty": merge every
+                # non-empty official field into the visible row, without inventing
+                # values or overwriting stronger existing evidence with blanks.
+                target = next((x for x in items if (
+                    str(x.get("maker","")).strip().lower(), norm(x.get("code"))
+                ) == key), None)
+                if target is not None:
+                    before = dict(target)
+                    def meaningful(v):
+                        if v is None:
+                            return False
+                        if isinstance(v, str):
+                            return bool(v.strip()) and v.strip() not in {"—", "-", "N/A", "n/a"}
+                        if isinstance(v, list):
+                            return bool(v)
+                        return True
+                    field_map = (
+                        "geom","material","application","cuttingConditions",
+                        "recommendedConditions","vc","f","ap","sourceOfficial",
+                        "sourceType","sourcePage","sourceContext","sourceUrl",
+                        "parameterStatus"
+                    )
+                    for field in field_map:
+                        incoming = cand.get(field)
+                        if meaningful(incoming):
+                            current = target.get(field)
+                            if (not meaningful(current)) or (
+                                field == "recommendedConditions"
+                                and isinstance(incoming, list)
+                                and len(incoming) > (len(current) if isinstance(current, list) else 0)
+                            ) or (
+                                field == "cuttingConditions"
+                                and isinstance(incoming, str)
+                                and len(incoming) > len(str(current or ""))
+                            ):
+                                target[field] = incoming
+                    changed_fields = [k for k in field_map if target.get(k) != before.get(k)]
+                    if changed_fields:
+                        enriched.append({"maker": maker, "code": code, "fields": changed_fields})
+                        enriched_fields += len(changed_fields)
                 continue
             row = {
                 "category": category,
@@ -231,6 +273,9 @@ def main():
         "stagingItems": len(staging.get("items", [])),
         "promoted": len(promoted),
         "promotedCompleteTools": len(promoted_tools),
+        "enrichedExisting": len(enriched),
+        "enrichedFields": enriched_fields,
+        "enrichedSample": enriched[:50],
         "duplicates": duplicates,
         "completeToolDuplicates": tool_duplicates,
         "skipped": len(skipped),
