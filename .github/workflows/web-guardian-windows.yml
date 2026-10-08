@@ -1,0 +1,91 @@
+name: Cutting Tools LAB · Guardiano HTML/JavaScript Windows
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - "index.html"
+      - ".github/workflows/web-guardian-windows.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cutting-tools-web-guardian
+  cancel-in-progress: true
+
+jobs:
+  guardian:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verifica HTML e tutti i blocchi JavaScript
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $html = Get-Content -Raw -Encoding UTF8 index.html
+          if ($html -notmatch '(?is)<!doctype html') { throw "HTML: DOCTYPE mancante" }
+          if ($html -notmatch '(?is)<html\b') { throw "HTML: tag html mancante" }
+          if ($html -notmatch '(?is)<body\b') { throw "HTML: body mancante" }
+          if ($html -notmatch '(?is)</html>') { throw "HTML: chiusura html mancante" }
+
+          $matches = [regex]::Matches($html, '(?is)<script\b[^>]*>(.*?)</script>')
+          if ($matches.Count -eq 0) { throw "JavaScript: nessun blocco script trovato" }
+
+          $i = 0
+          foreach ($m in $matches) {
+            $i++
+            $path = Join-Path $env:TEMP ("cutting-tools-lab-$i.js")
+            [IO.File]::WriteAllText($path, $m.Groups[1].Value, (New-Object Text.UTF8Encoding($false)))
+            & node --check $path
+            if ($LASTEXITCODE -ne 0) { throw "JavaScript non valido nel blocco $i" }
+          }
+          Write-Host "GUARDIAN OK: HTML valido e $($matches.Count) blocchi JavaScript verificati su Windows."
+
+      - name: Aggiorna baseline solo dopo verifica riuscita
+        shell: pwsh
+        run: |
+          Copy-Item index.html backups/index-last-known-good.html -Force
+          git config user.name "Cutting Tools LAB Guardian"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backups/index-last-known-good.html
+          if (git diff --cached --quiet) {
+            Write-Host "Baseline già aggiornata."
+          } else {
+            git commit -m "chore: update verified HTML JavaScript guardian baseline"
+            git push origin main
+          }
+
+  repair:
+    if: failure()
+    needs: guardian
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ripristino automatico dell'ultimo HTML verificato
+        run: |
+          set -e
+          test -s backups/index-last-known-good.html
+          cp backups/index-last-known-good.html index.html
+          git config user.name "Cutting Tools LAB Guardian"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "Nessuna correzione necessaria."
+          else
+            git commit -m "fix: auto-restore last known good HTML after guardian failure"
+            git push origin main
+          fi
