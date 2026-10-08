@@ -1,13 +1,847 @@
 {
-  "updatedAt": "2026-10-08T03:29:44Z",
-  "stagingItems": 8474,
-  "promoted": 0,
-  "duplicates": 8458,
-  "skipped": 16,
-  "catalogItemsAfter": 8416,
+  "updatedAt": "2026-10-08T04:43:48Z",
+  "stagingItems": 9022,
+  "promoted": 544,
+  "promotedCompleteTools": 15,
+  "enrichedExisting": 8379,
+  "enrichedFields": 17086,
+  "enrichedSample": [
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X1003L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X1003L-FYS",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X1003R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X1003R-FYS",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X101L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X101L-FYS",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X101R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X101R-FYS",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X102L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X102L-FYS",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X102R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X102R-FYS",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X104L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X104L-FYS",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X104R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X104R-FYS",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003L-FY",
+      "fields": [
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003L-FYS",
+      "fields": [
+        "application",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003R-FY",
+      "fields": [
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003R-FYS",
+      "fields": [
+        "application",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101L-FY",
+      "fields": [
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101L-FYS",
+      "fields": [
+        "application",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101R-FY",
+      "fields": [
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101R-FYS",
+      "fields": [
+        "application",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102L-FY",
+      "fields": [
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102L-FYS",
+      "fields": [
+        "application",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102R-FY",
+      "fields": [
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102R-FYS",
+      "fields": [
+        "application",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X104L-FY",
+      "fields": [
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X104L-FYS",
+      "fields": [
+        "application",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X104R-FY",
+      "fields": [
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X104R-FYS",
+      "fields": [
+        "application",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602003L-FX",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602003L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602003R-FX",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602003R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602008L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602008R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602018L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602018R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060201L-FX",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060201L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060201R-FX",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060201R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060202L-FX",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060202L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060202R-FX",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060202R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060204L-FX",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060204L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterStatus"
+      ]
+    }
+  ],
+  "duplicates": 8462,
+  "completeToolDuplicates": 0,
+  "skipped": 1,
+  "catalogItemsAfter": 8960,
+  "completeToolsAfter": 449,
   "policy": "Solo codici forti provenienti da scope inserts ufficiale; ambigui mantenuti in staging.",
-  "promotedSample": [],
+  "promotedSample": [
+    {
+      "maker": "KORLOY",
+      "code": "AK 11T308-AK",
+      "category": "Tornitura · Media",
+      "sourcePage": 144
+    },
+    {
+      "maker": "KORLOY",
+      "code": "AK 120402-AK",
+      "category": "Tornitura · Media",
+      "sourcePage": 143
+    },
+    {
+      "maker": "KORLOY",
+      "code": "AK 160402-AK",
+      "category": "Tornitura · Media",
+      "sourcePage": 149
+    },
+    {
+      "maker": "KORLOY",
+      "code": "AK 16T312-AK",
+      "category": "Tornitura · Media",
+      "sourcePage": 147
+    },
+    {
+      "maker": "KORLOY",
+      "code": "AM 160408-AM",
+      "category": "Tornitura · Media",
+      "sourcePage": 149
+    },
+    {
+      "maker": "KORLOY",
+      "code": "AR 11T312-AR",
+      "category": "Tornitura · Media",
+      "sourcePage": 144
+    },
+    {
+      "maker": "KORLOY",
+      "code": "AR 120402-AR",
+      "category": "Tornitura · Media",
+      "sourcePage": 143
+    },
+    {
+      "maker": "KORLOY",
+      "code": "AR 16T312-AR",
+      "category": "Tornitura · Media",
+      "sourcePage": 147
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CC 060208",
+      "category": "Tornitura · Media",
+      "sourcePage": 151
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCET 0301005R",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 114
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCET 0602005MFR-KF",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 115
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCET 0602005MFR-KM",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 116
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCGT 0301003R-KF",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 115
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCGT 0602003R-KM",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 116
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCGT 060201-FS",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 113
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCGT 060201-VP1",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 114
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCGT 060201MFN-FS",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 113
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCGT 060201MFN-VP1",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 114
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCGT 060202-AK",
+      "category": "Tornitura · Media",
+      "sourcePage": 143
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCGT 060202-AR",
+      "category": "Tornitura · Media",
+      "sourcePage": 143
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCGT 09T301MFN-MS",
+      "category": "Tornitura · Media",
+      "sourcePage": 113
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCGT 09T302-AM",
+      "category": "Tornitura · Media",
+      "sourcePage": 143
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCGW 060202",
+      "category": "Tornitura · Media",
+      "sourcePage": 151
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCMT 060202",
+      "category": "Tornitura · Media",
+      "sourcePage": 153
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCMT 060202-C25",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 113
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCMT 060202-FP",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 112
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCMT 060202-HMP",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 112
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCMT 060202-MP",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 112
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCMT 060202-VF",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 112
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCMT 060202-VL",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 112
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCMT 060204-VP1",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 113
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCMW 09T304",
+      "category": "Tornitura · Media",
+      "sourcePage": 152
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CCMW 120404",
+      "category": "Tornitura · Media",
+      "sourcePage": 153
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CN 120408",
+      "category": "Tornitura · Media",
+      "sourcePage": 153
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CN 120408WF",
+      "category": "Tornitura · Media",
+      "sourcePage": 150
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNGA 120404",
+      "category": "Tornitura · Media",
+      "sourcePage": 150
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNGG 120402-VP1",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 77
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNGG 120404-VP3",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 78
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNMA 090308",
+      "category": "Tornitura · Sgrossatura",
+      "sourcePage": 76
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNMA 120404",
+      "category": "Tornitura · Media",
+      "sourcePage": 152
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNMA 120408",
+      "category": "Tornitura · Media",
+      "sourcePage": 152
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNMG 090304-CP",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 73
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNMG 090304-HM",
+      "category": "Tornitura · Media",
+      "sourcePage": 74
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNMG 090304-LP",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 73
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNMG 090304-MM",
+      "category": "Tornitura · Sgrossatura",
+      "sourcePage": 77
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNMG 090304-MP",
+      "category": "Tornitura · Media",
+      "sourcePage": 74
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNMG 090304-VF",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 73
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNMG 090304-VM",
+      "category": "Tornitura · Media",
+      "sourcePage": 74
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNMG 090304-VQ",
+      "category": "Tornitura · Finitura",
+      "sourcePage": 75
+    },
+    {
+      "maker": "KORLOY",
+      "code": "CNMG 090404-MM",
+      "category": "Tornitura · Media",
+      "sourcePage": 222
+    }
+  ],
+  "promotedCompleteToolsSample": [
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "0.025",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 41
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "0.20-",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 206
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "280HB",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 206
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "3.962",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 241
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DCSFMS",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 22
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "AURORA",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 25
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "3-3-C01-F0512R1",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 222
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "SRD19-12-115",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 222
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "SRD29-20-240",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 222
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "SRD36-25-170",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 222
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "SRG16.02Q",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 222
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "SRG17.0H7-A01-T1212R1",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 222
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "SRG29.0H7-A01-F0512R1",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 222
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "SRL14.0H7-B01-F0512R1",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 222
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "SRL28.0H7-B01-F0512R1",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 222
+    }
+  ],
   "skippedReasons": {
-    "non-insert-scope": 16
+    "weak-tool-code": 1
   }
 }
