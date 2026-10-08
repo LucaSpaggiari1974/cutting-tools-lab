@@ -100,7 +100,7 @@ def extract_tool_candidates(page_text):
     found = []
     # Strong order-number cues reduce prose false positives.
     order_context = re.compile(r"\b(cat\.?\s*no\.?|order\s*(no\.?|code)|part\s*no\.?|catalog\s*(no\.?|number))\b", re.I)
-    for raw in page_text.splitlines():
+    for line_index, raw in enumerate(page_text.splitlines()):
         line = " ".join(raw.split())
         if not line or not order_context.search(line):
             continue
@@ -110,117 +110,85 @@ def extract_tool_candidates(page_text):
                 found.append((code, line, line_index))
     return found
 
-def extract_cutting_condition_context(page_text):
-    """Preserve every official cutting-condition table found on the page.
-    No single Vc/f/ap is invented when the manufacturer publishes multiple
-    material, diameter, grade or operation rows.
-    """
-    lines = [" ".join(x.split()) for x in page_text.splitlines()]
-    hits = []
-    keywords = (
-        "recommended cutting conditions", "cutting conditions",
-        "cutting speed", "feed rate", "feed per tooth", "feed per revolution"
-    )
-    for i, line in enumerate(lines):
-        low = line.lower()
-        if any(k in low for k in keywords):
-            start = max(0, i - 3)
-            end = min(len(lines), i + 55)
-            block = [x for x in lines[start:end] if x]
-            text = " | ".join(block)
-            if text not in hits:
-                hits.append(text)
-    hits.sort(key=len, reverse=True)
-    return " || ".join(hits[:6])[:12000]
-
+def normalize_lines(page_text):
+    return [" ".join(x.split()) for x in page_text.splitlines() if x.strip()]
 
 def _all_matches(pattern, text):
     return [m.group(1).replace(",", ".").strip() for m in re.finditer(pattern, text or "", re.I)]
 
-
-def extract_recommended_conditions(page_text):
-    """Return all explicit manufacturer condition blocks and every Vc/f/ap value
-    visible inside each block. Values remain tied to the raw official table excerpt;
-    they are never collapsed into a fake universal setting for the SKU.
+def extract_recommended_conditions_from_lines(lines, center=None, radius=65):
+    """Extract condition tables from a bounded local window.
+    The window is deliberately local to the SKU candidate to avoid mixing
+    neighbouring products on the same PDF page.
     """
-    lines = [" ".join(x.split()) for x in page_text.splitlines()]
+    if center is None:
+        lo, hi = 0, len(lines)
+    else:
+        lo, hi = max(0, center-radius), min(len(lines), center+radius+1)
+    window = lines[lo:hi]
     blocks = []
     headings = (
         "recommended cutting conditions", "cutting conditions",
-        "cutting speed", "feed rate", "feed per tooth", "feed per revolution"
+        "cutting speed", "feed rate", "feed per tooth", "feed per revolution",
+        "vc", "fz", "ap"
     )
     vc_pat = r"(?:(?:vc|cutting\\s*speed)\\s*[:=]?\\s*)?([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*(?:m/min|m\\/min)"
     f_pat = r"(?:(?:fz|feed\\s*(?:rate|per\\s*tooth)|feed\\s*per\\s*revolution|feed)\\s*[:=]?\\s*)?([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*(?:mm\\/(?:rev|t|tooth)|mm\\/rev|mm\\/tooth|mm/t)"
     ap_pat = r"(?:(?:ap|depth\\s*of\\s*cut)\\s*[:=]?\\s*)?([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*mm"
-    for i, line in enumerate(lines):
+    for j, line in enumerate(window):
         low=line.lower()
         if not any(k in low for k in headings):
             continue
-        start=max(0,i-3); end=min(len(lines),i+55)
-        raw=" | ".join(x for x in lines[start:end] if x)
+        bstart=max(0,j-2); bend=min(len(window),j+42)
+        raw=" | ".join(x for x in window[bstart:bend] if x)
         if not raw or any(b["raw"]==raw for b in blocks):
             continue
-        vc_values=_all_matches(vc_pat,raw)
-        f_values=_all_matches(f_pat,raw)
-        ap_values=_all_matches(ap_pat,raw)
         blocks.append({
             "raw": raw[:12000],
-            "vc": list(dict.fromkeys(vc_values)),
-            "f": list(dict.fromkeys(f_values)),
-            "ap": list(dict.fromkeys(ap_values)),
+            "vc": list(dict.fromkeys(_all_matches(vc_pat,raw))),
+            "f": list(dict.fromkeys(_all_matches(f_pat,raw))),
+            "ap": list(dict.fromkeys(_all_matches(ap_pat,raw))),
         })
-    # Keep every distinct table block, bounded only by page payload size.
-    return blocks[:12]
+    return blocks[:10]
 
-def extract_local_metadata(page_text, code_line_index):
-    """Bind metadata and cutting tables to the local code block, not the whole PDF page."""
-    lines = [" ".join(x.split()) for x in page_text.splitlines()]
-    start = max(0, code_line_index - 12)
-    end = min(len(lines), code_line_index + 45)
-    local = lines[start:end]
-    text = " | ".join(x for x in local if x)
-    meta = extract_application_metadata("\n".join(local))
-    rec = extract_recommended_conditions("\n".join(local))
-    conditions = extract_cutting_condition_context("\n".join(local))
-    return meta, rec, conditions, text[:3500]
+def extract_cutting_condition_context_from_blocks(blocks):
+    return " || ".join(b["raw"] for b in blocks)[:12000]
 
-def extract_application_metadata(page_text):
-    """Extract conservative geometry/application/material labels printed on the same official page."""
-    lines=[" ".join(x.split()) for x in page_text.splitlines() if x.strip()]
+def extract_application_metadata_from_lines(lines, center=None, radius=55):
+    if center is None:
+        window=lines
+    else:
+        window=lines[max(0,center-radius):min(len(lines),center+radius+1)]
     materials=[]; geometries=[]; operations=[]
-    for line in lines:
+    for line in window:
         low=line.lower()
-        if re.search(r"\b(workpiece|work material|material)\b", low):
+        if re.search(r"\\b(workpiece|work material|material)\\b", low):
             materials.append(line)
-        if re.search(r"\b(machining types?|application|chip breaker|geometry|relief angle|rake angle|cutting edge)\b", low):
+        if re.search(r"\\b(machining types?|application|chip breaker|geometry|relief angle|rake angle|cutting edge)\\b", low):
             geometries.append(line)
-        if re.search(r"\b(turning|finishing|medium|roughing|profiling|grooving|parting|threading|milling|drilling|reaming)\b", low):
+        if re.search(r"\\b(turning|finishing|medium|roughing|profiling|grooving|parting|threading|milling|drilling|reaming)\\b", low):
             operations.append(line)
     def uniq(rows, limit=30):
         out=[]
         for x in rows:
             if x not in out: out.append(x)
         return " | ".join(out[:limit])[:7000]
-    return {
-        "material": uniq(materials),
-        "geom": uniq(geometries),
-        "application": uniq(operations),
-    }
+    return {"material":uniq(materials),"geom":uniq(geometries),"application":uniq(operations)}
 
 def extract_explicit_parameter_values(context):
-    """Extract only values explicitly printed next to vc/f/ap in the same order/context line."""
-    t = " ".join(str(context or "").split())
-    out = {}
-    patterns = {
-        "vc": r"\b(?:vc|cutting\s*speed)\s*[:=]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:-|–|to)\s*[0-9]+(?:[.,][0-9]+)?|[0-9]+(?:[.,][0-9]+)?)\s*(?:m/min)?",
-        "f": r"\b(?:fz|feed\s*rate|feed)\s*[:=]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:-|–|to)\s*[0-9]+(?:[.,][0-9]+)?|[0-9]+(?:[.,][0-9]+)?)\s*(?:mm/(?:rev|t)|mm/rev|mm/t)?",
-        "ap": r"\b(?:ap|depth\s*of\s*cut)\s*[:=]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:-|–|to)\s*[0-9]+(?:[.,][0-9]+)?)\s*(?:mm)?"
+    """Only accept labelled values; table values stay in recommendedConditions."""
+    t=" ".join(str(context or "").split())
+    out={}
+    patterns={
+        "vc":r"\\b(?:vc|cutting\\s*speed)\\s*[:=]\\s*([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*(?:m/min)?",
+        "f":r"\\b(?:fz|feed\\s*rate|feed)\\s*[:=]\\s*([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*(?:mm/(?:rev|t|tooth)|mm/rev|mm/t)?",
+        "ap":r"\\b(?:ap|depth\\s*of\\s*cut)\\s*[:=]\\s*([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*(?:mm)?"
     }
-    for key, pat in patterns.items():
-        m = re.search(pat, t, re.I)
-        if m:
-            out[key] = m.group(1).replace(",", ".")
+    for key,pat in patterns.items():
+        m=re.search(pat,t,re.I)
+        if m: out[key]=m.group(1).replace(",",".")
     return out
+
 
 items = []
 seen = set()
@@ -231,13 +199,10 @@ for src in SOURCES:
         text = pdf_text(src["url"])
         pages = text.split("\f")
         candidates = []
-        page_conditions = {}
-        page_metadata = {}
+        page_cache = {}
         for page_no, page in enumerate(pages, start=1):
-            page_conditions[page_no] = extract_cutting_condition_context(page)
-            page_recommended_conditions = extract_recommended_conditions(page)
-            page_metadata[page_no] = extract_application_metadata(page)
-            page_metadata[page_no]["recommendedConditions"] = page_recommended_conditions
+            lines = normalize_lines(page)
+            page_cache[page_no] = lines
             if src["scope"] == "inserts":
                 page_candidates = extract_insert_candidates(page)
             else:
@@ -255,12 +220,14 @@ for src in SOURCES:
             if key in seen:
                 continue
             seen.add(key)
-            local_meta, local_recommended, local_conditions, local_context = extract_local_metadata(
-                pages[page_no - 1], line_index
-            )
+            lines = page_cache[page_no]
+            local_meta = extract_application_metadata_from_lines(lines, line_index, 55)
+            local_recommended = extract_recommended_conditions_from_lines(lines, line_index, 65)
+            local_conditions = extract_cutting_condition_context_from_blocks(local_recommended)
+            local_context = " | ".join(lines[max(0,line_index-15):min(len(lines),line_index+66)])[:3500]
             explicit = extract_explicit_parameter_values(local_context)
-            recommended = local_recommended or page_metadata.get(page_no, {}).get("recommendedConditions", [])
-            conditions = local_conditions or page_conditions.get(page_no, "")
+            recommended = local_recommended
+            conditions = local_conditions
             items.append({
                 "category": src["category"],
                 "code": code,
@@ -300,7 +267,7 @@ for src in SOURCES:
         source_stats.append({**src, "status":"error", "error":str(e)})
 
 payload = {
-    "version": "2.0-official-catalog-extraction",
+    "version": "2.1-fast-local-parameter-extraction",
     "updatedAt": datetime.now(timezone.utc).isoformat(),
     "status": "official-catalog-extraction-in-progress",
     "rule": (
