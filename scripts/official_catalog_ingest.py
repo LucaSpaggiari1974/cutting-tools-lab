@@ -152,7 +152,9 @@ for src in SOURCES:
         text = pdf_text(src["url"])
         pages = text.split("\f")
         candidates = []
+        page_conditions = {}
         for page_no, page in enumerate(pages, start=1):
+            page_conditions[page_no] = extract_cutting_condition_context(page)
             if src["scope"] == "inserts":
                 page_candidates = extract_insert_candidates(page)
             else:
@@ -165,7 +167,6 @@ for src in SOURCES:
             unique.setdefault(code, (page_no, context))
 
         added = 0
-        page_condition_context = extract_cutting_condition_context(page)
         for code, (page_no, context) in sorted(unique.items()):
             key = (src["maker"], src["scope"], code)
             if key in seen:
@@ -182,8 +183,8 @@ for src in SOURCES:
                 "sourceType": "official-current-catalog-2025-2026",
                 "sourcePage": page_no,
                 "sourceContext": context,
-                "cuttingConditions": page_condition_context,
-                "parameterStatus": "explicit-order-line" if explicit else ("official-page-conditions-available" if page_condition_context else "not-found"),
+                "cuttingConditions": page_conditions.get(page_no, ""),
+                "parameterStatus": "explicit-order-line" if explicit else ("official-page-conditions-available" if page_conditions.get(page_no, "") else "not-found"),
                 "vc": explicit.get("vc", "—"),
                 "f": explicit.get("f", "—"),
                 "ap": explicit.get("ap", "—"),
