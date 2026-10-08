@@ -107,26 +107,66 @@ def extract_tool_candidates(page_text):
     return found
 
 def extract_cutting_condition_context(page_text):
-    """Keep official recommended cutting-condition tables attached to each source page.
-    We do not invent a single Vc/f/ap when a page contains multiple material/diameter rows.
-    The raw compact excerpt is evidence that the UI can expose without pretending it is
-    an exact condition for every SKU on the page.
+    """Preserve every official cutting-condition table found on the page.
+    No single Vc/f/ap is invented when the manufacturer publishes multiple
+    material, diameter, grade or operation rows.
     """
     lines = [" ".join(x.split()) for x in page_text.splitlines()]
     hits = []
-    keywords = ("recommended cutting conditions", "cutting conditions", "cutting speed", "feed rate")
+    keywords = (
+        "recommended cutting conditions", "cutting conditions",
+        "cutting speed", "feed rate", "feed per tooth", "feed per revolution"
+    )
     for i, line in enumerate(lines):
         low = line.lower()
         if any(k in low for k in keywords):
-            start = max(0, i - 2)
-            end = min(len(lines), i + 32)
+            start = max(0, i - 3)
+            end = min(len(lines), i + 55)
             block = [x for x in lines[start:end] if x]
             text = " | ".join(block)
             if text not in hits:
                 hits.append(text)
-    # Prefer the most information-rich blocks and keep the payload bounded.
     hits.sort(key=len, reverse=True)
-    return " || ".join(hits[:3])[:5000]
+    return " || ".join(hits[:6])[:12000]
+
+
+def _all_matches(pattern, text):
+    return [m.group(1).replace(",", ".").strip() for m in re.finditer(pattern, text or "", re.I)]
+
+
+def extract_recommended_conditions(page_text):
+    """Return all explicit manufacturer condition blocks and every Vc/f/ap value
+    visible inside each block. Values remain tied to the raw official table excerpt;
+    they are never collapsed into a fake universal setting for the SKU.
+    """
+    lines = [" ".join(x.split()) for x in page_text.splitlines()]
+    blocks = []
+    headings = (
+        "recommended cutting conditions", "cutting conditions",
+        "cutting speed", "feed rate", "feed per tooth", "feed per revolution"
+    )
+    vc_pat = r"(?:(?:vc|cutting\\s*speed)\\s*[:=]?\\s*)?([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*(?:m/min|m\\/min)"
+    f_pat = r"(?:(?:fz|feed\\s*(?:rate|per\\s*tooth)|feed\\s*per\\s*revolution|feed)\\s*[:=]?\\s*)?([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*(?:mm\\/(?:rev|t|tooth)|mm\\/rev|mm\\/tooth|mm/t)"
+    ap_pat = r"(?:(?:ap|depth\\s*of\\s*cut)\\s*[:=]?\\s*)?([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*mm"
+    for i, line in enumerate(lines):
+        low=line.lower()
+        if not any(k in low for k in headings):
+            continue
+        start=max(0,i-3); end=min(len(lines),i+55)
+        raw=" | ".join(x for x in lines[start:end] if x)
+        if not raw or any(b["raw"]==raw for b in blocks):
+            continue
+        vc_values=_all_matches(vc_pat,raw)
+        f_values=_all_matches(f_pat,raw)
+        ap_values=_all_matches(ap_pat,raw)
+        blocks.append({
+            "raw": raw[:12000],
+            "vc": list(dict.fromkeys(vc_values)),
+            "f": list(dict.fromkeys(f_values)),
+            "ap": list(dict.fromkeys(ap_values)),
+        })
+    # Keep every distinct table block, bounded only by page payload size.
+    return blocks[:12]
 
 def extract_application_metadata(page_text):
     """Extract conservative geometry/application/material labels printed on the same official page."""
@@ -140,11 +180,11 @@ def extract_application_metadata(page_text):
             geometries.append(line)
         if re.search(r"\b(turning|finishing|medium|roughing|profiling|grooving|parting|threading|milling|drilling|reaming)\b", low):
             operations.append(line)
-    def uniq(rows, limit=8):
+    def uniq(rows, limit=30):
         out=[]
         for x in rows:
             if x not in out: out.append(x)
-        return " | ".join(out[:limit])[:3500]
+        return " | ".join(out[:limit])[:7000]
     return {
         "material": uniq(materials),
         "geom": uniq(geometries),
@@ -179,7 +219,9 @@ for src in SOURCES:
         page_metadata = {}
         for page_no, page in enumerate(pages, start=1):
             page_conditions[page_no] = extract_cutting_condition_context(page)
+            page_recommended_conditions = extract_recommended_conditions(page)
             page_metadata[page_no] = extract_application_metadata(page)
+            page_metadata[page_no]["recommendedConditions"] = page_recommended_conditions
             if src["scope"] == "inserts":
                 page_candidates = extract_insert_candidates(page)
             else:
@@ -212,6 +254,7 @@ for src in SOURCES:
                 "material": page_metadata.get(page_no, {}).get("material",""),
                 "application": page_metadata.get(page_no, {}).get("application",""),
                 "cuttingConditions": page_conditions.get(page_no, ""),
+                "recommendedConditions": page_metadata.get(page_no, {}).get("recommendedConditions", []),
                 "parameterStatus": "explicit-order-line" if explicit else ("official-page-conditions-available" if page_conditions.get(page_no, "") else "not-found"),
                 "vc": explicit.get("vc", "—"),
                 "f": explicit.get("f", "—"),
