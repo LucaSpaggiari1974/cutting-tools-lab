@@ -96,6 +96,11 @@ def main():
     tools_pack = json.loads(TOOLS.read_text(encoding="utf-8"))
     items = list(catalog.get("items", []))
     tool_items = list(tools_pack.get("items", []))
+    # Normalize the parameter schema on legacy complete-tool rows without inventing values.
+    for x in tool_items:
+        if x.get("toolType") == "complete-tool":
+            x.setdefault("parameterStatus", "pending-official-exact")
+            x.setdefault("cuttingConditions", "")
     BACKUP.parent.mkdir(parents=True, exist_ok=True)
     BACKUP.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     TOOLS_BACKUP.write_text(json.dumps(tools_pack, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -138,6 +143,11 @@ def main():
                 "sourceType": cand.get("sourceType", "official-catalog"),
                 "sourcePage": cand.get("sourcePage"),
                 "sourceContext": cand.get("sourceContext",""),
+                "cuttingConditions": cand.get("cuttingConditions",""),
+                "parameterStatus": cand.get("parameterStatus","not-found"),
+                "vc": cand.get("vc","—"),
+                "f": cand.get("f","—"),
+                "ap": cand.get("ap","—"),
                 "photoStatus": "unavailable",
                 "photoNote": "Foto esatta non ancora verificata; nessun logo o immagine generica usata."
             }
@@ -178,6 +188,11 @@ def main():
             "sourceOfficial": cand.get("sourceOfficial"),
             "sourcePage": cand.get("sourcePage"),
             "sourceContext": cand.get("sourceContext",""),
+            "cuttingConditions": cand.get("cuttingConditions",""),
+            "parameterStatus": cand.get("parameterStatus","not-found"),
+            "vc": cand.get("vc","—"),
+            "f": cand.get("f","—"),
+            "ap": cand.get("ap","—"),
             "photoNote": "Nessuna foto reale verificata per il codice esatto; nessuna immagine generica usata.",
             "photoStatus": "unavailable",
             "toolType": "complete-tool",
