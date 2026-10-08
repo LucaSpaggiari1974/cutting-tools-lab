@@ -5,6 +5,14 @@
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": ".",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "exclude": [
+      "official-catalog-extracted.json",
+      "backups/**",
+      "scripts/**",
+      ".github/**",
+      "node_modules/**",
+      ".git/**"
+    ]
   }
 }
