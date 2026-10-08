@@ -82,18 +82,18 @@ def is_grade_or_noise(code):
 
 def extract_insert_candidates(page_text):
     found = []
-    for raw in page_text.splitlines():
+    for line_index, raw in enumerate(page_text.splitlines()):
         line = " ".join(raw.split())
         if not line:
             continue
         for m in INSERT_RE.finditer(line):
             code = clean_code(f"{m.group('shape')} {m.group('body')}")
             if not is_grade_or_noise(code):
-                found.append((code, line))
+                found.append((code, line, line_index))
         for m in COMPACT_INSERT_RE.finditer(line):
             code = clean_code(m.group("code"))
             if not is_grade_or_noise(code):
-                found.append((code, line))
+                found.append((code, line, line_index))
     return found
 
 def extract_tool_candidates(page_text):
@@ -107,7 +107,7 @@ def extract_tool_candidates(page_text):
         for m in TOOL_CODE_RE.finditer(line):
             code = clean_code(m.group(1))
             if not is_grade_or_noise(code):
-                found.append((code, line))
+                found.append((code, line, line_index))
     return found
 
 def extract_cutting_condition_context(page_text):
@@ -242,14 +242,7 @@ for src in SOURCES:
                 page_candidates = extract_insert_candidates(page)
             else:
                 page_candidates = extract_tool_candidates(page)
-            for code, context in page_candidates:
-                raw_lines = page.splitlines()
-                normalized = " ".join(context.split())
-                line_index = 0
-                for idx, raw in enumerate(raw_lines):
-                    if normalized == " ".join(raw.split()):
-                        line_index = idx
-                        break
+            for code, context, line_index in page_candidates:
                 candidates.append((code, page_no, context[:1200], line_index))
 
         unique = {}
