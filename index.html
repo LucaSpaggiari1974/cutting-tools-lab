@@ -244,7 +244,7 @@ function fillFilters(){
     cat.add(new Option(x+" ("+categoryCount.get(x)+")",x));
   });
 
-  const mats=[...new Set(data.flatMap(x=>String(x.material||"").split(" · "))]
+  const mats=[...new Set(data.flatMap(x=>String(x.material||"").split(" · ")))]
     .map(x=>x.trim()).filter(x=>x&&x!=="—").sort((a,b)=>a.localeCompare(b));
   if(mats.length){
     mats.forEach(x=>mat.add(new Option(x,x)));
