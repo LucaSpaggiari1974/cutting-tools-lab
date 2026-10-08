@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="2026.10.07.08">
+<meta name="app-version" content="2026.10.08.01">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123a5a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -671,8 +671,20 @@ function isInsertRecord(x){
  const s=(String(x?.category||"")+" "+String(x?.code||"")+" "+String(x?.geom||"")).toUpperCase();
  return /INSERT|CNMG|DNMG|SNMG|WNMG|VNMG|VBMT|DCMT|DCGT|CCMT|CCGT|TCMT|TCGT|RCMT|MGMN|N123|16ER|16IR|11ER|11IR/.test(s);
 }
+function recommendedConditionsHtml(x){
+ const rows=Array.isArray(x?.recommendedConditions)?x.recommendedConditions:[];
+ if(!rows.length)return "";
+ const blocks=rows.map((r,i)=>{
+   const vc=Array.isArray(r.vc)&&r.vc.length?r.vc.join(", "):"—";
+   const f=Array.isArray(r.f)&&r.f.length?r.f.join(", "):"—";
+   const ap=Array.isArray(r.ap)&&r.ap.length?r.ap.join(", "):"—";
+   return '<div class="problemCard" style="margin-top:8px"><p><b>Tabella ufficiale '+(i+1)+'</b></p><p><b>Vc:</b> '+esc(vc)+' m/min · <b>f/fz:</b> '+esc(f)+' · <b>ap:</b> '+esc(ap)+'</p><p>'+esc(r.raw||"")+'</p></div>';
+ }).join("");
+ return '<div class="problemCard" style="margin-top:12px"><p><b>📐 Tutte le condizioni consigliate rilevate dal produttore</b></p>'+blocks+'<p class="photo-caption">Le tabelle restano collegate alla pagina ufficiale e non vengono ridotte a un singolo valore universale quando il produttore distingue materiale, diametro, grado o lavorazione.</p></div>';
+}
+
 function openTool(x){
- const cond=x.cuttingConditions?'<div class="problemCard" style="margin-top:12px"><p><b>📐 Condizioni di taglio ufficiali</b></p><p>'+esc(x.cuttingConditions)+'</p><p class="photo-caption">Fonte: catalogo ufficiale del produttore, pagina '+esc(x.sourcePage||'—')+'. Quando la pagina contiene più materiali/diametri, i valori sono mostrati come tabella di riferimento e non come singolo valore universale.</p></div>':'';
+ const cond=recommendedConditionsHtml(x)||(x.cuttingConditions?'<div class="problemCard" style="margin-top:12px"><p><b>📐 Condizioni di taglio ufficiali</b></p><p>'+esc(x.cuttingConditions)+'</p><p class="photo-caption">Fonte: catalogo ufficiale del produttore, pagina '+esc(x.sourcePage||'—')+'.</p></div>':'');
  const pstatus=x.parameterStatus&&x.parameterStatus!=="not-found"?' <span class="tag">'+esc(x.parameterStatus)+'</span>':'';
  let body='<h2>'+esc(x.code)+'</h2><p><b>Fornitore:</b> '+esc(x.maker||'—')+'</p><p><b>Categoria:</b> '+esc(x.category)+' '+pstatus+'</p><p><b>Geometria / impiego:</b> '+esc(x.geom||'—')+'</p>'+toolPhoto(x)+'<p><b>Materiale:</b> '+esc(x.material||'—')+'</p><div class="formulaBox">Vc: '+esc(x.vc||'—')+' m/min · f/fz: '+esc(x.f||'—')+' · ap: '+esc(x.ap||'—')+'</div>'+cond+'<p class="photo-caption">'+esc(x.photoNote||x.photoSource||'Fonte fotografica non specificata')+'. Il codice preciso, grado e quote devono essere verificati sulla scheda del produttore.</p>';
  modalBody.innerHTML=body;toolModal.hidden=false;
@@ -721,7 +733,7 @@ function openInsertPreview(x){
    '<p><b>Velocità Vc:</b> '+esc(x.vc||"—")+' m/min</p>'+
    '<p><b>Avanzamento f/fz:</b> '+esc(x.f||"—")+'</p>'+
    '<p><b>Profondità ap:</b> '+esc(x.ap||"—")+'</p>'+
-   (x.cuttingConditions?'<div class="problemCard" style="margin-top:12px"><p><b>📐 Condizioni di taglio ufficiali</b></p><p>'+esc(x.cuttingConditions)+'</p><p class="photo-caption">Fonte: catalogo ufficiale, pagina '+esc(x.sourcePage||"—")+'.</p></div>':"")+
+   (recommendedConditionsHtml(x)||(x.cuttingConditions?'<div class="problemCard" style="margin-top:12px"><p><b>📐 Condizioni di taglio ufficiali</b></p><p>'+esc(x.cuttingConditions)+'</p><p class="photo-caption">Fonte: catalogo ufficiale, pagina '+esc(x.sourcePage||"—")+'.</p></div>':""))+
    '<p><b>Descrizione:</b> Inserto '+esc(x.code||"")+" · "+esc(x.geom||"")+" · consigliato per "+esc(x.material||"materiali indicati")+"."+
    (x.photoNote?'<br><span class="photo-caption">'+esc(x.photoNote)+'</span>':"")+
    (ref?.note?'<br><span class="photo-caption">'+esc(ref.note)+'</span>':"")+
