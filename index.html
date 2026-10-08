@@ -515,7 +515,8 @@ function imageProxyCandidates(u,mode){
  ];
 }
 function toolPhoto(x){
- if(String(x&&x.toolType||"").toLowerCase()==="insert" || String(x&&x.category||"").toUpperCase().includes("TORNITURA") || String(x&&x.category||"").toUpperCase().includes("FRESATURA") || String(x&&x.category||"").toUpperCase().includes("FORATURA") || String(x&&x.category||"").toUpperCase().includes("FILETTATURA")) return "";
+ const insertCategories=["Tornitura · Finitura","Tornitura · Media","Tornitura · Sgrossatura","Fresatura","Foratura","Filettatura"];
+ if(String(x&&x.toolType||"").toLowerCase()==="insert" || insertCategories.includes(String(x&&x.category||""))) return "";
  const official=x&&x.productUrl?normalizePhotoUrl(x.productUrl):"";
  const candidates=photoCandidates(x);
  const urls=[];
