@@ -182,6 +182,11 @@ for src in SOURCES:
                 "sourceType": "official-current-catalog-2025-2026",
                 "sourcePage": page_no,
                 "sourceContext": context,
+                "cuttingConditions": page_condition_context,
+                "parameterStatus": "explicit-order-line" if explicit else ("official-page-conditions-available" if page_condition_context else "not-found"),
+                "vc": explicit.get("vc", "—"),
+                "f": explicit.get("f", "—"),
+                "ap": explicit.get("ap", "—"),
                 "photoStatus": "unavailable",
                 "sourceNote": (
                     "Codice estratto dal catalogo ufficiale corrente; "
