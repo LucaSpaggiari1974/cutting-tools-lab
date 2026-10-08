@@ -52,7 +52,11 @@ BAD_TOKENS = {
     "CVD","PVD","CBN","PCD"
 }
 
+PDF_CACHE = {}
+
 def pdf_text(url):
+    if url in PDF_CACHE:
+        return PDF_CACHE[url]
     with tempfile.TemporaryDirectory() as td:
         pdf = Path(td) / "catalog.pdf"
         txt = Path(td) / "catalog.txt"
@@ -64,7 +68,9 @@ def pdf_text(url):
             check=True,
             timeout=300,
         )
-        return txt.read_text(errors="ignore")
+        value = txt.read_text(errors="ignore")
+        PDF_CACHE[url] = value
+        return value
 
 def clean_code(code):
     return code.strip(".,;:()[]{}<>|")
@@ -132,9 +138,9 @@ def extract_recommended_conditions_from_lines(lines, center=None, radius=65):
         "cutting speed", "feed rate", "feed per tooth", "feed per revolution",
         "vc", "fz", "ap"
     )
-    vc_pat = r"(?:(?:vc|cutting\\s*speed)\\s*[:=]?\\s*)?([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*(?:m/min|m\\/min)"
-    f_pat = r"(?:(?:fz|feed\\s*(?:rate|per\\s*tooth)|feed\\s*per\\s*revolution|feed)\\s*[:=]?\\s*)?([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*(?:mm\\/(?:rev|t|tooth)|mm\\/rev|mm\\/tooth|mm/t)"
-    ap_pat = r"(?:(?:ap|depth\\s*of\\s*cut)\\s*[:=]?\\s*)?([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*mm"
+    vc_pat = r"(?:(?:vc|cutting\s*speed)\s*[:=]?\s*)?([0-9]+(?:[.,][0-9]+)?(?:\s*(?:-|–|to)\s*[0-9]+(?:[.,][0-9]+)?)?)\s*(?:m/min|m\/min)"
+    f_pat = r"(?:(?:fz|feed\s*(?:rate|per\s*tooth)|feed\s*per\s*revolution|feed)\s*[:=]?\s*)?([0-9]+(?:[.,][0-9]+)?(?:\s*(?:-|–|to)\s*[0-9]+(?:[.,][0-9]+)?)?)\s*(?:mm\/(?:rev|t|tooth)|mm\/rev|mm\/tooth|mm/t)"
+    ap_pat = r"(?:(?:ap|depth\s*of\s*cut)\s*[:=]?\s*)?([0-9]+(?:[.,][0-9]+)?(?:\s*(?:-|–|to)\s*[0-9]+(?:[.,][0-9]+)?)?)\s*mm"
     for j, line in enumerate(window):
         low=line.lower()
         if not any(k in low for k in headings):
@@ -162,11 +168,11 @@ def extract_application_metadata_from_lines(lines, center=None, radius=55):
     materials=[]; geometries=[]; operations=[]
     for line in window:
         low=line.lower()
-        if re.search(r"\\b(workpiece|work material|material)\\b", low):
+        if re.search(r"\b(workpiece|work material|material)\b", low):
             materials.append(line)
-        if re.search(r"\\b(machining types?|application|chip breaker|geometry|relief angle|rake angle|cutting edge)\\b", low):
+        if re.search(r"\b(machining types?|application|chip breaker|geometry|relief angle|rake angle|cutting edge)\b", low):
             geometries.append(line)
-        if re.search(r"\\b(turning|finishing|medium|roughing|profiling|grooving|parting|threading|milling|drilling|reaming)\\b", low):
+        if re.search(r"\b(turning|finishing|medium|roughing|profiling|grooving|parting|threading|milling|drilling|reaming)\b", low):
             operations.append(line)
     def uniq(rows, limit=30):
         out=[]
@@ -180,9 +186,9 @@ def extract_explicit_parameter_values(context):
     t=" ".join(str(context or "").split())
     out={}
     patterns={
-        "vc":r"\\b(?:vc|cutting\\s*speed)\\s*[:=]\\s*([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*(?:m/min)?",
-        "f":r"\\b(?:fz|feed\\s*rate|feed)\\s*[:=]\\s*([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*(?:mm/(?:rev|t|tooth)|mm/rev|mm/t)?",
-        "ap":r"\\b(?:ap|depth\\s*of\\s*cut)\\s*[:=]\\s*([0-9]+(?:[.,][0-9]+)?(?:\\s*(?:-|–|to)\\s*[0-9]+(?:[.,][0-9]+)?)?)\\s*(?:mm)?"
+        "vc":r"\b(?:vc|cutting\s*speed)\s*[:=]\s*([0-9]+(?:[.,][0-9]+)?(?:\s*(?:-|–|to)\s*[0-9]+(?:[.,][0-9]+)?)?)\s*(?:m/min)?",
+        "f":r"\b(?:fz|feed\s*rate|feed)\s*[:=]\s*([0-9]+(?:[.,][0-9]+)?(?:\s*(?:-|–|to)\s*[0-9]+(?:[.,][0-9]+)?)?)\s*(?:mm/(?:rev|t|tooth)|mm/rev|mm/t)?",
+        "ap":r"\b(?:ap|depth\s*of\s*cut)\s*[:=]\s*([0-9]+(?:[.,][0-9]+)?(?:\s*(?:-|–|to)\s*[0-9]+(?:[.,][0-9]+)?)?)\s*(?:mm)?"
     }
     for key,pat in patterns.items():
         m=re.search(pat,t,re.I)
@@ -267,7 +273,7 @@ for src in SOURCES:
         source_stats.append({**src, "status":"error", "error":str(e)})
 
 payload = {
-    "version": "2.1-fast-local-parameter-extraction",
+    "version": "2.2-fast-precise-local-parameter-extraction",
     "updatedAt": datetime.now(timezone.utc).isoformat(),
     "status": "official-catalog-extraction-in-progress",
     "rule": (
