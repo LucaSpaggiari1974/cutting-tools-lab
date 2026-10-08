@@ -162,7 +162,7 @@ def main():
                         return True
                     field_map = (
                         "geom","material","application","cuttingConditions",
-                        "recommendedConditions","vc","f","ap","sourceOfficial",
+                        "recommendedConditions","parameterRows","vc","f","ap","sourceOfficial",
                         "sourceType","sourcePage","sourceContext","sourceUrl",
                         "parameterStatus"
                     )
@@ -199,6 +199,7 @@ def main():
                 "application": cand.get("application",""),
                 "cuttingConditions": cand.get("cuttingConditions",""),
                 "recommendedConditions": cand.get("recommendedConditions", []),
+                "parameterRows": cand.get("parameterRows", []),
                 "parameterStatus": cand.get("parameterStatus","not-found"),
                 "vc": cand.get("vc","—"),
                 "f": cand.get("f","—"),
@@ -248,6 +249,7 @@ def main():
             "application": cand.get("application",""),
             "cuttingConditions": cand.get("cuttingConditions",""),
             "recommendedConditions": cand.get("recommendedConditions", []),
+            "parameterRows": cand.get("parameterRows", []),
             "parameterStatus": cand.get("parameterStatus","not-found"),
             "vc": cand.get("vc","—"),
             "f": cand.get("f","—"),
