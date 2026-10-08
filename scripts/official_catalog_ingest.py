@@ -106,6 +106,43 @@ def extract_tool_candidates(page_text):
                 found.append((code, line))
     return found
 
+def extract_cutting_condition_context(page_text):
+    """Keep official recommended cutting-condition tables attached to each source page.
+    We do not invent a single Vc/f/ap when a page contains multiple material/diameter rows.
+    The raw compact excerpt is evidence that the UI can expose without pretending it is
+    an exact condition for every SKU on the page.
+    """
+    lines = [" ".join(x.split()) for x in page_text.splitlines()]
+    hits = []
+    keywords = ("recommended cutting conditions", "cutting conditions", "cutting speed", "feed rate")
+    for i, line in enumerate(lines):
+        low = line.lower()
+        if any(k in low for k in keywords):
+            start = max(0, i - 2)
+            end = min(len(lines), i + 32)
+            block = [x for x in lines[start:end] if x]
+            text = " | ".join(block)
+            if text not in hits:
+                hits.append(text)
+    # Prefer the most information-rich blocks and keep the payload bounded.
+    hits.sort(key=len, reverse=True)
+    return " || ".join(hits[:3])[:5000]
+
+def extract_explicit_parameter_values(context):
+    """Extract only values explicitly printed next to vc/f/ap in the same order/context line."""
+    t = " ".join(str(context or "").split())
+    out = {}
+    patterns = {
+        "vc": r"\b(?:vc|cutting\s*speed)\s*[:=]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:-|–|to)\s*[0-9]+(?:[.,][0-9]+)?|[0-9]+(?:[.,][0-9]+)?)\s*(?:m/min)?",
+        "f": r"\b(?:fz|feed\s*rate|feed)\s*[:=]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:-|–|to)\s*[0-9]+(?:[.,][0-9]+)?|[0-9]+(?:[.,][0-9]+)?)\s*(?:mm/(?:rev|t)|mm/rev|mm/t)?",
+        "ap": r"\b(?:ap|depth\s*of\s*cut)\s*[:=]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:-|–|to)\s*[0-9]+(?:[.,][0-9]+)?)\s*(?:mm)?"
+    }
+    for key, pat in patterns.items():
+        m = re.search(pat, t, re.I)
+        if m:
+            out[key] = m.group(1).replace(",", ".")
+    return out
+
 items = []
 seen = set()
 source_stats = []
@@ -128,11 +165,13 @@ for src in SOURCES:
             unique.setdefault(code, (page_no, context))
 
         added = 0
+        page_condition_context = extract_cutting_condition_context(page)
         for code, (page_no, context) in sorted(unique.items()):
             key = (src["maker"], src["scope"], code)
             if key in seen:
                 continue
             seen.add(key)
+            explicit = extract_explicit_parameter_values(context)
             items.append({
                 "category": src["category"],
                 "code": code,
