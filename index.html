@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="2026.10.08.01">
+<meta name="app-version" content="2026.10.08.02">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123a5a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -515,6 +515,7 @@ function imageProxyCandidates(u,mode){
  ];
 }
 function toolPhoto(x){
+ if(String(x&&x.toolType||"").toLowerCase()==="insert" || String(x&&x.category||"").toUpperCase().includes("TORNITURA") || String(x&&x.category||"").toUpperCase().includes("FRESATURA") || String(x&&x.category||"").toUpperCase().includes("FORATURA") || String(x&&x.category||"").toUpperCase().includes("FILETTATURA")) return "";
  const official=x&&x.productUrl?normalizePhotoUrl(x.productUrl):"";
  const candidates=photoCandidates(x);
  const urls=[];
@@ -719,9 +720,7 @@ document.addEventListener("click",e=>{
 function openInsertPreview(x){
  if(!x)return;
  const official=x.productUrl?normalizePhotoUrl(x.productUrl):"";
- const ref=realReferenceFor(x);
  let photoHtml="";
- try{photoHtml=toolPhoto(x)}catch(_){photoHtml='<div class="photoEmpty">📷 Foto non disponibile in anteprima; la scheda del produttore resta disponibile.</div>'}
  modalBody.innerHTML=
    '<h2>Anteprima inserto · '+esc(x.code)+'</h2>'+
    photoHtml+
