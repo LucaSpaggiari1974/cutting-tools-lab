@@ -67,14 +67,33 @@ jobs:
           print(f"OK: HTML parsabile + {len(scripts)} blocchi JavaScript verificati con Node.")
           '@ | python -
 
-      - name: Verifica catalogo inserti e fonti ufficiali
-        run: python scripts/daily_update.py
-
       - name: Estrazione cataloghi ufficiali correnti
         run: python scripts/official_catalog_ingest.py
 
       - name: Promozione codici ufficiali verificabili
         run: python scripts/promote_official_catalog.py
+
+      - name: Verifica catalogo, parametri e fonti ufficiali
+        run: python scripts/daily_update.py
+
+      - name: Verifica parametri pubblicabili
+        run: |
+          python - <<'PY'
+          import json, sys
+          c=json.load(open("catalog.json",encoding="utf-8"))
+          rows=c.get("items",[])
+          if len(rows) < 8960:
+              print(f"ATTENZIONE: catalogo sotto soglia attesa: {len(rows)}")
+          for maker in ("KORLOY","Sumitomo Electric Hardmetal"):
+              m=[x for x in rows if str(x.get("maker","")).strip().lower()==maker.lower()]
+              tables=sum(bool(x.get("recommendedConditions")) for x in m)
+              geom=sum(bool(str(x.get("geom","")).strip()) for x in m)
+              mat=sum(bool(str(x.get("material","")).strip()) for x in m)
+              print(f"{maker}: items={len(m)} tables={tables} geometry={geom} material={mat}")
+              if m and tables==0:
+                  sys.exit(f"ERRORE: nessuna tabella parametri pubblicabile per {maker}")
+          print(f"OK: catalogo verificato con {len(rows)} inserti.")
+          PY
 
       - name: Commit e push
         id: commit
@@ -137,6 +156,7 @@ jobs:
 
   verify_windows:
     name: Verifica HTML + JavaScript su Windows
+    needs: update
     runs-on: windows-latest
     steps:
       - name: Checkout repository
@@ -168,4 +188,10 @@ jobs:
           if ($cat.StatusCode -ne 200) { throw "catalog.json Cloudflare non raggiungibile" }
           $json = $cat.Content | ConvertFrom-Json
           if (-not $json.items) { throw "catalog.json pubblicato senza items" }
+          if ($json.items.Count -lt 8960) { throw "Cloudflare pubblica solo $($json.items.Count) record; attesi almeno 8960" }
           Write-Host "OK Cloudflare: $($json.items.Count) record pubblicati"
+          $kor = @($json.items | Where-Object { $_.maker -eq "KORLOY" -and $_.recommendedConditions })
+          $sum = @($json.items | Where-Object { $_.maker -eq "Sumitomo Electric Hardmetal" -and $_.recommendedConditions })
+          if ($kor.Count -eq 0) { throw "KORLOY: nessuna condizione consigliata pubblicata" }
+          if ($sum.Count -eq 0) { throw "Sumitomo: nessuna condizione consigliata pubblicata" }
+          Write-Host "OK parametri pubblicati: KORLOY=$($kor.Count), Sumitomo=$($sum.Count)"
