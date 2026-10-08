@@ -16,7 +16,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 STAGING = ROOT / "official-catalog-extracted.json"
 CATALOG = ROOT / "catalog.json"
+TOOLS = ROOT / "complete-tools.json"
 BACKUP = ROOT / "backups" / "catalog-before-promotion.json"
+TOOLS_BACKUP = ROOT / "backups" / "complete-tools-before-promotion.json"
 REPORT = ROOT / "official-catalog-promotion-report.json"
 
 ALLOWED = [
@@ -91,12 +93,16 @@ def strong_insert_code(code):
 def main():
     staging = json.loads(STAGING.read_text(encoding="utf-8"))
     catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
+    tools_pack = json.loads(TOOLS.read_text(encoding="utf-8"))
     items = list(catalog.get("items", []))
+    tool_items = list(tools_pack.get("items", []))
     BACKUP.parent.mkdir(parents=True, exist_ok=True)
     BACKUP.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    TOOLS_BACKUP.write_text(json.dumps(tools_pack, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     existing = {(str(x.get("maker","")).strip().lower(), norm(x.get("code"))) for x in items}
-    promoted, skipped, duplicates = [], [], 0
+    existing_tools = {(str(x.get("maker","")).strip().lower(), norm(x.get("code"))) for x in tool_items}
+    promoted, promoted_tools, skipped, duplicates, tool_duplicates = [], [], [], 0, 0
 
     for cand in staging.get("items", []):
         candidate_scope = str(cand.get("scope","")).lower()
@@ -108,40 +114,78 @@ def main():
             or "inserto" in candidate_category
             or candidate_category.strip() == "inserts"
         )
-        if not is_insert_candidate:
-            skipped.append({"code": cand.get("code"), "reason": "non-insert-scope"})
-            continue
         code = clean_code(cand.get("code"))
         maker = str(cand.get("maker","")).strip()
-        if not maker or not strong_insert_code(code):
-            skipped.append({"code": code, "reason": "weak-code"})
-            continue
         category = classify(code, cand.get("sourceContext",""), cand.get("category",""))
-        if not category:
-            skipped.append({"code": code, "reason": "category-ambiguous"})
-            continue
-        key = (maker.lower(), norm(code))
-        if key in existing:
-            duplicates += 1
+
+        if is_insert_candidate:
+            if not maker or not strong_insert_code(code):
+                skipped.append({"code": code, "reason": "weak-code"})
+                continue
+            if not category:
+                skipped.append({"code": code, "reason": "category-ambiguous"})
+                continue
+            key = (maker.lower(), norm(code))
+            if key in existing:
+                duplicates += 1
+                continue
+            row = {
+                "category": category,
+                "code": code,
+                "maker": maker,
+                "verificationStatus": "official-order-code-verified",
+                "sourceOfficial": cand.get("sourceOfficial", True),
+                "sourceType": cand.get("sourceType", "official-catalog"),
+                "sourcePage": cand.get("sourcePage"),
+                "sourceContext": cand.get("sourceContext",""),
+                "photoStatus": "unavailable",
+                "photoNote": "Foto esatta non ancora verificata; nessun logo o immagine generica usata."
+            }
+            if cand.get("sourceUrl"):
+                row["sourceUrl"] = cand["sourceUrl"]
+            items.append(row)
+            existing.add(key)
+            promoted.append({"maker": maker, "code": code, "category": category, "sourcePage": cand.get("sourcePage")})
             continue
 
-        row = {
-            "category": category,
+        if not maker or len(code) < 5 or not re.search(r"[A-Z0-9]", code):
+            skipped.append({"code": code, "reason": "weak-tool-code"})
+            continue
+        tool_category = category or (
+            "Foratura · Utensili completi" if any(w in str(cand.get("category","")).lower() for w in ("drill","foratura","hole"))
+            else "Fresatura · Utensili completi"
+        )
+        if tool_category not in {
+            "Fresatura · Utensili completi","Foratura · Utensili completi",
+            "Alesatura · Utensili completi","Filettatura · Utensili completi",
+            "Tornitura · Utensili completi","Scanalatura · Utensili completi"
+        }:
+            tool_category = "Fresatura · Utensili completi"
+        tkey = (maker.lower(), norm(code))
+        if tkey in existing_tools:
+            tool_duplicates += 1
+            continue
+        tool_items.append({
+            "category": tool_category,
             "code": code,
+            "geom": "Utensile completo — dati da catalogo ufficiale",
+            "material": "—",
+            "vc": "—",
+            "f": "—",
+            "ap": "—",
             "maker": maker,
-            "verificationStatus": "official-order-code-verified",
-            "sourceOfficial": cand.get("sourceOfficial", True),
-            "sourceType": cand.get("sourceType", "official-catalog"),
+            "productUrl": cand.get("sourceOfficial"),
+            "sourceOfficial": cand.get("sourceOfficial"),
             "sourcePage": cand.get("sourcePage"),
             "sourceContext": cand.get("sourceContext",""),
+            "photoNote": "Nessuna foto reale verificata per il codice esatto; nessuna immagine generica usata.",
             "photoStatus": "unavailable",
-            "photoNote": "Foto esatta non ancora verificata; nessun logo o immagine generica usata."
-        }
-        if cand.get("sourceUrl"):
-            row["sourceUrl"] = cand["sourceUrl"]
-        items.append(row)
-        existing.add(key)
-        promoted.append({"maker": maker, "code": code, "category": category, "sourcePage": cand.get("sourcePage")})
+            "toolType": "complete-tool",
+            "verificationStatus": "official-catalog-extracted",
+            "sourceNote": "Codice importato articolo per articolo dal catalogo ufficiale; resta marcato come estratto finché la riga ordine esatta non viene verificata."
+        })
+        existing_tools.add(tkey)
+        promoted_tools.append({"maker": maker, "code": code, "category": tool_category, "sourcePage": cand.get("sourcePage")})
 
     def sort_key(x):
         return (ALLOWED.index(x.get("category")) if x.get("category") in ALLOWED else 99,
@@ -149,20 +193,29 @@ def main():
 
     items.sort(key=sort_key)
     catalog["items"] = items
-    catalog["version"] = "4.1-official-staging-promotion-fixed"
+    catalog["version"] = "4.2-official-staging-promotion-all-items"
     catalog["updatedAt"] = now()
+    tools_pack["items"] = tool_items
+    tools_pack["version"] = "1.1-official-catalog-item-import"
+    tools_pack["updatedAt"] = now()
+    tools_pack["status"] = "official-catalog-item-import-in-progress"
     catalog["source"] = "Catalogo globale: promozione conservativa da cataloghi ufficiali correnti; nessun codice inventato."
     CATALOG.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    TOOLS.write_text(json.dumps(tools_pack, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     report = {
         "updatedAt": now(),
         "stagingItems": len(staging.get("items", [])),
         "promoted": len(promoted),
+        "promotedCompleteTools": len(promoted_tools),
         "duplicates": duplicates,
+        "completeToolDuplicates": tool_duplicates,
         "skipped": len(skipped),
         "catalogItemsAfter": len(items),
+        "completeToolsAfter": len(tool_items),
         "policy": "Solo codici forti provenienti da scope inserts ufficiale; ambigui mantenuti in staging.",
         "promotedSample": promoted[:50],
+        "promotedCompleteToolsSample": promoted_tools[:50],
         "skippedReasons": {r: sum(1 for x in skipped if x["reason"] == r) for r in sorted({x["reason"] for x in skipped})}
     }
     REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
