@@ -23,6 +23,9 @@ jobs:
         with:
           node-version: 22
 
+      - name: Comprimi catalogo per asset Cloudflare
+        run: python -c "import gzip; data=open('catalog.json','rb').read(); open('catalog.json.gz','wb').write(gzip.compress(data,compresslevel=9,mtime=0)); print('catalog.json.gz',len(gzip.compress(data,compresslevel=9,mtime=0)))"
+
       - name: Deploy to Cloudflare Worker
         run: npx wrangler@latest deploy
         env:
