@@ -165,7 +165,7 @@ def extract_parameter_rows_from_lines(lines, center, radius=48):
     rows=[]
     for line in lines[lo:hi]:
         low=line.lower()
-        if not re.search(r"\\b(?:vc|cutting\\s*speed|feed|fz|feed\\s*rate|ap|depth\\s*of\\s*cut)\\b|m/min|mm/(?:rev|t|tooth)|mm/t", low):
+        if not re.search(r"\b(?:vc|cutting\s*speed|feed|fz|feed\s*rate|ap|depth\s*of\s*cut)\b|m/min|mm/(?:rev|t|tooth)|mm/t", low):
             continue
         if line not in rows:
             rows.append(line)
