@@ -53,7 +53,7 @@ jobs:
           class Parser(HTMLParser):
               pass
           Parser().feed(html)
-          scripts = re.findall(r"<script\\b[^>]*>([\\s\\S]*?)</script>", html, flags=re.I)
+          scripts = re.findall(r"<script\b[^>]*>([\s\S]*?)</script>", html, flags=re.I)
           if not scripts:
               raise SystemExit("ERRORE: nessun blocco JavaScript trovato in index.html")
           for i, code in enumerate(scripts, 1):
