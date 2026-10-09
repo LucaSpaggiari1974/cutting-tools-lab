@@ -117,6 +117,10 @@ jobs:
         with:
           node-version: 22
 
+      - name: Comprimi catalogo per asset Cloudflare
+        if: steps.commit.outputs.changed == 'true'
+        run: python -c "import gzip; data=open('catalog.json','rb').read(); packed=gzip.compress(data,compresslevel=9,mtime=0); open('catalog.json.gz','wb').write(packed); print('catalog.json.gz bytes:',len(packed))"
+
       - name: Pubblicazione immediata su Cloudflare
         if: steps.commit.outputs.changed == 'true'
         run: npx wrangler@latest deploy
