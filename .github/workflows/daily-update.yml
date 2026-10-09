@@ -53,7 +53,7 @@ jobs:
           class Parser(HTMLParser):
               pass
           Parser().feed(html)
-          scripts = re.findall(r"<script\b[^>]*>([\s\S]*?)</script>", html, flags=re.I)
+          scripts = re.findall("<script[^>]*>(.*?)</script>", html, flags=re.I | re.S)
           if not scripts:
               raise SystemExit("ERRORE: nessun blocco JavaScript trovato in index.html")
           for i, code in enumerate(scripts, 1):
@@ -167,7 +167,7 @@ jobs:
           $html = Get-Content -Raw -Encoding UTF8 index.html
           if ([string]::IsNullOrWhiteSpace($html)) { throw "index.html vuoto" }
           if ($html -notmatch '<!doctype html>') { throw "DOCTYPE HTML mancante" }
-          $scripts = [regex]::Matches($html, '(?is)<script\\b[^>]*>(.*?)</script>')
+          $scripts = [regex]::Matches($html, '(?is)<script[^>]*>(.*?)</script>')
           if ($scripts.Count -eq 0) { throw "Nessun blocco JavaScript trovato" }
           $i = 0
           foreach ($m in $scripts) {
