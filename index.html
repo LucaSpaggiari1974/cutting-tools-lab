@@ -226,13 +226,12 @@ const groups=[
 
 function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
 const q=document.getElementById("q"),cat=document.getElementById("cat"),mat=document.getElementById("mat"),maker=document.getElementById("maker"),rows=document.getElementById("rows");
+const allowedInsertCategories=["Tornitura · Finitura","Tornitura · Media","Tornitura · Sgrossatura","Fresatura","Foratura","Filettatura"];
+const insertTurningCategories=allowedInsertCategories.slice(0,3);
 function fillFilters(){
   cat.innerHTML="<option value=\"\">Tutte le categorie</option>";
   mat.innerHTML="<option value=\"\">Tutti i materiali</option>";
   maker.innerHTML="<option value=\"\">Tutti i produttori</option>";
-
-  const allowedInsertCategories=["Tornitura · Finitura","Tornitura · Media","Tornitura · Sgrossatura","Fresatura","Foratura","Filettatura"];
-  const insertTurningCategories=allowedInsertCategories.slice(0,3);
   // Mostra esclusivamente le quattro lavorazioni richieste; gli utensili completi restano fuori dalla vista inserti.
   data=data.filter(r=>allowedInsertCategories.includes(String(r.category||"")));
   const categoryCount=new Map();
