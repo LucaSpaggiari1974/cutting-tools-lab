@@ -24,7 +24,21 @@ jobs:
           node-version: 22
 
       - name: Comprimi catalogo per asset Cloudflare
-        run: python -c "import gzip; data=open('catalog.json','rb').read(); open('catalog.json.gz','wb').write(gzip.compress(data,compresslevel=9,mtime=0)); print('catalog.json.gz',len(gzip.compress(data,compresslevel=9,mtime=0)))"
+        run: python -c "import gzip; data=open('catalog.json','rb').read(); compressed=gzip.compress(data,compresslevel=9,mtime=0); open('catalog.json.gz','wb').write(compressed); print('catalog.json.gz',len(compressed))"
+
+      - name: Prepara asset statici senza JSON catalogo sovradimensionato
+        run: |
+          mkdir -p dist
+          rsync -a --delete --exclude='catalog.json' --exclude='.git/' --exclude='node_modules/' --exclude='dist/' ./ dist/
+          test -s dist/catalog.json.gz
+          test ! -e dist/catalog.json
+          echo "Asset statici preparati; catalog.json originale escluso, catalog.json.gz presente."
+
+      - name: Verifica configurazione Wrangler
+        run: npx wrangler@latest deploy --dry-run
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Deploy to Cloudflare Worker
         run: npx wrangler@latest deploy
