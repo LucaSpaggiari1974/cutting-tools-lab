@@ -23,6 +23,8 @@ SOURCES = [
     {"maker":"KORLOY","url":"https://korloy.com/en/ebook/Cutting%20Tools_Turning%2025-26%28EM%29/assets/contents/download.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
     {"maker":"KORLOY","url":"https://www.korloy.com/en/ebook/2025-2026%20TURNING%28EI%29/assets/contents/download.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
     {"maker":"KORLOY","url":"https://korloy.com/en/ebook/Cutting%20Tools_Solid%202025-2026/assets/contents/download.pdf","scope":"solid-tools","category":"Utensili completi ufficiali"},
+    {"maker":"TaeguTec","url":"https://www.taegutec.com/N/611e.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
+    {"maker":"Sandvik Coromant","url":"https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=35","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
 ]
 
 # ISO-style indexable-insert ordering codes. The blank between shape and size is
