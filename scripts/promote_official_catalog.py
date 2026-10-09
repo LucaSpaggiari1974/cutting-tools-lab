@@ -25,6 +25,22 @@ ALLOWED = [
     "Tornitura · Finitura", "Tornitura · Media", "Tornitura · Sgrossatura",
     "Fresatura", "Foratura", "Filettatura"
 ]
+
+# Keep only the seven manufacturers explicitly selected by the user.
+ALLOWED_MAKERS = {
+    "iscar": "ISCAR",
+    "kennametal": "Kennametal",
+    "sandvik coromant": "Sandvik Coromant",
+    "seco": "Seco Tools",
+    "seco tools": "Seco Tools",
+    "sumitomo electric": "Sumitomo Electric Hardmetal",
+    "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
+    "tungaloy": "Tungaloy",
+    "walter": "Walter",
+}
+def canonical_maker(value):
+    return ALLOWED_MAKERS.get(str(value or "").strip().casefold(), "")
+
 TURNING = re.compile(r"^(CNMG|DNMG|SNMG|TNMG|VNMG|WNMG|CCMT|DCMT|TCMT|VCMT|VBMT|VBGT|CCGT|DCGT|TCGT|VCGT|CNGA|DNGA|TNGA|VNGA|WNGA)\b", re.I)
 MILLING = re.compile(r"^(APMT|APKT|SEHT|SEKT|RDMW|RPMT|SPMT|SOMT|XPMT|LNMU|ADMX|SDMT|SDXT|ONHU|ODMX|XDET|LOGX)\b", re.I)
 DRILLING = re.compile(r"^(WCMX|SPMX|SCMX|SOMX|XCMT|XOMX|WCMT)\b", re.I)
@@ -96,6 +112,9 @@ def main():
     tools_pack = json.loads(TOOLS.read_text(encoding="utf-8"))
     items = list(catalog.get("items", []))
     tool_items = list(tools_pack.get("items", []))
+    # Filter and canonicalize existing records; backups below retain the full pre-change data.
+    items = [dict(x, maker=canonical_maker(x.get("maker"))) for x in items if canonical_maker(x.get("maker"))]
+    tool_items = [dict(x, maker=canonical_maker(x.get("maker"))) for x in tool_items if canonical_maker(x.get("maker"))]
 
     # Images are temporarily removed from insert records/UI to keep the catalog
     # focused on technical data. The pre-change catalog is backed up before this
@@ -130,7 +149,10 @@ def main():
             or candidate_category.strip() == "inserts"
         )
         code = clean_code(cand.get("code"))
-        maker = str(cand.get("maker","")).strip()
+        maker = canonical_maker(cand.get("maker"))
+        if not maker:
+            skipped.append({"code": code, "reason": "manufacturer-not-in-selected-seven"})
+            continue
         category = classify(code, cand.get("sourceContext",""), cand.get("category",""))
 
         if is_insert_candidate:
