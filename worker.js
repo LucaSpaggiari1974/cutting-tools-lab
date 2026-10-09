@@ -3,7 +3,7 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === "/catalog.json") {
-      const compressed = await env.ASSETS.fetch(new Request(new URL("/catalog.json.gz", url), request));
+      const compressed = await env.ASSETS.fetch(new Request(new URL("/catalog.json.gz", url), { method: "GET" }));
       if (!compressed.ok) return new Response("Catalog temporarily unavailable", { status: 503 });
       const body = compressed.body.pipeThrough(new DecompressionStream("gzip"));
       const headers = new Headers(compressed.headers);
