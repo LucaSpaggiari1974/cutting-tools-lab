@@ -1,11 +1,520 @@
 {
-  "updatedAt": "2026-10-09T04:31:59Z",
+  "updatedAt": "2026-10-09T05:13:40Z",
   "stagingItems": 9022,
   "promoted": 0,
   "promotedCompleteTools": 0,
-  "enrichedExisting": 0,
-  "enrichedFields": 0,
-  "enrichedSample": [],
+  "enrichedExisting": 4085,
+  "enrichedFields": 13013,
+  "enrichedSample": [
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X1003L-FY",
+      "fields": [
+        "geom",
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X1003L-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X1003R-FY",
+      "fields": [
+        "geom",
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X1003R-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X101L-FY",
+      "fields": [
+        "geom",
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X101L-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X101R-FY",
+      "fields": [
+        "geom",
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X101R-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X102L-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X102L-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X102R-FY",
+      "fields": [
+        "geom",
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X102R-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X104L-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X104L-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X104R-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 03X104R-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003L-FY",
+      "fields": [
+        "geom",
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003L-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003R-FY",
+      "fields": [
+        "geom",
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003R-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101L-FY",
+      "fields": [
+        "geom",
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101L-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101R-FY",
+      "fields": [
+        "geom",
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101R-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102L-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102L-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102R-FY",
+      "fields": [
+        "geom",
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102R-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X104L-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X104L-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X104R-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X104R-FYS",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602003L-FX",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602003L-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602003R-FX",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602003R-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602008L-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602008R-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602018L-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 0602018R-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060201L-FX",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060201L-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060201R-FX",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060201R-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060202L-FX",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060202L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060202R-FX",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060202R-FY",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060204L-FX",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 060204L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows"
+      ]
+    }
+  ],
   "duplicates": 9006,
   "completeToolDuplicates": 15,
   "skipped": 1,
