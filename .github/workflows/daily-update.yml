@@ -126,6 +126,15 @@ jobs:
         if: steps.commit.outputs.changed == 'true'
         run: python -c "import gzip; data=open('catalog.json','rb').read(); packed=gzip.compress(data,compresslevel=9,mtime=0); open('catalog.json.gz','wb').write(packed); print('catalog.json.gz bytes:',len(packed))"
 
+      - name: Prepara asset statici per Cloudflare
+        if: steps.commit.outputs.changed == 'true'
+        run: |
+          mkdir -p dist
+          rsync -a --delete --exclude='catalog.json' --exclude='.git/' --exclude='node_modules/' --exclude='dist/' ./ dist/
+          test -s dist/catalog.json.gz
+          test ! -e dist/catalog.json
+          echo "Asset statici pronti: catalogo compresso presente, JSON pesante escluso."
+
       - name: Pubblicazione immediata su Cloudflare
         if: steps.commit.outputs.changed == 'true'
         run: npx wrangler@latest deploy
