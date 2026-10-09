@@ -41,18 +41,25 @@ CANONICAL={"Ingersoll Cutting Tools":"Ingersoll","Kyocera Cutting Tools":"Kyocer
 
 # Visible catalog is restricted to the seven manufacturers explicitly requested.
 ALLOWED_MAKERS = {
-    "iscar": "ISCAR",
-    "kennametal": "Kennametal",
-    "sandvik coromant": "Sandvik Coromant",
-    "seco": "Seco Tools",
-    "seco tools": "Seco Tools",
+    "korloy": "KORLOY", "corloy": "KORLOY",
     "sumitomo electric": "Sumitomo Electric Hardmetal",
     "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
-    "tungaloy": "Tungaloy",
-    "walter": "Walter",
+    "sandvik": "Sandvik Coromant", "sandvik coromant": "Sandvik Coromant",
+    "seco": "Seco Tools", "seco tools": "Seco Tools",
+    "iscar": "ISCAR", "kenn am": "Kennametal", "kennametal": "Kennametal",
+    "tungaloy": "Tungaloy", "walter": "Walter",
+    "taegutec": "TaeguTec", "taegu tec": "TaeguTec",
+    "ingersoll cutting tools": "Ingersoll", "ingersoll": "Ingersoll",
+    "mitsubishi materials": "Mitsubishi Materials", "kyocera": "Kyocera",
+    "ceratizit": "Ceratizit", "dormer pramet": "Dormer Pramet",
+    "ntk cutting tools": "NTK", "ntk": "NTK", "zcc cutting tools": "ZCC",
 }
 def canonical_maker(value):
-    return ALLOWED_MAKERS.get(str(value or "").strip().casefold(), "")
+    raw = str(value or "").strip()
+    if not raw or raw.casefold() == "iso":
+        return ""
+    return ALLOWED_MAKERS.get(raw.casefold(), raw)
+
 
 
 def now():
