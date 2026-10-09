@@ -28,19 +28,24 @@ ALLOWED = [
 
 # Keep only the seven manufacturers explicitly selected by the user.
 ALLOWED_MAKERS = {
-    "iscar": "ISCAR",
-    "kennametal": "Kennametal",
-    "sandvik coromant": "Sandvik Coromant",
-    "seco": "Seco Tools",
-    "seco tools": "Seco Tools",
+    "korloy": "KORLOY", "corloy": "KORLOY",
     "sumitomo electric": "Sumitomo Electric Hardmetal",
     "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
-    "tungaloy": "Tungaloy",
-    "walter": "Walter",
+    "sandvik": "Sandvik Coromant", "sandvik coromant": "Sandvik Coromant",
+    "seco": "Seco Tools", "seco tools": "Seco Tools",
+    "iscar": "ISCAR", "kenn am": "Kennametal", "kennametal": "Kennametal",
+    "tungaloy": "Tungaloy", "walter": "Walter",
+    "taegutec": "TaeguTec", "taegu tec": "TaeguTec",
+    "ingersoll cutting tools": "Ingersoll", "ingersoll": "Ingersoll",
+    "mitsubishi materials": "Mitsubishi Materials", "kyocera": "Kyocera",
+    "ceratizit": "Ceratizit", "dormer pramet": "Dormer Pramet",
+    "ntk cutting tools": "NTK", "ntk": "NTK", "zcc cutting tools": "ZCC",
 }
-
 def canonical_maker(value):
-    return ALLOWED_MAKERS.get(str(value or "").strip().casefold(), "")
+    raw = str(value or "").strip()
+    if not raw or raw.casefold() == "iso":
+        return ""
+    return ALLOWED_MAKERS.get(raw.casefold(), raw)
 
 TURNING = re.compile(r"^(CNMG|DNMG|SNMG|TNMG|VNMG|WNMG|CCMT|DCMT|TCMT|VCMT|VBMT|VBGT|CCGT|DCGT|TCGT|VCGT|CNGA|DNGA|TNGA|VNGA|WNGA)\b", re.I)
 MILLING = re.compile(r"^(APMT|APKT|SEHT|SEKT|RDMW|RPMT|SPMT|SOMT|XPMT|LNMU|ADMX|SDMT|SDXT|ONHU|ODMX|XDET|LOGX)\b", re.I)
@@ -117,14 +122,7 @@ def main():
     items = [dict(x, maker=canonical_maker(x.get("maker"))) for x in items if canonical_maker(x.get("maker"))]
     tool_items = [dict(x, maker=canonical_maker(x.get("maker"))) for x in tool_items if canonical_maker(x.get("maker"))]
 
-    # Images are temporarily removed from insert records/UI to keep the catalog
-    # focused on technical data. The pre-change catalog is backed up before this
-    # mutation so a future layout can restore the image metadata.
-    INSERT_IMAGE_FIELDS = ("photoUrl", "image", "imageUrl", "images", "thumbnail", "thumbnailUrl")
-    for x in items:
-        if x.get("category") in ALLOWED or str(x.get("toolType","")).lower() == "insert":
-            for field in INSERT_IMAGE_FIELDS:
-                x.pop(field, None)
+    # Preserve verified product image metadata; technical cleanup must not strip photos.
     # Normalize the parameter schema on legacy complete-tool rows without inventing values.
     for x in tool_items:
         if x.get("toolType") == "complete-tool":
