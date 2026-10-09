@@ -1,48 +1,43 @@
 {
-  "updatedAt": "2026-10-09T05:36:48Z",
+  "updatedAt": "2026-10-09T05:47:19Z",
   "run": "daily",
   "changed": true,
-  "catalogItems": 8960,
+  "catalogItems": 8279,
   "parameterCoverage": {
     "inserts": {
-      "total": 8960,
-      "vc": 273,
-      "f_or_fz": 50,
-      "ap": 47,
-      "officialConditionContext": 4629,
-      "recommendedConditionTables": 4629,
-      "parameterRows": 3232,
-      "geometry": 2365,
-      "material": 412,
-      "application": 8290
+      "total": 8279,
+      "vc": 205,
+      "f_or_fz": 48,
+      "ap": 45,
+      "officialConditionContext": 4008,
+      "recommendedConditionTables": 4008,
+      "parameterRows": 2722,
+      "geometry": 1954,
+      "material": 123,
+      "application": 7643
     },
     "completeTools": {
-      "total": 449,
+      "total": 423,
       "vc": 396,
       "f_or_fz": 396,
       "ap": 0,
       "officialConditionContext": 15,
       "recommendedConditionTables": 15,
       "parameterRows": 0,
-      "geometry": 436,
-      "material": 445,
+      "geometry": 410,
+      "material": 419,
       "application": 4
     }
   },
   "removedInvalidOrDuplicate": 0,
   "removedDetails": [],
   "photosUpdated": 0,
-  "sourcesChecked": 21,
-  "sourcesReachable": 20,
-  "sourcesFailed": 1,
+  "sourcesChecked": 8,
+  "sourcesReachable": 8,
+  "sourcesFailed": 0,
   "newProducts": 0,
   "autoIndexing": "disabled-by-policy",
   "note": "Il job non aggiunge mai automaticamente Product JSON-LD non classificati: nuovi codici devono essere verificati come inserti da fonte ufficiale prima dell'indicizzazione.",
   "backup": "backups/catalog-latest.json",
-  "errors": [
-    {
-      "maker": "MAPAL",
-      "error": "HTTP Error 404: "
-    }
-  ]
+  "errors": []
 }
