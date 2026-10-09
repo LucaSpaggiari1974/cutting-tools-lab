@@ -41,24 +41,22 @@ CANONICAL={"Ingersoll Cutting Tools":"Ingersoll","Kyocera Cutting Tools":"Kyocer
 
 # Visible catalog is restricted to the seven manufacturers explicitly requested.
 ALLOWED_MAKERS = {
-    "korloy": "KORLOY", "corloy": "KORLOY",
-    "sumitomo electric": "Sumitomo Electric Hardmetal",
-    "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
+    "ingersoll": "Ingersoll", "ingersoll cutting tools": "Ingersoll",
+    "iscar": "ISCAR",
+    "kennametal": "Kennametal",
     "sandvik": "Sandvik Coromant", "sandvik coromant": "Sandvik Coromant",
     "seco": "Seco Tools", "seco tools": "Seco Tools",
-    "iscar": "ISCAR", "kenn am": "Kennametal", "kennametal": "Kennametal",
-    "tungaloy": "Tungaloy", "walter": "Walter",
-    "taegutec": "TaeguTec", "taegu tec": "TaeguTec",
-    "ingersoll cutting tools": "Ingersoll", "ingersoll": "Ingersoll",
-    "mitsubishi materials": "Mitsubishi Materials", "kyocera": "Kyocera",
-    "ceratizit": "Ceratizit", "dormer pramet": "Dormer Pramet",
-    "ntk cutting tools": "NTK", "ntk": "NTK", "zcc cutting tools": "ZCC",
+    "sumitomo": "Sumitomo Electric Hardmetal",
+    "sumitomo electric": "Sumitomo Electric Hardmetal",
+    "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
+    "tungaloy": "Tungaloy",
+    "walter": "Walter", "walter tools": "Walter",
 }
 def canonical_maker(value):
     raw = str(value or "").strip()
     if not raw or raw.casefold() == "iso":
         return ""
-    return ALLOWED_MAKERS.get(raw.casefold(), raw)
+    return ALLOWED_MAKERS.get(raw.casefold(), "")
 
 
 
@@ -133,6 +131,8 @@ def main():
     started=now()
     catalog=json.loads(CATALOG.read_text(encoding="utf-8"))
     manufacturers=json.loads(MANUFACTURERS.read_text(encoding="utf-8"))
+    manufacturers["groups"]=[g for g in manufacturers.get("groups",[]) if canonical_maker(g.get("name")) or str(g.get("name","")).strip().casefold()=="iso"]
+    MANUFACTURERS.write_text(json.dumps(manufacturers,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     old=json.dumps(catalog,ensure_ascii=False,sort_keys=True)
     BACKUP.parent.mkdir(parents=True,exist_ok=True)
     BACKUP.write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
@@ -170,7 +170,7 @@ def main():
     # Official manufacturer source audit. This is verification, not auto-indexing.
     source_jobs=[]
     for g in manufacturers.get("groups",[]):
-        if g.get("name")=="ISO": continue
+        if g.get("name")=="ISO" or not canonical_maker(g.get("name")): continue
         u=g.get("catalog")
         if u: source_jobs.append((g.get("name",""),u))
     source_results={}
@@ -207,8 +207,8 @@ def main():
 
     registry=[]
     for g in manufacturers.get("groups",[]):
-        if g.get("name")=="ISO": continue
-        maker=CANONICAL.get(g.get("name"),g.get("name"))
+        if g.get("name")=="ISO" or not canonical_maker(g.get("name")): continue
+        maker=canonical_maker(g.get("name"))
         src=source_results.get(g.get("name"),{})
         registry.append({
             "maker":maker,
