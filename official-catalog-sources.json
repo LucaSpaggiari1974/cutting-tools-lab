@@ -1,6 +1,6 @@
 {
   "version": "1.0-official-catalog-registry",
-  "updatedAt": "2026-10-09T05:31:09.613Z",
+  "updatedAt": "2026-10-09T05:33:04.895Z",
   "purpose": "Sorgenti primarie ufficiali per l'indicizzazione del catalogo utensili. Le famiglie non equivalgono a codici verificati.",
   "rule": "Indicizzare solo codici/articoli realmente presenti nelle fonti ufficiali correnti; nessun codice inventato.",
   "sources": [
@@ -59,7 +59,153 @@
         "reamers",
         "tooling"
       ]
+    },
+    {
+      "maker": "KORLOY",
+      "catalog": "https://korloy.com/en/download/cata.do",
+      "type": "official manufacturer catalog portal",
+      "scope": [
+        "turning inserts",
+        "solid tools",
+        "milling",
+        "drilling",
+        "threading",
+        "tooling"
+      ]
+    },
+    {
+      "maker": "Seco Tools",
+      "catalog": "https://www.secotools.com/article/homepage?language=it",
+      "type": "official catalog and product pages",
+      "scope": [
+        "turning inserts",
+        "milling",
+        "drilling",
+        "threading",
+        "reaming",
+        "toolholding"
+      ]
+    },
+    {
+      "maker": "Tungaloy",
+      "catalog": "https://tungaloy.com/it/publications/catalog/",
+      "type": "official product catalogs",
+      "scope": [
+        "turning inserts",
+        "milling",
+        "drilling",
+        "threading",
+        "toolholding",
+        "deep-hole drilling"
+      ]
+    },
+    {
+      "maker": "TaeguTec",
+      "catalog": "https://www.taegutec.com/pages/en/publications/cutting-tools-catalogs/",
+      "type": "official product catalogs",
+      "scope": [
+        "turning inserts",
+        "milling",
+        "drilling",
+        "threading",
+        "tooling"
+      ]
+    },
+    {
+      "maker": "Ingersoll",
+      "catalog": "https://www.ingersoll-imc.com/catalogs",
+      "type": "official product catalogs",
+      "scope": [
+        "turning inserts",
+        "grooving",
+        "threading",
+        "milling",
+        "drilling"
+      ]
+    },
+    {
+      "maker": "Kennametal",
+      "catalog": "https://www.kennametal.com/it/it/products/metalworking-tools/turning.html",
+      "type": "official product pages",
+      "scope": [
+        "turning inserts",
+        "milling",
+        "drilling",
+        "threading",
+        "tooling"
+      ]
+    },
+    {
+      "maker": "Mitsubishi Materials",
+      "catalog": "https://www.mmtc.co.jp/en/support/catalog/",
+      "type": "official catalog downloads",
+      "scope": [
+        "turning inserts",
+        "milling",
+        "drilling",
+        "threading",
+        "tooling"
+      ]
+    },
+    {
+      "maker": "Kyocera",
+      "catalog": "https://www.kyocera-unimerco.com/",
+      "type": "official product catalog",
+      "scope": [
+        "turning inserts",
+        "milling",
+        "drilling",
+        "threading",
+        "tooling"
+      ]
+    },
+    {
+      "maker": "Ceratizit",
+      "catalog": "https://cuttingtools.ceratizit.com/",
+      "type": "official product catalog",
+      "scope": [
+        "turning inserts",
+        "milling",
+        "drilling",
+        "threading",
+        "tooling"
+      ]
+    },
+    {
+      "maker": "Dormer Pramet",
+      "catalog": "https://www.dormerpramet.com/",
+      "type": "official product catalog",
+      "scope": [
+        "turning inserts",
+        "milling",
+        "drilling",
+        "threading",
+        "tooling"
+      ]
+    },
+    {
+      "maker": "NTK",
+      "catalog": "https://www.ntkcuttingtools.com/",
+      "type": "official product catalog",
+      "scope": [
+        "turning inserts",
+        "milling",
+        "drilling",
+        "ceramic/CBN inserts"
+      ]
+    },
+    {
+      "maker": "ZCC",
+      "catalog": "https://www.zccct.com/",
+      "type": "official product catalog",
+      "scope": [
+        "turning inserts",
+        "milling",
+        "drilling",
+        "threading",
+        "tooling"
+      ]
     }
   ],
-  "ingestionStatus": "official-sources-restricted-to-selected-major-manufacturers; code-level indexing in progress"
+  "ingestionStatus": "official-source-registry-expanded; manufacturer-specific SKU indexing and parameter verification in progress"
 }
