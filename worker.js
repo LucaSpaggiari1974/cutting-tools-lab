@@ -2,6 +2,18 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    if (url.pathname === "/catalog.json") {
+      const compressed = await env.ASSETS.fetch(new Request(new URL("/catalog.json.gz", url), request));
+      if (!compressed.ok) return new Response("Catalog temporarily unavailable", { status: 503 });
+      const body = compressed.body.pipeThrough(new DecompressionStream("gzip"));
+      const headers = new Headers(compressed.headers);
+      headers.set("Content-Type", "application/json; charset=utf-8");
+      headers.set("Cache-Control", "public, max-age=300, s-maxage=300, stale-while-revalidate=3600");
+      headers.delete("Content-Encoding");
+      headers.delete("Content-Length");
+      return new Response(body, { status: 200, headers });
+    }
+
     if (url.pathname === "/product-image") {
       const rawTarget = url.searchParams.get("url");
       const cleanUrl = value => String(value || "").replace(/&amp;/gi, "&").replace(/\\\//g, "/").trim();
