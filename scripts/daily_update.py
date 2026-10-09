@@ -39,6 +39,22 @@ CATEGORY_ORDER={v:i for i,v in enumerate(ALLOWED)}
 CANONICAL={"Ingersoll Cutting Tools":"Ingersoll","Kyocera Cutting Tools":"Kyocera",
            "NTK Cutting Tools":"NTK","ZCC Cutting Tools":"ZCC"}
 
+# Visible catalog is restricted to the seven manufacturers explicitly requested.
+ALLOWED_MAKERS = {
+    "iscar": "ISCAR",
+    "kennametal": "Kennametal",
+    "sandvik coromant": "Sandvik Coromant",
+    "seco": "Seco Tools",
+    "seco tools": "Seco Tools",
+    "sumitomo electric": "Sumitomo Electric Hardmetal",
+    "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
+    "tungaloy": "Tungaloy",
+    "walter": "Walter",
+}
+def canonical_maker(value):
+    return ALLOWED_MAKERS.get(str(value or "").strip().casefold(), "")
+
+
 def now():
     return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00","Z")
 
@@ -120,7 +136,12 @@ def main():
     items=[]
     seen=set()
     for x in catalog.get("items",[]):
-        if x.get("maker")=="ISO" or x.get("category") not in ALLOWED or not x.get("code"):
+        canonical = canonical_maker(x.get("maker"))
+        if not canonical:
+            removed.append({"maker":x.get("maker"),"code":x.get("code"),"reason":"manufacturer-not-in-selected-seven"})
+            continue
+        x["maker"] = canonical
+        if x.get("category") not in ALLOWED or not x.get("code"):
             removed.append({"maker":x.get("maker"),"code":x.get("code"),"reason":"generic/non-insert"})
             continue
         key=norm(x.get("maker"))+"|"+norm(x.get("code"))
