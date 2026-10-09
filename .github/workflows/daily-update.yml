@@ -11,6 +11,11 @@ on:
       - "scripts/official_catalog_ingest.py"
       - "scripts/promote_official_catalog.py"
       - "official-catalog-sources.json"
+      - "index.html"
+      - "sw.js"
+      - "worker.js"
+      - "manifest.webmanifest"
+      - "icon.svg"
       - ".github/workflows/daily-update.yml"
 
 permissions:
@@ -101,7 +106,7 @@ jobs:
         run: |
           git config user.name "Cutting Tools LAB Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add catalog.json update-status.json complete-tools.json official-catalog-extracted.json official-catalog-promotion-report.json backups/catalog-latest.json backups/catalog-before-update.json backups/complete-tools-before-update.json
+          git add catalog.json catalog.json.gz index.html sw.js worker.js manifest.webmanifest icon.svg update-status.json complete-tools.json official-catalog-extracted.json official-catalog-promotion-report.json backups/catalog-latest.json backups/catalog-before-update.json backups/complete-tools-before-update.json
           if git diff --cached --quiet; then
             echo "Nessuna modifica."
             echo "changed=false" >> "$GITHUB_OUTPUT"
