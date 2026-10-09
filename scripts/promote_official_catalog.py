@@ -28,24 +28,22 @@ ALLOWED = [
 
 # Keep only the seven manufacturers explicitly selected by the user.
 ALLOWED_MAKERS = {
-    "korloy": "KORLOY", "corloy": "KORLOY",
-    "sumitomo electric": "Sumitomo Electric Hardmetal",
-    "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
+    "ingersoll": "Ingersoll", "ingersoll cutting tools": "Ingersoll",
+    "iscar": "ISCAR",
+    "kennametal": "Kennametal",
     "sandvik": "Sandvik Coromant", "sandvik coromant": "Sandvik Coromant",
     "seco": "Seco Tools", "seco tools": "Seco Tools",
-    "iscar": "ISCAR", "kenn am": "Kennametal", "kennametal": "Kennametal",
-    "tungaloy": "Tungaloy", "walter": "Walter",
-    "taegutec": "TaeguTec", "taegu tec": "TaeguTec",
-    "ingersoll cutting tools": "Ingersoll", "ingersoll": "Ingersoll",
-    "mitsubishi materials": "Mitsubishi Materials", "kyocera": "Kyocera",
-    "ceratizit": "Ceratizit", "dormer pramet": "Dormer Pramet",
-    "ntk cutting tools": "NTK", "ntk": "NTK", "zcc cutting tools": "ZCC",
+    "sumitomo": "Sumitomo Electric Hardmetal",
+    "sumitomo electric": "Sumitomo Electric Hardmetal",
+    "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
+    "tungaloy": "Tungaloy",
+    "walter": "Walter", "walter tools": "Walter",
 }
 def canonical_maker(value):
     raw = str(value or "").strip()
     if not raw or raw.casefold() == "iso":
         return ""
-    return ALLOWED_MAKERS.get(raw.casefold(), raw)
+    return ALLOWED_MAKERS.get(raw.casefold(), "")
 
 TURNING = re.compile(r"^(CNMG|DNMG|SNMG|TNMG|VNMG|WNMG|CCMT|DCMT|TCMT|VCMT|VBMT|VBGT|CCGT|DCGT|TCGT|VCGT|CNGA|DNGA|TNGA|VNGA|WNGA)\b", re.I)
 MILLING = re.compile(r"^(APMT|APKT|SEHT|SEKT|RDMW|RPMT|SPMT|SOMT|XPMT|LNMU|ADMX|SDMT|SDXT|ONHU|ODMX|XDET|LOGX)\b", re.I)
