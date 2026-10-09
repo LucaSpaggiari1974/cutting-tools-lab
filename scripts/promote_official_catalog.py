@@ -37,13 +37,8 @@ ALLOWED_MAKERS = {
     "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
     "tungaloy": "Tungaloy",
     "walter": "Walter",
-    "korloy": "KORLOY",
-    "taegutec": "TaeguTec",
-    "ceratizit": "CERATIZIT",
-    "guhring": "Guhring",
-    "zcc cutting tools": "ZCC Cutting Tools",
-    "kyocera sgs precision tools": "KYOCERA SGS Precision Tools",
 }
+
 def canonical_maker(value):
     return ALLOWED_MAKERS.get(str(value or "").strip().casefold(), "")
 
