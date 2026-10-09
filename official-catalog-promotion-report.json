@@ -1,11 +1,409 @@
 {
-  "updatedAt": "2026-10-08T05:30:23Z",
+  "updatedAt": "2026-10-09T03:39:35Z",
   "stagingItems": 9022,
   "promoted": 0,
   "promotedCompleteTools": 0,
-  "enrichedExisting": 0,
-  "enrichedFields": 0,
-  "enrichedSample": [],
+  "enrichedExisting": 4036,
+  "enrichedFields": 7659,
+  "enrichedSample": [
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003L-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X1003R-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101L-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X101R-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102L-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 04X102R-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 09T3003L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 09T3003R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 09T3008L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 09T3008R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 09T3018L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 09T3018R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 09T301L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 09T301R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 09T302L-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 09T302R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 09T304L-FY",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET 09T304R-FY",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 03X1003L-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 03X1003R-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 03X101L-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 03X101R-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 04X1003L-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 04X1003R-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 04X101L-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 04X101R-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 04X102L-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 04X102R-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 04X104L-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 04X104R-FYS",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 0602003L-FX",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 0602003N-SC",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 0602003R-FX",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060201L-FX",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060201MN-FC",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060201MN-FF",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060201MN-SC",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060201MN-SI",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060201MN-SL",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060201R-FX",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060202MN-FC",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060202MN-FF",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060202MN-SC",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060202MN-SI",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060202MN-SL",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060202R-FX",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060204MN-FC",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060204MN-FF",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060204MN-SC",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT 060204MN-SI",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    }
+  ],
   "duplicates": 9006,
   "completeToolDuplicates": 15,
   "skipped": 1,
