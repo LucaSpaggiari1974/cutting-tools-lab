@@ -223,10 +223,16 @@ for src in SOURCES:
         for page_no, page in enumerate(pages, start=1):
             lines = normalize_lines(page)
             page_cache[page_no] = lines
+            # Candidate offsets MUST use the same normalized line array as
+            # parameter extraction below. Previously the candidates were found
+            # on raw PDF lines (including blanks) while metadata was read from
+            # normalized lines (blanks removed), shifting the lookup window and
+            # attaching empty or unrelated conditions to product codes.
+            candidate_text = "\n".join(lines)
             if src["scope"] == "inserts":
-                page_candidates = extract_insert_candidates(page)
+                page_candidates = extract_insert_candidates(candidate_text)
             else:
-                page_candidates = extract_tool_candidates(page)
+                page_candidates = extract_tool_candidates(candidate_text)
             for code, context, line_index in page_candidates:
                 candidates.append((code, page_no, context[:1200], line_index))
 
