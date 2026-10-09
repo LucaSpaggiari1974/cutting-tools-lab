@@ -1,517 +1,360 @@
 {
-  "updatedAt": "2026-10-09T05:13:40Z",
+  "updatedAt": "2026-10-09T05:36:48Z",
   "stagingItems": 9022,
   "promoted": 0,
   "promotedCompleteTools": 0,
-  "enrichedExisting": 4085,
-  "enrichedFields": 13013,
+  "enrichedExisting": 50,
+  "enrichedFields": 51,
   "enrichedSample": [
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X1003L-FY",
+      "maker": "KORLOY",
+      "code": "CA 90503",
       "fields": [
-        "geom",
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X1003L-FYS",
+      "maker": "KORLOY",
+      "code": "CEP06460-010",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X1003R-FY",
+      "maker": "KORLOY",
+      "code": "MBCBR 442L20C-R015",
       "fields": [
-        "geom",
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X1003R-FYS",
+      "maker": "KORLOY",
+      "code": "MBCFR 442L10C-R015",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X101L-FY",
+      "maker": "KORLOY",
+      "code": "MBCR 415L04-R005",
       "fields": [
-        "geom",
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X101L-FYS",
+      "maker": "KORLOY",
+      "code": "MBCR 430L10-R005",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X101R-FY",
+      "maker": "KORLOY",
+      "code": "MBCR 430L20C-R015",
       "fields": [
-        "geom",
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X101R-FYS",
+      "maker": "KORLOY",
+      "code": "MBCR 437L10-R005",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X102L-FY",
+      "maker": "KORLOY",
+      "code": "MBCR 437L26-R005",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X102L-FYS",
+      "maker": "KORLOY",
+      "code": "MBCR 442L15-R003",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X102R-FY",
+      "maker": "KORLOY",
+      "code": "MBCR 442L25-R003",
       "fields": [
-        "geom",
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X102R-FYS",
+      "maker": "KORLOY",
+      "code": "MBCR 442L30-R005",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X104L-FY",
+      "maker": "KORLOY",
+      "code": "MBCR 552L10-R005",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X104L-FYS",
+      "maker": "KORLOY",
+      "code": "MBCR 552L15-R003",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X104R-FY",
+      "maker": "KORLOY",
+      "code": "MBCR 552L20-R005",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 03X104R-FYS",
+      "maker": "KORLOY",
+      "code": "MBCR 552L30-R005",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X1003L-FY",
+      "maker": "KORLOY",
+      "code": "MBCR 662L20-R005",
       "fields": [
-        "geom",
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X1003L-FYS",
+      "maker": "KORLOY",
+      "code": "MBCR 662L30-R005",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X1003R-FY",
+      "maker": "KORLOY",
+      "code": "MBCR 772L15-R010",
       "fields": [
-        "geom",
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X1003R-FYS",
+      "maker": "KORLOY",
+      "code": "MBCR 772L30-R020",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X101L-FY",
+      "maker": "KORLOY",
+      "code": "MBER 422L14-R010",
       "fields": [
-        "geom",
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X101L-FYS",
+      "maker": "KORLOY",
+      "code": "MBER 427L16-R005",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X101R-FY",
+      "maker": "KORLOY",
+      "code": "MBER 432L16-R005",
       "fields": [
-        "geom",
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X101R-FYS",
+      "maker": "KORLOY",
+      "code": "MBER 432L16-R015",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X102L-FY",
+      "maker": "KORLOY",
+      "code": "MBER 432L20-R005",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X102L-FYS",
+      "maker": "KORLOY",
+      "code": "MBER 432L20-R015",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X102R-FY",
+      "maker": "KORLOY",
+      "code": "MBER 437L15-R015",
       "fields": [
-        "geom",
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X102R-FYS",
+      "maker": "KORLOY",
+      "code": "MBER 437L20-R015",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X104L-FY",
+      "maker": "KORLOY",
+      "code": "MBER 442L16-R005",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X104L-FYS",
+      "maker": "KORLOY",
+      "code": "MBER 442L16-R015",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X104R-FY",
+      "maker": "KORLOY",
+      "code": "MBER 442L21-R005",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 04X104R-FYS",
+      "maker": "KORLOY",
+      "code": "MBER 442L21-R015",
       "fields": [
-        "geom",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 0602003L-FX",
+      "maker": "KORLOY",
+      "code": "MBER 552L21-R020",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 0602003L-FY",
+      "maker": "KORLOY",
+      "code": "MBER 552L26-R020",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 0602003R-FX",
+      "maker": "KORLOY",
+      "code": "MBER 662L30-R020",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 0602003R-FY",
+      "maker": "KORLOY",
+      "code": "MBER 662L35-R020",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 0602008L-FY",
+      "maker": "KORLOY",
+      "code": "MBER 772L40-R020",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 0602008R-FY",
+      "maker": "KORLOY",
+      "code": "MBER 772L45-R020",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 0602018L-FY",
+      "maker": "KORLOY",
+      "code": "MCLR 442L10C-R015",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 0602018R-FY",
+      "maker": "KORLOY",
+      "code": "RPGT0802M0",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 060201L-FX",
+      "maker": "KORLOY",
+      "code": "RPGT1203M0",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 060201L-FY",
+      "maker": "KORLOY",
+      "code": "RPGT1604M0",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 060201R-FX",
+      "maker": "KORLOY",
+      "code": "RPGT2004M0",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 060201R-FY",
+      "maker": "KORLOY",
+      "code": "SNGN0903WR",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 060202L-FX",
+      "maker": "KORLOY",
+      "code": "TB 5050N-004",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 060202L-FY",
+      "maker": "KORLOY",
+      "code": "TB 5100N-6DL",
       "fields": [
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 060202R-FX",
+      "maker": "KORLOY",
+      "code": "TB 5100N-6DR",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 060202R-FY",
+      "maker": "KORLOY",
+      "code": "TB 5157N-079",
       "fields": [
-        "application",
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 060204L-FX",
+      "maker": "KORLOY",
+      "code": "TNGN2204SR",
       "fields": [
-        "application",
         "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "recommendedConditions"
       ]
     },
     {
-      "maker": "Sumitomo Electric Hardmetal",
-      "code": "CCET 060204L-FY",
+      "maker": "KORLOY",
+      "code": "VTH 2020R",
       "fields": [
-        "cuttingConditions",
-        "recommendedConditions",
-        "parameterRows"
+        "cuttingConditions"
       ]
     }
   ],

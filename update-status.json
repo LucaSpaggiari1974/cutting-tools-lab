@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-09T05:13:40Z",
+  "updatedAt": "2026-10-09T05:36:48Z",
   "run": "daily",
   "changed": true,
   "catalogItems": 8960,
@@ -33,8 +33,8 @@
   "removedDetails": [],
   "photosUpdated": 0,
   "sourcesChecked": 21,
-  "sourcesReachable": 19,
-  "sourcesFailed": 2,
+  "sourcesReachable": 20,
+  "sourcesFailed": 1,
   "newProducts": 0,
   "autoIndexing": "disabled-by-policy",
   "note": "Il job non aggiunge mai automaticamente Product JSON-LD non classificati: nuovi codici devono essere verificati come inserti da fonte ufficiale prima dell'indicizzazione.",
@@ -43,10 +43,6 @@
     {
       "maker": "MAPAL",
       "error": "HTTP Error 404: "
-    },
-    {
-      "maker": "Ingersoll Cutting Tools",
-      "error": "The read operation timed out"
     }
   ]
 }
