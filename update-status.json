@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-09T03:39:35Z",
+  "updatedAt": "2026-10-09T04:15:09Z",
   "run": "daily",
   "changed": true,
   "catalogItems": 8960,
@@ -11,7 +11,7 @@
       "ap": 46,
       "officialConditionContext": 3472,
       "recommendedConditionTables": 3472,
-      "parameterRows": 508,
+      "parameterRows": 1446,
       "geometry": 576,
       "material": 196,
       "application": 6759
