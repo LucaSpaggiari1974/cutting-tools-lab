@@ -11,6 +11,7 @@ on:
       - "scripts/official_catalog_ingest.py"
       - "scripts/promote_official_catalog.py"
       - "official-catalog-sources.json"
+      - ".github/workflows/daily-update.yml"
 
 permissions:
   contents: write
