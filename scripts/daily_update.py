@@ -39,7 +39,7 @@ CATEGORY_ORDER={v:i for i,v in enumerate(ALLOWED)}
 CANONICAL={"Ingersoll Cutting Tools":"Ingersoll","Kyocera Cutting Tools":"Kyocera",
            "NTK Cutting Tools":"NTK","ZCC Cutting Tools":"ZCC"}
 
-# Visible catalog is restricted to the seven manufacturers explicitly requested.
+# Visible catalog is restricted to the explicitly selected manufacturers, including KORLOY.
 ALLOWED_MAKERS = {
     "ingersoll": "Ingersoll", "ingersoll cutting tools": "Ingersoll",
     "iscar": "ISCAR",
@@ -50,6 +50,7 @@ ALLOWED_MAKERS = {
     "sumitomo electric": "Sumitomo Electric Hardmetal",
     "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
     "tungaloy": "Tungaloy",
+    "korloy": "KORLOY",
     "walter": "Walter", "walter tools": "Walter",
 }
 def canonical_maker(value):
