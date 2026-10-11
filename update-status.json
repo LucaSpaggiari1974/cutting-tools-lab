@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-11T02:28:50Z",
+  "updatedAt": "2026-10-11T04:29:53Z",
   "run": "daily",
   "changed": true,
   "catalogItems": 8279,
@@ -32,8 +32,8 @@
   "removedInvalidOrDuplicate": 0,
   "removedDetails": [],
   "photosUpdated": 0,
-  "sourcesChecked": 8,
-  "sourcesReachable": 8,
+  "sourcesChecked": 9,
+  "sourcesReachable": 9,
   "sourcesFailed": 0,
   "newProducts": 0,
   "autoIndexing": "disabled-by-policy",

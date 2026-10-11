@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-11T02:28:49Z",
-  "stagingItems": 8335,
+  "updatedAt": "2026-10-11T04:29:53Z",
+  "stagingItems": 9019,
   "promoted": 0,
   "promotedCompleteTools": 0,
   "enrichedExisting": 0,
@@ -8,13 +8,14 @@
   "enrichedSample": [],
   "duplicates": 8319,
   "completeToolDuplicates": 15,
-  "skipped": 1,
+  "skipped": 685,
   "catalogItemsAfter": 8279,
   "completeToolsAfter": 423,
   "policy": "Solo codici forti provenienti da scope inserts ufficiale; ambigui mantenuti in staging.",
   "promotedSample": [],
   "promotedCompleteToolsSample": [],
   "skippedReasons": {
+    "manufacturer-not-in-selected-seven": 684,
     "weak-tool-code": 1
   }
 }
