@@ -1,6 +1,6 @@
 {
   "version": "2.3-fast-precise-local-parameter-rows",
-  "updatedAt": "2026-10-16T14:44:14.640490+00:00",
+  "updatedAt": "2026-10-16T15:41:19.179004+00:00",
   "status": "official-catalog-extraction-in-progress",
   "rule": "Importare articolo per articolo dai cataloghi ufficiali correnti. Nessun codice viene inventato; nessuna famiglia viene considerata completa finché i relativi articoli non sono stati indicizzati.",
   "policy": "Questo file è staging. Le righe estratte non diventano visibili come articoli verificati finché codice, contesto d'ordine e fonte ufficiale non sono stati normalizzati e controllati.",
@@ -71,7 +71,7 @@
       "scope": "inserts",
       "category": "Tornitura · Inserto ufficiale",
       "status": "error",
-      "error": "Command '['pdftotext', '-layout', '/tmp/tmpyrh5t6kv/catalog.pdf', '/tmp/tmpyrh5t6kv/catalog.txt']' returned non-zero exit status 1."
+      "error": "Command '['pdftotext', '-layout', '/tmp/tmp_vd0_r7b/catalog.pdf', '/tmp/tmp_vd0_r7b/catalog.txt']' returned non-zero exit status 1."
     },
     {
       "maker": "KORLOY",
