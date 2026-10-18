@@ -174,6 +174,89 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 <div class="formulaCard"><h3>Corse/min da Bd</h3><label>Battute/corse per dente Bd<input id="gf_b_bdg" type="number" step="any"></label><label>Giri pezzo Np (giri/min)<input id="gf_b_np" type="number" step="any"></label><label>Denti pezzo Zp<input id="gf_b_zp" type="number" step="1"></label><div class="formulaText">B = Bd × Np × Zp</div><div id="gf_b_out" class="resultCell outputCell">Corse/min</div></div>
 <div class="formulaCard"><h3>Tempo teorico di generazione</h3><label>Battute per dente Bd<input id="gf_t_bd" type="number" step="any"></label><label>Denti pezzo Zp<input id="gf_t_zp" type="number" step="1"></label><label>Corse Wc (str/min)<input id="gf_t_b" type="number" step="any"></label><div class="formulaText">T = (Bd × Zp) / B</div><div class="formulaNote">Tempo teorico per una passata, senza indicizzazione, infeed e movimenti ausiliari.</div><div id="gf_t_out" class="resultCell outputCell">Tempo min</div></div>
 </div>
+<div class="formulaCard" id="ls500Calc" style="margin-top:16px;padding:16px;border:2px solid #1d78c9;border-radius:12px;background:#f8fbfd">
+<h3>Calcolatore parametrico · Liebherr LS 500</h3>
+<p>Inserisci i dati del pezzo. Il calcolatore aggiorna le grandezze geometriche calcolabili e segnala i dati mancanti. Non scrive né modifica il programma CNC.</p>
+<div class="formulaGrid">
+<label>Tipo di ruota<select id="ls500_type"><option value="internal">Interna</option><option value="external">Esterna</option></select></label>
+<label>Num.denti del pezzo<input id="ls500_z" type="number" min="1" step="1" value="75"></label>
+<label>Modulo normale (mm)<input id="ls500_mn" type="number" min="0.001" step="any" value="2.5"></label>
+<label>Angolo d'inclinaz. (grd)<input id="ls500_beta" type="number" step="any" value="0"></label>
+<label>Angolo d.press.norm. (grd)<input id="ls500_alpha" type="number" min="0" max="45" step="any" value="20"></label>
+<label>Diametro esterno (mm)<input id="ls500_da" type="number" min="0" step="any" value="183.5"></label>
+<label>Fascia del pezzo (mm)<input id="ls500_b" type="number" min="0" step="any" value="23"></label>
+<label>Materiale pezzo<select id="ls500_material"><option>Acciaio non specificato</option><option>Acciaio da costruzione</option><option>Acciaio da bonifica</option><option>Acciaio da cementazione</option><option>Acciaio temprato</option><option>Altro</option></select></label>
+<label>Durezza (HB/HRC)<input id="ls500_hardness" type="text" placeholder="Non nota"></label>
+<label>Materiale coltello<input id="ls500_tool" type="text" value="Metallo duro"></label>
+<label>Rivestimento / codice coltello<input id="ls500_coating" type="text" placeholder="Non noto"></label>
+<label>Versione macchina / testa<input id="ls500_version" type="text" placeholder="LS 500; versione non identificata"></label>
+</div>
+<div class="formulaGrid" style="margin-top:12px">
+<div class="formulaCard"><h3>Diametro primitivo teorico d</h3><div class="formulaText">d = mn × z / cos(β)</div><div id="ls500_dout" class="resultCell outputCell">187,500 mm</div><div class="formulaNote">Calcolo geometrico per ingranaggio cilindrico; verificare la convenzione del modulo e la geometria interna/esterna del disegno.</div></div>
+<div class="formulaCard"><h3>Stato geometria</h3><div id="ls500_geomstatus" class="resultCell outputCell">Da verificare</div><div class="formulaNote">Il diametro esterno inserito non viene corretto automaticamente.</div></div>
+<div class="formulaCard"><h3>Parametri di taglio P1/P2</h3><div class="resultCell outputCell">Non ricalcolati: mancano durezza e specifica utensile</div><div class="formulaNote">I valori già presenti nelle schermate sono solo riferimenti, non raccomandazioni per il nuovo pezzo.</div></div>
+</div>
+<h3 style="margin-top:18px">Campi originali del controllo · stato iniziale</h3>
+<p>Il calcolatore conserva questi nomi. I valori CNC e di sincronizzazione non sono modificati automaticamente.</p>
+<div style="overflow:auto"><table style="min-width:700px"><thead><tr><th>Campo originale</th><th>Valore iniziale</th><th>Classificazione</th></tr></thead><tbody>
+<tr><td>Tipo di programma</td><td>CICLO STANDARD</td><td>Da verificare</td></tr>
+<tr><td>Tipo di lavorazione</td><td>DENTAT.INVIL.</td><td>Da confermare</td></tr>
+<tr><td>Procedim.di lavoraz.</td><td>DUE FASI</td><td>Da verificare</td></tr>
+<tr><td>Tipo di ruota</td><td>R.PIENA INTERNAM (lettura da confermare)</td><td>Da verificare</td></tr>
+<tr><td>Numero d'utensile</td><td>T-M2.5-080300005</td><td>Da confermare</td></tr>
+<tr><td>Numero di disposit.</td><td>C-9032957</td><td>Da confermare</td></tr>
+<tr><td>Programma pezzi</td><td>%_S7______/8407</td><td>Da confermare</td></tr>
+<tr><td>Av.da pos.t.cent.p.</td><td>No</td><td>Dipende dal ciclo</td></tr>
+<tr><td>Num.denti del pezzo</td><td>Inserimento manuale</td><td>Input</td></tr>
+<tr><td>Angolo d'inclinaz.</td><td>Inserimento manuale</td><td>Input</td></tr>
+<tr><td>Modulo normale</td><td>Inserimento manuale</td><td>Input</td></tr>
+<tr><td>Angolo d.press.norm.</td><td>Inserimento manuale</td><td>Input</td></tr>
+<tr><td>Diametro esterno</td><td>Inserimento manuale</td><td>Input da disegno</td></tr>
+<tr><td>Fascia del pezzo</td><td>Inserimento manuale</td><td>Input</td></tr>
+<tr><td>Variante interasse</td><td>INTERAS.NOMINALE</td><td>Da verificare</td></tr>
+<tr><td>Spost.later.montante</td><td>0 mm</td><td>CNC/macchina</td></tr>
+<tr><td>Amp.denti(d.d.misur.)</td><td>13.817 mm</td><td>Da calcolare/verificare</td></tr>
+<tr><td>Num.denti d.misuraz.</td><td>2</td><td>Metodo di misura</td></tr>
+<tr><td>Mis.diam.d.due sfere</td><td>182.9 mm</td><td>Da calcolare/verificare</td></tr>
+<tr><td>Mis.diam.d.due rulli</td><td>182.9 mm</td><td>Da calcolare/verificare</td></tr>
+<tr><td>Diam.corpo di misur.</td><td>4 mm</td><td>Strumento di misura</td></tr>
+<tr><td>Coef.gen.spost.prof.</td><td>-0.0704</td><td>Da verificare</td></tr>
+<tr><td>Interas.quota sfioro</td><td>26.925 mm</td><td>Da verificare</td></tr>
+<tr><td>Distanza assi nomin.</td><td>32.586 mm</td><td>Da verificare</td></tr>
+<tr><td>Pos.avvio/pos.ritorn</td><td>15 mm</td><td>CNC/macchina</td></tr>
+<tr><td>Corsa rap.radial.X1</td><td>0 mm</td><td>CNC/macchina</td></tr>
+<tr><td>Reg.pr.t.rad.2 tagli</td><td>0.4 mm</td><td>Da verificare</td></tr>
+<tr><td>Correzione X attiva</td><td>0.033 mm</td><td>Correzione CNC</td></tr>
+<tr><td>Tratto uscita super.</td><td>7 mm</td><td>CNC/ciclo</td></tr>
+<tr><td>Tratto uscita infer.</td><td>2 mm</td><td>CNC/ciclo</td></tr>
+<tr><td>Posiz.da piano attr.</td><td>0 mm</td><td>CNC/attrezzaggio</td></tr>
+<tr><td>Altezza di fissaggio</td><td>417 mm</td><td>Attrezzaggio</td></tr>
+<tr><td>Spost.p.mor.sup.</td><td>Sì</td><td>CNC/attrezzaggio</td></tr>
+<tr><td>Offset cam. distacco</td><td>0 grd</td><td>CNC/ciclo</td></tr>
+<tr><td>Pos.Z cambio pezzo</td><td>715.55 mm</td><td>CNC/macchina</td></tr>
+<tr><td>Pos.Z lavoraz. pezzo</td><td>610.55 mm</td><td>CNC/macchina</td></tr>
+<tr><td>Rotaz. (-1=sx,1=dx)</td><td>1</td><td>Da verificare</td></tr>
+<tr><td>Pos. rifer. asse C2</td><td>300 grd</td><td>CNC/sincronismo</td></tr>
+<tr><td>C2 pos.cambio pezzo</td><td>306 grd</td><td>CNC/sincronismo</td></tr>
+<tr><td>Velocità taglio P1</td><td>19 m/min</td><td>Riferimento attuale, non raccomandazione</td></tr>
+<tr><td>Iniz.avanz.radial P1</td><td>0.008 mm/col.</td><td>Riferimento attuale, non raccomandazione</td></tr>
+<tr><td>Fine avanz.radial P1</td><td>0.008 mm/col.</td><td>Riferimento attuale, non raccomandazione</td></tr>
+<tr><td>Avanz. generaz. P1</td><td>3 mm/col.</td><td>Riferimento attuale, verificare unità/definizione</td></tr>
+<tr><td>Ang. temporizzaz. P1</td><td>360 grd</td><td>CNC/ciclo</td></tr>
+<tr><td>Immer.con dent.creat (P1)</td><td>Sì</td><td>CNC/ciclo</td></tr>
+<tr><td>Velocità taglio P2</td><td>22.5 m/min</td><td>Riferimento attuale, non raccomandazione</td></tr>
+<tr><td>Iniz.avanz.radial P2</td><td>0.03 mm/col.</td><td>Riferimento attuale, non raccomandazione</td></tr>
+<tr><td>Fine avanz.radial P2</td><td>0.03 mm/col.</td><td>Riferimento attuale, non raccomandazione</td></tr>
+<tr><td>Avanz. generaz. P2</td><td>0.3 mm/col.</td><td>Riferimento attuale, verificare unità/definizione</td></tr>
+<tr><td>Ang. temporizzaz. P2</td><td>365 grd</td><td>CNC/ciclo</td></tr>
+<tr><td>Immer.con dent.creat (P2)</td><td>Sì</td><td>CNC/ciclo</td></tr>
+<tr><td>Compensaz.temperat.</td><td>No</td><td>Da confermare</td></tr>
+<tr><td>L'olio di raffredd.?</td><td>Sì</td><td>Da confermare</td></tr>
+<tr><td>Con corsa rit.accel.</td><td>No</td><td>Da confermare</td></tr>
+<tr><td>Pezzi/creatore</td><td>999</td><td>Contatore utensile</td></tr>
+</tbody></table></div>
+<div class="formulaNote"><b>Sicurezza:</b> il calcolatore non genera automaticamente valori per assi, sincronismi, correzione X, corse o avanzamenti di taglio senza dati verificati del ciclo e dell'utensile. Verificare il programma con il manuale Liebherr e le procedure aziendali prima di lavorare.</div>
+</div>
 <div class="formulaNote"><b>Importante:</b> non usare una formula universale del tipo 2 × L × battute/min. Nella dentatura a coltello la corsa di taglio e quella di ritorno hanno tempi diversi; le macchine possono esprimere la frequenza come corse/min o DS/min. Per il calcolo Vc/Wc qui viene usata la relazione pubblicata da NACHI. Le battute/dente Maag sono un parametro separato.</div></div></section>
 <section id="creatore" class="page"><div class="calc"><h2>⚙️ Dentatura a creatore · formule dedicate</h2><p>Calcolo separato per dentatura a creatore. ⬜ Dati da inserire. 🟨 Risultato. Le relazioni sono basate sulla cinematica del processo HOB3D e sulla descrizione tecnica EMAG: la velocità di taglio deriva dalla velocità periferica del creatore; l'avanzamento è espresso in mm per giro del pezzo. Per ingranaggi elicoidali e condizioni speciali verificare sempre i dati macchina e utensile.</p>
 <div class="formulaGrid">
@@ -1052,4 +1135,29 @@ const grindingEvidence=[
   document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")setTimeout(checkPublishedVersion,300)});
 })();
 </script>
+
+<script>
+/* Calcolatore parametrico LS 500: aggiorna soltanto la geometria esplicitamente supportata. */
+(function(){
+ const root=document.getElementById("ls500Calc"); if(!root)return;
+ const get=id=>document.getElementById("ls500_"+id);
+ const fmt=n=>Number.isFinite(n)?n.toLocaleString("it-IT",{minimumFractionDigits:3,maximumFractionDigits:3}):"—";
+ function update(){
+  const z=Number(get("z").value), mn=Number(get("mn").value), beta=Number(get("beta").value), da=Number(get("da").value), b=Number(get("b").value);
+  const valid=z>0&&Number.isInteger(z)&&mn>0&&Number.isFinite(beta)&&Math.abs(Math.cos(beta*Math.PI/180))>1e-9;
+  const d=valid?mn*z/Math.cos(beta*Math.PI/180):NaN;
+  document.getElementById("ls500_dout").textContent=valid?fmt(d)+" mm":"Inserire denti, modulo e inclinazione validi";
+  const type=get("type").value;
+  let status="Dati incompleti: verificare il disegno";
+  if(valid&&da>0&&b>0){
+    if(type==="internal") status="Geometria interna selezionata. d teorico = "+fmt(d)+" mm; confrontare con il diametro interno/esterno definito dal disegno. Il solo diametro esterno non basta a validare il profilo.";
+    else status="Geometria esterna selezionata. d teorico = "+fmt(d)+" mm; verificare diametro esterno, addendum e spostamento di profilo.";
+  }
+  document.getElementById("ls500_geomstatus").textContent=status;
+ }
+ ["type","z","mn","beta","alpha","da","b","material","hardness","tool","coating","version"].forEach(k=>get(k).addEventListener("input",update));
+ update();
+})();
+</script>
+
 </body></html>
