@@ -26,7 +26,7 @@ ALLOWED = [
     "Fresatura", "Foratura", "Filettatura"
 ]
 
-# Keep only the seven manufacturers explicitly selected by the user.
+# Accept all manufacturers present in the official-source registry; do not silently discard KORLOY or other producers.
 ALLOWED_MAKERS = {
     "ingersoll": "Ingersoll", "ingersoll cutting tools": "Ingersoll",
     "iscar": "ISCAR",
@@ -38,6 +38,11 @@ ALLOWED_MAKERS = {
     "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
     "tungaloy": "Tungaloy",
     "walter": "Walter", "walter tools": "Walter",
+    "korloy": "KORLOY", "taegutec": "TaeguTec",
+    "mitsubishi": "Mitsubishi Materials", "mitsubishi materials": "Mitsubishi Materials",
+    "kyocera": "Kyocera", "ceratizit": "Ceratizit",
+    "dormer pramet": "Dormer Pramet", "ntk": "NTK",
+    "zcc": "ZCC", "zcc cutting tools": "ZCC",
 }
 def canonical_maker(value):
     raw = str(value or "").strip()
