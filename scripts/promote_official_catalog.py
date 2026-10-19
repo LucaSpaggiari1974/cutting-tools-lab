@@ -38,7 +38,7 @@ ALLOWED_MAKERS = {
     "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
     "tungaloy": "Tungaloy",
     "walter": "Walter", "walter tools": "Walter",
-    "korloy": "KORLOY", "taegutec": "TaeguTec",
+    "taegutec": "TaeguTec",
     "mitsubishi": "Mitsubishi Materials", "mitsubishi materials": "Mitsubishi Materials",
     "kyocera": "Kyocera", "ceratizit": "Ceratizit",
     "dormer pramet": "Dormer Pramet", "ntk": "NTK",
