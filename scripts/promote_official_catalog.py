@@ -26,7 +26,7 @@ ALLOWED = [
     "Fresatura", "Foratura", "Filettatura"
 ]
 
-# Accept all manufacturers present in the official-source registry; do not silently discard KORLOY or other producers.
+# Allow registered manufacturers except KORLOY, excluded by the user's catalog scope.
 ALLOWED_MAKERS = {
     "ingersoll": "Ingersoll", "ingersoll cutting tools": "Ingersoll",
     "iscar": "ISCAR",
