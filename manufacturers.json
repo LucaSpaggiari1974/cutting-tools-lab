@@ -91,18 +91,6 @@
       "completeness": "not-complete"
     },
     {
-      "name": "KORLOY",
-      "type": "Produttore",
-      "catalog": "https://korloy.com/en/download/cata.do",
-      "catalogLabel": "Cataloghi ufficiali KORLOY 2025-2026",
-      "catalogScope": "Inserti di tornitura, filettatura, fresatura, foratura, utensili integrali e sistemi",
-      "drawings": "Cataloghi ufficiali e pagine prodotto KORLOY",
-      "verificationStatus": "indexed-incrementally",
-      "lastVerifiedAt": "2026-10-11T03:30:00Z",
-      "indexedItemCount": 0,
-      "completeness": "not-complete"
-    },
-    {
       "name": "Tungaloy",
       "type": "Produttore",
       "catalog": "https://tungaloy.com/it/publications/catalog/",
