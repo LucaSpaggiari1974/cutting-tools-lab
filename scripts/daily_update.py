@@ -50,8 +50,13 @@ ALLOWED_MAKERS = {
     "sumitomo electric": "Sumitomo Electric Hardmetal",
     "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
     "tungaloy": "Tungaloy",
-
     "walter": "Walter", "walter tools": "Walter",
+    "taegutec": "TaeguTec", "taegu tec": "TaeguTec",
+    "mitsubishi": "Mitsubishi Materials", "mitsubishi materials": "Mitsubishi Materials",
+    "kyocera": "Kyocera", "kyocera cutting tools": "Kyocera",
+    "ceratizit": "Ceratizit", "dormer pramet": "Dormer Pramet",
+    "ntk": "NTK", "ntk cutting tools": "NTK",
+    "zcc": "ZCC", "zcc cutting tools": "ZCC",
 }
 def canonical_maker(value):
     raw = str(value or "").strip()
