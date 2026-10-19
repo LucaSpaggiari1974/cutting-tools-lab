@@ -155,19 +155,23 @@ def extract_recommended_conditions_from_lines(lines, center=None, radius=65):
         })
     return blocks[:10]
 
-def extract_parameter_rows_from_lines(lines, center, radius=48):
-    """Keep raw table rows locally tied to the candidate, including rows whose
-    PDF text has lost column separators. This is the authoritative detail payload;
-    vc/f/ap scalar fields are only convenience fields."""
+def extract_parameter_rows_from_lines(lines, center, radius=64):
+    """Keep official cutting-condition table rows close to each insert code.
+    Preserve unit-bearing table rows even when PDF extraction separates a heading
+    from its values; do not synthesize missing values."""
     lo=max(0, center-radius); hi=min(len(lines), center+radius+1)
+    window=lines[lo:hi]
     rows=[]
-    for line in lines[lo:hi]:
-        low=line.lower()
-        if not re.search(r"\b(?:vc|cutting\s*speed|feed|fz|feed\s*rate|ap|depth\s*of\s*cut)\b|m/min|mm/(?:rev|t|tooth)|mm/t", low):
+    metric=re.compile(r"\b(?:vc|cutting\s*speed|feed|fz|feed\s*rate|ap|depth\s*of\s*cut|n|rpm|f_n|f_z)\b|m/min|mm/(?:rev|t|tooth)|mm/t|\brpm\b",re.I)
+    for idx,line in enumerate(window):
+        if not metric.search(line):
             continue
-        if line not in rows:
-            rows.append(line)
-    return rows[:80]
+        # Include adjacent header/value lines from the same local table so the
+        # published parameter row retains units and meaning after PDF text export.
+        for nearby in window[max(0,idx-1):min(len(window),idx+2)]:
+            if nearby and nearby not in rows:
+                rows.append(nearby)
+    return rows[:120]
 
 def extract_cutting_condition_context_from_blocks(blocks):
     return " || ".join(b["raw"] for b in blocks)[:12000]
