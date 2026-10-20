@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="2026.10.09.01">
+<meta name="app-version" content="2026.10.20.03">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123a5a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -91,6 +91,9 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
   .navtab{padding-left:10px;padding-right:10px;font-size:12px;}
   table{min-width:880px;}
 }
+
+/* Rimozione definitiva di qualsiasi anteprima immagine/fotografia/disegno: solo dati testuali e parametri. */
+img, picture, .drawings, .drawingbox, .realphoto, .photoWrap, .modalImg, .recDraw, .photoEmpty, .photo-caption { display:none !important; }
 </style>
 
 </head>
@@ -121,7 +124,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 </div>
 </div>
 <div class="status" id="status">Caricamento foglio…</div>
-<div class="warn" style="border-top:0">🏭 Foto utensili: vengono mostrate foto reali. Se manca la foto esatta del record, viene usata una foto reale dimostrativa della stessa famiglia/geometria; non vengono mostrati disegni come anteprima.</div>
+<div class="warn" style="border-top:0">Visualizzazione senza anteprime: il catalogo mostra esclusivamente codici, geometrie, materiali e parametri tecnici.</div>
 <div class="appbar"><span id="updateState">🔄 Aggiornamento automatico attivo</span><button id="refreshData" type="button">Aggiorna dati</button><button id="installApp" type="button" hidden>Installa app</button></div>
 <div class="tablewrap">
 <table><thead><tr>
@@ -345,17 +348,19 @@ function fillFilters(){
 
 function matchesIsoMaterial(record,group){
   const explicit=[record.isoGroup,record.materialGroup,record.isoMaterial,record.workpieceGroup].filter(Boolean).join(" ").toUpperCase();
-  if(new RegExp("(?:^|[^A-Z])"+group+"(?:$|[^A-Z])").test(explicit)) return true;
-  const raw=[record.material,record.workpieceMaterial,record.workpiece,record.materials,record.description].filter(Boolean).join(" ").toLowerCase();
+  // ISO codes are accepted only in dedicated classification fields, not in product codes.
+  if(new RegExp("(^|[^A-Z])"+group+"([^A-Z]|$)").test(explicit)) return true;
+  const raw=[record.material,record.workpieceMaterial,record.workpiece,record.materials,record.description,record.application,record.cuttingConditions].filter(Boolean).join(" ").toLowerCase();
   const patterns={
-    P: /\\b(steel|acciai?o|acciai|carbon steel|alloy steel|acciaio legato)\\b|\\biso\\s*p\\b|\\bmateriale\\s*p\\b/,
-    M: /\\b(stainless|inox|inossidabil|acciaio inox)\\b|\\biso\\s*m\\b|\\bmateriale\\s*m\\b/,
-    K: /\\b(cast iron|ghisa|ghise|gray iron|ductile iron)\\b|\\biso\\s*k\\b|\\bmateriale\\s*k\\b/,
-    N: /\\b(aluminum|aluminium|alluminio|copper|rame|brass|ottone|non-ferrous|non ferrosi)\\b|\\biso\\s*n\\b|\\bmateriale\\s*n\\b/,
-    S: /\\b(titanium|titanio|superalloy|superlega|heat resistant|resistente al calore|inconel)\\b|\\biso\\s*s\\b|\\bmateriale\\s*s\\b/,
-    H: /\\b(hardened|tempered|temprat|hard steel|acciaio temprato)\\b|\\biso\\s*h\\b|\\bmateriale\\s*h\\b/
+    P: /\b(?:iso\s*)?p\s*(?:[·:–-]\s*)?(?:steel|acciai?o|acciai|acciaio al carbonio|acciaio legato)\b|\b(steel|acciai?o|acciai|carbon steel|alloy steel|acciaio legato|acciaio al carbonio)\b|\bmateriale\s*p\b/,
+    M: /\b(?:iso\s*)?m\s*(?:[·:–-]\s*)?(?:stainless|inox|inossidabil)\b|\b(stainless|inox|inossidabil|acciaio inox)\b|\bmateriale\s*m\b/,
+    K: /\b(?:iso\s*)?k\s*(?:[·:–-]\s*)?(?:cast iron|ghisa|ghise)\b|\b(cast iron|ghisa|ghise|gray iron|grey iron|ductile iron)\b|\bmateriale\s*k\b/,
+    N: /\b(?:iso\s*)?n\s*(?:[·:–-]\s*)?(?:non-ferrous|non ferrosi|alluminio|aluminum|aluminium|rame|copper|ottone|brass)\b|\b(aluminum|aluminium|alluminio|copper|rame|brass|ottone|bronze|bronzo|non-ferrous|non ferrosi|plastic|plastics|plastica)\b|\bmateriale\s*n\b/,
+    S: /\b(?:iso\s*)?s\s*(?:[·:–-]\s*)?(?:titanium|titanio|superalloy|superlega)\b|\b(titanium|titanio|superalloy|superlega|heat resistant|resistente al calore|inconel)\b|\bmateriale\s*s\b/,
+    H: /\b(?:iso\s*)?h\s*(?:[·:–-]\s*)?(?:hardened|tempered|temprat)\b|\b(hardened|tempered|temprat|hard steel|acciaio temprato)\b|\bmateriale\s*h\b/
   };
-  return patterns[group].test(raw);
+  const pattern=patterns[group];
+  return !!pattern && pattern.test(raw);
 }
 let selected=null;
 function render(){
