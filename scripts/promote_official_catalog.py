@@ -135,7 +135,10 @@ def main():
     BACKUP.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     TOOLS_BACKUP.write_text(json.dumps(tools_pack, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    existing = {(str(x.get("maker","")).strip().lower(), norm(x.get("code"))) for x in items}
+    # Index existing rows once. A linear scan for every duplicate made the
+    # promotion step quadratic and could stall the hourly publication pipeline.
+    existing_rows = {(str(x.get("maker","")).strip().lower(), norm(x.get("code"))): x for x in items}
+    existing = set(existing_rows)
     existing_tools = {(str(x.get("maker","")).strip().lower(), norm(x.get("code"))) for x in tool_items}
     promoted, promoted_tools, skipped, duplicates, tool_duplicates = [], [], [], 0, 0
     enriched, enriched_fields = [], 0
@@ -171,9 +174,7 @@ def main():
                 # Do not leave a verified code permanently "empty": merge every
                 # non-empty official field into the visible row, without inventing
                 # values or overwriting stronger existing evidence with blanks.
-                target = next((x for x in items if (
-                    str(x.get("maker","")).strip().lower(), norm(x.get("code"))
-                ) == key), None)
+                target = existing_rows.get(key)
                 if target is not None:
                     before = dict(target)
                     def meaningful(v):
@@ -235,6 +236,7 @@ def main():
                 row["sourceUrl"] = cand["sourceUrl"]
             items.append(row)
             existing.add(key)
+            existing_rows[key] = row
             promoted.append({"maker": maker, "code": code, "category": category, "sourcePage": cand.get("sourcePage")})
             continue
 
