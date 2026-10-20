@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="2026.10.20.05">
+<meta name="app-version" content="2026.10.20.06">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123a5a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -633,6 +633,10 @@ function recommendedConditionsHtml(x){
 }
 
 function openTool(x){
+ // No image, drawing, preview, or photo is allowed in any insert detail.
+ const previewNodes=modalBody.querySelectorAll("img,picture,svg,canvas,video,iframe,[class*='preview' i],[class*='photo' i],[class*='draw' i]");
+ previewNodes.forEach(node=>node.remove());
+
  const cond=recommendedConditionsHtml(x)||(x.cuttingConditions?'<div class="problemCard" style="margin-top:12px"><p><b>📐 Condizioni di taglio ufficiali</b></p><p>'+esc(x.cuttingConditions)+'</p><p class="photo-caption">Fonte: catalogo ufficiale del produttore, pagina '+esc(x.sourcePage||'—')+'.</p></div>':'');
  const pstatus=x.parameterStatus&&x.parameterStatus!=="not-found"?' <span class="tag">'+esc(x.parameterStatus)+'</span>':'';
  let body='<h2>'+esc(x.code)+'</h2><p><b>Fornitore:</b> '+esc(x.maker||'—')+'</p><p><b>Categoria:</b> '+esc(x.category)+' '+pstatus+'</p><p><b>Geometria / impiego:</b> '+esc(x.geom||'—')+'</p><p><b>Materiale:</b> '+esc(x.material||'—')+'</p><div class="formulaBox">Vc: '+esc(x.vc||'—')+' m/min · f/fz: '+esc(x.f||'—')+' · ap: '+esc(x.ap||'—')+'</div>'+cond+'<p>Fonte tecnica: catalogo del produttore, pagina '+esc(x.sourcePage||'—')+'. Verificare grado, materiale e condizioni specifiche prima della produzione.</p>';
