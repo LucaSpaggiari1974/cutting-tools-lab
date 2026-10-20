@@ -203,6 +203,78 @@ def extract_explicit_parameter_values(context):
     return out
 
 
+
+def discover_official_pdf_sources():
+    """Discover current PDF catalog links on registered official manufacturer domains.
+    Discovery is bounded per maker and never treats a homepage as a product record.
+    """
+    registry_path = ROOT / "official-catalog-sources.json"
+    try:
+        registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    known = {(x["maker"], x["url"]) for x in SOURCES}
+    discovered = []
+    excluded = {"korloy", "korloy inc."}
+    ua = "Cutting-Tools-LAB official catalog indexer"
+    for entry in registry.get("sources", []):
+        maker = str(entry.get("maker", "")).strip()
+        base = str(entry.get("catalog", "")).strip()
+        if not maker or maker.casefold() in excluded or not base:
+            continue
+        try:
+            req = Request(base, headers={"User-Agent": ua, "Accept": "text/html,application/pdf,*/*"})
+            with urlopen(req, timeout=25) as response:
+                final_url = response.geturl()
+                ctype = response.headers.get("content-type", "").lower()
+                first = response.read(1_000_000)
+            if "pdf" in ctype or final_url.lower().split("?", 1)[0].endswith(".pdf"):
+                links = [(final_url, maker, "official catalog PDF")]
+            else:
+                html = first.decode("utf-8", errors="ignore")
+                links = []
+                for match in re.finditer(r'''href\s*=\s*["']([^"']+)["']''', html, re.I):
+                    href = match.group(1).replace("&amp;", "&")
+                    url = urllib.parse.urljoin(final_url, href)
+                    parsed = urllib.parse.urlparse(url)
+                    if parsed.scheme not in ("http", "https") or not parsed.path.lower().endswith(".pdf"):
+                        continue
+                    # Stay on the official domain (allow subdomains), never crawl arbitrary linked hosts.
+                    host = parsed.hostname or ""
+                    base_host = urllib.parse.urlparse(final_url).hostname or ""
+                    if not (host == base_host or host.endswith("." + base_host) or base_host.endswith("." + host)):
+                        continue
+                    label = (href + " " + match.group(0)).lower()
+                    if not any(k in label for k in ("catalog", "turn", "mill", "drill", "thread", "cutting", "tool", "insert", "boring", "ream")):
+                        continue
+                    links.append((url, maker, href))
+            added_for_maker = 0
+            for url, source_maker, label in links:
+                if (source_maker, url) in known:
+                    continue
+                low = (url + " " + label).lower()
+                if any(k in low for k in ("drill", "ream")):
+                    scope, category = "drills-reamers", "Foratura · Utensili completi"
+                elif any(k in low for k in ("mill", "endmill")):
+                    scope, category = "milling-cutters", "Fresatura · Utensili completi"
+                elif "thread" in low:
+                    scope, category = "inserts", "Filettatura · Inserto ufficiale"
+                else:
+                    scope, category = "inserts", "Tornitura · Inserto ufficiale"
+                discovered.append({"maker": source_maker, "url": url, "scope": scope, "category": category})
+                known.add((source_maker, url))
+                added_for_maker += 1
+                if added_for_maker >= 3:
+                    break
+        except Exception as exc:
+            source_stats.append({"maker": maker, "url": base, "status": "discovery-error", "error": str(exc)[:300]})
+    return discovered
+
+
+# Supplement the hand-verified PDFs with current PDFs linked by each registered official catalog.
+# KORLOY is deliberately excluded, in accordance with the project requirement.
+SOURCES.extend(discover_official_pdf_sources())
+
 items = []
 seen = set()
 source_stats = []
