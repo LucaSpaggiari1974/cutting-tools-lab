@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="2026.10.20.04">
+<meta name="app-version" content="2026.10.20.05">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123a5a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -94,7 +94,10 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 }
 
 /* Rimozione definitiva di qualsiasi anteprima immagine/fotografia/disegno: solo dati testuali e parametri. */
-img, picture, .drawings, .drawingbox, .realphoto, .photoWrap, .modalImg, .recDraw, .photoEmpty, .photo-caption { display:none !important; }
+img, picture, .drawings, .drawingbox, .realphoto, .photoWrap, .modalImg, .recDraw, .photoEmpty, .photo-caption,
+.preview, .previews, .preview-image, .image-preview, .photo-preview, .tool-preview, .insert-preview,
+[class*="preview"], [class*="Preview"], [class*="drawing"], [class*="Drawing"],
+[class*="realphoto"], [class*="photoWrap"], [class*="modalImg"], [class*="recDraw"] { display:none !important; }
 </style>
 
 </head>
