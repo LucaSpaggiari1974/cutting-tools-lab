@@ -6,6 +6,7 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
+import urllib.parse
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "official-catalog-extracted.json"
