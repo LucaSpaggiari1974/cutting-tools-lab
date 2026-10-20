@@ -89,7 +89,7 @@ jobs:
           import json, sys
           c=json.load(open("catalog.json",encoding="utf-8"))
           rows=c.get("items",[])
-          allowed={"Ingersoll","ISCAR","Kennametal","Sandvik Coromant","Seco Tools","Sumitomo Electric Hardmetal","Tungaloy","Walter"}
+          allowed={"Ingersoll","ISCAR","Kennametal","Sandvik Coromant","Seco Tools","Sumitomo Electric Hardmetal","Tungaloy","Walter","TaeguTec","Mitsubishi Materials","Kyocera","Ceratizit","Dormer Pramet","NTK","ZCC"}
           unexpected=sorted({str(x.get("maker","")) for x in rows}-allowed)
           if unexpected:
               sys.exit(f"ERRORE: produttori non autorizzati nel catalogo: {unexpected}")
@@ -97,7 +97,7 @@ jobs:
               m=[x for x in rows if str(x.get("maker","")).strip()==maker]
               tables=sum(bool(x.get("recommendedConditions")) for x in m)
               print(f"{maker}: items={len(m)} tabelle_parametri={tables}")
-          print(f"OK: catalogo filtrato sui soli 8 produttori autorizzati; record={len(rows)}.")
+          print(f"OK: catalogo filtrato sui 15 produttori autorizzati (KORLOY escluso); record={len(rows)}.")
           PY
 
       - name: Commit e push
