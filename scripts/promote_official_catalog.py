@@ -125,6 +125,66 @@ def main():
     items = [dict(x, maker=canonical_maker(x.get("maker"))) for x in items if canonical_maker(x.get("maker"))]
     tool_items = [dict(x, maker=canonical_maker(x.get("maker"))) for x in tool_items if canonical_maker(x.get("maker"))]
 
+    # Remove pre-existing duplicates by canonical manufacturer + normalized item code.
+    # Keep the first stable row and merge only meaningful fields from duplicate rows.
+    def meaningful_value(v):
+        if v is None:
+            return False
+        if isinstance(v, str):
+            return bool(v.strip()) and v.strip() not in {"—", "-", "N/A", "n/a", "null"}
+        if isinstance(v, (list, dict)):
+            return bool(v)
+        return True
+
+    def deduplicate_rows(rows):
+        unique = []
+        index = {}
+        removed = 0
+        merged_fields = 0
+        mergeable = (
+            "geom", "material", "application", "cuttingConditions",
+            "recommendedConditions", "parameterRows", "vc", "f", "ap",
+            "sourceOfficial", "sourceType", "sourcePage", "sourceContext",
+            "sourceUrl", "parameterStatus", "verificationStatus"
+        )
+        for row in rows:
+            code_key = norm(row.get("code"))
+            maker_key = str(row.get("maker", "")).strip().casefold()
+            if not code_key or not maker_key:
+                unique.append(row)
+                continue
+            key = (maker_key, code_key)
+            if key not in index:
+                index[key] = row
+                unique.append(row)
+                continue
+            removed += 1
+            target = index[key]
+            for field in mergeable:
+                incoming = row.get(field)
+                current = target.get(field)
+                if not meaningful_value(incoming):
+                    continue
+                if not meaningful_value(current):
+                    target[field] = incoming
+                    merged_fields += 1
+                elif field == "recommendedConditions" and isinstance(incoming, list) and isinstance(current, list) and len(incoming) > len(current):
+                    target[field] = incoming
+                    merged_fields += 1
+                elif field == "parameterRows" and isinstance(incoming, list) and isinstance(current, list) and len(incoming) > len(current):
+                    target[field] = incoming
+                    merged_fields += 1
+                elif field == "cuttingConditions" and isinstance(incoming, str) and isinstance(current, str) and len(incoming) > len(current):
+                    target[field] = incoming
+                    merged_fields += 1
+            # Prefer the more informative category if the retained row has none.
+            if not target.get("category") and row.get("category"):
+                target["category"] = row["category"]
+        return unique, removed, merged_fields
+
+    items, duplicate_catalog_rows_removed, duplicate_catalog_fields_merged = deduplicate_rows(items)
+    tool_items, duplicate_tool_rows_removed, duplicate_tool_fields_merged = deduplicate_rows(tool_items)
+
     # Preserve verified product image metadata; technical cleanup must not strip photos.
     # Normalize the parameter schema on legacy complete-tool rows without inventing values.
     for x in tool_items:
@@ -314,7 +374,7 @@ def main():
         "enrichedFields": enriched_fields,
         "enrichedSample": enriched[:50],
         "duplicates": duplicates,
-        "completeToolDuplicates": tool_duplicates,
+        "completeToolDuplicates": tool_duplicates,\n        "existingCatalogDuplicatesRemoved": duplicate_catalog_rows_removed,\n        "existingCatalogDuplicateFieldsMerged": duplicate_catalog_fields_merged,\n        "existingCompleteToolDuplicatesRemoved": duplicate_tool_rows_removed,\n        "existingCompleteToolDuplicateFieldsMerged": duplicate_tool_fields_merged,
         "skipped": len(skipped),
         "catalogItemsAfter": len(items),
         "completeToolsAfter": len(tool_items),
