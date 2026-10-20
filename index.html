@@ -352,12 +352,12 @@ function matchesIsoMaterial(record,group){
   if(new RegExp("(^|[^A-Z])"+group+"([^A-Z]|$)").test(explicit)) return true;
   const raw=[record.material,record.workpieceMaterial,record.workpiece,record.materials,record.description,record.application,record.cuttingConditions].filter(Boolean).join(" ").toLowerCase();
   const patterns={
-    P: /\\b(?:iso\\s*)?p\\s*(?:[·:–-]\\s*)?(?:steel|acciai?o|acciai|acciaio al carbonio|acciaio legato)\\b|\\b(steel|acciai?o|acciai|carbon steel|alloy steel|acciaio legato|acciaio al carbonio)\\b|\\bmateriale\\s*p\\b/,
-    M: /\\b(?:iso\\s*)?m\\s*(?:[·:–-]\\s*)?(?:stainless|inox|inossidabil)\\b|\\b(stainless|inox|inossidabil|acciaio inox)\\b|\\bmateriale\\s*m\\b/,
-    K: /\\b(?:iso\\s*)?k\\s*(?:[·:–-]\\s*)?(?:cast iron|ghisa|ghise)\\b|\\b(cast iron|ghisa|ghise|gray iron|grey iron|ductile iron)\\b|\\bmateriale\\s*k\\b/,
-    N: /\\b(?:iso\\s*)?n\\s*(?:[·:–-]\\s*)?(?:non-ferrous|non ferrosi|alluminio|aluminum|aluminium|rame|copper|ottone|brass)\\b|\\b(aluminum|aluminium|alluminio|copper|rame|brass|ottone|bronze|bronzo|non-ferrous|non ferrosi|plastic|plastics|plastica)\\b|\\bmateriale\\s*n\\b/,
-    S: /\\b(?:iso\\s*)?s\\s*(?:[·:–-]\\s*)?(?:titanium|titanio|superalloy|superlega)\\b|\\b(titanium|titanio|superalloy|superlega|heat resistant|resistente al calore|inconel)\\b|\\bmateriale\\s*s\\b/,
-    H: /\\b(?:iso\\s*)?h\\s*(?:[·:–-]\\s*)?(?:hardened|tempered|temprat)\\b|\\b(hardened|tempered|temprat|hard steel|acciaio temprato)\\b|\\bmateriale\\s*h\\b/
+    P: /\b(?:iso\s*)?p\s*(?:[·:–-]\s*)?(?:steel|acciai?o|acciai|acciaio al carbonio|acciaio legato)\b|\b(steel|acciai?o|acciai|carbon steel|alloy steel|acciaio legato|acciaio al carbonio)\b|\bmateriale\s*p\b/,
+    M: /\b(?:iso\s*)?m\s*(?:[·:–-]\s*)?(?:stainless|inox|inossidabil)\b|\b(stainless|inox|inossidabil|acciaio inox)\b|\bmateriale\s*m\b/,
+    K: /\b(?:iso\s*)?k\s*(?:[·:–-]\s*)?(?:cast iron|ghisa|ghise)\b|\b(cast iron|ghisa|ghise|gray iron|grey iron|ductile iron)\b|\bmateriale\s*k\b/,
+    N: /\b(?:iso\s*)?n\s*(?:[·:–-]\s*)?(?:non-ferrous|non ferrosi|alluminio|aluminum|aluminium|rame|copper|ottone|brass)\b|\b(aluminum|aluminium|alluminio|copper|rame|brass|ottone|bronze|bronzo|non-ferrous|non ferrosi|plastic|plastics|plastica)\b|\bmateriale\s*n\b/,
+    S: /\b(?:iso\s*)?s\s*(?:[·:–-]\s*)?(?:titanium|titanio|superalloy|superlega)\b|\b(titanium|titanio|superalloy|superlega|heat resistant|resistente al calore|inconel)\b|\bmateriale\s*s\b/,
+    H: /\b(?:iso\s*)?h\s*(?:[·:–-]\s*)?(?:hardened|tempered|temprat)\b|\b(hardened|tempered|temprat|hard steel|acciaio temprato)\b|\bmateriale\s*h\b/
   };
   const pattern=patterns[group];
   return !!pattern && pattern.test(raw);
