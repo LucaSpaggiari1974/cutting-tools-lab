@@ -39,7 +39,9 @@ CATEGORY_ORDER={v:i for i,v in enumerate(ALLOWED)}
 CANONICAL={"Ingersoll Cutting Tools":"Ingersoll","Kyocera Cutting Tools":"Kyocera",
            "NTK Cutting Tools":"NTK","ZCC Cutting Tools":"ZCC"}
 
-# Visible catalog excludes KORLOY by user request; it is not eligible for promotion.
+# All registered manufacturers are eligible except KORLOY, explicitly excluded
+# from the visible catalog by the user's latest instruction. Keep this whitelist
+# aligned with promote_official_catalog.py so valid makers are not discarded.
 ALLOWED_MAKERS = {
     "ingersoll": "Ingersoll", "ingersoll cutting tools": "Ingersoll",
     "iscar": "ISCAR",
@@ -50,8 +52,14 @@ ALLOWED_MAKERS = {
     "sumitomo electric": "Sumitomo Electric Hardmetal",
     "sumitomo electric hardmetal": "Sumitomo Electric Hardmetal",
     "tungaloy": "Tungaloy",
-
     "walter": "Walter", "walter tools": "Walter",
+    "taegutec": "TaeguTec",
+    "mitsubishi": "Mitsubishi Materials", "mitsubishi materials": "Mitsubishi Materials",
+    "kyocera": "Kyocera", "kyocera cutting tools": "Kyocera",
+    "ceratizit": "Ceratizit",
+    "dormer pramet": "Dormer Pramet",
+    "ntk": "NTK", "ntk cutting tools": "NTK",
+    "zcc": "ZCC", "zcc cutting tools": "ZCC",
 }
 def canonical_maker(value):
     raw = str(value or "").strip()
