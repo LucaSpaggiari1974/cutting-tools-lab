@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="2026.10.09.01">
+<meta name="app-version" content="2026.10.20.02">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123a5a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -91,6 +91,9 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
   .navtab{padding-left:10px;padding-right:10px;font-size:12px;}
   table{min-width:880px;}
 }
+
+/* Rimozione definitiva di qualsiasi anteprima immagine/fotografia/disegno: solo dati testuali e parametri. */
+img, picture, .drawings, .drawingbox, .realphoto, .photoWrap, .modalImg, .recDraw, .photoEmpty, .photo-caption { display:none !important; }
 </style>
 
 </head>
@@ -121,7 +124,7 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 </div>
 </div>
 <div class="status" id="status">Caricamento foglio…</div>
-<div class="warn" style="border-top:0">🏭 Foto utensili: vengono mostrate foto reali. Se manca la foto esatta del record, viene usata una foto reale dimostrativa della stessa famiglia/geometria; non vengono mostrati disegni come anteprima.</div>
+<div class="warn" style="border-top:0">Visualizzazione senza anteprime: il catalogo mostra esclusivamente codici, geometrie, materiali e parametri tecnici.</div>
 <div class="appbar"><span id="updateState">🔄 Aggiornamento automatico attivo</span><button id="refreshData" type="button">Aggiorna dati</button><button id="installApp" type="button" hidden>Installa app</button></div>
 <div class="tablewrap">
 <table><thead><tr>
