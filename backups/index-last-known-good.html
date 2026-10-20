@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="2026.10.20.04">
+<meta name="app-version" content="2026.10.20.08">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123a5a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -94,7 +94,10 @@ th{position:sticky;top:0;background:#eaf2f8;color:#123a5a;z-index:2}tr.data{curs
 }
 
 /* Rimozione definitiva di qualsiasi anteprima immagine/fotografia/disegno: solo dati testuali e parametri. */
-img, picture, .drawings, .drawingbox, .realphoto, .photoWrap, .modalImg, .recDraw, .photoEmpty, .photo-caption { display:none !important; }
+img, picture, .drawings, .drawingbox, .realphoto, .photoWrap, .modalImg, .recDraw, .photoEmpty, .photo-caption,
+.preview, .previews, .preview-image, .image-preview, .photo-preview, .tool-preview, .insert-preview,
+[class*="preview"], [class*="Preview"], [class*="drawing"], [class*="Drawing"],
+[class*="realphoto"], [class*="photoWrap"], [class*="modalImg"], [class*="recDraw"] { display:none !important; }
 </style>
 
 </head>
@@ -378,7 +381,7 @@ function render(){
    e.preventDefault();
    e.stopPropagation();
    select(x);
-   openTool(x);
+   /* Scheda/anteprima disattivata su richiesta: nessun popup all'apertura dell'inserto. */
  });
  });
 }
@@ -391,7 +394,7 @@ function openCatalogRowFromEvent(e){
  e.preventDefault();
  e.stopPropagation();
  select(x);
- openTool(x);
+ /* Scheda/anteprima disattivata su richiesta: nessun popup all'apertura dell'inserto. */
  return true;
 }
 document.addEventListener("click",openCatalogRowFromEvent,true);
@@ -630,6 +633,12 @@ function recommendedConditionsHtml(x){
 }
 
 function openTool(x){
+ return; // Anteprime e schede di dettaglio disattivate definitivamente: nessun popup al clic sull’inserto.
+
+ // No image, drawing, preview, or photo is allowed in any insert detail.
+ const previewNodes=modalBody.querySelectorAll("img,picture,svg,canvas,video,iframe,[class*='preview' i],[class*='photo' i],[class*='draw' i]");
+ previewNodes.forEach(node=>node.remove());
+
  const cond=recommendedConditionsHtml(x)||(x.cuttingConditions?'<div class="problemCard" style="margin-top:12px"><p><b>📐 Condizioni di taglio ufficiali</b></p><p>'+esc(x.cuttingConditions)+'</p><p class="photo-caption">Fonte: catalogo ufficiale del produttore, pagina '+esc(x.sourcePage||'—')+'.</p></div>':'');
  const pstatus=x.parameterStatus&&x.parameterStatus!=="not-found"?' <span class="tag">'+esc(x.parameterStatus)+'</span>':'';
  let body='<h2>'+esc(x.code)+'</h2><p><b>Fornitore:</b> '+esc(x.maker||'—')+'</p><p><b>Categoria:</b> '+esc(x.category)+' '+pstatus+'</p><p><b>Geometria / impiego:</b> '+esc(x.geom||'—')+'</p><p><b>Materiale:</b> '+esc(x.material||'—')+'</p><div class="formulaBox">Vc: '+esc(x.vc||'—')+' m/min · f/fz: '+esc(x.f||'—')+' · ap: '+esc(x.ap||'—')+'</div>'+cond+'<p>Fonte tecnica: catalogo del produttore, pagina '+esc(x.sourcePage||'—')+'. Verificare grado, materiale e condizioni specifiche prima della produzione.</p>';
