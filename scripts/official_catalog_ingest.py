@@ -204,6 +204,8 @@ def extract_explicit_parameter_values(context):
 
 
 
+source_stats = []
+
 def discover_official_pdf_sources():
     """Discover current PDF catalog links on registered official manufacturer domains.
     Discovery is bounded per maker and never treats a homepage as a product record.
@@ -277,7 +279,6 @@ SOURCES.extend(discover_official_pdf_sources())
 
 items = []
 seen = set()
-source_stats = []
 
 for src in SOURCES:
     try:
