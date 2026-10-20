@@ -178,7 +178,7 @@ def main():
         if x.get("category") not in ALLOWED or not code:
             removed.append({"maker":canonical,"code":x.get("code"),"reason":"generic/non-insert"})
             continue
-        x["code"]=re.sub(r"\\s+"," ",code).strip()
+        x["code"]=re.sub(r"\s+"," ",code).strip()
         key=norm(canonical)+"|"+norm(x["code"])
         if key in positions:
             idx=positions[key]
