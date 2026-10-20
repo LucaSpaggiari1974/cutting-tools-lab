@@ -146,31 +146,66 @@ def main():
     BACKUP.parent.mkdir(parents=True,exist_ok=True)
     BACKUP.write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 
-    # Remove only unambiguous generic/non-insert records and exact duplicates.
+    # Normalize manufacturer aliases and deduplicate by canonical manufacturer + normalized order code.
+    # When duplicates differ in completeness, merge the useful verified fields instead of silently
+    # keeping whichever row happened to appear first.
     before=len(catalog.get("items",[]))
     removed=[]
     items=[]
-    seen=set()
+    positions={}
+    merge_fields=("geom","material","application","vc","f","ap","productUrl","sourceUrl",
+                  "sourceNote","cuttingConditions","recommendedConditions","parameterRows",
+                  "officialConditionContext","recommendedConditionTables","isoGroup",
+                  "materialGroup","workpieceMaterial","workpieceGroup")
+    def meaningful(v):
+        if v is None: return False
+        if isinstance(v,str): return v.strip() not in ("","—","-","n/a","N/A")
+        if isinstance(v,(list,dict)): return bool(v)
+        return True
+    def quality(row):
+        score=0
+        for k in merge_fields:
+            if meaningful(row.get(k)): score+=1
+        if row.get("sourceUrl") or row.get("productUrl"): score+=2
+        return score
     for x in catalog.get("items",[]):
-        canonical = canonical_maker(x.get("maker"))
+        canonical=canonical_maker(x.get("maker"))
         if not canonical:
-            removed.append({"maker":x.get("maker"),"code":x.get("code"),"reason":"manufacturer-not-in-selected-seven"})
+            removed.append({"maker":x.get("maker"),"code":x.get("code"),"reason":"manufacturer-not-in-selected-list"})
             continue
-        x["maker"] = canonical
-        if x.get("category") not in ALLOWED or not x.get("code"):
-            removed.append({"maker":x.get("maker"),"code":x.get("code"),"reason":"generic/non-insert"})
+        x["maker"]=canonical
+        code=str(x.get("code") or "").strip()
+        if x.get("category") not in ALLOWED or not code:
+            removed.append({"maker":canonical,"code":x.get("code"),"reason":"generic/non-insert"})
             continue
-        key=norm(x.get("maker"))+"|"+norm(x.get("code"))
-        if key in seen:
-            removed.append({"maker":x.get("maker"),"code":x.get("code"),"reason":"duplicate"})
+        x["code"]=re.sub(r"\\s+"," ",code).strip()
+        key=norm(canonical)+"|"+norm(x["code"])
+        if key in positions:
+            idx=positions[key]
+            current=items[idx]
+            # Keep the more complete record as the base, then fill missing fields from the other.
+            if quality(x)>quality(current):
+                current,x=x,current
+                items[idx]=current
+            for field in merge_fields:
+                if not meaningful(current.get(field)) and meaningful(x.get(field)):
+                    current[field]=x[field]
+                elif isinstance(current.get(field),list) and isinstance(x.get(field),list):
+                    seen_values={json.dumps(v,ensure_ascii=False,sort_keys=True) for v in current[field]}
+                    current[field].extend(v for v in x[field] if json.dumps(v,ensure_ascii=False,sort_keys=True) not in seen_values)
+            # Keep preview assets disabled; never merge image URLs back into the catalog UI.
+            for field in ("photoUrl","image","imageUrl","photoSource","photoUpdatedAt","photoVerifiedAt"):
+                current.pop(field,None)
+            current["photoStatus"]="unavailable"
+            current["photoNote"]="Anteprime disattivate su richiesta; dati tecnici mantenuti."
+            removed.append({"maker":canonical,"code":x.get("code"),"reason":"duplicate-merged"})
             continue
-        seen.add(key)
-        # Never expose a generic manufacturer cover/logo as an insert photo.
-        if x.get("photoSource")=="manufacturer" and re.search(r"(catcover|logo|brand|hero)",str(x.get("photoUrl") or ""),re.I):
-            x.pop("photoUrl",None); x.pop("photoSource",None)
-            x.pop("photoUpdatedAt",None); x.pop("photoVerifiedAt",None)
-            x["photoStatus"]="unavailable"
-            x["photoNote"]="Foto ufficiale del codice esatto non verificata; nessuna immagine generica usata."
+        positions[key]=len(items)
+        # Remove stored image references too, so old previews cannot reappear later.
+        for field in ("photoUrl","image","imageUrl","photoSource","photoUpdatedAt","photoVerifiedAt"):
+            x.pop(field,None)
+        x["photoStatus"]="unavailable"
+        x["photoNote"]="Anteprime disattivate su richiesta; dati tecnici mantenuti."
         items.append(x)
 
     items.sort(key=lambda x:(CATEGORY_ORDER.get(x.get("category"),99),str(x.get("maker","")).casefold(),norm(x.get("code"))))
