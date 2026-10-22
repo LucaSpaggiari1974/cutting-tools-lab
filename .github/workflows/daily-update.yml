@@ -105,12 +105,12 @@ jobs:
         run: |
           git config user.name "Cutting Tools LAB Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # The extractor staging JSON can exceed GitHub's 100 MB per-file limit.
-          # It is a transient input to promotion and must not be committed.
-          git add catalog.json manufacturers.json index.html sw.js worker.js manifest.webmanifest icon.svg update-status.json complete-tools.json official-catalog-promotion-report.json backups/catalog-latest.json backups/catalog-before-update.json backups/complete-tools-before-update.json
-          # Stage any other tracked files modified by the import/validation scripts so the
-          # subsequent rebase never fails because the working tree is dirty.
-          git add -u
+          # The generated catalog may exceed GitHub's 100 MB per-file limit.
+          # Keep full JSON as local build input; publish the gzip asset to Cloudflare.
+          python -c "import gzip; data=open('catalog.json','rb').read(); packed=gzip.compress(data,compresslevel=9,mtime=0); open('catalog.json.gz','wb').write(packed); print('catalog.json.gz bytes:',len(packed))"
+          # Stage only explicitly approved outputs. Never stage transient extraction files,
+          # full-size catalog backups, or all tracked changes via git add -u.
+          git add catalog.json.gz manufacturers.json index.html sw.js worker.js manifest.webmanifest icon.svg update-status.json complete-tools.json official-catalog-promotion-report.json
           if git diff --cached --quiet; then
             echo "Nessuna modifica."
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -145,10 +145,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
-      - name: Comprimi catalogo per asset Cloudflare
-        if: steps.commit.outputs.changed == 'true'
-        run: python -c "import gzip; data=open('catalog.json','rb').read(); packed=gzip.compress(data,compresslevel=9,mtime=0); open('catalog.json.gz','wb').write(packed); print('catalog.json.gz bytes:',len(packed))"
 
       - name: Prepara asset statici per Cloudflare
         if: steps.commit.outputs.changed == 'true'
