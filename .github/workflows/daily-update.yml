@@ -121,9 +121,12 @@ jobs:
             pushed=false
             for attempt in 1 2 3 4; do
               git fetch origin main
-              if ! git rebase origin/main; then
+              # Generated catalog and extraction files remain modified locally but are
+              # intentionally not committed (large JSON stays as build input only).
+              # Autostash them while rebasing the publishable gzip + metadata commit.
+              if ! git -c rebase.autoStash=true rebase origin/main; then
                 git rebase --abort || true
-                echo "::error::Catalog changes conflict with a newer main commit; refusing to overwrite files."
+                echo "::error::Catalog commit could not be rebased safely onto main."
                 exit 1
               fi
               if git push origin HEAD:main; then
