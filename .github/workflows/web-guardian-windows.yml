@@ -53,6 +53,36 @@ jobs:
           }
           Write-Host "GUARDIAN OK: HTML valido e $($matches.Count) blocchi JavaScript verificati su Windows."
 
+      - name: Installa Playwright e Chromium per test browser
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          npm install --no-save playwright
+          if ($LASTEXITCODE -ne 0) { throw "Installazione Playwright fallita" }
+          npx playwright install chromium
+          if ($LASTEXITCODE -ne 0) { throw "Installazione Chromium fallita" }
+
+      - name: Test funzionali browser della pagina Windows
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $server = Start-Process -FilePath "python" -ArgumentList @("-m", "http.server", "8765", "--bind", "127.0.0.1") -PassThru -WindowStyle Hidden
+          try {
+            $ready = $false
+            for ($i = 0; $i -lt 20; $i++) {
+              try {
+                $null = Invoke-WebRequest -Uri "http://127.0.0.1:8765/index.html" -UseBasicParsing -TimeoutSec 2
+                $ready = $true
+                break
+              } catch { Start-Sleep -Seconds 1 }
+            }
+            if (-not $ready) { throw "Server locale di test non si è avviato" }
+            node scripts/browser-smoke.mjs
+            if ($LASTEXITCODE -ne 0) { throw "Test funzionali browser falliti" }
+          } finally {
+            if ($server -and -not $server.HasExited) { Stop-Process -Id $server.Id -Force }
+          }
+
       - name: Aggiorna baseline solo dopo verifica riuscita
         shell: pwsh
         run: |
