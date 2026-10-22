@@ -113,7 +113,27 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "chore: indicizzazione cataloghi ufficiali correnti"
-            git push origin main
+            # Other workflows can update main while this large catalog is being built.
+            # Rebase onto the newest main and retry the push instead of silently stopping publication.
+            pushed=false
+            for attempt in 1 2 3 4; do
+              git fetch origin main
+              if ! git rebase origin/main; then
+                git rebase --abort || true
+                echo "::error::Catalog changes conflict with a newer main commit; refusing to overwrite files."
+                exit 1
+              fi
+              if git push origin HEAD:main; then
+                pushed=true
+                break
+              fi
+              echo "Push attempt $attempt rejected; retrying after fetching latest main."
+              sleep $((attempt * 3))
+            done
+            if [ "$pushed" != "true" ]; then
+              echo "::error::Unable to push catalog update after 4 attempts."
+              exit 1
+            fi
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
