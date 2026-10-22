@@ -1,20 +1,772 @@
 {
-  "updatedAt": "2026-10-20T09:28:53Z",
-  "stagingItems": 8335,
-  "promoted": 0,
+  "updatedAt": "2026-10-22T05:49:34Z",
+  "stagingItems": 18522,
+  "promoted": 9897,
   "promotedCompleteTools": 0,
-  "enrichedExisting": 0,
-  "enrichedFields": 0,
-  "enrichedSample": [],
-  "duplicates": 8319,
+  "enrichedExisting": 58,
+  "enrichedFields": 170,
+  "enrichedSample": [
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN12X90",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN14X90",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT060201L-FX",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CNMG120408N-GE",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CNMG120408N-GU",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CNMG120408N-LU",
+      "fields": [
+        "material",
+        "cuttingConditions",
+        "vc",
+        "f",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CNMG120408N-SU",
+      "fields": [
+        "material",
+        "cuttingConditions",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DCGT070202MN-SI",
+      "fields": [
+        "geom",
+        "material",
+        "cuttingConditions",
+        "recommendedConditions",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DCGT11T302MN-FF",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DCGT11T302MN-SL",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DCGT11T302R-FY",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DNMG150408N-SU",
+      "fields": [
+        "material",
+        "cuttingConditions",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "VCGT110301R-FY",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "VCGT110302R-FX",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "VCGT160408N-AG",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DNMG150408N-FE",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "VCGT160408N-AW",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "VCGT160412N-AG",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "VCGT160412N-AW",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "VCGT220520N-AW",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "VCGT220530N-AG",
+      "fields": [
+        "application",
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "VCGT220530N-AW",
+      "fields": [
+        "application",
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "VNMG160404N-UP",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "VNMG160408N-UP",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCET09T302R-FX",
+      "fields": [
+        "geom",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT09T304R-FX",
+      "fields": [
+        "geom"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DCGT11T302MN-SI",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DCMT070208N-SU",
+      "fields": [
+        "geom",
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "TPMT160404N-SU",
+      "fields": [
+        "material",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "WNMG080404N-GU",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "WEX2025M12Z4",
+      "fields": [
+        "material",
+        "cuttingConditions",
+        "recommendedConditions",
+        "vc",
+        "f",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CCGT060204N-FV",
+      "fields": [
+        "material",
+        "cuttingConditions",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CNGA120404HS",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CNGA120408LT",
+      "fields": [
+        "material",
+        "application",
+        "cuttingConditions",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CNGA120412WH",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CNGG120408N-LV",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "CNGG120408N-SV",
+      "fields": [
+        "material",
+        "cuttingConditions",
+        "recommendedConditions",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "SNEW1203ADTR",
+      "fields": [
+        "material",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows",
+        "vc",
+        "f",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "TNGA160404LE",
+      "fields": [
+        "material",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "TPGW110308LF",
+      "fields": [
+        "material",
+        "cuttingConditions",
+        "vc",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DCMW11T308",
+      "fields": [
+        "material",
+        "vc",
+        "f",
+        "ap"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "DNMA1504DD",
+      "fields": [
+        "application",
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "SPGN 0903DD",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "TPGN 0902DD",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "TPGN 1603DD",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "TPGW 0802DD",
+      "fields": [
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "TPGW 0902DD",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "TPGW 1102DD",
+      "fields": [
+        "cuttingConditions",
+        "recommendedConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "TPGW 1603DD",
+      "fields": [
+        "cuttingConditions"
+      ]
+    },
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "code": "TPMT110304N-GD",
+      "fields": [
+        "geom",
+        "material",
+        "application",
+        "cuttingConditions",
+        "recommendedConditions",
+        "parameterRows",
+        "vc",
+        "ap"
+      ]
+    }
+  ],
+  "duplicates": 8408,
   "completeToolDuplicates": 15,
-  "skipped": 1,
-  "catalogItemsAfter": 8279,
+  "existingCatalogDuplicatesRemoved": 0,
+  "existingCatalogDuplicateFieldsMerged": 0,
+  "existingCompleteToolDuplicatesRemoved": 0,
+  "existingCompleteToolDuplicateFieldsMerged": 0,
+  "skipped": 202,
+  "catalogItemsAfter": 18176,
   "completeToolsAfter": 423,
   "policy": "Solo codici forti provenienti da scope inserts ufficiale; ambigui mantenuti in staging.",
-  "promotedSample": [],
+  "promotedSample": [
+    {
+      "maker": "ISCAR",
+      "code": "DIN 69871",
+      "category": "Tornitura · Media",
+      "sourcePage": 11
+    },
+    {
+      "maker": "ISCAR",
+      "code": "DIN69871-EM",
+      "category": "Tornitura · Media",
+      "sourcePage": 10
+    },
+    {
+      "maker": "ISCAR",
+      "code": "DIN69871-ER",
+      "category": "Tornitura · Media",
+      "sourcePage": 9
+    },
+    {
+      "maker": "ISCAR",
+      "code": "DIN69871-MAXIN",
+      "category": "Tornitura · Media",
+      "sourcePage": 12
+    },
+    {
+      "maker": "ISCAR",
+      "code": "DIN69871-SEM",
+      "category": "Tornitura · Media",
+      "sourcePage": 11
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 10X63",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 12X63",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 12X80",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 14X80",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 16X63",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 16X80",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 20X63",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 20X80",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 25X100",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 25X45",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 25X90",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 32X100",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 32X105",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "EM 40X110",
+      "category": "Tornitura · Media",
+      "sourcePage": 3
+    },
+    {
+      "maker": "ISCAR",
+      "code": "MAXIN 20X105",
+      "category": "Tornitura · Media",
+      "sourcePage": 6
+    },
+    {
+      "maker": "ISCAR",
+      "code": "MAXIN 20X85FL",
+      "category": "Tornitura · Media",
+      "sourcePage": 12
+    },
+    {
+      "maker": "ISCAR",
+      "code": "MAXIN 20X90",
+      "category": "Tornitura · Media",
+      "sourcePage": 6
+    },
+    {
+      "maker": "ISCAR",
+      "code": "MAXIN 32X105",
+      "category": "Tornitura · Media",
+      "sourcePage": 6
+    },
+    {
+      "maker": "ISCAR",
+      "code": "MAXIN 32X110",
+      "category": "Tornitura · Media",
+      "sourcePage": 6
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SEM 16X100",
+      "category": "Tornitura · Media",
+      "sourcePage": 4
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SEM 16X40",
+      "category": "Tornitura · Media",
+      "sourcePage": 4
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SEM 22X100",
+      "category": "Tornitura · Media",
+      "sourcePage": 4
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SEM 22X40",
+      "category": "Tornitura · Media",
+      "sourcePage": 4
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SEM 27X100",
+      "category": "Tornitura · Media",
+      "sourcePage": 4
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SEM 27X40",
+      "category": "Tornitura · Media",
+      "sourcePage": 4
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SEM 32X100",
+      "category": "Tornitura · Media",
+      "sourcePage": 4
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SEM 32X50",
+      "category": "Tornitura · Media",
+      "sourcePage": 4
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SEM 40X100",
+      "category": "Tornitura · Media",
+      "sourcePage": 4
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SEM 40X50",
+      "category": "Tornitura · Media",
+      "sourcePage": 4
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SEM16X35",
+      "category": "Tornitura · Media",
+      "sourcePage": 11
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SEM22X35",
+      "category": "Tornitura · Media",
+      "sourcePage": 11
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN 10X90",
+      "category": "Tornitura · Media",
+      "sourcePage": 5
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN 12X90",
+      "category": "Tornitura · Media",
+      "sourcePage": 5
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN 14X90",
+      "category": "Tornitura · Media",
+      "sourcePage": 5
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN 16X90",
+      "category": "Tornitura · Media",
+      "sourcePage": 5
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN 20X90",
+      "category": "Tornitura · Media",
+      "sourcePage": 5
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN 25X100",
+      "category": "Tornitura · Media",
+      "sourcePage": 5
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN10X120",
+      "category": "Tornitura · Sgrossatura",
+      "sourcePage": 8
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN10X160",
+      "category": "Tornitura · Sgrossatura",
+      "sourcePage": 8
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN10X85",
+      "category": "Tornitura · Sgrossatura",
+      "sourcePage": 8
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN12X120",
+      "category": "Tornitura · Sgrossatura",
+      "sourcePage": 8
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN12X160",
+      "category": "Tornitura · Sgrossatura",
+      "sourcePage": 8
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN14X120",
+      "category": "Tornitura · Sgrossatura",
+      "sourcePage": 8
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN14X160",
+      "category": "Tornitura · Sgrossatura",
+      "sourcePage": 8
+    },
+    {
+      "maker": "ISCAR",
+      "code": "SRKIN16X120",
+      "category": "Tornitura · Sgrossatura",
+      "sourcePage": 8
+    }
+  ],
   "promotedCompleteToolsSample": [],
   "skippedReasons": {
+    "weak-code": 201,
     "weak-tool-code": 1
   }
 }
