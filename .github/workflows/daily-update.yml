@@ -108,6 +108,9 @@ jobs:
           # The extractor staging JSON can exceed GitHub's 100 MB per-file limit.
           # It is a transient input to promotion and must not be committed.
           git add catalog.json manufacturers.json index.html sw.js worker.js manifest.webmanifest icon.svg update-status.json complete-tools.json official-catalog-promotion-report.json backups/catalog-latest.json backups/catalog-before-update.json backups/complete-tools-before-update.json
+          # Stage any other tracked files modified by the import/validation scripts so the
+          # subsequent rebase never fails because the working tree is dirty.
+          git add -u
           if git diff --cached --quiet; then
             echo "Nessuna modifica."
             echo "changed=false" >> "$GITHUB_OUTPUT"
