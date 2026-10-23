@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-10-23T01:32:36Z",
-  "stagingItems": 18522,
-  "promoted": 9897,
+  "updatedAt": "2026-10-23T07:31:25Z",
+  "stagingItems": 13036,
+  "promoted": 4622,
   "promotedCompleteTools": 0,
-  "enrichedExisting": 58,
-  "enrichedFields": 170,
+  "enrichedExisting": 52,
+  "enrichedFields": 153,
   "enrichedSample": [
     {
       "maker": "ISCAR",
@@ -452,14 +452,14 @@
       ]
     }
   ],
-  "duplicates": 8408,
+  "duplicates": 8397,
   "completeToolDuplicates": 15,
   "existingCatalogDuplicatesRemoved": 0,
   "existingCatalogDuplicateFieldsMerged": 0,
   "existingCompleteToolDuplicatesRemoved": 0,
   "existingCompleteToolDuplicateFieldsMerged": 0,
-  "skipped": 202,
-  "catalogItemsAfter": 18176,
+  "skipped": 2,
+  "catalogItemsAfter": 12901,
   "completeToolsAfter": 423,
   "policy": "Solo codici forti provenienti da scope inserts ufficiale; ambigui mantenuti in staging.",
   "promotedSample": [
@@ -766,7 +766,7 @@
   ],
   "promotedCompleteToolsSample": [],
   "skippedReasons": {
-    "weak-code": 201,
+    "weak-code": 1,
     "weak-tool-code": 1
   }
 }
