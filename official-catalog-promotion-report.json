@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-23T13:28:33Z",
-  "stagingItems": 18522,
-  "promoted": 9897,
+  "updatedAt": "2026-10-23T18:34:09Z",
+  "stagingItems": 15746,
+  "promoted": 7121,
   "promotedCompleteTools": 0,
   "enrichedExisting": 58,
   "enrichedFields": 170,
@@ -459,7 +459,7 @@
   "existingCompleteToolDuplicatesRemoved": 0,
   "existingCompleteToolDuplicateFieldsMerged": 0,
   "skipped": 202,
-  "catalogItemsAfter": 18176,
+  "catalogItemsAfter": 15400,
   "completeToolsAfter": 423,
   "policy": "Solo codici forti provenienti da scope inserts ufficiale; ambigui mantenuti in staging.",
   "promotedSample": [
