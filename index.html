@@ -464,7 +464,9 @@ async function loadCatalog(options={}){
    ]);
    if(!ri.ok)throw new Error("INSERTI HTTP "+ri.status);
    if(!rt.ok)throw new Error("UTENSILI COMPLETI HTTP "+rt.status);
-   const pack=await ri.json(), toolPack=await rt.json();
+   const [insertText,toolText]=await Promise.all([ri.text(),rt.text()]);
+    const parsePack=text=>{try{return text.trim()?JSON.parse(text):{items:[]}}catch(_){return {items:[]}}};
+    const pack=parsePack(insertText), toolPack=parsePack(toolText);
    if(manual) showRefreshProgress(48,"Download di inserti e utensili completato…");
    const inserts=Array.isArray(pack)?pack:pack.items;
    const complete=Array.isArray(toolPack)?toolPack:toolPack.items;
