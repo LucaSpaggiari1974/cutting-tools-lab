@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="2026.10.25.01">
+<meta name="app-version" content="2026.10.20.08">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123a5a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -132,7 +132,7 @@ img, picture, .drawings, .drawingbox, .realphoto, .photoWrap, .modalImg, .recDra
 <div class="appbar"><span id="updateState">🔄 Aggiornamento automatico attivo</span><button id="refreshData" type="button">Aggiorna dati</button><button id="installApp" type="button" hidden>Installa app</button></div>
 <div class="tablewrap">
 <table><thead><tr>
-<th>Categoria</th><th>Codice / utensile</th><th>Geometria / impiego</th><th>Materiale da lavorare</th><th>Vc<br>m/min</th><th>Avanzamento<br>f o fz</th><th>Profondità<br>ap / ae</th><th>Grado / qualità</th><th>Produttore</th><th>Stato parametri</th>
+<th>Categoria</th><th>Codice / utensile</th><th>Geometria / impiego</th><th>Materiale da lavorare</th><th>Vc consigliata<br>m/min</th><th>f / fz consigliato</th><th>ap consigliata<br>mm</th><th>Produttore / riferimento</th>
 </tr></thead><tbody id="rows"></tbody></table>
 </div>
 <div class="warn">⚠️ I valori sono intervalli iniziali indicativi: cambiano con grado dell'inserto, rivestimento, materiale reale, durezza, macchina, refrigerazione, stabilità e strategia. Per la produzione verificare sempre la scheda del produttore. Le classificazioni P/M/K/N/S/H seguono la logica ISO.</div>
@@ -312,49 +312,31 @@ function fillFilters(){
   cat.innerHTML="<option value=\"\">Tutte le categorie</option>";
   mat.innerHTML="<option value=\"\">Tutti i materiali</option>";
   maker.innerHTML="<option value=\"\">Tutti i produttori</option>";
-
-  // Normalizza soltanto le etichette: non eliminare utensili di categorie diverse.
+  // Normalizza categorie e mostra solo le sei categorie inserti previste.
   const normalizeCategory = value => {
-    const c=String(value||"").trim().replace(/\s+/g," ");
-    const aliases=[
-      [/^turning\s*[·.:-]\s*finishing$/i,"Tornitura · Finitura"],
-      [/^turning\s*[·.:-]\s*medium$/i,"Tornitura · Media"],
-      [/^turning\s*[·.:-]\s*roughing$/i,"Tornitura · Sgrossatura"],
-      [/^milling(?:\s*[·.:-].*)?$/i,"Fresatura"],
-      [/^drilling(?:\s*[·.:-].*)?$/i,"Foratura"],
-      [/^threading(?:\s*[·.:-].*)?$/i,"Filettatura"],
-      [/^boring(?:\s*[·.:-].*)?$/i,"Alesatura"],
-      [/^grooving(?:\s*[·.:-].*)?$/i,"Scanalatura"],
-      [/^turning(?:\s*[·.:-].*)?$/i,"Tornitura"],
-      [/^milling\s*[·.:-]\s*complete tools$/i,"Fresatura · Utensili completi"],
-      [/^drilling\s*[·.:-]\s*complete tools$/i,"Foratura · Utensili completi"],
-      [/^boring\s*[·.:-]\s*complete tools$/i,"Alesatura · Utensili completi"],
-      [/^threading\s*[·.:-]\s*complete tools$/i,"Filettatura · Utensili completi"],
-      [/^turning\s*[·.:-]\s*complete tools$/i,"Tornitura · Utensili completi"],
-      [/^grooving\s*[·.:-]\s*complete tools$/i,"Scanalatura · Utensili completi"]
-    ];
-    for(const [re,label] of aliases) if(re.test(c)) return label;
-    if(/^tornitura\s*[·.:-]\s*finitura$/i.test(c)) return "Tornitura · Finitura";
-    if(/^tornitura\s*[·.:-]\s*media$/i.test(c)) return "Tornitura · Media";
-    if(/^tornitura\s*[·.:-]\s*sgrossatura$/i.test(c)) return "Tornitura · Sgrossatura";
+    const c=String(value||"").trim().replace(/\\s+/g," ");
+    if(/^tornitura\\s*[·.:-]\\s*finitura$/i.test(c)) return "Tornitura · Finitura";
+    if(/^tornitura\\s*[·.:-]\\s*media$/i.test(c)) return "Tornitura · Media";
+    if(/^tornitura\\s*[·.:-]\\s*sgrossatura$/i.test(c)) return "Tornitura · Sgrossatura";
     if(/^fresatura$/i.test(c)) return "Fresatura";
     if(/^foratura$/i.test(c)) return "Foratura";
     if(/^filettatura$/i.test(c)) return "Filettatura";
-    return c || "Categoria non specificata";
+    return c;
   };
-  data=data.map(r=>({...r,category:normalizeCategory(r.category)}));
-
+  data=data.map(r=>({...r,category:normalizeCategory(r.category)}))
+    .filter(r=>allowedInsertCategories.includes(r.category));
   const categoryCount=new Map();
   data.forEach(r=>categoryCount.set(r.category,(categoryCount.get(r.category)||0)+1));
   const turningInsertCount=insertTurningCategories.reduce((n,k)=>n+(categoryCount.get(k)||0),0);
-  if(turningInsertCount)cat.add(new Option("Tornitura (finitura/media/sgrossatura) · "+turningInsertCount,"__TURNING_INSERTS__"));
-  [...categoryCount.keys()].sort((a,b)=>a.localeCompare(b,"it")).forEach(x=>{
-    cat.add(new Option(x+" ("+categoryCount.get(x)+")",x));
+  if(turningInsertCount)cat.add(new Option("Tornitura ("+turningInsertCount+")","__TURNING_INSERTS__"));
+  ["Fresatura","Foratura","Filettatura"].forEach(x=>{
+    if(categoryCount.has(x))cat.add(new Option(x+" ("+categoryCount.get(x)+")",x));
   });
 
+  // Filtro materiali essenziale: solo i sei gruppi ISO principali, non le etichette libere estratte dai PDF.
   const isoMaterials=[
     ["P","P · Acciai"],["M","M · Acciai inossidabili"],["K","K · Ghise"],
-    ["N","N · Materiali non ferrosi"],["S","S · Superleghe e titanio"],["H","H · Acciai temprati"]
+    ["N","N · Non ferrosi"],["S","S · Superleghe e titanio"],["H","H · Acciai temprati"]
   ];
   isoMaterials.forEach(([code,label])=>mat.add(new Option(label,code)));
 
@@ -363,10 +345,11 @@ function fillFilters(){
     const m=String(r.maker||"").trim();
     if(m)makerCount.set(m,(makerCount.get(m)||0)+1);
   });
-  [...makerCount.keys()].sort((a,b)=>a.localeCompare(b,"it")).forEach(x=>{
+  [...makerCount.keys()].sort((a,b)=>a.localeCompare(b)).forEach(x=>{
     maker.add(new Option(x+" ("+makerCount.get(x)+")",x));
   });
 }
+
 function matchesIsoMaterial(record,group){
   const explicit=[record.isoGroup,record.materialGroup,record.isoMaterial,record.workpieceGroup].filter(Boolean).join(" ").toUpperCase();
   // ISO codes are accepted only in dedicated classification fields, not in product codes.
@@ -384,49 +367,22 @@ function matchesIsoMaterial(record,group){
   return !!pattern && pattern.test(raw);
 }
 let selected=null;
-function italianMaterial(value){
- const s=String(value||"").trim();
- const replacements=[
-  [/\bstainless steel\b/gi,"acciaio inossidabile"],[/\bstainless\b/gi,"inossidabile"],
-  [/\bcarbon steel\b/gi,"acciaio al carbonio"],[/\balloy steel\b/gi,"acciaio legato"],
-  [/\bsteel\b/gi,"acciaio"],[/\bcast iron\b/gi,"ghisa"],[/\bgray iron\b/gi,"ghisa grigia"],
-  [/\bductile iron\b/gi,"ghisa sferoidale"],[/\baluminum\b/gi,"alluminio"],[/\baluminium\b/gi,"alluminio"],
-  [/\bnon-ferrous\b/gi,"non ferrosi"],[/\bnon ferrous\b/gi,"non ferrosi"],
-  [/\btitanium\b/gi,"titanio"],[/\bsuperalloy(s)?\b/gi,"superleghe"],[/\bhardened steel\b/gi,"acciaio temprato"],
-  [/\bfinishing\b/gi,"finitura"],[/\bmedium\b/gi,"media"],[/\broughing\b/gi,"sgrossatura"],
-  [/\bcomplete tools\b/gi,"utensili completi"],[/\bindexable insert(s)?\b/gi,"inserto/i indicizzabile/i"],
-  [/\bdrilling\b/gi,"foratura"],[/\bmilling\b/gi,"fresatura"],[/\bturning\b/gi,"tornitura"],
-  [/\bthreading\b/gi,"filettatura"],[/\bgrooving\b/gi,"scanalatura"],[/\bboring\b/gi,"alesatura"]
- ];
- let out=s; for(const [re,to] of replacements)out=out.replace(re,to);
- return out||"Non specificato";
-}
-function parameterStatus(x){
- const s=String(x.parameterStatus||"").toLowerCase();
- const v=String(x.verificationStatus||"").toLowerCase();
- if(/pending|historical|seed|in-progress|unverified/.test(s+" "+v))return "Da verificare sul catalogo ufficiale";
- if(/official|verified|manufacturer/.test(s+" "+v))return "Verificato su fonte ufficiale";
- if(x.sourceUrl||x.productUrl)return "Fonte disponibile · verifica necessaria";
- return "Fonte non registrata";
-}
 function render(){
  const t=q.value.toLowerCase(),c=cat.value,m=mat.value,k=maker.value;
- const categoryOrder={"Tornitura · Finitura":0,"Tornitura · Media":1,"Tornitura · Sgrossatura":2,"Tornitura":3,"Fresatura":4,"Foratura":5,"Filettatura":6};
- const a=data.filter(x=>(!t||Object.values(x).join(" ").toLowerCase().includes(t))&&(!c||(c==="__TURNING_INSERTS__"?insertTurningCategories.includes(x.category):x.category===c))&&(!m||matchesIsoMaterial(x,m))&&(!k||x.maker===k)).sort((a,b)=>(categoryOrder[a.category]??99)-(categoryOrder[b.category]??99)||String(a.maker||"").localeCompare(String(b.maker||""),"it")||String(a.code||"").localeCompare(String(b.code||""),"it"));
- rows.innerHTML=a.map(x=>{
-  const ri=data.indexOf(x),grade=x.grade||x.insertGrade||x.quality||x.isoGrade||"Non indicato";
-  const params=parameterStatus(x);
-  const source=x.productUrl||x.sourceUrl||x.catalogUrl||"";
-  const makerCell=source?'<a href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">'+esc(x.maker||"Produttore non indicato")+'</a>':esc(x.maker||"Produttore non indicato");
-  return '<tr class="data" data-i="'+ri+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code"><button type="button" class="codeButton" data-row-index="'+ri+'" aria-label="Seleziona scheda tecnica '+esc(x.code)+'">'+esc(x.code)+'</button></td><td>'+esc(italianMaterial(x.geom))+'</td><td>'+esc(italianMaterial(x.material||x.workpieceMaterial||x.workpiece))+'</td><td>'+esc(x.vc||"Non disponibile")+'</td><td>'+esc(x.f||x.fz||"Non disponibile")+'</td><td>'+esc(x.ap||x.ae||"Non disponibile")+'</td><td>'+esc(grade)+'</td><td>'+makerCell+'</td><td title="'+esc(x.sourceNote||x.cuttingConditions||"")+'">'+esc(params)+'</td></tr>';
- }).join("")||'<tr><td colspan="10">Nessun utensile corrisponde ai filtri selezionati.</td></tr>';
- const pending=a.filter(x=>/Da verificare|Fonte disponibile|Fonte non registrata/.test(parameterStatus(x))).length;
- document.getElementById("status").textContent=a.length+" utensili visualizzati · "+pending+" schede con parametri da verificare · seleziona un codice per leggere i suoi dati";
+ const categoryOrder={"Tornitura · Finitura":0,"Tornitura · Media":1,"Tornitura · Sgrossatura":2,"Fresatura":3,"Foratura":4,"Filettatura":5};
+ const a=data.filter(x=>(!t||Object.values(x).join(" ").toLowerCase().includes(t))&&(!c||(c==="__TURNING_INSERTS__"?insertTurningCategories.includes(x.category):x.category===c))&&(!m||matchesIsoMaterial(x,m))&&(!k||x.maker===k)).sort((a,b)=>(categoryOrder[a.category]??99)-(categoryOrder[b.category]??99)||String(a.maker||"").localeCompare(String(b.maker||""))||String(a.code||"").localeCompare(String(b.code||"")));
+ rows.innerHTML=a.map((x,i)=>{const ri=data.indexOf(x);return '<tr class="data" data-i="'+ri+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code"><button type="button" class="codeButton" data-row-index="'+ri+'" aria-label="Apri scheda tecnica '+esc(x.code)+'">'+esc(x.code)+'</button></td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>';}).join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
+ document.getElementById("status").textContent=a.length+" righe · tocca una riga per caricare i dati nella barra dei parametri";
  rows.querySelectorAll("tr.data").forEach(tr=>{
-  tr.addEventListener("click",e=>{
-   const x=data[+tr.dataset.i];if(!x)return;
-   e.preventDefault();select(x);
-  });
+ const codeButton=tr.querySelector(".codeButton");
+ if(codeButton)codeButton.addEventListener("click",e=>{
+   const x=data[+tr.dataset.i];
+   if(!x)return;
+   e.preventDefault();
+   e.stopPropagation();
+   select(x);
+   /* Scheda/anteprima disattivata su richiesta: nessun popup all'apertura dell'inserto. */
+ });
  });
 }
 function openCatalogRowFromEvent(e){
@@ -442,7 +398,7 @@ function openCatalogRowFromEvent(e){
  return true;
 }
 document.addEventListener("click",openCatalogRowFromEvent,true);
-function select(x){selected=x;document.getElementById("fc").textContent=x.code||"—";document.getElementById("fm").textContent=italianMaterial(x.material||x.workpieceMaterial||x.workpiece);document.getElementById("fv").textContent=x.vc||"Non disponibile";document.getElementById("ff").textContent=x.f||x.fz||"Non disponibile";document.getElementById("fa").textContent=x.ap||x.ae||"Non disponibile";document.getElementById("updateState").textContent="Scheda selezionata · "+parameterStatus(x);}
+function select(x){selected=x;document.getElementById("fc").textContent=x.code;document.getElementById("fm").textContent=x.material;document.getElementById("fv").textContent=x.vc;document.getElementById("ff").textContent=x.f;document.getElementById("fa").textContent=x.ap}
 [q,cat,mat,maker].forEach(e=>e.addEventListener("input",render));
 document.getElementById("clearFilters")?.addEventListener("click",()=>{
   q.value="";cat.value="";mat.value="";maker.value="";render();
@@ -464,14 +420,12 @@ async function loadCatalog(options={}){
    ]);
    if(!ri.ok)throw new Error("INSERTI HTTP "+ri.status);
    if(!rt.ok)throw new Error("UTENSILI COMPLETI HTTP "+rt.status);
-   const [insertText,toolText]=await Promise.all([ri.text(),rt.text()]);
-    const parsePack=text=>{try{return text.trim()?JSON.parse(text):{items:[]}}catch(_){return {items:[]}}};
-    const pack=parsePack(insertText), toolPack=parsePack(toolText);
+   const pack=await ri.json(), toolPack=await rt.json();
    if(manual) showRefreshProgress(48,"Download di inserti e utensili completato…");
    const inserts=Array.isArray(pack)?pack:pack.items;
    const complete=Array.isArray(toolPack)?toolPack:toolPack.items;
    data=[...(inserts||[]),...(complete||[])];
-   if(!data.length)throw new Error("Database vuoto: nessun utensile caricato");
+   if(!data.length)throw new Error("catalogo vuoto");
    try{localStorage.setItem("ctl_catalog",JSON.stringify({updatedAt:pack.updatedAt||Date.now(),items:data}));}catch(_){}
    fillFilters();render();
    const updated=new Date(pack.updatedAt||Date.now());
@@ -485,7 +439,7 @@ async function loadCatalog(options={}){
     if(ss.updatedAt) checkTime=new Date(ss.updatedAt);
    }
   }catch(_){}
-  document.getElementById("status").textContent=data.length+" utensili (inserti + utensili completi) · ultimo controllo automatico: "+checkTime.toLocaleString("it-IT");
+  document.getElementById("status").textContent=data.length+" righe (inserti + utensili completi) · ultimo controllo automatico: "+checkTime.toLocaleString("it-IT");
   document.getElementById("lastUpdate").textContent=checkTime.toLocaleString("it-IT",{dateStyle:"short",timeStyle:"short"});
   document.getElementById("updateState").textContent="🟢 Dati verificati automaticamente";
   if(manual) showRefreshProgress(78,"Aggiornamento completato…");
@@ -571,7 +525,7 @@ if("serviceWorker" in navigator){
  }).catch(()=>{});
 }
 let deferredPrompt;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.getElementById("installApp").hidden=false});document.getElementById("installApp").onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById("installApp").hidden=true};
-document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+italianMaterial(selected.material||selected.workpieceMaterial||selected.workpiece),"Vc: "+(selected.vc||"non disponibile")+" m/min","Avanzamento f/fz: "+(selected.f||selected.fz||"non disponibile"),"Profondità ap/ae: "+(selected.ap||selected.ae||"non disponibile"),"Stato: "+parameterStatus(selected),"Produttore: "+(selected.maker||"non indicato")].join("\n");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
+document.getElementById("copy").onclick=async()=>{if(!selected)return;const s=[selected.code,"Materiale: "+selected.material,"Vc: "+selected.vc+" m/min","f/fz: "+selected.f,"ap: "+selected.ap].join(" · ");try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copiato ✓";setTimeout(()=>document.getElementById("copy").textContent="Copia parametri",1300)}catch(e){alert(s)}};
 
 /* Anteprime fotografiche utensili e inserti disattivate su richiesta. */
 function renderRecommendations(target,filter){
