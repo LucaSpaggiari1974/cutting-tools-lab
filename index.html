@@ -404,8 +404,8 @@ function italianMaterial(value){
 function parameterStatus(x){
  const s=String(x.parameterStatus||"").toLowerCase();
  const v=String(x.verificationStatus||"").toLowerCase();
- if(/official|verified|manufacturer/.test(s+" "+v))return "Verificato su fonte ufficiale";
  if(/pending|historical|seed|in-progress|unverified/.test(s+" "+v))return "Da verificare sul catalogo ufficiale";
+ if(/official|verified|manufacturer/.test(s+" "+v))return "Verificato su fonte ufficiale";
  if(x.sourceUrl||x.productUrl)return "Fonte disponibile · verifica necessaria";
  return "Fonte non registrata";
 }
