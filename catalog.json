@@ -1,6 +1,6 @@
 {
   "version": "4.1-restored-historical-catalog",
-  "updatedAt": "2026-10-25T19:42:00Z",
+  "updatedAt": "2026-10-27T04:19:43.998232+00:00",
   "source": "Recupero dei record storici del catalogo GitHub; non equivale a verifica tecnica corrente.",
   "scope": "Inserti individuali recuperati per ripristinare la visibilità del catalogo. Parametri da validare produttore per produttore.",
   "status": "restored-needs-official-verification",
@@ -17,7 +17,9 @@
       "productUrl": "https://www.ingersoll-imc.com/product-family/301775",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -31,7 +33,9 @@
       "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=39560",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -46,7 +50,9 @@
       "drawingUrl": "https://webshop.iscar.de/catalogue/product/1907631",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -59,7 +65,9 @@
       "maker": "Kennametal",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -72,7 +80,9 @@
       "maker": "Kennametal",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -85,7 +95,9 @@
       "maker": "Kennametal",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -100,7 +112,13 @@
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&f=catcover.jpg&catalogid=1248936",
+      "photoSource": "manufacturer official website",
+      "photoVerified": true,
+      "photoVerifiedAt": "2026-10-27T04:19:54.402208+00:00",
+      "photoNote": "Foto ufficiale verificata sulla pagina prodotto con corrispondenza esatta del codice.",
+      "photoStatus": "available"
     },
     {
       "category": "Tornitura · Finitura",
@@ -115,7 +133,9 @@
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=14",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -128,7 +148,9 @@
       "maker": "Sandvik Coromant",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -142,7 +164,9 @@
       "productUrl": "https://www.store.secotools.com/wcs/shop/ProductDisplay?catalogId=10065&langId=6&productId=57574&storeId=10214&urlLangId=6&urlRequestType=Base",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -156,7 +180,9 @@
       "productUrl": "https://www.sumitool.com/en/products/cutting-tools/inserts/chipbreakers/fe-fb.html",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -169,7 +195,9 @@
       "maker": "Walter",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -182,7 +210,9 @@
       "maker": "Walter",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -195,7 +225,9 @@
       "maker": "Walter",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Finitura",
@@ -208,7 +240,9 @@
       "maker": "Walter",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -222,7 +256,9 @@
       "productUrl": "https://www.ingersoll-imc.com/product-family/301775",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -236,7 +272,9 @@
       "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=39098",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -250,7 +288,9 @@
       "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=6180310",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -264,7 +304,9 @@
       "drawingUrl": "https://webshop.iscar.de/catalogue/product/1907077",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -278,7 +320,9 @@
       "drawingUrl": "https://webshop.iscaritalia.it/catalogue/product/1903426",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -291,7 +335,9 @@
       "maker": "Kennametal",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -304,7 +350,9 @@
       "maker": "Kennametal",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -318,7 +366,9 @@
       "productUrl": "https://www.korloy.com/en/ebook/NC3010%28EM%29/assets/contents/download.pdf",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -333,7 +383,9 @@
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -348,7 +400,13 @@
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&f=catcover.jpg&catalogid=1248927",
+      "photoSource": "manufacturer official website",
+      "photoVerified": true,
+      "photoVerifiedAt": "2026-10-27T04:20:13.812699+00:00",
+      "photoNote": "Foto ufficiale verificata sulla pagina prodotto con corrispondenza esatta del codice.",
+      "photoStatus": "available"
     },
     {
       "category": "Tornitura · Media",
@@ -363,7 +421,13 @@
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=29",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&f=catcover.jpg&catalogid=1248927",
+      "photoSource": "manufacturer official website",
+      "photoVerified": true,
+      "photoVerifiedAt": "2026-10-27T04:20:15.586952+00:00",
+      "photoNote": "Foto ufficiale verificata sulla pagina prodotto con corrispondenza esatta del codice.",
+      "photoStatus": "available"
     },
     {
       "maker": "Seco Tools",
@@ -377,7 +441,9 @@
       "productUrl": "https://www.store.secotools.com/wcs/shop/ProductDisplay?catalogId=10065&langId=6&productId=6095027&storeId=10214",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Seco Tools",
@@ -391,7 +457,9 @@
       "productUrl": "https://www.store.secotools.com/wcs/shop/ProductDisplay?catalogId=10065&langId=6&productId=1085234&storeId=10214",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Seco Tools",
@@ -405,7 +473,9 @@
       "productUrl": "https://www.store.secotools.com/wcs/shop/ProductDisplay?catalogId=10065&langId=6&productId=6076833&storeId=10214",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Seco Tools",
@@ -419,7 +489,9 @@
       "productUrl": "https://www.store.secotools.com/wcs/shop/ProductDisplay?catalogId=10065&langId=6&productId=6076837&storeId=10214",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -433,7 +505,9 @@
       "productUrl": "https://www.store.secotools.com/wcs/shop/ProductDisplay?catalogId=10065&langId=6&productId=70&storeId=10214&urlLangId=6&urlRequestType=Base",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Seco Tools",
@@ -447,7 +521,9 @@
       "productUrl": "https://www.store.secotools.com/wcs/shop/ProductDisplay?catalogId=10065&langId=6&productId=46902&storeId=10214",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -461,7 +537,9 @@
       "productUrl": "https://www.sumitool.com/en/products/cutting-tools/inserts/chipbreakers/fe-fb.html",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -475,7 +553,9 @@
       "productUrl": "https://tungaloy.com/it/product/turning/t505/",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -489,7 +569,9 @@
       "productUrl": "https://tungaloy.com/it/product/turning/turninga/",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Tungaloy",
@@ -503,7 +585,9 @@
       "productUrl": "https://tsr.tungaloy.com/12304/",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Walter",
@@ -517,7 +601,9 @@
       "productUrl": "https://www.walter-tools.com/it-it/search/product/CNMG120404-FV5",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Walter",
@@ -531,7 +617,9 @@
       "productUrl": "https://www.walter-tools.com/it-it/search/product/CNMG120404-MV5",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Walter",
@@ -545,7 +633,9 @@
       "productUrl": "https://www.walter-tools.com/it-it/search/product/CNMG120408-FV5",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Media",
@@ -558,7 +648,9 @@
       "maker": "Walter",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Walter",
@@ -572,7 +664,9 @@
       "productUrl": "https://www.walter-tools.com/it-it/search/product/CNMG120408-MV5",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Walter",
@@ -586,7 +680,9 @@
       "productUrl": "https://www.walter-tools.com/it-it/search/product/CNMG120408-RM5%20WMP20G",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -600,7 +696,9 @@
       "productUrl": "https://www.ingersoll-imc.com/product-family/301775",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -615,7 +713,9 @@
       "drawingUrl": "https://webshop.iscar.in/catalogue/product/1907633",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -628,7 +728,9 @@
       "maker": "Kennametal",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -641,7 +743,9 @@
       "maker": "Kennametal",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -655,7 +759,9 @@
       "productUrl": "https://www.korloy.com/en/ebook/NC3010%28EM%29/assets/contents/download.pdf",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -670,7 +776,9 @@
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248936&catalogVersion=1&startpage=12",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -685,7 +793,9 @@
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=19",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -700,7 +810,9 @@
       "drawingUrl": "https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1248927&catalogVersion=1&startpage=28",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -714,7 +826,9 @@
       "productUrl": "https://www.store.secotools.com/wcs/shop/ProductDisplay?catalogId=10065&langId=6&productId=6001157&storeId=10214&urlLangId=6&urlRequestType=Base",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -728,7 +842,9 @@
       "productUrl": "https://tungaloy.com/it/product/turning/t505/",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -741,7 +857,9 @@
       "maker": "Walter",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Walter",
@@ -755,7 +873,9 @@
       "productUrl": "https://www.walter-tools.com/it-it/search/product/CNMG120412-MV5",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "category": "Tornitura · Sgrossatura",
@@ -768,7 +888,9 @@
       "maker": "Walter",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Sandvik Coromant",
@@ -782,7 +904,14 @@
       "productUrl": "https://www.sandvik.coromant.com/",
       "parameterStatus": "historical-estimate-not-currently-verified",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo."
+      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     }
-  ]
+  ],
+  "photoPolicy": {
+    "mode": "manufacturer-exact-preferred-reference-allowed",
+    "rule": "Preferire foto ufficiali del produttore collegate al codice esatto; se non verificabili, preservare una foto reale di riferimento esplicitamente marcata come tale.",
+    "lastRun": "2026-10-27T04:19:43.998232+00:00"
+  }
 }
