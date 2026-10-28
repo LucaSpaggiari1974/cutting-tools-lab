@@ -429,7 +429,12 @@ for src in SOURCES:
             local_meta = extract_application_metadata_from_lines(lines, line_index, 55)
             local_meta = {k: technical_italian(v) for k, v in local_meta.items()}
             nearby_context = " | ".join(lines[max(0,line_index-10):min(len(lines),line_index+11)])[:1800]
-            classification_context = nearby_context + " " + str(local_meta.get("application", ""))
+            # Usa la sezione più vicina del catalogo; non usare il campo impiego aggregato,
+            # che può contenere intestazioni di altre famiglie della stessa pagina.
+            section_pattern = re.compile(r"\\b(threading|thread mill|thread insert|filettatura|holemaking|deep hole|drilling|reaming|grooving|parting|milling|turning|finishing|roughing|lens type|chamfer barrel|barrel type|nfc[b-f]?)\\b", re.I)
+            prior_lines = lines[max(0, line_index-80):line_index+1]
+            nearest_section = next((line for line in reversed(prior_lines) if section_pattern.search(line)), "")
+            classification_context = nearest_section + " " + nearby_context
             resolved_category = classify_local_category(src["scope"], src["category"], classification_context)
             items.append({
                 "category": resolved_category,
