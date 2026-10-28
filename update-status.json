@@ -1,20 +1,20 @@
 {
-  "updatedAt": "2026-10-28T14:13:26Z",
+  "updatedAt": "2026-10-28T14:19:30Z",
   "run": "daily",
   "changed": true,
-  "catalogItems": 1112,
+  "catalogItems": 54,
   "parameterCoverage": {
     "inserts": {
-      "total": 1112,
+      "total": 54,
       "vc": 41,
       "f_or_fz": 41,
       "ap": 41,
-      "officialConditionContext": 588,
-      "recommendedConditionTables": 588,
-      "parameterRows": 505,
-      "geometry": 175,
-      "material": 55,
-      "application": 523
+      "officialConditionContext": 0,
+      "recommendedConditionTables": 0,
+      "parameterRows": 0,
+      "geometry": 54,
+      "material": 54,
+      "application": 0
     },
     "completeTools": {
       "total": 423,
