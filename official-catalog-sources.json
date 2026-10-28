@@ -1,6 +1,6 @@
 {
   "version": "1.0-official-catalog-registry",
-  "updatedAt": "2026-10-09T05:33:04.895Z",
+  "updatedAt": "2026-10-28T13:54:45.230Z",
   "purpose": "Sorgenti primarie ufficiali per l'indicizzazione del catalogo utensili. Le famiglie non equivalgono a codici verificati.",
   "rule": "Indicizzare solo codici/articoli realmente presenti nelle fonti ufficiali correnti; nessun codice inventato.",
   "sources": [
@@ -114,14 +114,36 @@
     {
       "maker": "Ingersoll",
       "catalog": "https://www.ingersoll-imc.com/catalogs",
-      "type": "official product catalogs",
+      "type": "cataloghi ufficiali per famiglie prodotto; integrazione diretta PDF verificati nell'importatore",
       "scope": [
-        "turning inserts",
-        "grooving",
-        "threading",
-        "milling",
-        "drilling"
-      ]
+        "inserti tornitura",
+        "inserti fresatura",
+        "fresatura indicizzata",
+        "frese integrali e modulari",
+        "foratura",
+        "foratura profonda",
+        "alesatura di precisione",
+        "reamatura",
+        "filettatura",
+        "scanalatura e troncatura",
+        "PCD",
+        "CBN",
+        "dentatura",
+        "portautensili",
+        "accessori e ricambi"
+      ],
+      "catalogPdfs": [
+        "https://ssl.ingersoll-imc.com/resources/pdf/cat-031-1_winsfeed_new_products_catalog_2024.pdf",
+        "https://ssl.ingersoll-imc.com/resources/pdf/cat-027-8-it.te.di.-product-catalog.pdf",
+        "https://ssl.ingersoll-imc.com/resources/pdf/Ingersoll_CAT-002-2.pdf",
+        "https://ssl.ingersoll-imc.com/resources/pdf/CAT-032-Ingersoll-Precision-Boring.pdf",
+        "https://ssl.ingersoll-imc.com/resources/pdf/cat-30-3-cbn-inserts-catalog.pdf",
+        "https://ssl.ingersoll-imc.com/resources/pdf/it.te.di.-pcd-iso-inserts-catalog.pdf",
+        "https://ssl.ingersoll-imc.com/resources/pdf/cat-030_ingersoll_gear_production.pdf",
+        "https://ssl.ingersoll-imc.com/resources/pdf/bro-066-winsfeed-focus-brochure.pdf"
+      ],
+      "completeness": "not-complete",
+      "note": "Le fonti sono ampliate; conteggi e completezza saranno dichiarati solo dopo estrazione, deduplicazione e verifica dei codici con la fonte ufficiale."
     },
     {
       "maker": "Kennametal",
@@ -207,5 +229,5 @@
       ]
     }
   ],
-  "ingestionStatus": "official-source-registry-expanded; manufacturer-specific SKU indexing and parameter verification in progress"
+  "ingestionStatus": "Ingersoll catalog source expansion committed; SKU extraction and per-item parameter verification pending"
 }
