@@ -205,6 +205,64 @@ def extract_explicit_parameter_values(context):
 
 
 
+TECHNICAL_IT = [
+    ("recommended cutting conditions", "condizioni di taglio consigliate"),
+    ("cutting conditions", "condizioni di taglio"),
+    ("workpiece material", "materiale del pezzo"),
+    ("work material", "materiale da lavorare"),
+    ("stainless steel", "acciaio inossidabile"),
+    ("nickel-based alloys", "leghe a base nichel"),
+    ("non-ferrous materials", "materiali non ferrosi"),
+    ("non-ferrous", "non ferrosi"),
+    ("solid carbide", "metallo duro integrale"),
+    ("feed per revolution", "avanzamento per giro"),
+    ("feed per tooth", "avanzamento per dente"),
+    ("depth of cut", "profondità di passata"),
+    ("cutting speed", "velocità di taglio"),
+    ("chip breaker", "rompitruciolo"),
+    ("cutting edge", "tagliente"),
+    ("relief angle", "angolo di spoglia"),
+    ("rake angle", "angolo di spoglia frontale"),
+    ("tool holder", "portautensile"),
+    ("end mill", "fresa integrale"),
+    ("face mill", "fresa a spianare"),
+    ("boring bar", "barra di alesatura"),
+    ("cast iron", "ghisa"),
+    ("aluminum", "alluminio"),
+    ("aluminium", "alluminio"),
+    ("titanium", "titanio"),
+    ("superalloys", "superleghe"),
+    ("workpiece", "pezzo in lavorazione"),
+    ("recommended", "consigliato"),
+    ("application", "impiego"),
+    ("geometry", "geometria"),
+    ("material", "materiale"),
+    ("turning", "tornitura"),
+    ("finishing", "finitura"),
+    ("finishing", "finitura"),
+    ("roughing", "sgrossatura"),
+    ("profiling", "profilatura"),
+    ("grooving", "scanalatura"),
+    ("parting", "troncatura"),
+    ("threading", "filettatura"),
+    ("milling", "fresatura"),
+    ("drilling", "foratura"),
+    ("reaming", "alesatura"),
+    ("steel", "acciaio"),
+    ("stainless", "inossidabile"),
+    ("feed rate", "avanzamento"),
+    ("feed", "avanzamento"),
+    ("inserts", "inserti"),
+    ("insert", "inserto"),
+    ("drill", "punta"),
+]
+def technical_italian(value):
+    text = str(value or "")
+    for source, target in sorted(TECHNICAL_IT, key=lambda pair: len(pair[0]), reverse=True):
+        text = re.sub(re.escape(source), target, text, flags=re.I)
+    return text
+
+
 def classify_local_category(scope, default_category, context):
     """Classify an extracted record using nearby official-catalog text, not a generic PDF label."""
     text = str(context or "").casefold()
@@ -366,8 +424,15 @@ for src in SOURCES:
             seen.add(key)
             lines = page_cache[page_no]
             local_meta = extract_application_metadata_from_lines(lines, line_index, 55)
+            local_meta = {k: technical_italian(v) for k, v in local_meta.items()}
             local_recommended = extract_recommended_conditions_from_lines(lines, line_index, 65)
-            local_parameter_rows = extract_parameter_rows_from_lines(lines, line_index, 48)
+            local_recommended = [
+                {**block, "raw": technical_italian(block.get("raw", ""))}
+                for block in local_recommended
+            ]
+            local_parameter_rows = [
+                technical_italian(v) for v in extract_parameter_rows_from_lines(lines, line_index, 48)
+            ]
             local_conditions = extract_cutting_condition_context_from_blocks(local_recommended)
             local_context = " | ".join(lines[max(0,line_index-15):min(len(lines),line_index+66)])[:3500]
             explicit = extract_explicit_parameter_values(local_context)
