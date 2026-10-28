@@ -22,6 +22,9 @@ SOURCES = [
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/CAT-032-Ingersoll-Precision-Boring.pdf","scope":"drills-reamers","category":"Alesatura · Utensili completi"},
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-30-3-cbn-inserts-catalog.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/it.te.di.-pcd-iso-inserts-catalog.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
+    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/new-127-2-rapid-thread-straight-flute-indexable.pdf","scope":"inserts","category":"Filettatura · Inserto ufficiale"},
+    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/NEW-260-1_T-Thread_ISO26623-1.pdf","scope":"milling-cutters","category":"Filettatura · Utensili completi"},
+    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/new-399-1-gold-flex-extra-wide-inserts.pdf","scope":"inserts","category":"Scanalatura · Inserto ufficiale"},
 ]
 
 # ISO-style indexable-insert ordering codes. The blank between shape and size is
