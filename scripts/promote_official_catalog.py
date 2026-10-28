@@ -112,27 +112,33 @@ def technical_italian(value):
     return text
 
 def clean_geometry(value, code=""):
-    """Return a short, useful geometry label; never show extracted table headers as geometry."""
+    """Mostra solo forma e raggio; elimina parole di impiego e intestazioni estratte dai PDF."""
     text = technical_italian(value)
-    text = re.sub(r"\\s*\\|\\s*", " · ", text)
-    text = re.sub(r"\\s+", " ", text).strip(" ·|")
-    junk = (
-        "part number", "numero parte", "series ", "serie ", "no. of", "number of",
-        "cutting dia", "diametro di taglio", "thickness", "spessore", "grade",
-        "grades", "insert length", "insert width", "corner radius", "wiper radius",
-        "profile radius", "geometry.", "geometria.", "relief angle", "angle of",
-        "products", "metric", "ing ersoll", "ingersoll-imc.com",
-    )
+    text = re.sub(r"\s+", " ", text).strip(" ·|")
     low = text.casefold()
-    if not text or any(token in low for token in junk) or len(text) > 90 or text.count("·") >= 3:
+    junk = ("part number", "numero parte", "series ", "serie ", "no. of", "number of",
+            "cutting dia", "diametro di taglio", "thickness", "spessore", "grade", "grades",
+            "insert length", "insert width", "corner radius", "wiper radius", "profile radius",
+            "geometry.", "geometria.", "relief angle", "angle of", "products", "metric",
+            "ing ersoll", "ingersoll-imc.com", "apmx", "pfrad", "bsr", "re2")
+    if not text or any(token in low for token in junk) or len(text) > 90:
         text = ""
+    # L’impiego (finitura/media/sgrossatura) va nel campo dedicato, non nella geometria.
+    text = re.sub(r"\b(finitura|media|sgrossatura|finitura/media|media/finitura|universale|profilatura)\b", "", text, flags=re.I)
+    text = re.sub(r"\s*[·|,/]+\s*", " · ", text)
+    text = re.sub(r"\s+", " ", text).strip(" ·")
+    # Conserva solo forma e raggio punta, se presenti.
+    shape_match = re.search(r"(Rombo 80°|Rombo 55°|Rombo 35°|Rombo 86°|Trigon 80°|Quadrato 90°|Triangolo 60°|Tondo|Pentagonale|Parallelogramma|Rettangolo)", text, re.I)
+    radius_match = re.search(r"\bR\s*([0-9]+(?:[,.][0-9]+)?)\b", text, re.I)
+    parts = []
+    if shape_match: parts.append(shape_match.group(1))
+    if radius_match: parts.append("R" + radius_match.group(1).replace(".", ","))
+    if parts: return " · ".join(parts)
     if not text:
-        # ISO insert-shape codes are a safe shape/angle description, not a cutting parameter.
-        prefix = re.match(r"^\\s*([CDEHKLMP RSTUVW])", str(code or "").upper().replace(" ", ""))
+        prefix = re.match(r"^\s*([CDEHKLMP RSTUVW])", str(code or "").upper().replace(" ", ""))
         shape = {"C":"Rombo 80°", "D":"Rombo 55°", "V":"Rombo 35°", "W":"Trigon 80°", "S":"Quadrato 90°", "T":"Triangolo 60°", "R":"Tondo", "P":"Pentagonale", "K":"Parallelogramma", "L":"Rettangolo", "M":"Rombo 86°"}.get(prefix.group(1)) if prefix else None
         return shape or ""
-    return text[:90]
-
+    return text[:50]
 def clean_application(value):
     text = technical_italian(value)
     parts = [re.sub(r"\\s+", " ", p).strip(" ·|,") for p in re.split(r"\\s*[|]\\s*", text)]
