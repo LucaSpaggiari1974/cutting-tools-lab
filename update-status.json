@@ -1,20 +1,20 @@
 {
-  "updatedAt": "2026-10-28T14:23:31Z",
+  "updatedAt": "2026-10-28T14:25:28Z",
   "run": "daily",
   "changed": true,
-  "catalogItems": 54,
+  "catalogItems": 1112,
   "parameterCoverage": {
     "inserts": {
-      "total": 54,
+      "total": 1112,
       "vc": 41,
       "f_or_fz": 41,
       "ap": 41,
       "officialConditionContext": 0,
       "recommendedConditionTables": 0,
       "parameterRows": 0,
-      "geometry": 54,
-      "material": 54,
-      "application": 0
+      "geometry": 175,
+      "material": 55,
+      "application": 523
     },
     "completeTools": {
       "total": 423,
