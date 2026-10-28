@@ -1,6 +1,6 @@
 {
   "version": "1.1-official-catalog-item-import",
-  "updatedAt": "2026-10-28T14:19:30Z",
+  "updatedAt": "2026-10-28T14:20:45Z",
   "scope": "Utensili completi separati dal catalogo inserti.",
   "status": "official-catalog-item-import-in-progress",
   "mediaPolicy": {
@@ -6433,7 +6433,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø9,5",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6451,7 +6451,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø10",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6469,7 +6469,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø11",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6487,7 +6487,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø12",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6505,7 +6505,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø13",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6523,7 +6523,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø14",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6541,7 +6541,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø15",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6559,7 +6559,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø16",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6577,7 +6577,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø17",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6595,7 +6595,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø18",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6613,7 +6613,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø19",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6631,7 +6631,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø20",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6649,7 +6649,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø21",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6667,7 +6667,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø22",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6685,7 +6685,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø23",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6703,7 +6703,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø24",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6721,7 +6721,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø25",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6739,7 +6739,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø26",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6757,7 +6757,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø27",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6775,7 +6775,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø28",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6793,7 +6793,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø29",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6811,7 +6811,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø30",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6829,7 +6829,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø31",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6847,7 +6847,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø32",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -6865,7 +6865,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "CoroDrill DE Ø33",
-      "geom": "Punta a testina intercambiabile · DE10/DE20",
+      "geom": "Punta a testina intercambiabile · DE10 · DE20",
       "material": "P Acciaio · M Inox · K Ghisa",
       "vc": "60–180",
       "f": "0,08–0,35",
@@ -7248,7 +7248,7 @@
     {
       "category": "Fresatura · Utensili completi",
       "code": "TungMeister",
-      "geom": "Sistema fresa/testina modulare",
+      "geom": "Sistema fresa · testina modulare",
       "material": "P · M · K · N · S · H",
       "vc": "—",
       "f": "—",
@@ -7341,7 +7341,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "Walter DC260",
-      "geom": "Metallo duro integrale · pilotaggio/svasatura",
+      "geom": "Metallo duro integrale · pilotaggio · svasatura",
       "material": "P Acciaio · M Inox · K Ghisa · N",
       "vc": "30–180",
       "f": "0,04–0,30",
@@ -7359,7 +7359,7 @@
     {
       "category": "Foratura · Utensili completi",
       "code": "Walter Titex UFL XPL",
-      "geom": "HSS-E rivestita · universale",
+      "geom": "HSS-E rivestita",
       "material": "P Acciaio · M Inox · K Ghisa · N",
       "vc": "30–180",
       "f": "0,04–0,30",
@@ -7515,7 +7515,7 @@
     {
       "category": "Fresatura · Utensili completi",
       "code": "DCSFMS",
-      "geom": "",
+      "geom": "Rombo 55°",
       "material": "",
       "vc": "—",
       "f": "—",
@@ -7635,7 +7635,7 @@
     {
       "category": "Fresatura · Utensili completi",
       "code": "SRD19-12-115",
-      "geom": "",
+      "geom": "Quadrato 90°",
       "material": "pezzo in lavorazione | materiale da lavorare FCD600 Forged S55C S45C Forged S58C Forged S55C",
       "vc": "—",
       "f": "—",
@@ -7671,7 +7671,7 @@
     {
       "category": "Fresatura · Utensili completi",
       "code": "SRD29-20-240",
-      "geom": "",
+      "geom": "Quadrato 90°",
       "material": "pezzo in lavorazione | materiale da lavorare FCD600 Forged S55C S45C Forged S58C Forged S55C",
       "vc": "—",
       "f": "—",
@@ -7707,7 +7707,7 @@
     {
       "category": "Fresatura · Utensili completi",
       "code": "SRD36-25-170",
-      "geom": "",
+      "geom": "Quadrato 90°",
       "material": "pezzo in lavorazione | materiale da lavorare FCD600 Forged S55C S45C Forged S58C Forged S55C",
       "vc": "—",
       "f": "—",
@@ -7743,7 +7743,7 @@
     {
       "category": "Fresatura · Utensili completi",
       "code": "SRG16.02Q",
-      "geom": "",
+      "geom": "Quadrato 90°",
       "material": "pezzo in lavorazione | materiale da lavorare FCD600 Forged S55C S45C Forged S58C Forged S55C",
       "vc": "—",
       "f": "—",
@@ -7779,7 +7779,7 @@
     {
       "category": "Fresatura · Utensili completi",
       "code": "SRG17.0H7-A01-T1212R1",
-      "geom": "",
+      "geom": "Quadrato 90°",
       "material": "pezzo in lavorazione | materiale da lavorare FCD600 Forged S55C S45C Forged S58C Forged S55C",
       "vc": "—",
       "f": "—",
@@ -7815,7 +7815,7 @@
     {
       "category": "Fresatura · Utensili completi",
       "code": "SRG29.0H7-A01-F0512R1",
-      "geom": "",
+      "geom": "Quadrato 90°",
       "material": "pezzo in lavorazione | materiale da lavorare FCD600 Forged S55C S45C Forged S58C Forged S55C",
       "vc": "—",
       "f": "—",
@@ -7851,7 +7851,7 @@
     {
       "category": "Fresatura · Utensili completi",
       "code": "SRL14.0H7-B01-F0512R1",
-      "geom": "",
+      "geom": "Quadrato 90°",
       "material": "pezzo in lavorazione | materiale da lavorare FCD600 Forged S55C S45C Forged S58C Forged S55C",
       "vc": "—",
       "f": "—",
@@ -7887,7 +7887,7 @@
     {
       "category": "Fresatura · Utensili completi",
       "code": "SRL28.0H7-B01-F0512R1",
-      "geom": "",
+      "geom": "Quadrato 90°",
       "material": "pezzo in lavorazione | materiale da lavorare FCD600 Forged S55C S45C Forged S58C Forged S55C",
       "vc": "—",
       "f": "—",
