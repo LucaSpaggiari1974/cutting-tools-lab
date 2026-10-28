@@ -15,26 +15,13 @@ OUT = ROOT / "official-catalog-extracted.json"
 # candidates are NEVER promoted to the visible catalog until the order-line/code
 # has been normalized and verified against the current official source.
 SOURCES = [
-    # Ingersoll: cataloghi ufficiali per coprire famiglie diverse, non solo inserti.
-    # Le fonti storiche sono usate per intercettare articoli ancora a catalogo; la
-    # presenza in un PDF non implica automaticamente che il codice sia ancora attivo.
+    # Prima passata controllata: Ingersoll, catalogo generale e famiglie specialistiche.
+    # I cataloghi più ampi sono estratti una sola volta per evitare duplicazioni e tempi eccessivi.
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-031-1_winsfeed_new_products_catalog_2024.pdf","scope":"milling-cutters","category":"Fresatura · Utensili completi"},
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-031-1_winsfeed_new_products_catalog_2024.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
-    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-027-8-it.te.di.-product-catalog.pdf","scope":"milling-cutters","category":"Fresatura · Utensili completi"},
-    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/Ingersoll_CAT-002-2.pdf","scope":"drills-reamers","category":"Foratura · Utensili completi"},
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/CAT-032-Ingersoll-Precision-Boring.pdf","scope":"drills-reamers","category":"Alesatura · Utensili completi"},
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-30-3-cbn-inserts-catalog.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/it.te.di.-pcd-iso-inserts-catalog.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
-    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-030_ingersoll_gear_production.pdf","scope":"milling-cutters","category":"Dentatura · Utensili completi"},
-    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/bro-066-winsfeed-focus-brochure.pdf","scope":"milling-cutters","category":"Fresatura · Utensili completi"},
-    # Altri produttori già presenti nell'importatore.
-    {"maker":"Sumitomo Electric Hardmetal","url":"https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/assets/pdf/b.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
-    {"maker":"Sumitomo Electric Hardmetal","url":"https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/assets/pdf/h1.pdf","scope":"milling-cutters","category":"Fresatura · Utensili completi"},
-    {"maker":"Sumitomo Electric Hardmetal","url":"https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/assets/pdf/i.pdf","scope":"endmills","category":"Fresatura · Utensili completi"},
-    {"maker":"Sumitomo Electric Hardmetal","url":"https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/assets/pdf/j.pdf","scope":"drills-reamers","category":"Foratura · Utensili completi"},
-    {"maker":"Sumitomo Electric Hardmetal","url":"https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/assets/pdf/j.pdf","scope":"inserts","category":"Foratura · Inserto ufficiale"},
-    {"maker":"Sumitomo Electric Hardmetal","url":"https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/assets/pdf/f3.pdf","scope":"inserts","category":"Filettatura · Inserto ufficiale"},
-    {"maker":"Sandvik Coromant","url":"https://epublications.sandvik.coromant.com/frontend/getcatalog.do?catalogId=1151657&catalogVersion=1&startpage=35","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
 ]
 
 # ISO-style indexable-insert ordering codes. The blank between shape and size is
@@ -279,7 +266,8 @@ def discover_official_pdf_sources():
     for entry in registry.get("sources", []):
         maker = str(entry.get("maker", "")).strip()
         base = str(entry.get("catalog", "")).strip()
-        if not maker or maker.casefold() in excluded or not base:
+        # Procedura sequenziale richiesta: completare Ingersoll prima di passare agli altri produttori.
+        if not maker or maker.casefold() in excluded or maker.casefold() != "ingersoll" or not base:
             continue
         try:
             req = Request(base, headers={"User-Agent": ua, "Accept": "text/html,application/pdf,*/*"})
@@ -328,7 +316,7 @@ def discover_official_pdf_sources():
                 # systematically under-indexed every brand except those with hand-added
                 # PDFs above. Expand the bounded discovery budget while keeping every
                 # source on the registered manufacturer's official domain.
-                if added_for_maker >= 12:
+                if added_for_maker >= 4:
                     break
         except Exception as exc:
             source_stats.append({"maker": maker, "url": base, "status": "discovery-error", "error": str(exc)[:300]})
@@ -338,6 +326,8 @@ def discover_official_pdf_sources():
 # Supplement the hand-verified PDFs with current PDFs linked by each registered official catalog.
 # KORLOY is deliberately excluded, in accordance with the project requirement.
 SOURCES.extend(discover_official_pdf_sources())
+# Prima passata: non mescolare estrazioni di altri marchi alla verifica Ingersoll.
+SOURCES = [src for src in SOURCES if str(src.get("maker","")).casefold() == "ingersoll"]
 
 items = []
 seen = set()
