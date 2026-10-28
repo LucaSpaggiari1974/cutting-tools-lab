@@ -271,6 +271,8 @@ def classify_local_category(scope, default_category, context):
     label = str(default_category or "").casefold()
     if re.search(r"\b(threading|thread milling|thread turning|thread insert|filettatura)\b", text) or "filettatura" in label or "thread" in label:
         return "Filettatura" if scope == "inserts" else "Filettatura · Utensili completi"
+    if re.search(r"\b(lens type|chamfer barrel|barrel type|barrel mill|nfc[b-f]?)\b", text):
+        return "Fresatura" if scope == "inserts" else "Fresatura · Utensili completi"
     if re.search(r"\b(drilling insert|drill insert|holemaking|deep hole|drilling|reaming|reamer|foratura|alesatura)\b", text) or any(w in label for w in ("foratura", "drill", "ream", "alesatura")):
         return "Foratura" if scope == "inserts" else ("Alesatura · Utensili completi" if re.search(r"\b(precision boring|boring and reaming|reamer|reaming|alesatura)\b", text) else "Foratura · Utensili completi")
     if re.search(r"\b(grooving|parting|part-off|parting-off|scanalatura|troncatura)\b", text) or any(w in label for w in ("scanalatura", "grooving", "parting")):
@@ -406,19 +408,24 @@ for src in SOURCES:
             lines = page_cache[page_no]
             local_meta = extract_application_metadata_from_lines(lines, line_index, 55)
             local_meta = {k: technical_italian(v) for k, v in local_meta.items()}
-            local_recommended = extract_recommended_conditions_from_lines(lines, line_index, 65)
-            local_recommended = [
-                {**block, "raw": technical_italian(block.get("raw", ""))}
-                for block in local_recommended
-            ]
-            local_parameter_rows = [
-                technical_italian(v) for v in extract_parameter_rows_from_lines(lines, line_index, 48)
-            ]
-            local_conditions = extract_cutting_condition_context_from_blocks(local_recommended)
+            # Non copiare le tabelle dell’intera pagina su ogni codice: le righe dimensionali non sono parametri di taglio.
             local_context = " | ".join(lines[max(0,line_index-15):min(len(lines),line_index+66)])[:3500]
-            explicit = extract_explicit_parameter_values(local_context)
-            recommended = local_recommended
-            conditions = local_conditions
+            code_pattern = re.compile(r"(?<![A-Z0-9])" + re.escape(code) + r"(?![A-Z0-9])", re.I)
+            nearby_exact_lines = [line for line in lines[max(0,line_index-3):min(len(lines),line_index+4)] if code_pattern.search(line)]
+            exact_context = " | ".join(nearby_exact_lines)
+            explicit = extract_explicit_parameter_values(exact_context)
+            raw_recommended = extract_recommended_conditions_from_lines(lines, line_index, 65)
+            local_recommended = []
+            for block in raw_recommended:
+                raw = str(block.get("raw", ""))
+                exact_chunks = [chunk.strip() for chunk in re.split(r"\s*\|\s*", raw) if code_pattern.search(chunk)]
+                for chunk in exact_chunks:
+                    if re.search(r"\b(vc|cutting speed|fz|feed rate|feed per tooth|feed per revolution|mm/min|m/min)\b", chunk, re.I):
+                        local_recommended.append({**block, "raw": technical_italian(chunk[:1200])})
+            local_parameter_rows = [technical_italian(v) for v in extract_parameter_rows_from_lines(lines, line_index, 48) if code_pattern.search(v) and re.search(r"\b(vc|cutting speed|fz|feed rate|feed per tooth|feed per revolution|mm/min|m/min)\b", v, re.I)]
+            local_conditions = extract_cutting_condition_context_from_blocks(local_recommended)
+            local_meta = extract_application_metadata_from_lines(lines, line_index, 55)
+            local_meta = {k: technical_italian(v) for k, v in local_meta.items()}
             nearby_context = " | ".join(lines[max(0,line_index-10):min(len(lines),line_index+11)])[:1800]
             resolved_category = classify_local_category(src["scope"], src["category"], nearby_context)
             items.append({
