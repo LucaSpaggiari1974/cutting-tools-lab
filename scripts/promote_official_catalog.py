@@ -135,8 +135,9 @@ def clean_geometry(value, code=""):
     if radius_match: parts.append("R" + radius_match.group(1).replace(".", ","))
     if parts: return " · ".join(parts)
     if not text:
-        prefix = re.match(r"^\s*([CDEHKLMP RSTUVW])", str(code or "").upper().replace(" ", ""))
-        shape = {"C":"Rombo 80°", "D":"Rombo 55°", "V":"Rombo 35°", "W":"Trigon 80°", "S":"Quadrato 90°", "T":"Triangolo 60°", "R":"Tondo", "P":"Pentagonale", "K":"Parallelogramma", "L":"Rettangolo", "M":"Rombo 86°"}.get(prefix.group(1)) if prefix else None
+        compact_code = re.sub(r"\s+", "", str(code or "").upper())
+        iso_prefix = re.match(r"^(CNMG|DNMG|SNMG|TNMG|VNMG|WNMG|CCMT|CCGT|DCMT|DCGT|TCMT|TCGT|VCMT|VCGT|VBMT|VBGT|SCMT|SPMT|WCMX|SPMX|SCMX|CNGA|DNGA|TNGA|VNGA|WNGA)", compact_code)
+        shape = {"C":"Rombo 80°", "D":"Rombo 55°", "V":"Rombo 35°", "W":"Trigon 80°", "S":"Quadrato 90°", "T":"Triangolo 60°", "R":"Tondo"}.get(iso_prefix.group(1)[0]) if iso_prefix else None
         return shape or ""
     return text[:50]
 def clean_application(value):
@@ -387,7 +388,12 @@ def main():
                                 and len(incoming) > len(str(current or ""))
                             ):
                                 target[field] = incoming
+                    # Aggiorna la categoria quando la classificazione ufficiale è più specifica.
+                    if cand.get("category") in ALLOWED and target.get("category") != cand.get("category"):
+                        target["category"] = cand["category"]
                     changed_fields = [k for k in field_map if target.get(k) != before.get(k)]
+                    if target.get("category") != before.get("category"):
+                        changed_fields.append("category")
                     if changed_fields:
                         enriched.append({"maker": maker, "code": code, "fields": changed_fields})
                         enriched_fields += len(changed_fields)
