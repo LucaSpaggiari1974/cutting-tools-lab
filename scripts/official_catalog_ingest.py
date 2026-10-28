@@ -435,6 +435,9 @@ for src in SOURCES:
             prior_lines = lines[max(0, line_index-80):line_index+1]
             nearest_section = next((line for line in reversed(prior_lines) if section_pattern.search(line)), "")
             classification_context = nearest_section + " " + nearby_context
+            special_family = str(local_meta.get("application", ""))
+            if re.search(r"\b(lens type|chamfer barrel|barrel type|nfc[b-f]?)\b", special_family, re.I):
+                classification_context += " " + special_family
             resolved_category = classify_local_category(src["scope"], src["category"], classification_context)
             items.append({
                 "category": resolved_category,
