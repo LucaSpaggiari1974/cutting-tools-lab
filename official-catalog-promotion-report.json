@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-28T14:06:11Z",
-  "stagingItems": 1057,
-  "promoted": 1057,
+  "updatedAt": "2026-10-28T14:13:26Z",
+  "stagingItems": 1058,
+  "promoted": 1058,
   "promotedCompleteTools": 0,
   "enrichedExisting": 0,
   "enrichedFields": 0,
@@ -13,7 +13,7 @@
   "existingCompleteToolDuplicatesRemoved": 0,
   "existingCompleteToolDuplicateFieldsMerged": 0,
   "skipped": 0,
-  "catalogItemsAfter": 1111,
+  "catalogItemsAfter": 1112,
   "completeToolsAfter": 423,
   "policy": "Codici e utensili completi estratti da fonti ufficiali; famiglie distinte, ambigui mantenuti in staging e parametri mancanti non inventati.",
   "promotedSample": [

@@ -1,6 +1,6 @@
 {
   "version": "1.1-official-catalog-item-import",
-  "updatedAt": "2026-10-28T14:06:11Z",
+  "updatedAt": "2026-10-28T14:13:26Z",
   "scope": "Utensili completi separati dal catalogo inserti.",
   "status": "official-catalog-item-import-in-progress",
   "mediaPolicy": {
@@ -7429,7 +7429,7 @@
       "sourceOfficial": "https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/assets/pdf/h1.pdf",
       "sourcePage": 206,
       "sourceContext": "Radius | Max. Dia. Dia. Shank Diameter Head Number Weight | Overall Length | Stock | Cat. No. Carbon Steel 180 to 280HB 100- 160 -200 0.20- 0.40 -0.60 ACP200 | DCX DC DMM DN LH LF of Teeth (kg) Fig P Alloy Steel 180 to 280HB 100- 140 -180 0.20- 0.30 -0.40 ACP200 | WRCX 16040ES D 40 24 32 31.3 50 170 2 0.9 1 | M Stainless Steel Q 80- 120 -160 0.10- 0.20 -0.30 ACP300 | WRCX 16040EM D 40 24 32 31.3 50 250 2 1.4 1 | K Cast Iron 250HB 80- 120 -160 0.10- 0.20 -0.40 ACK200 | WRCX 16050ES D 50 34 32 40.8 50 170 3 1.0 1 | N Non-Ferrous Alloys | Profiling | Q 200- 500 -1,000 0.10- 0.30 -0.40 DL1000 | WRCX 16050EM D 50 34 32 40.8 50 250 3 1.5 1 | R/3D | Note · \u0007The cutting conditions above are a guide. Actual conditions will need to be adjusted | Inserts are sold separately. according to machine rigidity, work clamp rigidity, depth of cut and other factors. | · For groove milling, adjust the feed rate to around 70% of the above values. | Insert Dimensions (mm) | T-Slot Cutters | Side Cutters | Grade Classification Coated Carbide Cemented Carbide DLC RE | Fig 1 | High-speed/Light Cutting P K K | N N | 8 corners | IC | Process Medium Cutting P P | M M K N | Roughing P P | M M K | S",
-      "application": "profilatura | · For groove fresatura, adjust the avanzamento to around 70% of the above values. | Process Medium Cutting P P | sgrossatura P P",
+      "application": "media · sgrossatura",
       "cuttingConditions": "Note · \u0007The condizioni di taglio above are a guide. Actual conditions will need to be adjusted | inserti are sold separately. according to machine rigidity, work clamp rigidity, profondità di passata and other factors. | · For groove fresatura, adjust the avanzamento to around 70% of the above values. | inserto Dimensions (mm) | T-Slot Cutters | Side Cutters | Grade Classification Coated Carbide Cemented Carbide DLC RE | Fig 1 | High-speed/Light Cutting P K K | N N | 8 corners | IC | Process Medium Cutting P P | M M K N | sgrossatura P P | M M K | S",
       "recommendedConditions": [
         {
@@ -7459,7 +7459,7 @@
       "sourceOfficial": "https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/assets/pdf/h1.pdf",
       "sourcePage": 206,
       "sourceContext": "Radius | Max. Dia. Dia. Shank Diameter Head Number Weight | Overall Length | Stock | Cat. No. Carbon Steel 180 to 280HB 100- 160 -200 0.20- 0.40 -0.60 ACP200 | DCX DC DMM DN LH LF of Teeth (kg) Fig P Alloy Steel 180 to 280HB 100- 140 -180 0.20- 0.30 -0.40 ACP200 | WRCX 16040ES D 40 24 32 31.3 50 170 2 0.9 1 | M Stainless Steel Q 80- 120 -160 0.10- 0.20 -0.30 ACP300 | WRCX 16040EM D 40 24 32 31.3 50 250 2 1.4 1 | K Cast Iron 250HB 80- 120 -160 0.10- 0.20 -0.40 ACK200 | WRCX 16050ES D 50 34 32 40.8 50 170 3 1.0 1 | N Non-Ferrous Alloys | Profiling | Q 200- 500 -1,000 0.10- 0.30 -0.40 DL1000 | WRCX 16050EM D 50 34 32 40.8 50 250 3 1.5 1 | R/3D | Note · \u0007The cutting conditions above are a guide. Actual conditions will need to be adjusted | Inserts are sold separately. according to machine rigidity, work clamp rigidity, depth of cut and other factors. | · For groove milling, adjust the feed rate to around 70% of the above values. | Insert Dimensions (mm) | T-Slot Cutters | Side Cutters | Grade Classification Coated Carbide Cemented Carbide DLC RE | Fig 1 | High-speed/Light Cutting P K K | N N | 8 corners | IC | Process Medium Cutting P P | M M K N | Roughing P P | M M K | S",
-      "application": "profilatura | · For groove fresatura, adjust the avanzamento to around 70% of the above values. | Process Medium Cutting P P | sgrossatura P P",
+      "application": "media · sgrossatura",
       "cuttingConditions": "Note · \u0007The condizioni di taglio above are a guide. Actual conditions will need to be adjusted | inserti are sold separately. according to machine rigidity, work clamp rigidity, profondità di passata and other factors. | · For groove fresatura, adjust the avanzamento to around 70% of the above values. | inserto Dimensions (mm) | T-Slot Cutters | Side Cutters | Grade Classification Coated Carbide Cemented Carbide DLC RE | Fig 1 | High-speed/Light Cutting P K K | N N | 8 corners | IC | Process Medium Cutting P P | M M K N | sgrossatura P P | M M K | S",
       "recommendedConditions": [
         {
@@ -7479,7 +7479,7 @@
     {
       "category": "Fresatura · Utensili completi",
       "code": "3.962",
-      "geom": "Cat. No. tagliente Shape Fig R0.5 (Same For All) 3.962 | from internal tests. 'O' marks indicate the possible impiego range. Actual cutting",
+      "geom": "",
       "material": "45° be set based on the actual machine and pezzo in lavorazione characteristics.",
       "vc": "—",
       "f": "—",
