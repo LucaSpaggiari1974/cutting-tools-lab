@@ -111,20 +111,69 @@ def technical_italian(value):
         text = re.sub(r"(?<![A-Za-z])" + re.escape(source) + r"(?![A-Za-z])", target, text, flags=re.I)
     return text
 
+def clean_geometry(value, code=""):
+    """Return a short, useful geometry label; never show extracted table headers as geometry."""
+    text = technical_italian(value)
+    text = re.sub(r"\\s*\\|\\s*", " · ", text)
+    text = re.sub(r"\\s+", " ", text).strip(" ·|")
+    junk = (
+        "part number", "numero parte", "series ", "serie ", "no. of", "number of",
+        "cutting dia", "diametro di taglio", "thickness", "spessore", "grade",
+        "grades", "insert length", "insert width", "corner radius", "wiper radius",
+        "profile radius", "geometry.", "geometria.", "relief angle", "angle of",
+        "products", "metric", "ing ersoll", "ingersoll-imc.com",
+    )
+    low = text.casefold()
+    if not text or any(token in low for token in junk) or len(text) > 90 or text.count("·") >= 3:
+        text = ""
+    if not text:
+        # ISO insert-shape codes are a safe shape/angle description, not a cutting parameter.
+        prefix = re.match(r"^\\s*([CDEHKLMP RSTUVW])", str(code or "").upper().replace(" ", ""))
+        shape = {"C":"Rombo 80°", "D":"Rombo 55°", "V":"Rombo 35°", "W":"Trigon 80°", "S":"Quadrato 90°", "T":"Triangolo 60°", "R":"Tondo", "P":"Pentagonale", "K":"Parallelogramma", "L":"Rettangolo", "M":"Rombo 86°"}.get(prefix.group(1)) if prefix else None
+        return shape or ""
+    return text[:90]
+
+def clean_application(value):
+    text = technical_italian(value)
+    parts = [re.sub(r"\\s+", " ", p).strip(" ·|,") for p in re.split(r"\\s*[|]\\s*", text)]
+    allowed = (
+        ("turning", "tornitura"), ("tornitura", "tornitura"),
+        ("finishing", "finitura"), ("finitura", "finitura"),
+        ("medium", "media"), ("media", "media"),
+        ("roughing", "sgrossatura"), ("sgrossatura", "sgrossatura"),
+        ("profiling", "profilatura"), ("profilatura", "profilatura"),
+        ("grooving", "scanalatura"), ("scanalatura", "scanalatura"),
+        ("parting", "troncatura"), ("troncatura", "troncatura"),
+        ("threading", "filettatura"), ("filettatura", "filettatura"),
+        ("milling", "fresatura"), ("fresatura", "fresatura"),
+        ("drilling", "foratura"), ("foratura", "foratura"),
+        ("reaming", "alesatura"), ("alesatura", "alesatura"),
+        ("finishing insert", "inserto da finitura"),
+    )
+    result=[]
+    for part in parts:
+        low=part.casefold()
+        for token, label in allowed:
+            if token in low and label not in result:
+                result.append(label)
+    return " · ".join(result[:2])
+
 def translate_row_fields(row):
-    for field in ("geom", "material", "application", "cuttingConditions"):
+    code = row.get("code", row.get("itemCode", ""))
+    for field in ("material", "cuttingConditions"):
         if isinstance(row.get(field), str):
             row[field] = technical_italian(row[field])
-    for field in ("recommendedConditions",):
-        value = row.get(field)
-        if isinstance(value, list):
-            for block in value:
-                if isinstance(block, dict) and isinstance(block.get("raw"), str):
-                    block["raw"] = technical_italian(block["raw"])
-                elif isinstance(block, str):
-                    pass
+    if isinstance(row.get("geom"), str):
+        row["geom"] = clean_geometry(row["geom"], code)
+    if isinstance(row.get("application"), str):
+        row["application"] = clean_application(row["application"])
+    # Preserve source evidence, but do not expose noisy dimension-table headers as cutting parameters.
+    if isinstance(row.get("recommendedConditions"), list):
+        for block in row["recommendedConditions"]:
+            if isinstance(block, dict) and isinstance(block.get("raw"), str):
+                block["raw"] = technical_italian(block["raw"])
     if isinstance(row.get("parameterRows"), list):
-        row["parameterRows"] = [technical_italian(v) if isinstance(v, str) else v for v in row["parameterRows"]]
+        row["parameterRows"] = [technical_italian(v) for v in row["parameterRows"] if isinstance(v, str) and len(v) < 180]
     return row
 
 
