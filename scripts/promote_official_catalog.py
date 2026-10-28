@@ -303,15 +303,22 @@ def main():
         if not maker or len(code) < 5 or not re.search(r"[A-Z0-9]", code):
             skipped.append({"code": code, "reason": "weak-tool-code"})
             continue
-        tool_category = category or (
-            "Foratura · Utensili completi" if any(w in str(cand.get("category","")).lower() for w in ("drill","foratura","hole"))
-            else "Fresatura · Utensili completi"
-        )
-        if tool_category not in {
-            "Fresatura · Utensili completi","Foratura · Utensili completi",
-            "Alesatura · Utensili completi","Filettatura · Utensili completi",
-            "Tornitura · Utensili completi","Scanalatura · Utensili completi"
-        }:
+        # Classifica gli utensili completi dalla famiglia della fonte ufficiale,
+        # evitando che alesatori e utensili di filettatura finiscano in fresatura.
+        source_label = str(cand.get("category","")).casefold()
+        if any(w in source_label for w in ("alesatura", "ream", "boring")):
+            tool_category = "Alesatura · Utensili completi"
+        elif any(w in source_label for w in ("filettatura", "thread")):
+            tool_category = "Filettatura · Utensili completi"
+        elif any(w in source_label for w in ("scanalatura", "grooving", "parting")):
+            tool_category = "Scanalatura · Utensili completi"
+        elif any(w in source_label for w in ("tornitura", "turning")):
+            tool_category = "Tornitura · Utensili completi"
+        elif any(w in source_label for w in ("foratura", "drill", "holemaking")):
+            tool_category = "Foratura · Utensili completi"
+        elif any(w in source_label for w in ("dentatura", "gear")):
+            tool_category = "Dentatura · Utensili completi"
+        else:
             tool_category = "Fresatura · Utensili completi"
         tkey = (maker.lower(), norm(code))
         if tkey in existing_tools:
@@ -382,7 +389,7 @@ def main():
         "skipped": len(skipped),
         "catalogItemsAfter": len(items),
         "completeToolsAfter": len(tool_items),
-        "policy": "Solo codici forti provenienti da scope inserts ufficiale; ambigui mantenuti in staging.",
+        "policy": "Codici e utensili completi estratti da fonti ufficiali; famiglie distinte, ambigui mantenuti in staging e parametri mancanti non inventati.",
         "promotedSample": promoted[:50],
         "promotedCompleteToolsSample": promoted_tools[:50],
         "skippedReasons": {r: sum(1 for x in skipped if x["reason"] == r) for r in sorted({x["reason"] for x in skipped})}
