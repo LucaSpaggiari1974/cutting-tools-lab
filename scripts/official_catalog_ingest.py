@@ -429,7 +429,8 @@ for src in SOURCES:
             local_meta = extract_application_metadata_from_lines(lines, line_index, 55)
             local_meta = {k: technical_italian(v) for k, v in local_meta.items()}
             nearby_context = " | ".join(lines[max(0,line_index-10):min(len(lines),line_index+11)])[:1800]
-            resolved_category = classify_local_category(src["scope"], src["category"], nearby_context)
+            classification_context = nearby_context + " " + str(local_meta.get("application", ""))
+            resolved_category = classify_local_category(src["scope"], src["category"], classification_context)
             items.append({
                 "category": resolved_category,
                 "code": code,
