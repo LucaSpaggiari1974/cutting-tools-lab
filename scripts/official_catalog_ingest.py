@@ -19,6 +19,7 @@ SOURCES = [
     # Le fonti storiche sono usate per intercettare articoli ancora a catalogo; la
     # presenza in un PDF non implica automaticamente che il codice sia ancora attivo.
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-031-1_winsfeed_new_products_catalog_2024.pdf","scope":"milling-cutters","category":"Fresatura · Utensili completi"},
+    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-031-1_winsfeed_new_products_catalog_2024.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-027-8-it.te.di.-product-catalog.pdf","scope":"milling-cutters","category":"Fresatura · Utensili completi"},
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/Ingersoll_CAT-002-2.pdf","scope":"drills-reamers","category":"Foratura · Utensili completi"},
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/CAT-032-Ingersoll-Precision-Boring.pdf","scope":"drills-reamers","category":"Alesatura · Utensili completi"},
@@ -217,6 +218,49 @@ def extract_explicit_parameter_values(context):
 
 
 
+def classify_local_category(scope, default_category, context):
+    """Classify an extracted record using nearby official-catalog text, not a generic PDF label."""
+    text = str(context or "").casefold()
+    if scope == "inserts":
+        if re.search(r"\b(threading|thread turning|thread milling|thread insert|filettatura)\b", text):
+            return "Filettatura"
+        if re.search(r"\b(drilling insert|drill insert|holemaking|drilling|reaming|reamer|foratura|alesatura)\b", text):
+            return "Foratura"
+        if re.search(r"\b(grooving|parting|part-off|parting-off|scanalatura|troncatura)\b", text):
+            return "Tornitura · Media"
+        if re.search(r"\b(turning insert|turning|boring bar|turning grade|tornitura)\b", text):
+            if re.search(r"\b(finishing|finish|finitura)\b", text):
+                return "Tornitura · Finitura"
+            if re.search(r"\b(roughing|rough|sgrossatura)\b", text):
+                return "Tornitura · Sgrossatura"
+            return "Tornitura · Media"
+        if re.search(r"\b(milling insert|indexable milling|face mill|shoulder mill|milling|fresatura)\b", text):
+            return "Fresatura"
+        label = str(default_category or "").casefold()
+        if "filettatura" in label or "thread" in label: return "Filettatura"
+        if "foratura" in label or "drill" in label or "ream" in label: return "Foratura"
+        if "fresatura" in label or "mill" in label: return "Fresatura"
+        if "sgrossatura" in label or "rough" in label: return "Tornitura · Sgrossatura"
+        if "finitura" in label or "finish" in label: return "Tornitura · Finitura"
+        return "Tornitura · Media"
+
+    if re.search(r"\b(precision boring|boring and reaming|boring bar|reamer|reaming|alesatura)\b", text):
+        return "Alesatura · Utensili completi"
+    if re.search(r"\b(threading|thread milling|thread turning|filettatura)\b", text):
+        return "Filettatura · Utensili completi"
+    if re.search(r"\b(drilling|deep hole|holemaking|drill|foratura)\b", text):
+        return "Foratura · Utensili completi"
+    if re.search(r"\b(grooving|parting|scanalatura|troncatura)\b", text):
+        return "Scanalatura · Utensili completi"
+    if re.search(r"\b(turning|tornitura)\b", text):
+        return "Tornitura · Utensili completi"
+    if re.search(r"\b(gear production|gear cutting|dentatura)\b", text):
+        return "Dentatura · Utensili completi"
+    if re.search(r"\b(milling|end mill|face mill|fresatura)\b", text):
+        return "Fresatura · Utensili completi"
+    return default_category
+
+
 source_stats = []
 
 def discover_official_pdf_sources():
@@ -339,8 +383,10 @@ for src in SOURCES:
             explicit = extract_explicit_parameter_values(local_context)
             recommended = local_recommended
             conditions = local_conditions
+            nearby_context = " | ".join(lines[max(0,line_index-10):min(len(lines),line_index+11)])[:1800]
+            resolved_category = classify_local_category(src["scope"], src["category"], nearby_context)
             items.append({
-                "category": src["category"],
+                "category": resolved_category,
                 "code": code,
                 "maker": src["maker"],
                 "toolType": "insert" if src["scope"] == "inserts" else "complete-tool",
