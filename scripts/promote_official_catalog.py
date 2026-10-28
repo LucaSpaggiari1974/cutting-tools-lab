@@ -125,7 +125,7 @@ def clean_geometry(value, code=""):
         text = ""
     # L’impiego (finitura/media/sgrossatura) va nel campo dedicato, non nella geometria.
     text = re.sub(r"\b(finitura|media|sgrossatura|finitura/media|media/finitura|universale|profilatura)\b", "", text, flags=re.I)
-    text = re.sub(r"\s*[·|,/]+\s*", " · ", text)
+    text = re.sub(r"\s*[·|/]+\s*", " · ", text)
     text = re.sub(r"\s+", " ", text).strip(" ·")
     # Conserva solo forma e raggio punta, se presenti.
     shape_match = re.search(r"(Rombo 80°|Rombo 55°|Rombo 35°|Rombo 86°|Trigon 80°|Quadrato 90°|Triangolo 60°|Tondo|Pentagonale|Parallelogramma|Rettangolo)", text, re.I)
