@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="2026.10.28.01">
+<meta name="app-version" content="2026.10.20.08">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#123a5a">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -98,36 +98,6 @@ img, picture, .drawings, .drawingbox, .realphoto, .photoWrap, .modalImg, .recDra
 .preview, .previews, .preview-image, .image-preview, .photo-preview, .tool-preview, .insert-preview,
 [class*="preview"], [class*="Preview"], [class*="drawing"], [class*="Drawing"],
 [class*="realphoto"], [class*="photoWrap"], [class*="modalImg"], [class*="recDraw"] { display:none !important; }
-
-/* Interfaccia Windows: gerarchia chiara, tabella leggibile e filtri ordinati. */
-@media(min-width:761px){
-  body{background:#edf2f6}
-  main{max-width:1680px;padding:22px 26px}
-  header{padding:22px 26px;border-radius:14px}
-  h1{font-size:28px;letter-spacing:.2px}
-  header p{font-size:14px;margin-top:7px}
-  .navtabs{position:static;display:flex;flex-wrap:wrap;padding:7px;gap:8px;margin-bottom:16px}
-  .navtab{padding:11px 18px;border-radius:8px}
-  .sheet{border-radius:12px}
-  .toolbar{position:static;padding:16px;background:#f7fafc}
-  .searchgrid{grid-template-columns:minmax(300px,2.2fr) repeat(3,minmax(170px,1fr));gap:10px}
-  input,select,button{min-height:42px}
-  .formula{margin-top:12px;grid-template-columns:1.4fr 1.2fr .8fr .8fr .8fr auto;padding:14px;gap:12px}
-  .formula span{font-size:11px;letter-spacing:.4px}
-  .formula b{font-size:15px;overflow-wrap:anywhere}
-  .status{padding:12px 16px;font-size:13px}
-  .warn{padding:12px 16px;line-height:1.5}
-  .appbar{padding:10px 16px}
-  .tablewrap{max-height:calc(100vh - 390px);min-height:300px;overflow:auto}
-  table{min-width:1250px;table-layout:auto}
-  th,td{padding:12px 13px;font-size:13px;line-height:1.45}
-  th{top:0;white-space:normal}
-  td.code{white-space:nowrap}
-  .tag{white-space:nowrap}
-  tr.data:nth-child(even){background:#fbfdff}
-  tr.data:hover{background:#eaf4fc}
-  .calcgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-}
 </style>
 
 </head>
@@ -336,38 +306,37 @@ const groups=[
 
 function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
 const q=document.getElementById("q"),cat=document.getElementById("cat"),mat=document.getElementById("mat"),maker=document.getElementById("maker"),rows=document.getElementById("rows");
-function normalizeCategory(value){
-  const c=String(value||"").trim().replace(/\s+/g," ");
-  const low=c.toLocaleLowerCase("it");
-  if(low.includes("tornitura")&&low.includes("finitura")) return "Tornitura · Finitura";
-  if(low.includes("tornitura")&&low.includes("media")) return "Tornitura · Media";
-  if(low.includes("tornitura")&&low.includes("sgrossatura")) return "Tornitura · Sgrossatura";
-  if(low==="fresatura"||low.includes("fresatura")) return "Fresatura";
-  if(low==="foratura"||low.includes("foratura")) return "Foratura";
-  if(low==="alesatura"||low.includes("alesatura")||low.includes("barenatura")) return "Alesatura / barenatura";
-  if(low==="filettatura"||low.includes("filettatura")) return "Filettatura";
-  return c || "Categoria non specificata";
-}
+const allowedInsertCategories=["Tornitura · Finitura","Tornitura · Media","Tornitura · Sgrossatura","Fresatura","Foratura","Filettatura"];
+const insertTurningCategories=allowedInsertCategories.slice(0,3);
 function fillFilters(){
-  cat.innerHTML='<option value="">Tutte le categorie</option>';
-  mat.innerHTML='<option value="">Tutti i materiali</option>';
-  maker.innerHTML='<option value="">Tutti i produttori</option>';
-
-  // Normalizza le categorie senza scartare utensili, portautensili o famiglie non inserti.
-  data=data.map(r=>({...r,category:normalizeCategory(r.category)}));
-
+  cat.innerHTML="<option value=\"\">Tutte le categorie</option>";
+  mat.innerHTML="<option value=\"\">Tutti i materiali</option>";
+  maker.innerHTML="<option value=\"\">Tutti i produttori</option>";
+  // Normalizza categorie e mostra solo le sei categorie inserti previste.
+  const normalizeCategory = value => {
+    const c=String(value||"").trim().replace(/\\s+/g," ");
+    if(/^tornitura\\s*[·.:-]\\s*finitura$/i.test(c)) return "Tornitura · Finitura";
+    if(/^tornitura\\s*[·.:-]\\s*media$/i.test(c)) return "Tornitura · Media";
+    if(/^tornitura\\s*[·.:-]\\s*sgrossatura$/i.test(c)) return "Tornitura · Sgrossatura";
+    if(/^fresatura$/i.test(c)) return "Fresatura";
+    if(/^foratura$/i.test(c)) return "Foratura";
+    if(/^filettatura$/i.test(c)) return "Filettatura";
+    return c;
+  };
+  data=data.map(r=>({...r,category:normalizeCategory(r.category)}))
+    .filter(r=>allowedInsertCategories.includes(r.category));
   const categoryCount=new Map();
   data.forEach(r=>categoryCount.set(r.category,(categoryCount.get(r.category)||0)+1));
-  const categoryOrder=["Tornitura · Finitura","Tornitura · Media","Tornitura · Sgrossatura","Fresatura","Foratura","Alesatura / barenatura","Filettatura"];
-  [...categoryCount.keys()].sort((a,b)=>{
-    const ai=categoryOrder.indexOf(a),bi=categoryOrder.indexOf(b);
-    if(ai>=0||bi>=0)return (ai<0?99:ai)-(bi<0?99:bi)||a.localeCompare(b,"it");
-    return a.localeCompare(b,"it");
-  }).forEach(x=>cat.add(new Option(x+" ("+categoryCount.get(x)+")",x)));
+  const turningInsertCount=insertTurningCategories.reduce((n,k)=>n+(categoryCount.get(k)||0),0);
+  if(turningInsertCount)cat.add(new Option("Tornitura ("+turningInsertCount+")","__TURNING_INSERTS__"));
+  ["Fresatura","Foratura","Filettatura"].forEach(x=>{
+    if(categoryCount.has(x))cat.add(new Option(x+" ("+categoryCount.get(x)+")",x));
+  });
 
+  // Filtro materiali essenziale: solo i sei gruppi ISO principali, non le etichette libere estratte dai PDF.
   const isoMaterials=[
     ["P","P · Acciai"],["M","M · Acciai inossidabili"],["K","K · Ghise"],
-    ["N","N · Materiali non ferrosi"],["S","S · Superleghe e titanio"],["H","H · Acciai temprati"]
+    ["N","N · Non ferrosi"],["S","S · Superleghe e titanio"],["H","H · Acciai temprati"]
   ];
   isoMaterials.forEach(([code,label])=>mat.add(new Option(label,code)));
 
@@ -376,7 +345,7 @@ function fillFilters(){
     const m=String(r.maker||"").trim();
     if(m)makerCount.set(m,(makerCount.get(m)||0)+1);
   });
-  [...makerCount.keys()].sort((a,b)=>a.localeCompare(b,"it")).forEach(x=>{
+  [...makerCount.keys()].sort((a,b)=>a.localeCompare(b)).forEach(x=>{
     maker.add(new Option(x+" ("+makerCount.get(x)+")",x));
   });
 }
@@ -926,7 +895,38 @@ const grindingEvidence=[
   setTimeout(renderGrindingExtension,50);
 })();
 </script>
-
+<script>
+/* APP UPDATE WATCHER: detects every published app change independently of manual data refresh. */
+(function(){
+  const meta=document.querySelector('meta[name="app-version"]');
+  const localKey="ctl_app_version";
+  const current=meta?.content||"";
+  try{ if(current) localStorage.setItem(localKey,current); }catch(_){}
+  let checking=false;
+  async function checkPublishedVersion(){
+    if(checking||document.hidden)return;
+    checking=true;
+    try{
+      const r=await fetch("./index.html?app-check="+Date.now(),{cache:"no-store",headers:{"Cache-Control":"no-cache"}});
+      if(!r.ok)return;
+      const html=await r.text();
+      const m=html.match(/<meta\s+name=["']app-version["']\s+content=["']([^"']+)["']/i);
+      const remote=m&&m[1]||"";
+      if(remote&&current&&remote!==current){
+        showRefreshProgress(8,"ATTENDI — AGGIORNAMENTO IN CORSO");
+        showRefreshProgress(35,"ATTENDI — AGGIORNAMENTO IN CORSO");
+        showRefreshProgress(82,"ATTENDI — AGGIORNAMENTO IN CORSO");
+        try{localStorage.setItem(localKey,remote)}catch(_){}
+        showRefreshProgress(94,"ATTENDI — AGGIORNAMENTO IN CORSO");
+        setTimeout(()=>{showRefreshProgress(100,"AGGIORNAMENTO COMPLETATO — ATTENDERE");setTimeout(()=>location.reload(),500)},250);
+      }
+    }catch(_){}finally{checking=false}
+  }
+  setTimeout(checkPublishedVersion,2500);
+  setInterval(checkPublishedVersion,15000);
+  document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")setTimeout(checkPublishedVersion,300)});
+})();
+</script>
 
 <script>
 /* Calcolatore parametrico LS 500: aggiorna soltanto la geometria esplicitamente supportata. */
