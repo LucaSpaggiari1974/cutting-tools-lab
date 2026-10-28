@@ -55,6 +55,79 @@ MILLING = re.compile(r"^(APMT|APKT|SEHT|SEKT|RDMW|RPMT|SPMT|SOMT|XPMT|LNMU|ADMX|
 DRILLING = re.compile(r"^(WCMX|SPMX|SCMX|SOMX|XCMT|XOMX|WCMT)\b", re.I)
 THREADING = re.compile(r"^(16ER|16IR|11ER|11IR|22ER|22IR|27ER|27IR|08ER|08IR|06ER|06IR)\b", re.I)
 
+TECHNICAL_IT = [
+    ("recommended cutting conditions", "condizioni di taglio consigliate"),
+    ("cutting conditions", "condizioni di taglio"),
+    ("workpiece material", "materiale del pezzo"),
+    ("work material", "materiale da lavorare"),
+    ("stainless steel", "acciaio inossidabile"),
+    ("nickel-based alloys", "leghe a base nichel"),
+    ("non-ferrous materials", "materiali non ferrosi"),
+    ("non-ferrous", "non ferrosi"),
+    ("solid carbide", "metallo duro integrale"),
+    ("feed per revolution", "avanzamento per giro"),
+    ("feed per tooth", "avanzamento per dente"),
+    ("depth of cut", "profondità di passata"),
+    ("cutting speed", "velocità di taglio"),
+    ("chip breaker", "rompitruciolo"),
+    ("cutting edge", "tagliente"),
+    ("relief angle", "angolo di spoglia"),
+    ("rake angle", "angolo di spoglia frontale"),
+    ("tool holder", "portautensile"),
+    ("end mill", "fresa integrale"),
+    ("face mill", "fresa a spianare"),
+    ("boring bar", "barra di alesatura"),
+    ("cast iron", "ghisa"),
+    ("aluminum", "alluminio"),
+    ("aluminium", "alluminio"),
+    ("titanium", "titanio"),
+    ("superalloys", "superleghe"),
+    ("workpiece", "pezzo in lavorazione"),
+    ("recommended", "consigliato"),
+    ("application", "impiego"),
+    ("geometry", "geometria"),
+    ("material", "materiale"),
+    ("turning", "tornitura"),
+    ("finishing", "finitura"),
+    ("roughing", "sgrossatura"),
+    ("profiling", "profilatura"),
+    ("grooving", "scanalatura"),
+    ("parting", "troncatura"),
+    ("threading", "filettatura"),
+    ("milling", "fresatura"),
+    ("drilling", "foratura"),
+    ("reaming", "alesatura"),
+    ("steel", "acciaio"),
+    ("stainless", "inossidabile"),
+    ("feed rate", "avanzamento"),
+    ("feed", "avanzamento"),
+    ("inserts", "inserti"),
+    ("insert", "inserto"),
+    ("drill", "punta"),
+]
+def technical_italian(value):
+    text = str(value or "")
+    for source, target in sorted(TECHNICAL_IT, key=lambda pair: len(pair[0]), reverse=True):
+        text = re.sub(r"(?<![A-Za-z])" + re.escape(source) + r"(?![A-Za-z])", target, text, flags=re.I)
+    return text
+
+def translate_row_fields(row):
+    for field in ("geom", "material", "application", "cuttingConditions"):
+        if isinstance(row.get(field), str):
+            row[field] = technical_italian(row[field])
+    for field in ("recommendedConditions",):
+        value = row.get(field)
+        if isinstance(value, list):
+            for block in value:
+                if isinstance(block, dict) and isinstance(block.get("raw"), str):
+                    block["raw"] = technical_italian(block["raw"])
+                elif isinstance(block, str):
+                    pass
+    if isinstance(row.get("parameterRows"), list):
+        row["parameterRows"] = [technical_italian(v) if isinstance(v, str) else v for v in row["parameterRows"]]
+    return row
+
+
 def now():
     return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00","Z")
 
@@ -121,6 +194,9 @@ def main():
     tools_pack = json.loads(TOOLS.read_text(encoding="utf-8"))
     items = list(catalog.get("items", []))
     tool_items = list(tools_pack.get("items", []))
+    # Porta in italiano i campi descrittivi mostrati a schermo, preservando codici e valori numerici.
+    items = [translate_row_fields(dict(x)) for x in items if isinstance(x, dict)]
+    tool_items = [translate_row_fields(dict(x)) for x in tool_items if isinstance(x, dict)]
     # Filter and canonicalize existing records; backups below retain the full pre-change data.
     items = [dict(x, maker=canonical_maker(x.get("maker"))) for x in items if canonical_maker(x.get("maker"))]
     tool_items = [dict(x, maker=canonical_maker(x.get("maker"))) for x in tool_items if canonical_maker(x.get("maker"))]
