@@ -227,24 +227,16 @@ def main():
 
     # Exact-page photo refresh only. Never replace a reference image with a generic page image.
     photo_updates=0
+    # Anteprime immagini disabilitate su richiesta: non cercare né aggiungere
+    # foto agli inserti/utensili, anche quando la pagina produttore le espone.
     photo_jobs=[]
-    for i,x in enumerate(items):
-        u=x.get("productUrl")
-        if u and u.startswith(("http://","https://")):
-            photo_jobs.append((i,u,x.get("code","")))
-    with ThreadPoolExecutor(max_workers=8) as ex:
-        futures={ex.submit(exact_product_image,u,code):(i,code) for i,u,code in photo_jobs}
-        for f in as_completed(futures):
-            i,code=futures[f]
-            try: image=f.result()
-            except Exception: image=""
-            if image and image != items[i].get("photoUrl"):
-                items[i]["photoUrl"]=image
-                items[i]["photoSource"]="manufacturer"
-                items[i]["photoStatus"]="available"
-                items[i]["photoNote"]="Foto reale del codice esatto rilevata dalla scheda ufficiale."
-                items[i]["photoUpdatedAt"]=started
-                photo_updates+=1
+    photo_updates=0
+    for x in items:
+        x.pop("photoUrl", None)
+        x.pop("drawingUrl", None)
+        x["photoStatus"]="disabled-by-user"
+        x["photoNote"]="Anteprime e disegni rimossi su richiesta.";
+
 
     counts={}
     for x in items: counts[x["maker"]]=counts.get(x["maker"],0)+1
@@ -267,8 +259,12 @@ def main():
             "rule":"Solo codici inserto effettivamente verificati da fonte ufficiale; nessun utensile completo, portautensile, famiglia generica o diametro utensile."
         })
 
-    catalog["version"]="3.5-insert-only-pipeline-hardened"
+    catalog["version"]="3.6-insert-pipeline-hardened"
     catalog["updatedAt"]=started
+    # I cataloghi storici possono non avere il blocco coverage: inizializzarlo evita
+    # che la routine giornaliera fallisca dopo aver completato l'estrazione.
+    if not isinstance(catalog.get("coverage"), dict):
+        catalog["coverage"] = {}
     catalog["coverage"]["itemCount"]=len(items)
     catalog["coverage"]["lastRun"]=started
     catalog["coverage"]["manufacturerRegistry"]=registry
