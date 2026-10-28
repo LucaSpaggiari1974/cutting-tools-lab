@@ -335,6 +335,7 @@ def main():
     enriched, enriched_fields = [], 0
 
     for cand in staging.get("items", []):
+        cand = translate_row_fields(dict(cand))
         candidate_scope = str(cand.get("scope","")).lower()
         candidate_type = str(cand.get("toolType","")).lower()
         candidate_category = str(cand.get("category","")).lower()
