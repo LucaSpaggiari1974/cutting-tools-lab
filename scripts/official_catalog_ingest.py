@@ -239,7 +239,6 @@ TECHNICAL_IT = [
     ("material", "materiale"),
     ("turning", "tornitura"),
     ("finishing", "finitura"),
-    ("finishing", "finitura"),
     ("roughing", "sgrossatura"),
     ("profiling", "profilatura"),
     ("grooving", "scanalatura"),
@@ -259,7 +258,7 @@ TECHNICAL_IT = [
 def technical_italian(value):
     text = str(value or "")
     for source, target in sorted(TECHNICAL_IT, key=lambda pair: len(pair[0]), reverse=True):
-        text = re.sub(re.escape(source), target, text, flags=re.I)
+        text = re.sub(r"(?<![A-Za-z])" + re.escape(source) + r"(?![A-Za-z])", target, text, flags=re.I)
     return text
 
 
