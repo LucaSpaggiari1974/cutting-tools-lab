@@ -424,6 +424,7 @@ for src in SOURCES:
                         local_recommended.append({**block, "raw": technical_italian(chunk[:1200])})
             local_parameter_rows = [technical_italian(v) for v in extract_parameter_rows_from_lines(lines, line_index, 48) if code_pattern.search(v) and re.search(r"\b(vc|cutting speed|fz|feed rate|feed per tooth|feed per revolution|mm/min|m/min)\b", v, re.I)]
             local_conditions = extract_cutting_condition_context_from_blocks(local_recommended)
+            conditions = local_conditions
             local_meta = extract_application_metadata_from_lines(lines, line_index, 55)
             local_meta = {k: technical_italian(v) for k, v in local_meta.items()}
             nearby_context = " | ".join(lines[max(0,line_index-10):min(len(lines),line_index+11)])[:1800]
