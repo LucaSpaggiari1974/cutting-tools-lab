@@ -263,47 +263,26 @@ def technical_italian(value):
 
 
 def classify_local_category(scope, default_category, context):
-    """Classify an extracted record using nearby official-catalog text, not a generic PDF label."""
+    """Classify by the closest specific operation heading before using a broad fallback."""
     text = str(context or "").casefold()
-    if scope == "inserts":
-        if re.search(r"\b(threading|thread turning|thread milling|thread insert|filettatura)\b", text):
-            return "Filettatura"
-        if re.search(r"\b(drilling insert|drill insert|holemaking|drilling|reaming|reamer|foratura|alesatura)\b", text):
-            return "Foratura"
-        if re.search(r"\b(grooving|parting|part-off|parting-off|scanalatura|troncatura)\b", text):
-            return "Tornitura · Media"
-        if re.search(r"\b(turning insert|turning|boring bar|turning grade|tornitura)\b", text):
-            if re.search(r"\b(finishing|finish|finitura)\b", text):
-                return "Tornitura · Finitura"
-            if re.search(r"\b(roughing|rough|sgrossatura)\b", text):
-                return "Tornitura · Sgrossatura"
-            return "Tornitura · Media"
-        if re.search(r"\b(milling insert|indexable milling|face mill|shoulder mill|milling|fresatura)\b", text):
-            return "Fresatura"
-        label = str(default_category or "").casefold()
-        if "filettatura" in label or "thread" in label: return "Filettatura"
-        if "foratura" in label or "drill" in label or "ream" in label: return "Foratura"
-        if "fresatura" in label or "mill" in label: return "Fresatura"
-        if "sgrossatura" in label or "rough" in label: return "Tornitura · Sgrossatura"
-        if "finitura" in label or "finish" in label: return "Tornitura · Finitura"
-        return "Tornitura · Media"
-
-    if re.search(r"\b(precision boring|boring and reaming|boring bar|reamer|reaming|alesatura)\b", text):
-        return "Alesatura · Utensili completi"
-    if re.search(r"\b(threading|thread milling|thread turning|filettatura)\b", text):
-        return "Filettatura · Utensili completi"
-    if re.search(r"\b(drilling|deep hole|holemaking|drill|foratura)\b", text):
-        return "Foratura · Utensili completi"
-    if re.search(r"\b(grooving|parting|scanalatura|troncatura)\b", text):
-        return "Scanalatura · Utensili completi"
-    if re.search(r"\b(turning|tornitura)\b", text):
-        return "Tornitura · Utensili completi"
+    label = str(default_category or "").casefold()
+    if re.search(r"\b(threading|thread milling|thread turning|thread insert|filettatura)\b", text) or "filettatura" in label or "thread" in label:
+        return "Filettatura" if scope == "inserts" else "Filettatura · Utensili completi"
+    if re.search(r"\b(drilling insert|drill insert|holemaking|deep hole|drilling|reaming|reamer|foratura|alesatura)\b", text) or any(w in label for w in ("foratura", "drill", "ream", "alesatura")):
+        return "Foratura" if scope == "inserts" else ("Alesatura · Utensili completi" if re.search(r"\b(precision boring|boring and reaming|reamer|reaming|alesatura)\b", text) else "Foratura · Utensili completi")
+    if re.search(r"\b(grooving|parting|part-off|parting-off|scanalatura|troncatura)\b", text) or any(w in label for w in ("scanalatura", "grooving", "parting")):
+        return "Tornitura · Media" if scope == "inserts" else "Scanalatura · Utensili completi"
+    if re.search(r"\b(milling insert|indexable milling|face mill|shoulder mill|milling|end mill|lens type|chamfer barrel type|fresatura)\b", text) or "fresatura" in label or "mill" in label:
+        return "Fresatura" if scope == "inserts" else "Fresatura · Utensili completi"
+    if re.search(r"\b(finishing|finish|finitura)\b", text) or "finitura" in label or "finish" in label:
+        return "Tornitura · Finitura" if scope == "inserts" else "Tornitura · Utensili completi"
+    if re.search(r"\b(roughing|rough|sgrossatura)\b", text) or "sgrossatura" in label or "rough" in label:
+        return "Tornitura · Sgrossatura" if scope == "inserts" else "Tornitura · Utensili completi"
+    if re.search(r"\b(turning insert|turning|boring bar|turning grade|tornitura)\b", text) or "tornitura" in label or "turn" in label:
+        return "Tornitura · Media" if scope == "inserts" else "Tornitura · Utensili completi"
     if re.search(r"\b(gear production|gear cutting|dentatura)\b", text):
         return "Dentatura · Utensili completi"
-    if re.search(r"\b(milling|end mill|face mill|fresatura)\b", text):
-        return "Fresatura · Utensili completi"
-    return default_category
-
+    return "Tornitura · Media" if scope == "inserts" else default_category
 
 source_stats = []
 
