@@ -15,6 +15,18 @@ OUT = ROOT / "official-catalog-extracted.json"
 # candidates are NEVER promoted to the visible catalog until the order-line/code
 # has been normalized and verified against the current official source.
 SOURCES = [
+    # Ingersoll: cataloghi ufficiali per coprire famiglie diverse, non solo inserti.
+    # Le fonti storiche sono usate per intercettare articoli ancora a catalogo; la
+    # presenza in un PDF non implica automaticamente che il codice sia ancora attivo.
+    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-031-1_winsfeed_new_products_catalog_2024.pdf","scope":"milling-cutters","category":"Fresatura · Utensili completi"},
+    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-027-8-it.te.di.-product-catalog.pdf","scope":"milling-cutters","category":"Fresatura · Utensili completi"},
+    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/Ingersoll_CAT-002-2.pdf","scope":"drills-reamers","category":"Foratura · Utensili completi"},
+    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/CAT-032-Ingersoll-Precision-Boring.pdf","scope":"drills-reamers","category":"Alesatura · Utensili completi"},
+    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-30-3-cbn-inserts-catalog.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
+    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/it.te.di.-pcd-iso-inserts-catalog.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
+    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-030_ingersoll_gear_production.pdf","scope":"milling-cutters","category":"Dentatura · Utensili completi"},
+    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/bro-066-winsfeed-focus-brochure.pdf","scope":"milling-cutters","category":"Fresatura · Utensili completi"},
+    # Altri produttori già presenti nell'importatore.
     {"maker":"Sumitomo Electric Hardmetal","url":"https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/assets/pdf/b.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
     {"maker":"Sumitomo Electric Hardmetal","url":"https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/assets/pdf/h1.pdf","scope":"milling-cutters","category":"Fresatura · Utensili completi"},
     {"maker":"Sumitomo Electric Hardmetal","url":"https://www.sumitool.com/en/downloads/cutting-tools/general-catalog/assets/pdf/i.pdf","scope":"endmills","category":"Fresatura · Utensili completi"},
@@ -334,7 +346,7 @@ for src in SOURCES:
                 "toolType": "insert" if src["scope"] == "inserts" else "complete-tool",
                 "verificationStatus": "official-catalog-extracted",
                 "sourceOfficial": src["url"],
-                "sourceType": "official-current-catalog-2025-2026",
+                "sourceType": "catalogo-ufficiale-estratto-da-verificare",
                 "sourcePage": page_no,
                 "sourceContext": local_context,
                 "geom": local_meta.get("geom",""),
