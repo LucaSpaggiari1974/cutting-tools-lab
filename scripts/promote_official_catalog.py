@@ -140,30 +140,20 @@ def clean_geometry(value, code=""):
         return shape or ""
     return text[:50]
 def clean_application(value):
-    text = technical_italian(value)
-    parts = [re.sub(r"\\s+", " ", p).strip(" ·|,") for p in re.split(r"\\s*[|]\\s*", text)]
-    allowed = (
-        ("turning", "tornitura"), ("tornitura", "tornitura"),
-        ("finishing", "finitura"), ("finitura", "finitura"),
-        ("medium", "media"), ("media", "media"),
-        ("roughing", "sgrossatura"), ("sgrossatura", "sgrossatura"),
-        ("profiling", "profilatura"), ("profilatura", "profilatura"),
-        ("grooving", "scanalatura"), ("scanalatura", "scanalatura"),
-        ("parting", "troncatura"), ("troncatura", "troncatura"),
-        ("threading", "filettatura"), ("filettatura", "filettatura"),
-        ("milling", "fresatura"), ("fresatura", "fresatura"),
-        ("drilling", "foratura"), ("foratura", "foratura"),
-        ("reaming", "alesatura"), ("alesatura", "alesatura"),
-        ("finishing insert", "inserto da finitura"),
-    )
-    result=[]
-    for part in parts:
-        low=part.casefold()
-        for token, label in allowed:
-            if token in low and label not in result:
-                result.append(label)
-    return " · ".join(result[:2])
-
+    """Restituisce un impiego breve e coerente, senza intestazioni o frasi copiate dal PDF."""
+    text = technical_italian(value).casefold()
+    operation = ""
+    if re.search(r"\b(threading|thread insert|thread mill|filettatura)\b", text): operation = "Filettatura"
+    elif re.search(r"\b(drilling|holemaking|deep hole|reaming|foratura|alesatura)\b", text): operation = "Foratura"
+    elif re.search(r"\b(milling|lens type|chamfer barrel|barrel type|fresatura)\b", text): operation = "Fresatura"
+    elif re.search(r"\b(grooving|parting|scanalatura|troncatura)\b", text): operation = "Scanalatura"
+    elif re.search(r"\b(turning|tornitura|profiling|profilatura)\b", text): operation = "Tornitura"
+    phase = ""
+    if re.search(r"\b(finishing|finish|finitura)\b", text): phase = "Finitura"
+    elif re.search(r"\b(roughing|rough|sgrossatura)\b", text): phase = "Sgrossatura"
+    elif re.search(r"\b(medium|media)\b", text): phase = "Media"
+    if operation and phase: return operation + " · " + phase
+    return operation or phase
 def translate_row_fields(row):
     code = row.get("code", row.get("itemCode", ""))
     for field in ("material", "cuttingConditions"):
