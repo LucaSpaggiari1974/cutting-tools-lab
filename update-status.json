@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-03T09:29:11Z",
+  "updatedAt": "2026-11-03T17:50:25Z",
   "run": "daily",
   "changed": true,
   "catalogItems": 1112,
@@ -33,11 +33,16 @@
   "removedDetails": [],
   "photosUpdated": 0,
   "sourcesChecked": 8,
-  "sourcesReachable": 8,
-  "sourcesFailed": 0,
+  "sourcesReachable": 7,
+  "sourcesFailed": 1,
   "newProducts": 0,
   "autoIndexing": "disabled-by-policy",
   "note": "Il job non aggiunge mai automaticamente Product JSON-LD non classificati: nuovi codici devono essere verificati come inserti da fonte ufficiale prima dell'indicizzazione.",
   "backup": "backups/catalog-latest.json",
-  "errors": []
+  "errors": [
+    {
+      "maker": "Sumitomo Electric Hardmetal",
+      "error": "<urlopen error timed out>"
+    }
+  ]
 }
