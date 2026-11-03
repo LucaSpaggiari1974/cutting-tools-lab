@@ -1,6 +1,6 @@
 {
-  "runAt": "2026-10-27T04:20:47.740618+00:00",
-  "records": 56,
+  "runAt": "2026-11-03T11:24:32.108547+00:00",
+  "records": 54,
   "photoUrlsChecked": 3,
   "photoUrlsReachable": 0,
   "photoUrlsFailed": 3,
@@ -16,14 +16,14 @@
       "url": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&f=catcover.jpg&catalogid=1248936"
     },
     {
-      "index": 24,
+      "index": 23,
       "code": "VNMG 16 04 08-PM",
       "maker": "Sandvik Coromant",
       "error": "HTTP Error 400: Bad Request",
       "url": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&f=catcover.jpg&catalogid=1248927"
     },
     {
-      "index": 25,
+      "index": 24,
       "code": "WNMG 08 04 08-PM",
       "maker": "Sandvik Coromant",
       "error": "HTTP Error 400: Bad Request",

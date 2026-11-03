@@ -1,12 +1,12 @@
 {
-  "runAt": "2026-10-27T04:19:43.998232+00:00",
-  "recordsChecked": 56,
+  "runAt": "2026-11-03T11:23:33.855844+00:00",
+  "recordsChecked": 54,
   "officialPhotosFound": 3,
-  "recordsUpdated": 3,
+  "recordsUpdated": 0,
   "nonManufacturerPhotosCleared": 0,
   "policy": {
     "mode": "manufacturer-exact-preferred-reference-allowed",
     "rule": "Preferire foto ufficiali del produttore collegate al codice esatto; se non verificabili, preservare una foto reale di riferimento esplicitamente marcata come tale.",
-    "lastRun": "2026-10-27T04:19:43.998232+00:00"
+    "lastRun": "2026-11-03T11:23:33.855844+00:00"
   }
 }
