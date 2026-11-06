@@ -352,12 +352,11 @@ def discover_official_pdf_sources():
                 discovered.append({"maker": source_maker, "url": url, "scope": scope, "category": category})
                 known.add((source_maker, url))
                 added_for_maker += 1
-                # Catalog portals often expose separate PDFs for turning, milling,
-                # drilling, threading and toolholding. Three links per manufacturer
-                # systematically under-indexed every brand except those with hand-added
-                # PDFs above. Expand the bounded discovery budget while keeping every
-                # source on the registered manufacturer's official domain.
-                if added_for_maker >= 4:
+                # Il portale Ingersoll pubblica cataloghi e supplementi distinti per
+                # tornitura, fresatura, foratura, alesatura, filettatura e scanalatura.
+                # Il limite precedente di quattro PDF escludeva intere famiglie:
+                # amplia la raccolta restando sui link PDF del dominio ufficiale.
+                if added_for_maker >= 24:
                     break
         except Exception as exc:
             source_stats.append({"maker": maker, "url": base, "status": "discovery-error", "error": str(exc)[:300]})
