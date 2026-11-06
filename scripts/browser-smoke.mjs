@@ -27,7 +27,7 @@ try {
 
   const search = page.locator("#q");
   await search.fill("CTLAB-SMOKE-CNMG120408");
-  await page.waitForFunction(() => document.querySelectorAll("tr.data").length === 1, null, { timeout: 10000 });
+  await page.waitForFunction(() => {\n    const rows = [...document.querySelectorAll("tr.data")];\n    return rows.length === 1 && rows[0].innerText.includes("CTLAB-SMOKE-CNMG120408");\n  }, null, { timeout: 10000 });
   if (!(await page.locator("tr.data").innerText()).includes("CTLAB-SMOKE-CNMG120408")) throw new Error("Filtro ricerca non restituisce il codice atteso");
   await search.fill("");
   await page.waitForFunction(() => document.querySelectorAll("tr.data").length >= 2, null, { timeout: 10000 });
