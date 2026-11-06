@@ -402,7 +402,7 @@ def main():
                 "category": category,
                 "code": code,
                 "maker": maker,
-                "verificationStatus": "official-order-code-verified",
+                "verificationStatus": "official-catalog-code-extracted-needs-technical-verification",
                 "sourceOfficial": cand.get("sourceOfficial", True),
                 "sourceType": cand.get("sourceType", "official-catalog"),
                 "sourcePage": cand.get("sourcePage"),
