@@ -1,4 +1,4 @@
-const CACHE="cutting-tools-lab-v24";
+const CACHE="cutting-tools-lab-v25";
 const APP=["./","./index.html"];
 
 self.addEventListener("install",event=>{
