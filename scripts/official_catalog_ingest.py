@@ -422,12 +422,12 @@ for src in SOURCES:
             local_recommended = []
             for block in raw_recommended:
                 raw = str(block.get("raw", ""))
-                if code_pattern.search(raw) and re.search(r"\\b(vc|cutting speed|fz|feed rate|feed per tooth|feed per revolution|mm/min|m/min)\\b", raw, re.I):
+                if code_pattern.search(raw) and re.search(r"\b(vc|cutting speed|fz|feed rate|feed per tooth|feed per revolution|mm/min|m/min)\b", raw, re.I):
                     local_recommended.append({**block, "raw": technical_italian(raw[:12000])})
             local_parameter_rows = []
             for block in local_recommended:
-                for value in re.split(r"\\s*\\|\\s*", str(block.get("raw", ""))):
-                    if re.search(r"\\b(vc|cutting speed|fz|feed rate|feed per tooth|feed per revolution|mm/min|m/min)\\b", value, re.I):
+                for value in re.split(r"\s*\|\s*", str(block.get("raw", ""))):
+                    if re.search(r"\b(vc|cutting speed|fz|feed rate|feed per tooth|feed per revolution|mm/min|m/min)\b", value, re.I):
                         value = technical_italian(value.strip())
                         if value and value not in local_parameter_rows:
                             local_parameter_rows.append(value)
