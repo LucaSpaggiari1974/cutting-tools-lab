@@ -414,14 +414,23 @@ for src in SOURCES:
             exact_context = " | ".join(nearby_exact_lines)
             explicit = extract_explicit_parameter_values(exact_context)
             raw_recommended = extract_recommended_conditions_from_lines(lines, line_index, 65)
+            # Nei PDF il codice e i valori della tabella sono spesso su righe diverse.
+            # Il vecchio filtro pretendeva che ogni riga Vc/Fz/ap ripetesse il codice:
+            # per questo eliminava tutte le tabelle. Conserviamo il blocco solo se
+            # il codice compare nella sua finestra locale; i valori restano contesto
+            # grezzo e NON vengono copiati nei campi scalari del singolo inserto.
             local_recommended = []
             for block in raw_recommended:
                 raw = str(block.get("raw", ""))
-                exact_chunks = [chunk.strip() for chunk in re.split(r"\s*\|\s*", raw) if code_pattern.search(chunk)]
-                for chunk in exact_chunks:
-                    if re.search(r"\b(vc|cutting speed|fz|feed rate|feed per tooth|feed per revolution|mm/min|m/min)\b", chunk, re.I):
-                        local_recommended.append({**block, "raw": technical_italian(chunk[:1200])})
-            local_parameter_rows = [technical_italian(v) for v in extract_parameter_rows_from_lines(lines, line_index, 48) if code_pattern.search(v) and re.search(r"\b(vc|cutting speed|fz|feed rate|feed per tooth|feed per revolution|mm/min|m/min)\b", v, re.I)]
+                if code_pattern.search(raw) and re.search(r"\\b(vc|cutting speed|fz|feed rate|feed per tooth|feed per revolution|mm/min|m/min)\\b", raw, re.I):
+                    local_recommended.append({**block, "raw": technical_italian(raw[:12000])})
+            local_parameter_rows = []
+            for block in local_recommended:
+                for value in re.split(r"\\s*\\|\\s*", str(block.get("raw", ""))):
+                    if re.search(r"\\b(vc|cutting speed|fz|feed rate|feed per tooth|feed per revolution|mm/min|m/min)\\b", value, re.I):
+                        value = technical_italian(value.strip())
+                        if value and value not in local_parameter_rows:
+                            local_parameter_rows.append(value)
             recommended = local_recommended
             local_conditions = extract_cutting_condition_context_from_blocks(local_recommended)
             conditions = local_conditions
