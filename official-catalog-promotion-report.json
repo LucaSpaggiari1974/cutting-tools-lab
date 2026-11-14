@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-11-14T19:47:59Z",
+  "updatedAt": "2026-11-14T19:51:56Z",
   "reclassifiedVerifiedMills": [],
   "stagingItems": 1272,
   "promoted": 1154,
-  "promotedCompleteTools": 33,
+  "promotedCompleteTools": 0,
   "enrichedExisting": 0,
   "enrichedFields": 0,
   "enrichedSample": [],
   "duplicates": 0,
-  "completeToolDuplicates": 14,
+  "completeToolDuplicates": 47,
   "existingCatalogDuplicatesRemoved": 0,
   "existingCatalogDuplicateFieldsMerged": 0,
   "existingCompleteToolDuplicatesRemoved": 0,
@@ -319,206 +319,7 @@
       "sourcePage": 87
     }
   ],
-  "promotedCompleteToolsSample": [
-    {
-      "maker": "Ingersoll",
-      "code": "DG6K063R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 59
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DG6K080R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 59
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DG6K100R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 59
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DG6K125R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 59
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5G040R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5G050R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5G063R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5G080R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5G100R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5G125R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5G160R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5K050R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5K063R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5K080R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5K100R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5K125R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5K160R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN5K200R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6G040R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6G050R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6G063R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6G080R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6G100R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6G125R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6G160R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 55
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6K050R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6K063R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6K080R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6K100R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6K125R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6K160R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DN6K200R00",
-      "category": "Fresatura · Utensili completi",
-      "sourcePage": 58
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "LVJBR 1616K16-SH",
-      "category": "Tornitura · Utensili completi",
-      "sourcePage": 150
-    }
-  ],
+  "promotedCompleteToolsSample": [],
   "skippedReasons": {
     "non-cutting-or-incomplete-code": 19,
     "weak-code": 52
