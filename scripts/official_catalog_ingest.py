@@ -427,7 +427,7 @@ for src in SOURCES:
             local_parameter_rows = []
             for block in local_recommended:
                 for value in re.split(r"\s*\|\s*", str(block.get("raw", ""))):
-                    if re.search(r"\b(vc|cutting speed|fz|feed rate|feed per tooth|feed per revolution|mm/min|m/min)\b", value, re.I):
+                    if re.search(r"\b(vc|cutting speed|velocità di taglio|fz|feed rate|feed per tooth|feed per revolution|avanzamento|mm/min|m/min)\b", value, re.I):
                         value = technical_italian(value.strip())
                         if value and value not in local_parameter_rows:
                             local_parameter_rows.append(value)
@@ -439,7 +439,7 @@ for src in SOURCES:
             nearby_context = " | ".join(lines[max(0,line_index-10):min(len(lines),line_index+11)])[:1800]
             # Usa la sezione più vicina del catalogo; non usare il campo impiego aggregato,
             # che può contenere intestazioni di altre famiglie della stessa pagina.
-            section_pattern = re.compile(r"\\b(threading|thread mill|thread insert|filettatura|holemaking|deep hole|drilling|reaming|grooving|parting|milling|turning|finishing|roughing|lens type|chamfer barrel|barrel type|nfc[b-f]?)\\b", re.I)
+            section_pattern = re.compile(r"\b(threading|thread mill|thread insert|filettatura|holemaking|deep hole|drilling|reaming|grooving|parting|milling|turning|finishing|roughing|lens type|chamfer barrel|barrel type|nfc[b-f]?)\b", re.I)
             prior_lines = lines[max(0, line_index-80):line_index+1]
             nearest_section = next((line for line in reversed(prior_lines) if section_pattern.search(line)), "")
             classification_context = nearest_section + " " + nearby_context
