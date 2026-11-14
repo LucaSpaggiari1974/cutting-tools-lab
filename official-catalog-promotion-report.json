@@ -1,8 +1,9 @@
 {
-  "updatedAt": "2026-11-14T02:55:48Z",
+  "updatedAt": "2026-11-14T02:58:53Z",
+  "reclassifiedVerifiedMills": [],
   "stagingItems": 1058,
-  "promoted": 1058,
-  "promotedCompleteTools": 0,
+  "promoted": 1044,
+  "promotedCompleteTools": 14,
   "enrichedExisting": 0,
   "enrichedFields": 0,
   "enrichedSample": [],
@@ -13,8 +14,8 @@
   "existingCompleteToolDuplicatesRemoved": 0,
   "existingCompleteToolDuplicateFieldsMerged": 0,
   "skipped": 0,
-  "catalogItemsAfter": 1112,
-  "completeToolsAfter": 423,
+  "catalogItemsAfter": 1098,
+  "completeToolsAfter": 437,
   "policy": "Codici e utensili completi estratti da fonti ufficiali; famiglie distinte, ambigui mantenuti in staging e parametri mancanti non inventati.",
   "promotedSample": [
     {
@@ -79,30 +80,6 @@
     },
     {
       "maker": "Ingersoll",
-      "code": "DG6G050R00",
-      "category": "Tornitura · Media",
-      "sourcePage": 56
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DG6G063R00",
-      "category": "Tornitura · Media",
-      "sourcePage": 56
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DG6G080R00",
-      "category": "Tornitura · Media",
-      "sourcePage": 56
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DG6G100R00",
-      "category": "Tornitura · Media",
-      "sourcePage": 56
-    },
-    {
-      "maker": "Ingersoll",
       "code": "DG6K063R00",
       "category": "Fresatura",
       "sourcePage": 59
@@ -136,66 +113,6 @@
       "code": "DIN69871-50",
       "category": "Fresatura",
       "sourcePage": 72
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DJ5R040R00",
-      "category": "Fresatura",
-      "sourcePage": 51
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DJ5R063R00",
-      "category": "Fresatura",
-      "sourcePage": 51
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DJ5R080R00",
-      "category": "Fresatura",
-      "sourcePage": 51
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DJ5R100R00",
-      "category": "Fresatura",
-      "sourcePage": 51
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DJ5R125R00",
-      "category": "Fresatura",
-      "sourcePage": 51
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DJ6R050R00",
-      "category": "Fresatura",
-      "sourcePage": 51
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DJ6R063R00",
-      "category": "Fresatura",
-      "sourcePage": 51
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DJ6R080R00",
-      "category": "Fresatura",
-      "sourcePage": 51
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DJ6R100R00",
-      "category": "Fresatura",
-      "sourcePage": 51
-    },
-    {
-      "maker": "Ingersoll",
-      "code": "DJ6R125R00",
-      "category": "Fresatura",
-      "sourcePage": 51
     },
     {
       "maker": "Ingersoll",
@@ -316,8 +233,177 @@
       "code": "DN6G125R00",
       "category": "Fresatura",
       "sourcePage": 55
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DN6G160R00",
+      "category": "Fresatura",
+      "sourcePage": 55
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DN6K050R00",
+      "category": "Tornitura · Media",
+      "sourcePage": 58
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DN6K063R00",
+      "category": "Tornitura · Media",
+      "sourcePage": 58
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DN6K080R00",
+      "category": "Fresatura",
+      "sourcePage": 58
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DN6K100R00",
+      "category": "Fresatura",
+      "sourcePage": 58
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DN6K125R00",
+      "category": "Fresatura",
+      "sourcePage": 58
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DN6K160R00",
+      "category": "Fresatura",
+      "sourcePage": 58
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DN6K200R00",
+      "category": "Fresatura",
+      "sourcePage": 58
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "LVJBR 1616K16-SH",
+      "category": "Tornitura · Media",
+      "sourcePage": 150
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "NQHB0802R20",
+      "category": "Fresatura",
+      "sourcePage": 71
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "NQHB1003R25",
+      "category": "Fresatura",
+      "sourcePage": 71
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "NQHB1203R30",
+      "category": "Fresatura",
+      "sourcePage": 71
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "NQHB1604R40",
+      "category": "Fresatura",
+      "sourcePage": 71
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "NQHB2005R50",
+      "category": "Fresatura",
+      "sourcePage": 71
     }
   ],
-  "promotedCompleteToolsSample": [],
+  "promotedCompleteToolsSample": [
+    {
+      "maker": "Ingersoll",
+      "code": "DG6G050R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 56
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DG6G063R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 56
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DG6G080R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 56
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DG6G100R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 56
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DJ5R040R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 51
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DJ5R063R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 51
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DJ5R080R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 51
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DJ5R100R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 51
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DJ5R125R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 51
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DJ6R050R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 51
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DJ6R063R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 51
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DJ6R080R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 51
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DJ6R100R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 51
+    },
+    {
+      "maker": "Ingersoll",
+      "code": "DJ6R125R00",
+      "category": "Fresatura · Utensili completi",
+      "sourcePage": 51
+    }
+  ],
   "skippedReasons": {}
 }

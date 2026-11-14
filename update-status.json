@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-11-14T02:55:48Z",
+  "updatedAt": "2026-11-14T02:58:53Z",
   "run": "daily",
   "changed": true,
-  "catalogItems": 1112,
+  "catalogItems": 1098,
   "parameterCoverage": {
     "inserts": {
-      "total": 1112,
+      "total": 1098,
       "vc": 41,
       "f_or_fz": 41,
       "ap": 41,
@@ -14,10 +14,10 @@
       "parameterRows": 0,
       "geometry": 225,
       "material": 55,
-      "application": 523
+      "application": 509
     },
     "completeTools": {
-      "total": 423,
+      "total": 437,
       "vc": 396,
       "f_or_fz": 396,
       "ap": 0,
@@ -26,7 +26,7 @@
       "parameterRows": 0,
       "geometry": 418,
       "material": 419,
-      "application": 4
+      "application": 18
     }
   },
   "removedInvalidOrDuplicate": 0,
