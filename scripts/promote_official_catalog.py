@@ -220,6 +220,15 @@ def classify(code, context, source_category=""):
         return "Fresatura"
     return None
 
+# Exact order codes verified against Ingersoll official product family tables.
+VERIFIED_INGERSOLL_MILLS = {
+    **{f"DG6G{d}R00": "https://www.ingersoll-imc.com/product-family/5356507" for d in ("050","063","080","100")},
+    **{f"DJ5R{d}R00": "https://ingersoll-imc.com/product-family/5348409" for d in ("040","063","080","100","125")},
+    **{f"DJ6R{d}R00": "https://ingersoll-imc.com/product-family/5348409" for d in ("050","063","080","100","125")},
+}
+def verified_mill_source(maker, code):
+    return VERIFIED_INGERSOLL_MILLS.get(norm(code)) if canonical_maker(maker) == "Ingersoll" else None
+
 def strong_insert_code(code):
     c = clean_code(code).upper()
     # ISO-like insert: shape + 5-11 alphanumeric body, optionally chipbreaker suffix.
@@ -307,6 +316,27 @@ def main():
     items, duplicate_catalog_rows_removed, duplicate_catalog_fields_merged = deduplicate_rows(items)
     tool_items, duplicate_tool_rows_removed, duplicate_tool_fields_merged = deduplicate_rows(tool_items)
 
+    # Move verified complete mills out of the insert catalog, preserving their records.
+    reclassified = []
+    tool_keys = {(x.get("maker"), norm(x.get("code"))) for x in tool_items}
+    retained = []
+    for row in items:
+        source = verified_mill_source(row.get("maker"), row.get("code"))
+        if not source:
+            retained.append(row)
+            continue
+        key = (row.get("maker"), norm(row.get("code")))
+        if key not in tool_keys:
+            tool_items.append(dict(row, category="Fresatura · Utensili completi",
+                toolType="complete-tool", sourceUrl=source, productUrl=source,
+                geom="", material="", vc="—", f="—", ap="—",
+                cuttingConditions="", recommendedConditions=[], parameterRows=[],
+                application="Fresatura", parameterStatus="pending-official-exact",
+                verificationStatus="official-product-type-verified"))
+            tool_keys.add(key)
+        reclassified.append(row.get("code"))
+    items = retained
+
     # Preserve verified product image metadata; technical cleanup must not strip photos.
     # Normalize the parameter schema on legacy complete-tool rows without inventing values.
     for x in tool_items:
@@ -343,6 +373,14 @@ def main():
             continue
         category = classify(code, cand.get("sourceContext",""), cand.get("category",""))
 
+        if verified_mill_source(maker, code):
+            is_insert_candidate = False
+            cand["category"] = "Fresatura"
+            cand["sourceOfficial"] = verified_mill_source(maker, code)
+            for field in ("geom", "material", "cuttingConditions", "recommendedConditions", "parameterRows", "vc", "f", "ap"):
+                cand.pop(field, None)
+            cand["application"] = "Fresatura"
+            cand["parameterStatus"] = "pending-official-exact"
         if is_insert_candidate:
             if not maker or not strong_insert_code(code):
                 skipped.append({"code": code, "reason": "weak-code"})
@@ -502,6 +540,7 @@ def main():
 
     report = {
         "updatedAt": now(),
+        "reclassifiedVerifiedMills": reclassified,
         "stagingItems": len(staging.get("items", [])),
         "promoted": len(promoted),
         "promotedCompleteTools": len(promoted_tools),
