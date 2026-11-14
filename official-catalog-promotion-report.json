@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-14T02:24:18Z",
+  "updatedAt": "2026-11-14T02:55:48Z",
   "stagingItems": 1058,
   "promoted": 1058,
   "promotedCompleteTools": 0,
@@ -32,37 +32,37 @@
     {
       "maker": "Ingersoll",
       "code": "CGM212R001-M",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 13
     },
     {
       "maker": "Ingersoll",
       "code": "CGM212R001-ML",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 13
     },
     {
       "maker": "Ingersoll",
       "code": "CGM212R002-M",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 13
     },
     {
       "maker": "Ingersoll",
       "code": "CGM212R002-ML",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 13
     },
     {
       "maker": "Ingersoll",
       "code": "CGM212R003-M",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 13
     },
     {
       "maker": "Ingersoll",
       "code": "CGM212R003-ML",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 13
     },
     {
@@ -104,25 +104,25 @@
     {
       "maker": "Ingersoll",
       "code": "DG6K063R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 59
     },
     {
       "maker": "Ingersoll",
       "code": "DG6K080R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 59
     },
     {
       "maker": "Ingersoll",
       "code": "DG6K100R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 59
     },
     {
       "maker": "Ingersoll",
       "code": "DG6K125R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 59
     },
     {
@@ -140,103 +140,103 @@
     {
       "maker": "Ingersoll",
       "code": "DJ5R040R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 51
     },
     {
       "maker": "Ingersoll",
       "code": "DJ5R063R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 51
     },
     {
       "maker": "Ingersoll",
       "code": "DJ5R080R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 51
     },
     {
       "maker": "Ingersoll",
       "code": "DJ5R100R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 51
     },
     {
       "maker": "Ingersoll",
       "code": "DJ5R125R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 51
     },
     {
       "maker": "Ingersoll",
       "code": "DJ6R050R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 51
     },
     {
       "maker": "Ingersoll",
       "code": "DJ6R063R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 51
     },
     {
       "maker": "Ingersoll",
       "code": "DJ6R080R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 51
     },
     {
       "maker": "Ingersoll",
       "code": "DJ6R100R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 51
     },
     {
       "maker": "Ingersoll",
       "code": "DJ6R125R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 51
     },
     {
       "maker": "Ingersoll",
       "code": "DN5G040R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 55
     },
     {
       "maker": "Ingersoll",
       "code": "DN5G050R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 55
     },
     {
       "maker": "Ingersoll",
       "code": "DN5G063R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 55
     },
     {
       "maker": "Ingersoll",
       "code": "DN5G080R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 55
     },
     {
       "maker": "Ingersoll",
       "code": "DN5G100R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 55
     },
     {
       "maker": "Ingersoll",
       "code": "DN5G125R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 55
     },
     {
       "maker": "Ingersoll",
       "code": "DN5G160R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 55
     },
     {
@@ -284,37 +284,37 @@
     {
       "maker": "Ingersoll",
       "code": "DN6G040R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 55
     },
     {
       "maker": "Ingersoll",
       "code": "DN6G050R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 55
     },
     {
       "maker": "Ingersoll",
       "code": "DN6G063R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 55
     },
     {
       "maker": "Ingersoll",
       "code": "DN6G080R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 55
     },
     {
       "maker": "Ingersoll",
       "code": "DN6G100R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 55
     },
     {
       "maker": "Ingersoll",
       "code": "DN6G125R00",
-      "category": "Tornitura · Media",
+      "category": "Fresatura",
       "sourcePage": 55
     }
   ],
