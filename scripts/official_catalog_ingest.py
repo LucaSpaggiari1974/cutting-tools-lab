@@ -8,6 +8,9 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 import urllib.parse
 
+RAPIDTHREAD_PDF = "https://ssl.ingersoll-imc.com/resources/pdf/new-127-2-rapid-thread-straight-flute-indexable.pdf"
+RAPIDTHREAD_ORDER = re.compile(r"(?<![A-Z0-9])LYEU[0-9]{5}[A-Z]{2,3}(?:-X)?-1(?=\s{2,}[0-9])")
+
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "official-catalog-extracted.json"
 
@@ -22,7 +25,7 @@ SOURCES = [
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/CAT-032-Ingersoll-Precision-Boring.pdf","scope":"drills-reamers","category":"Alesatura · Utensili completi"},
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/cat-30-3-cbn-inserts-catalog.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/it.te.di.-pcd-iso-inserts-catalog.pdf","scope":"inserts","category":"Tornitura · Inserto ufficiale"},
-    {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/new-127-2-rapid-thread-straight-flute-indexable.pdf","scope":"inserts","category":"Filettatura · Inserto ufficiale"},
+    {"maker":"Ingersoll","url":RAPIDTHREAD_PDF,"scope":"inserts","category":"Filettatura · Inserto ufficiale"},
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/NEW-260-1_T-Thread_ISO26623-1.pdf","scope":"milling-cutters","category":"Filettatura · Utensili completi"},
     {"maker":"Ingersoll","url":"https://ssl.ingersoll-imc.com/resources/pdf/new-399-1-gold-flex-extra-wide-inserts.pdf","scope":"inserts","category":"Scanalatura · Inserto ufficiale"},
 ]
@@ -387,7 +390,13 @@ for src in SOURCES:
             # normalized lines (blanks removed), shifting the lookup window and
             # attaching empty or unrelated conditions to product codes.
             candidate_text = "\n".join(lines)
-            if src["scope"] == "inserts":
+            if src["url"] == RAPIDTHREAD_PDF:
+                page_candidates = []
+                if "INSERTS" in page and "Part Number" in page and "Grade" in page:
+                    for line_index, line in enumerate(line for line in page.splitlines() if line.strip()):
+                        for match in RAPIDTHREAD_ORDER.finditer(line):
+                            page_candidates.append((match.group(), " ".join(line.split()), line_index))
+            elif src["scope"] == "inserts":
                 page_candidates = extract_insert_candidates(candidate_text)
             else:
                 page_candidates = extract_tool_candidates(candidate_text)
@@ -436,6 +445,13 @@ for src in SOURCES:
             conditions = local_conditions
             local_meta = extract_application_metadata_from_lines(lines, line_index, 55)
             local_meta = {k: technical_italian(v) for k, v in local_meta.items()}
+            if src["url"] == RAPIDTHREAD_PDF:
+                local_meta = {"application": "Filettatura"}
+                local_context = context
+                explicit = {}
+                conditions = ""
+                recommended = []
+                local_parameter_rows = []
             nearby_context = " | ".join(lines[max(0,line_index-10):min(len(lines),line_index+11)])[:1800]
             # Usa la sezione più vicina del catalogo; non usare il campo impiego aggregato,
             # che può contenere intestazioni di altre famiglie della stessa pagina.
@@ -452,7 +468,7 @@ for src in SOURCES:
                 "code": code,
                 "maker": src["maker"],
                 "toolType": "insert" if src["scope"] == "inserts" else "complete-tool",
-                "verificationStatus": "official-catalog-extracted",
+                "verificationStatus": "official-order-code-verified" if src["url"] == RAPIDTHREAD_PDF else "official-catalog-extracted",
                 "sourceOfficial": src["url"],
                 "sourceType": "catalogo-ufficiale-estratto-da-verificare",
                 "sourcePage": page_no,

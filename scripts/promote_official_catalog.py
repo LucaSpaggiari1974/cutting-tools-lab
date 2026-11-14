@@ -220,14 +220,41 @@ def classify(code, context, source_category=""):
         return "Fresatura"
     return None
 
-# Exact order codes verified against Ingersoll official product family tables.
+# Product types checked against the official WinSFeed order and hardware tables.
+WIN_S_FEED = "https://ssl.ingersoll-imc.com/resources/pdf/cat-031-1_winsfeed_new_products_catalog_2024.pdf"
 VERIFIED_INGERSOLL_MILLS = {
     **{f"DG6G{d}R00": "https://www.ingersoll-imc.com/product-family/5356507" for d in ("050","063","080","100")},
     **{f"DJ5R{d}R00": "https://ingersoll-imc.com/product-family/5348409" for d in ("040","063","080","100","125")},
     **{f"DJ6R{d}R00": "https://ingersoll-imc.com/product-family/5348409" for d in ("050","063","080","100","125")},
+    **{f"{series}{diameter}R00": WIN_S_FEED for series, diameters in {
+        "DN5G": ("040", "050", "063", "080", "100", "125", "160"),
+        "DN6G": ("040", "050", "063", "080", "100", "125", "160"),
+        "DN5K": ("050", "063", "080", "100", "125", "160", "200"),
+        "DN6K": ("050", "063", "080", "100", "125", "160", "200"),
+        "DG6K": ("063", "080", "100", "125"),
+    }.items() for diameter in diameters},
 }
+INGERSOLL_NON_CUTTING_CODES = {
+    "IL61108", "TS35110IL", "SHM16X2X35", "SHM16X2X35C",
+    "SHLM16X2X35", "SHLM16X2X35C", "DIN6987140", "DIN6987150",
+    "TS35083I", "TSTV210510", "SHM6X1X16", "TSZ140310", "SO35124I",
+    "TS5035062S", "SO35080I", "TS18049", "TS20055I", "TS40F120A",
+}
+INGERSOLL_CODE_ALIASES = {"CGM101R001": "CGM101R001-ML", "CGX101R001": "CGX101R001-M"}
+
 def verified_mill_source(maker, code):
     return VERIFIED_INGERSOLL_MILLS.get(norm(code)) if canonical_maker(maker) == "Ingersoll" else None
+
+def verified_turning_holder(maker, code):
+    return maker == "Ingersoll" and norm(code) == "LVJBR1616K16SH"
+
+def normalize_ingersoll_insert(row):
+    code = norm(row.get("code"))
+    if code in INGERSOLL_NON_CUTTING_CODES or code in INGERSOLL_CODE_ALIASES:
+        return False
+    if re.fullmatch(r"SPGX(?:060204|07T308|090408|110708|140512)WG", code):
+        row.update(category="Foratura", application="Foratura")
+    return True
 
 def strong_insert_code(code):
     c = clean_code(code).upper()
@@ -313,6 +340,11 @@ def main():
                 target["category"] = row["category"]
         return unique, removed, merged_fields
 
+    items = [row for row in items if row["maker"] != "Ingersoll" or normalize_ingersoll_insert(row)]
+    tool_items = [row for row in tool_items if row["maker"] != "Ingersoll" or (
+        norm(row.get("code")) not in INGERSOLL_NON_CUTTING_CODES
+        and norm(row.get("code")) not in INGERSOLL_CODE_ALIASES
+    )]
     items, duplicate_catalog_rows_removed, duplicate_catalog_fields_merged = deduplicate_rows(items)
     tool_items, duplicate_tool_rows_removed, duplicate_tool_fields_merged = deduplicate_rows(tool_items)
 
@@ -322,16 +354,20 @@ def main():
     retained = []
     for row in items:
         source = verified_mill_source(row.get("maker"), row.get("code"))
+        turning_holder = verified_turning_holder(row.get("maker"), row.get("code"))
+        if turning_holder:
+            source = WIN_S_FEED
         if not source:
             retained.append(row)
             continue
         key = (row.get("maker"), norm(row.get("code")))
         if key not in tool_keys:
-            tool_items.append(dict(row, category="Fresatura · Utensili completi",
+            operation = "Tornitura" if turning_holder else "Fresatura"
+            tool_items.append(dict(row, category=f"{operation} · Utensili completi",
                 toolType="complete-tool", sourceUrl=source, productUrl=source,
                 geom="", material="", vc="—", f="—", ap="—",
                 cuttingConditions="", recommendedConditions=[], parameterRows=[],
-                application="Fresatura", parameterStatus="pending-official-exact",
+                application=operation, parameterStatus="pending-official-exact",
                 verificationStatus="official-product-type-verified"))
             tool_keys.add(key)
         reclassified.append(row.get("code"))
@@ -371,15 +407,19 @@ def main():
         if not maker:
             skipped.append({"code": code, "reason": "manufacturer-not-in-selected-seven"})
             continue
+        if maker == "Ingersoll" and not normalize_ingersoll_insert(cand):
+            skipped.append({"code": code, "reason": "non-cutting-or-incomplete-code"})
+            continue
         category = classify(code, cand.get("sourceContext",""), cand.get("category",""))
 
-        if verified_mill_source(maker, code):
+        turning_holder = verified_turning_holder(maker, code)
+        if turning_holder or verified_mill_source(maker, code):
             is_insert_candidate = False
-            cand["category"] = "Fresatura"
-            cand["sourceOfficial"] = verified_mill_source(maker, code)
+            cand["category"] = "Tornitura" if turning_holder else "Fresatura"
+            cand["sourceOfficial"] = WIN_S_FEED if turning_holder else verified_mill_source(maker, code)
             for field in ("geom", "material", "cuttingConditions", "recommendedConditions", "parameterRows", "vc", "f", "ap"):
                 cand.pop(field, None)
-            cand["application"] = "Fresatura"
+            cand["application"] = cand["category"]
             cand["parameterStatus"] = "pending-official-exact"
         if is_insert_candidate:
             if not maker or not strong_insert_code(code):
@@ -440,7 +480,9 @@ def main():
                 "category": category,
                 "code": code,
                 "maker": maker,
-                "verificationStatus": "official-catalog-code-extracted-needs-technical-verification",
+                "verificationStatus": ("official-order-code-verified"
+                    if cand.get("verificationStatus") == "official-order-code-verified"
+                    else "official-catalog-code-extracted-needs-technical-verification"),
                 "sourceOfficial": cand.get("sourceOfficial", True),
                 "sourceType": cand.get("sourceType", "official-catalog"),
                 "sourcePage": cand.get("sourcePage"),
