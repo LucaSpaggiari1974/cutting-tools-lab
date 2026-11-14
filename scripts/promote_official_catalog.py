@@ -262,6 +262,23 @@ def normalize_ingersoll_insert(row):
     }:
         row["category"] = "Tornitura · Impiego da verificare"
         row["application"] = "Tornitura · Impiego da verificare"
+    # CAT-30-3, pages 7 and 51: chipbreaker-specific application and depth.
+    # These values do not determine the workpiece material or CBN grade.
+    if str(row.get("sourceOfficial", "")).endswith("/cat-30-3-cbn-inserts-catalog.pdf"):
+        chipbreaker = re.search(r"([FMR]1)", code)
+        if chipbreaker:
+            profiles = {
+                "F1": ("Tornitura · Finitura", "Finitura e lavorazione media", "0,04–0,10"),
+                "M1": ("Tornitura · Media", "Lavorazione media", "0,10–0,20"),
+                "R1": ("Tornitura · Sgrossatura", "Sgrossatura", "0,20–0,40"),
+            }
+            category, application, depth = profiles[chipbreaker.group(1)]
+            row.update(category=category, application=application, ap=depth)
+            row["parameterStatus"] = "official-chipbreaker-depth-verified"
+            row["parameterSources"] = {"ap": {
+                "url": row["sourceOfficial"] + "#page=51",
+                "page": 51, "chipbreaker": chipbreaker.group(1), "unit": "mm"
+            }}
     return True
 
 def strong_insert_code(code):
@@ -458,7 +475,7 @@ def main():
                         "geom","material","application","cuttingConditions",
                         "recommendedConditions","parameterRows","vc","f","ap","sourceOfficial",
                         "sourceType","sourcePage","sourceContext","sourceUrl",
-                        "parameterStatus"
+                        "parameterStatus", "parameterSources"
                     )
                     for field in field_map:
                         incoming = cand.get(field)
@@ -502,6 +519,7 @@ def main():
                 "recommendedConditions": cand.get("recommendedConditions", []),
                 "parameterRows": cand.get("parameterRows", []),
                 "parameterStatus": cand.get("parameterStatus","not-found"),
+                "parameterSources": cand.get("parameterSources", {}),
                 "vc": cand.get("vc","—"),
                 "f": cand.get("f","—"),
                 "ap": cand.get("ap","—"),
