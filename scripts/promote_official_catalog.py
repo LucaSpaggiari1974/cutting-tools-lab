@@ -251,7 +251,27 @@ def verified_mill_source(maker, code):
 def verified_turning_holder(maker, code):
     return maker == "Ingersoll" and norm(code) == "LVJBR1616K16SH"
 
+PCD_SOURCE = "https://ssl.ingersoll-imc.com/resources/pdf/it.te.di.-pcd-iso-inserts-catalog.pdf"
+PCD_CONDITIONS = [
+    {"material": m, "operation": o, "vc": v, "fn": f, "ap": a}
+    for m, o, v, f, a in [
+        ("Alluminio, Si <12%", "Sgrossatura", "800–3000", "0,1–0,6", "0,3–5,0"),
+        ("Alluminio, Si <12%", "Finitura", "800–3000", "0,03–0,2", "0,05–1,0"),
+        ("Alluminio, Si >12%", "Sgrossatura", "300–900", "0,1–0,4", "0,1–2,5"),
+        ("Alluminio, Si >12%", "Finitura", "300–900", "0,03–0,2", "0,05–0,08"),
+        ("Rame, bronzo, ottone, zinco e leghe di magnesio", "Sgrossatura", "600–1200", "0,1–0,4", "0,5–2,0"),
+        ("Rame, bronzo, ottone, zinco e leghe di magnesio", "Finitura", "700–1500", "0,05–0,4", "0,05–0,5"),
+        ("Metallo duro", "Sgrossatura", "20–25", "0,1–0,3", "0,1–0,5"),
+        ("Metallo duro", "Finitura", "20–30", "0,05–0,2", "0,05–0,2"),
+    ]
+]
+
 def normalize_ingersoll_insert(row):
+    if row.get("sourceOfficial") == PCD_SOURCE:
+        row["familyConditions"] = PCD_CONDITIONS
+        row["familyConditionsSource"] = PCD_SOURCE + "#page=35"
+        row["familyConditionsNote"] = "Guida generale PCD in condizioni ottimali. Verificare grado e geometria. Le geometrie FI/RO richiedono anche le indicazioni specifiche della stessa pagina."
+
     code = norm(row.get("code"))
     if code in INGERSOLL_NON_CUTTING_CODES or code in INGERSOLL_CODE_ALIASES:
         return False
@@ -475,7 +495,7 @@ def main():
                         "geom","material","application","cuttingConditions",
                         "recommendedConditions","parameterRows","vc","f","ap","sourceOfficial",
                         "sourceType","sourcePage","sourceContext","sourceUrl",
-                        "parameterStatus", "parameterSources"
+                        "parameterStatus", "parameterSources", "familyConditions", "familyConditionsSource", "familyConditionsNote"
                     )
                     for field in field_map:
                         incoming = cand.get(field)
@@ -520,6 +540,9 @@ def main():
                 "parameterRows": cand.get("parameterRows", []),
                 "parameterStatus": cand.get("parameterStatus","not-found"),
                 "parameterSources": cand.get("parameterSources", {}),
+                "familyConditions": cand.get("familyConditions", []),
+                "familyConditionsSource": cand.get("familyConditionsSource", ""),
+                "familyConditionsNote": cand.get("familyConditionsNote", ""),
                 "vc": cand.get("vc","—"),
                 "f": cand.get("f","—"),
                 "ap": cand.get("ap","—"),

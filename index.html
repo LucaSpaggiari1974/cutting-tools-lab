@@ -367,11 +367,17 @@ function matchesIsoMaterial(record,group){
   return !!pattern && pattern.test(raw);
 }
 let selected=null;
+function familyConditionsHtml(x){
+ if(!Array.isArray(x.familyConditions)||!x.familyConditions.length)return "";
+ const source=String(x.familyConditionsSource||"");
+ const link=source.startsWith("https://ssl.ingersoll-imc.com/")?'<a href="'+esc(source)+'" target="_blank" rel="noopener">Fonte ufficiale</a>':"";
+ return '<details><summary>Parametri PCD per materiale e lavorazione</summary><p>'+esc(x.familyConditionsNote)+'</p><table><thead><tr><th>Materiale</th><th>Lavorazione</th><th>VC m/min</th><th>FN mm/giro</th><th>AP mm</th></tr></thead><tbody>'+x.familyConditions.map(v=>'<tr><td>'+esc(v.material)+'</td><td>'+esc(v.operation)+'</td><td>'+esc(v.vc)+'</td><td>'+esc(v.fn)+'</td><td>'+esc(v.ap)+'</td></tr>').join("")+'</tbody></table>'+link+'</details>';
+}
 function render(){
  const t=q.value.toLowerCase(),c=cat.value,m=mat.value,k=maker.value;
  const categoryOrder={"Tornitura · Finitura":0,"Tornitura · Media":1,"Tornitura · Sgrossatura":2,"Tornitura · Impiego da verificare":2.5,"Fresatura":3,"Foratura":4,"Filettatura":5};
  const a=data.filter(x=>(!t||Object.values(x).join(" ").toLowerCase().includes(t))&&(!c||(c==="__TURNING_INSERTS__"?insertTurningCategories.includes(x.category):x.category===c))&&(!m||matchesIsoMaterial(x,m))&&(!k||x.maker===k)).sort((a,b)=>(categoryOrder[a.category]??99)-(categoryOrder[b.category]??99)||String(a.maker||"").localeCompare(String(b.maker||""))||String(a.code||"").localeCompare(String(b.code||"")));
- rows.innerHTML=a.map((x,i)=>{const ri=data.indexOf(x);return '<tr class="data" data-i="'+ri+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code"><button type="button" class="codeButton" data-row-index="'+ri+'" aria-label="Apri scheda tecnica '+esc(x.code)+'">'+esc(x.code)+'</button></td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>';}).join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
+ rows.innerHTML=a.map((x,i)=>{const ri=data.indexOf(x);return '<tr class="data" data-i="'+ri+'"><td><span class="tag">'+esc(x.category)+'</span></td><td class="code"><button type="button" class="codeButton" data-row-index="'+ri+'" aria-label="Apri scheda tecnica '+esc(x.code)+'">'+esc(x.code)+'</button></td><td>'+esc(x.geom)+'</td><td>'+esc(x.material)+'</td><td>'+esc(x.vc)+'</td><td>'+esc(x.f)+'</td><td>'+esc(x.ap)+'</td><td>'+esc(x.maker)+'</td></tr>'+(x.familyConditions?.length?'<tr><td colspan="8">'+familyConditionsHtml(x)+'</td></tr>':'');}).join("")||'<tr><td colspan="8">Nessun risultato.</td></tr>';
  document.getElementById("status").textContent=a.length+" righe · tocca una riga per caricare i dati nella barra dei parametri";
  rows.querySelectorAll("tr.data").forEach(tr=>{
  const codeButton=tr.querySelector(".codeButton");
