@@ -22,7 +22,7 @@ TOOLS_BACKUP = ROOT / "backups" / "complete-tools-before-promotion.json"
 REPORT = ROOT / "official-catalog-promotion-report.json"
 
 ALLOWED = [
-    "Tornitura · Finitura", "Tornitura · Media", "Tornitura · Sgrossatura",
+    "Tornitura · Finitura", "Tornitura · Media", "Tornitura · Sgrossatura", "Tornitura · Impiego da verificare",
     "Fresatura", "Foratura", "Filettatura"
 ]
 
@@ -188,6 +188,9 @@ def classify(code, context, source_category=""):
     t = str(context or "").lower()
     sc = str(source_category or "").lower()
 
+    if source_category == "Tornitura · Impiego da verificare":
+        return source_category
+
     # The official Sumitomo insert catalog labels its pages as
     # "Tornitura · Inserto ufficiale". Treat that explicit source
     # classification as authoritative instead of requiring English
@@ -254,6 +257,11 @@ def normalize_ingersoll_insert(row):
         return False
     if re.fullmatch(r"SPGX(?:060204|07T308|090408|110708|140512)WG", code):
         row.update(category="Foratura", application="Foratura")
+    if "Tornitura" in str(row.get("category")) and row.get("verificationStatus") in {
+        "official-catalog-code-extracted-needs-technical-verification", "official-catalog-extracted"
+    }:
+        row["category"] = "Tornitura · Impiego da verificare"
+        row["application"] = "Tornitura · Impiego da verificare"
     return True
 
 def strong_insert_code(code):

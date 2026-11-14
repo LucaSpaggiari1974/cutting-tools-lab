@@ -30,7 +30,7 @@ UA="Cutting-Tools-LAB-Daily-Verifier/2.0 (+https://cutting-tools-lab.pages.dev/)
 ALLOWED=[
     "Tornitura · Finitura",
     "Tornitura · Media",
-    "Tornitura · Sgrossatura",
+    "Tornitura · Sgrossatura", "Tornitura · Impiego da verificare",
     "Fresatura",
     "Foratura",
     "Filettatura",
