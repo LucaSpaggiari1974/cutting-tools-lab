@@ -24,18 +24,21 @@
     {
       "category": "Tornitura · Finitura",
       "code": "VNMG332MT TT5080",
-      "geom": "Rombo 35° · finitura · R0,8",
-      "material": "M Inox · S Superleghe",
-      "vc": "80–180",
-      "f": "0,08–0,22",
-      "ap": "0,2–1,5",
+      "geom": "Rombo 35° · R0,787",
+      "material": "—",
+      "vc": "—",
+      "f": "0,178–0,356",
+      "ap": "0,991–2,997",
       "maker": "Ingersoll",
       "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=39560",
-      "parameterStatus": "historical-estimate-not-currently-verified",
+      "parameterStatus": "official-partial",
       "verificationStatus": "historical-source-seed",
       "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
       "photoStatus": "unavailable",
-      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto.",
+      "application": "Tornitura · Media",
+      "sourceUrl": "https://www.ingersoll-imc.com/product?ecatProductId=39560",
+      "cuttingConditions": "Fn (mm/giro) e Ap (mm) da scheda ufficiale; Vc e materiale da verificare per qualità TT5080."
     },
     {
       "category": "Tornitura · Finitura",
