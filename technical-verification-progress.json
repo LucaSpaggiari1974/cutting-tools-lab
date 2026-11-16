@@ -95,13 +95,68 @@
       "status": "code-grade-geometry-and-system-conditions-verified",
       "ap": "not-applicable-to-drilling",
       "publication": "not-verified"
+    },
+    {
+      "code": "CNMG160612MT TT8105B",
+      "grade": "TT8105B",
+      "source": "https://www.ingersoll-imc.com/product?ecatProductId=38766",
+      "product": "https://www.ingersoll-imc.com/product/6212536",
+      "speedSource": "https://ssl.ingersoll-imc.com/resources/pdf/opg-007-1_iso-turning.pdf",
+      "gradeSource": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
+      "status": "code-grade-geometry-item-feed-depth-and-grade-speed-verified",
+      "fnMmRev": [
+        0.2286,
+        0.5588
+      ],
+      "apMm": [
+        2.0066,
+        6.5024
+      ],
+      "publication": "not-verified"
+    },
+    {
+      "code": "CNMG160612MT TT8115B",
+      "grade": "TT8115B",
+      "source": "https://www.ingersoll-imc.com/product?ecatProductId=38766",
+      "product": "https://www.ingersoll-imc.com/product/6212574",
+      "speedSource": "https://ssl.ingersoll-imc.com/resources/pdf/opg-007-1_iso-turning.pdf",
+      "gradeSource": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
+      "status": "code-grade-geometry-item-feed-depth-and-grade-speed-verified",
+      "fnMmRev": [
+        0.2286,
+        0.5588
+      ],
+      "apMm": [
+        2.0066,
+        6.5024
+      ],
+      "publication": "not-verified"
+    },
+    {
+      "code": "CNMG160612MT TT8125B",
+      "grade": "TT8125B",
+      "source": "https://www.ingersoll-imc.com/product?ecatProductId=38766",
+      "product": "https://www.ingersoll-imc.com/product/6213016",
+      "speedSource": "https://ssl.ingersoll-imc.com/resources/pdf/opg-007-1_iso-turning.pdf",
+      "gradeSource": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
+      "status": "code-grade-geometry-item-feed-depth-and-grade-speed-verified",
+      "fnMmRev": [
+        0.2286,
+        0.5588
+      ],
+      "apMm": [
+        2.0066,
+        6.5024
+      ],
+      "publication": "not-verified"
     }
   ],
   "commits": [
     "95b8134aff7581fd5dc907046c08380baca99dbb",
-    "c00ca874630c40676826bd5eb34dc135253251c1"
+    "c00ca874630c40676826bd5eb34dc135253251c1",
+    "dae25600f19450193cf364911c368b4c7da3a751"
   ],
-  "next": "Verificare rigenerazione e presenza dei quattro codici nel catalogo pubblicato; continuare con altri codici Ingersoll. Casi applicativi SPGX090408WG documentati separatamente dalle raccomandazioni; non contare come nuovi codici.",
+  "next": "Verificare rigenerazione e pubblicazione; completare le altre varianti CNMG160612MT e proseguire con altri codici Ingersoll. VC per gruppo VDI separata da FN/AP articolo.",
   "regressionTests": "pending",
   "publication": "pending"
 }
