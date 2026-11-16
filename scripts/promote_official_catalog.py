@@ -351,6 +351,42 @@ def normalize_ingersoll_insert(row):
         row["parameterStatus"] = "official-item-feed-depth-and-grade-speed-verified"
         row["verificationStatus"] = "official-product-verified"
         break
+    # Additional exact MT variants; VDI groups are explicit (blank cells omitted).
+    mt_additional = {
+        "TT5100": (5515314, [[1,655,1475],[2,560,1280],[3,425,1150],[4,525,1215],[5,395,1050],[6,460,1215],[7,360,720],[8,295,655],[9,260,560],[10,360,820],[11,130,330]]),
+        "TT8020": (5515896, [[1,330,985],[2,330,885],[3,260,655],[4,295,690],[5,260,590],[6,260,655],[7,130,395],[8,130,295],[9,100,295],[10,195,525],[11,130,260],[12,330,820],[13,330,755],[14,260,655],[31,65,230],[32,35,165],[33,35,130],[34,35,100],[35,35,65],[36,230,490],[37,65,130]]),
+        "TT5080": (5523019, [[12,525,1280],[13,525,920],[14,330,820],[31,165,590],[32,130,525],[33,150,330],[34,115,295],[35,100,260],[36,360,655],[37,165,330]]),
+        "TT9080": (6100877, [[12,395,950],[13,395,885],[14,295,785],[31,130,525],[32,100,425],[33,115,260],[34,100,230],[35,100,195],[36,295,590],[37,130,260]]),
+    }
+    for grade, (edp, speeds) in mt_additional.items():
+        if code != norm("CNMG160612MT " + grade):
+            continue
+        product = "https://www.ingersoll-imc.com/product/" + str(edp)
+        guide = "https://ssl.ingersoll-imc.com/resources/pdf/opg-007-1_iso-turning.pdf"
+        def mt_material(i):
+            return "Acciai" if i <= 11 else "Inossidabili" if i <= 14 else "Titanio e leghe di titanio" if i >= 36 else "Superleghe"
+        row.update(category="Tornitura · Media", application="Tornitura media", grade=grade,
+                   material="; ".join(dict.fromkeys(mt_material(i) for i, lo, hi in speeds)),
+                   geom="Rombo 80° · R1,2", f="0,229–0,559", ap="2,007–6,502")
+        row["familyConditions"] = [
+            {"material": mt_material(i) + " · gruppo VDI 3323 " + str(i),
+             "operation": "Tornitura ISO · grado " + grade,
+             "vc": (f"{lo * .3048:.1f}–{hi * .3048:.1f}").replace(".", ","),
+             "fn": "", "ap": ""}
+            for i, lo, hi in speeds
+        ]
+        row["familyConditionsSource"] = guide
+        row["familyConditionsNote"] = "VC in m/min per grado e gruppo VDI; verificare compatibilità geometria/materiale e condizioni reali. FN e AP della scheda articolo non sono condizioni simultanee garantite."
+        row.setdefault("parameterSources", {}).update({
+            "f": {"url": product, "unit": "mm/giro"},
+            "ap": {"url": product, "unit": "mm"},
+            "geom": {"url": product},
+            "grade": {"url": product},
+            "material": {"url": guide}
+        })
+        row["parameterStatus"] = "official-item-feed-depth-and-grade-speed-verified"
+        row["verificationStatus"] = "official-product-verified"
+        break
     # CAT-30-3, pages 7 and 51: chipbreaker-specific application and depth.
     # These values do not determine the workpiece material or CBN grade.
     if str(row.get("sourceOfficial", "")).endswith("/cat-30-3-cbn-inserts-catalog.pdf"):
