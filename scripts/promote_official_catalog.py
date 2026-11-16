@@ -276,7 +276,13 @@ def normalize_ingersoll_insert(row):
     if code in INGERSOLL_NON_CUTTING_CODES or code in INGERSOLL_CODE_ALIASES:
         return False
     if re.fullmatch(r"SPGX(?:060204|07T308|090408|110708|140512)WG", code):
-        row.update(category="Foratura", application="Foratura")
+        row.update(category="Foratura", application="Foratura con inserto periferico GoldTwin", material="Acciai; impiego generale (altri materiali da verificare)", geom="Inserto quadrato periferico a 4 taglienti, geometria wiper", grade="IN2505")
+        row.setdefault("parameterSources", {})
+        row["parameterSources"].update({
+            "geom": {"url": "https://www.ingersoll-imc.com/product/category/holemaking"},
+            "material": {"url": "https://www.ingersoll-imc.com/product/category/holemaking"},
+            "grade": {"url": "https://ssl.ingersoll-imc.com/resources/pdf/cat-031-1_winsfeed_new_products_catalog_2024.pdf#page=102"}
+        })
     if "Tornitura" in str(row.get("category")) and row.get("verificationStatus") in {
         "official-catalog-code-extracted-needs-technical-verification", "official-catalog-extracted"
     }:
