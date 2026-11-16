@@ -229,7 +229,7 @@
       "product": "https://www.ingersoll-imc.com/product/5519559",
       "materialSource": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
       "material": "Acciai",
-      "status": "code-grade-geometry-item-feed-depth-verified-speed-pending",
+      "status": "code-grade-geometry-item-feed-depth-and-grade-speed-verified",
       "fnMmRev": [
         0.2286,
         0.5588
@@ -238,8 +238,10 @@
         2.0066,
         6.5024
       ],
-      "vc": "pending: legacy grade, no substitution from B",
-      "publication": "not-verified"
+      "publication": "not-verified",
+      "speedSource": "https://ssl.ingersoll-imc.com/resources/pdf/iso-turning-carbide-og-test.pdf",
+      "gradeSpeedGroups": 11,
+      "speedScope": "VC storica per grado esatto e gruppo VDI 3323; non specifica della geometria."
     },
     {
       "code": "CNMG160612MT TT8135",
@@ -248,7 +250,7 @@
       "product": "https://www.ingersoll-imc.com/product/5522646",
       "materialSource": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
       "material": "Acciai",
-      "status": "code-grade-geometry-item-feed-depth-verified-speed-pending",
+      "status": "code-grade-geometry-item-feed-depth-and-grade-speed-verified",
       "fnMmRev": [
         0.2286,
         0.5588
@@ -257,8 +259,10 @@
         2.0066,
         6.5024
       ],
-      "vc": "pending: legacy grade, no substitution from B",
-      "publication": "not-verified"
+      "publication": "not-verified",
+      "speedSource": "https://ssl.ingersoll-imc.com/resources/pdf/iso-turning-carbide-og-test.pdf",
+      "gradeSpeedGroups": 11,
+      "speedScope": "VC storica per grado esatto e gruppo VDI 3323; non specifica della geometria."
     }
   ],
   "commits": [
@@ -267,9 +271,10 @@
     "dae25600f19450193cf364911c368b4c7da3a751",
     "30b531ffb036d63b356ebc3f07aceadadbf5f45c",
     "098f9902201f5afb35038a90e9d9cf0773050da7",
-    "0776c60e81df9a6a5a9de33f46d00ea0d9a4c1a1"
+    "0776c60e81df9a6a5a9de33f46d00ea0d9a4c1a1",
+    "a0c84caacd4d26958a45176d59a53cb21291ba20"
   ],
-  "next": "Verificare rigenerazione e regressioni dopo la riapplicazione delle correzioni Ingersoll a fine promozione; cercare VC storica TT8125/TT8135 e proseguire con altri codici. Due record parziali non contano come completi.",
+  "next": "13 record verificati alla fonte; verificare rigenerazione, regressioni e pubblicazione; proseguire con altri codici Ingersoll fino a 50.",
   "regressionTests": "pending",
   "publication": "pending"
 }
