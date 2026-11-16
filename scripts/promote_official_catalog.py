@@ -745,6 +745,10 @@ def main():
         return (ALLOWED.index(x.get("category")) if x.get("category") in ALLOWED else 99,
                 str(x.get("maker","")).lower(), norm(x.get("code")))
 
+    # Reapply exact official corrections after staging enrichment. Otherwise a
+    # missing legacy VC or an intentionally empty family table can be refilled
+    # by generic staging data, and newly promoted rows lose verified status.
+    items = [row for row in items if row["maker"] != "Ingersoll" or normalize_ingersoll_insert(row)]
     items.sort(key=sort_key)
     catalog["items"] = items
     catalog["version"] = "4.2-official-staging-promotion-all-items"
