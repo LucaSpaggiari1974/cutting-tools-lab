@@ -387,6 +387,27 @@ def normalize_ingersoll_insert(row):
         row["parameterStatus"] = "official-item-feed-depth-and-grade-speed-verified"
         row["verificationStatus"] = "official-product-verified"
         break
+    # Legacy gold grades: official successor notice does not establish identical VC.
+    for grade, edp in {"TT8125": 5519559, "TT8135": 5522646}.items():
+        if code != norm("CNMG160612MT " + grade):
+            continue
+        product = "https://www.ingersoll-imc.com/product/" + str(edp)
+        grade_source = "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades"
+        row.update(category="Tornitura · Media", application="Tornitura media", grade=grade,
+                   material="Acciai", geom="Rombo 80° · R1,2", f="0,229–0,559", ap="2,007–6,502", vc="—")
+        row["familyConditions"] = []
+        row["familyConditionsSource"] = ""
+        row["familyConditionsNote"] = "Grado precedente alla versione B; VC specifica non ancora verificata. Non trasferire automaticamente i valori del successore."
+        row.setdefault("parameterSources", {}).pop("vc", None)
+        row["parameterSources"].update({
+            "f": {"url": product, "unit": "mm/giro"},
+            "ap": {"url": product, "unit": "mm"},
+            "geom": {"url": product}, "grade": {"url": product},
+            "material": {"url": grade_source}
+        })
+        row["parameterStatus"] = "official-item-feed-depth-verified-speed-pending"
+        row["verificationStatus"] = "official-product-verified"
+        break
     # CAT-30-3, pages 7 and 51: chipbreaker-specific application and depth.
     # These values do not determine the workpiece material or CBN grade.
     if str(row.get("sourceOfficial", "")).endswith("/cat-30-3-cbn-inserts-catalog.pdf"):
