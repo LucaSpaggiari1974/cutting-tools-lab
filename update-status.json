@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-16T09:35:52Z",
+  "updatedAt": "2026-11-16T16:17:04Z",
   "run": "daily",
   "changed": true,
   "catalogItems": 1217,
@@ -12,9 +12,9 @@
       "officialConditionContext": 10,
       "recommendedConditionTables": 0,
       "parameterRows": 0,
-      "familyConditionTables": 531,
+      "familyConditionTables": 534,
       "geometry": 237,
-      "material": 56,
+      "material": 59,
       "application": 1162
     },
     "completeTools": {
@@ -35,16 +35,11 @@
   "removedDetails": [],
   "photosUpdated": 0,
   "sourcesChecked": 8,
-  "sourcesReachable": 7,
-  "sourcesFailed": 1,
+  "sourcesReachable": 8,
+  "sourcesFailed": 0,
   "newProducts": 0,
   "autoIndexing": "disabled-by-policy",
   "note": "Il job non aggiunge mai automaticamente Product JSON-LD non classificati: nuovi codici devono essere verificati come inserti da fonte ufficiale prima dell'indicizzazione.",
   "backup": "backups/catalog-latest.json",
-  "errors": [
-    {
-      "maker": "Sumitomo Electric Hardmetal",
-      "error": "<urlopen error [Errno -3] Temporary failure in name resolution>"
-    }
-  ]
+  "errors": []
 }
