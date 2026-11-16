@@ -380,7 +380,8 @@ def main():
         removed = 0
         merged_fields = 0
         mergeable = (
-            "geom", "material", "application", "cuttingConditions",
+            "geom", "grade", "material", "application", "cuttingConditions",
+            "parameterSources", "familyConditions", "familyConditionsSource", "familyConditionsNote",
             "recommendedConditions", "parameterRows", "vc", "f", "ap",
             "sourceOfficial", "sourceType", "sourcePage", "sourceContext",
             "sourceUrl", "parameterStatus", "verificationStatus"
@@ -523,11 +524,11 @@ def main():
                             return False
                         if isinstance(v, str):
                             return bool(v.strip()) and v.strip() not in {"—", "-", "N/A", "n/a"}
-                        if isinstance(v, list):
+                        if isinstance(v, (list, dict)):
                             return bool(v)
                         return True
                     field_map = (
-                        "geom","material","application","cuttingConditions",
+                        "geom","grade","material","application","cuttingConditions",
                         "recommendedConditions","parameterRows","vc","f","ap","sourceOfficial",
                         "sourceType","sourcePage","sourceContext","sourceUrl",
                         "parameterStatus", "parameterSources", "familyConditions", "familyConditionsSource", "familyConditionsNote"
@@ -568,6 +569,7 @@ def main():
                 "sourcePage": cand.get("sourcePage"),
                 "sourceContext": cand.get("sourceContext",""),
                 "geom": cand.get("geom",""),
+                "grade": cand.get("grade",""),
                 "material": cand.get("material",""),
                 "application": cand.get("application",""),
                 "cuttingConditions": cand.get("cuttingConditions",""),
