@@ -221,15 +221,54 @@
       ],
       "gradeSpeedGroups": 10,
       "publication": "not-verified"
+    },
+    {
+      "code": "CNMG160612MT TT8125",
+      "grade": "TT8125",
+      "source": "https://www.ingersoll-imc.com/product?ecatProductId=38766",
+      "product": "https://www.ingersoll-imc.com/product/5519559",
+      "materialSource": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
+      "material": "Acciai",
+      "status": "code-grade-geometry-item-feed-depth-verified-speed-pending",
+      "fnMmRev": [
+        0.2286,
+        0.5588
+      ],
+      "apMm": [
+        2.0066,
+        6.5024
+      ],
+      "vc": "pending: legacy grade, no substitution from B",
+      "publication": "not-verified"
+    },
+    {
+      "code": "CNMG160612MT TT8135",
+      "grade": "TT8135",
+      "source": "https://www.ingersoll-imc.com/product?ecatProductId=38766",
+      "product": "https://www.ingersoll-imc.com/product/5522646",
+      "materialSource": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
+      "material": "Acciai",
+      "status": "code-grade-geometry-item-feed-depth-verified-speed-pending",
+      "fnMmRev": [
+        0.2286,
+        0.5588
+      ],
+      "apMm": [
+        2.0066,
+        6.5024
+      ],
+      "vc": "pending: legacy grade, no substitution from B",
+      "publication": "not-verified"
     }
   ],
   "commits": [
     "95b8134aff7581fd5dc907046c08380baca99dbb",
     "c00ca874630c40676826bd5eb34dc135253251c1",
     "dae25600f19450193cf364911c368b4c7da3a751",
-    "30b531ffb036d63b356ebc3f07aceadadbf5f45c"
+    "30b531ffb036d63b356ebc3f07aceadadbf5f45c",
+    "098f9902201f5afb35038a90e9d9cf0773050da7"
   ],
-  "next": "Verificare TT8125 e TT8135 senza suffisso B: non usare velocità dei gradi B senza fonte esplicita. Proseguire con altri codici e verificare rigenerazione e pubblicazione.",
+  "next": "Cercare tabella VC storica per TT8125 e TT8135; verificare altri codici Ingersoll e rigenerazione/pubblicazione. Due record parziali non contano come completi.",
   "regressionTests": "pending",
   "publication": "pending"
 }
