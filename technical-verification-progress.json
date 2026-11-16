@@ -266,9 +266,10 @@
     "c00ca874630c40676826bd5eb34dc135253251c1",
     "dae25600f19450193cf364911c368b4c7da3a751",
     "30b531ffb036d63b356ebc3f07aceadadbf5f45c",
-    "098f9902201f5afb35038a90e9d9cf0773050da7"
+    "098f9902201f5afb35038a90e9d9cf0773050da7",
+    "0776c60e81df9a6a5a9de33f46d00ea0d9a4c1a1"
   ],
-  "next": "Cercare tabella VC storica per TT8125 e TT8135; verificare altri codici Ingersoll e rigenerazione/pubblicazione. Due record parziali non contano come completi.",
+  "next": "Verificare rigenerazione e regressioni dopo la riapplicazione delle correzioni Ingersoll a fine promozione; cercare VC storica TT8125/TT8135 e proseguire con altri codici. Due record parziali non contano come completi.",
   "regressionTests": "pending",
   "publication": "pending"
 }
