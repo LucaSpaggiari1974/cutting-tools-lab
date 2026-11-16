@@ -275,13 +275,42 @@ def normalize_ingersoll_insert(row):
     code = norm(row.get("code"))
     if code in INGERSOLL_NON_CUTTING_CODES or code in INGERSOLL_CODE_ALIASES:
         return False
-    if re.fullmatch(r"SPGX(?:060204|07T308|090408|110708|140512)WG", code):
-        row.update(category="Foratura", application="Foratura con inserto periferico GoldTwin", material="Acciai; impiego generale (altri materiali da verificare)", geom="Inserto quadrato periferico a 4 taglienti, geometria wiper", grade="IN2505")
-        row.setdefault("parameterSources", {})
-        row["parameterSources"].update({
-            "geom": {"url": "https://www.ingersoll-imc.com/product/category/holemaking"},
-            "material": {"url": "https://www.ingersoll-imc.com/product/category/holemaking"},
-            "grade": {"url": "https://ssl.ingersoll-imc.com/resources/pdf/cat-031-1_winsfeed_new_products_catalog_2024.pdf#page=102"}
+    # NEW-221-5 (2016), pp. 5–7: exact GoldTwin codes and system conditions.
+    # Do not infer other SPGX codes or confuse axial hole depth with ap.
+    gold_sizes = {"SPGX060204WG": 0, "SPGX07T308WG": 1,
+                  "SPGX090408WG": 2, "SPGX110408WG": 3}
+    if code in gold_sizes:
+        source = "https://ssl.ingersoll-imc.com/resources/pdf/NEW-221-5_Gold-Twin.pdf"
+        idx = gold_sizes[code]
+        diameters = ["26–28,9", "29–32,9", "33–36,9", "37–43,9", "44–45,9"]
+        # Original SFM and inch/rev, converted to metric; preserve diameter bands.
+        groups = [
+            ("Acciai non legati ricotti, 125–190 HB", 390, 650, [(8,11,14),(10,12,14),(8,12,16),(10,13,16),(11,15,18)]),
+            ("Acciai non legati, 220–300 HB", 425, 625, [(8,11,14),(10,12,14),(8,12,16),(10,13,16),(11,15,18)]),
+            ("Acciai basso legati, 200–350 HB", 325, 650, [(8,11,13),(10,11,13),(10,12,14),(10,12,14),(10,13,16)]),
+            ("Acciai alto legati e da utensili, 200–325 HB", 325, 525, [(8,11,13),(10,11,13),(10,12,14),(10,12,14),(10,13,16)]),
+            ("Inossidabili, 180–240 HB", 260, 460, [(5,8,10),(6,8,10),(6,8,10),(7,9,11),(7,10,12)]),
+            ("Ghise, 130–260 HB", 325, 825, [(10,14,18),(10,14,18),(12,16,20),(12,16,20),(14,18,22)]),
+            ("Leghe di alluminio e rame, 60–130 HB", 525, 850, [(12,16,20),(12,16,20),(14,18,22),(14,18,22),(16,20,24)]),
+            ("Superleghe ferrose ricotte, 200 HB", 100, 200, [(4,5,6),(4,6,7),(6,7,8),(6,7,9),(6,8,9)]),
+            ("Altre superleghe e titanio (vedere condizioni fonte)", 100, 265, [(4,5,6),(4,6,7),(6,7,8),(6,7,9),(6,8,9)]),
+        ]
+        def metric(value, factor, decimals):
+            return f"{value * factor:.{decimals}f}".replace(".", ",")
+        row.update(category="Foratura", application="Foratura GoldTwin", material="Acciai; inossidabili; ghise; leghe non ferrose; superleghe", geom="Quadrato a 4 taglienti, wiper", grade="IN2505")
+        row["familyConditions"] = [
+            {"material": material, "operation": "Foratura Ø " + diameters[j] + " mm",
+             "vc": metric(lo, .3048, 1) + "–" + metric(hi, .3048, 1),
+             "fn": " / ".join(metric(v, .0254, 3) for v in feeds[j]), "ap": ""}
+            for j in ([3, 4] if idx == 3 else [idx])
+            for material, lo, hi, feeds in groups
+        ]
+        row["familyConditionsSource"] = source + "#page=7"
+        row["familyConditionsNote"] = "Condizioni del sistema GoldTwin IN2505 per diametro; VC in m/min, FN in mm/giro (tre valori tabellati). Profondità del foro dipendente dal corpo, AP non applicabile. Consultare durezza e condizioni esatte nella fonte."
+        row.setdefault("parameterSources", {}).update({
+            "geom": {"url": source + "#page=2"},
+            "grade": {"url": source + "#page=6"},
+            "material": {"url": source + "#page=7"}
         })
     if "Tornitura" in str(row.get("category")) and row.get("verificationStatus") in {
         "official-catalog-code-extracted-needs-technical-verification", "official-catalog-extracted"
