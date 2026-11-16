@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-16",
+  "updatedAt": "2026-11-17",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -276,9 +276,9 @@
     "7a0129430737cede467b559196522769b36a82df",
     "ff206275348038442f3494bb61152558a424e05b"
   ],
-  "next": "13 record verificati alla fonte; verificare rigenerazione, regressioni e pubblicazione; proseguire con altri codici Ingersoll fino a 50.",
-  "regressionTests": "pending-after-fix",
-  "publication": "pending-after-fix",
+  "next": "13 record verificati alla fonte; proseguire con altri codici Ingersoll fino a 50; risolvere classificazione dei 870 record senza attribuzioni arbitrarie e verificare Windows.",
+  "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
+  "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
     {
       "date": "2026-11-16",
@@ -286,6 +286,13 @@
       "finding": "Guardian confrontava il seed JSON (63 record) con il catalogo generato online (1217). Il deploy su push ricomprimeva il seed, rischiando di sovrascrivere il catalogo generato.",
       "fix": "Deploy usa gzip versionato; Guardian legge gzip corrente e precedente. Verificare esecuzioni successive e contenuto online.",
       "status": "fix-committed-not-yet-verified"
+    },
+    {
+      "date": "2026-11-17",
+      "run": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/43970643002",
+      "deployRun": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/43951967408",
+      "finding": "Deploy Cloudflare riuscito; Guardian 22:30 UTC conferma 1217 inserti online e GitHub, nessun duplicato, 470 utensili completi, homepage raggiungibile. Unico errore: 870 record Tornitura · Impiego da verificare. Non riclassificare senza fonte.",
+      "status": "publication-count-verified-category-regression-open"
     }
   ]
 }
