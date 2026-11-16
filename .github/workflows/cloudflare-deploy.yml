@@ -23,8 +23,15 @@ jobs:
         with:
           node-version: 22
 
-      - name: Comprimi catalogo per asset Cloudflare
-        run: python -c "import gzip; data=open('catalog.json','rb').read(); compressed=gzip.compress(data,compresslevel=9,mtime=0); open('catalog.json.gz','wb').write(compressed); print('catalog.json.gz',len(compressed))"
+      - name: Verifica asset catalogo generato e versionato
+        run: |
+          python - <<'PY'
+          import gzip, json
+          with gzip.open('catalog.json.gz', 'rt', encoding='utf-8') as f:
+              catalog = json.load(f)
+          assert isinstance(catalog.get('items'), list) and catalog['items'], 'Catalogo compresso non valido'
+          print('Catalogo versionato:', catalog.get('updatedAt'), len(catalog['items']))
+          PY
 
       - name: Prepara asset statici senza JSON catalogo sovradimensionato
         run: |
