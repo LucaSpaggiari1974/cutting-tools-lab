@@ -387,7 +387,11 @@ def normalize_ingersoll_insert(row):
         row["parameterStatus"] = "official-item-feed-depth-and-grade-speed-verified"
         row["verificationStatus"] = "official-product-verified"
         break
-    # Legacy gold grades: official successor notice does not establish identical VC.
+    # Historical official CVD guide: exact legacy grades, not successor B.
+    legacy_speeds = {
+        'TT8125': [(755,1575),(655,1380),(525,1245),(625,1310),(490,1150),(560,1310),(460,820),(395,755),(360,655),(460,920),(230,425)],
+        'TT8135': [(625,1310),(560,1180),(425,1050),(460,1115),(395,985),(425,920),(260,560),(230,490),(195,460),(330,720),(150,330)],
+    }
     for grade, edp in {"TT8125": 5519559, "TT8135": 5522646}.items():
         if code != norm("CNMG160612MT " + grade):
             continue
@@ -395,9 +399,15 @@ def normalize_ingersoll_insert(row):
         grade_source = "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades"
         row.update(category="Tornitura · Media", application="Tornitura media", grade=grade,
                    material="Acciai", geom="Rombo 80° · R1,2", f="0,229–0,559", ap="2,007–6,502", vc="—")
-        row["familyConditions"] = []
-        row["familyConditionsSource"] = ""
-        row["familyConditionsNote"] = "Grado precedente alla versione B; VC specifica non ancora verificata. Non trasferire automaticamente i valori del successore."
+        row["familyConditions"] = [
+            {"material": "Acciai · gruppo VDI 3323 " + str(i),
+             "operation": "Tornitura ISO · grado " + grade,
+             "vc": (f"{lo * .3048:.1f}–{hi * .3048:.1f}").replace(".", ","),
+             "fn": "", "ap": ""}
+            for i, (lo, hi) in enumerate(legacy_speeds[grade], 1)
+        ]
+        row["familyConditionsSource"] = "https://ssl.ingersoll-imc.com/resources/pdf/iso-turning-carbide-og-test.pdf"
+        row["familyConditionsNote"] = "VC storica ufficiale per grado e gruppo VDI 3323, in m/min; non è una velocità specifica della geometria MT. FN e AP sono limiti della scheda articolo."
         row.setdefault("parameterSources", {}).pop("vc", None)
         row["parameterSources"].update({
             "f": {"url": product, "unit": "mm/giro"},
@@ -405,7 +415,7 @@ def normalize_ingersoll_insert(row):
             "geom": {"url": product}, "grade": {"url": product},
             "material": {"url": grade_source}
         })
-        row["parameterStatus"] = "official-item-feed-depth-verified-speed-pending"
+        row["parameterStatus"] = "official-item-feed-depth-and-grade-speed-verified"
         row["verificationStatus"] = "official-product-verified"
         break
     # CAT-30-3, pages 7 and 51: chipbreaker-specific application and depth.
