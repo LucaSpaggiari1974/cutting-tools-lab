@@ -12,14 +12,14 @@ It validates:
 - online version/timestamp/item counts against the checked-out commit
 - public application availability
 """
-import json, os, subprocess, sys, time
+import gzip, json, os, subprocess, sys, time
 from collections import Counter
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUBLIC=os.environ.get("PUBLIC_BASE_URL","https://cutting-tools-lab.spaggiari.workers.dev").rstrip("/")
-CATALOG=os.path.join(ROOT,"catalog.json")
+CATALOG=os.path.join(ROOT,"catalog.json.gz")
 TOOLS=os.path.join(ROOT,"complete-tools.json")
 REPORT=os.path.join(ROOT,"architect-guardian-report.json")
 
@@ -29,7 +29,8 @@ ALLOWED=[
 ]
 
 def load(path):
-    with open(path,encoding="utf-8") as f: return json.load(f)
+    opener = gzip.open if path.endswith(".gz") else open
+    with opener(path, "rt", encoding="utf-8") as f: return json.load(f)
 
 def online_json(url, retries=6):
     last=""
@@ -47,7 +48,8 @@ def online_json(url, retries=6):
 def git_previous_count(path):
     rel=os.path.relpath(path,ROOT)
     try:
-        raw=subprocess.check_output(["git","show",f"HEAD^:{rel}"],stderr=subprocess.DEVNULL,text=True)
+        raw=subprocess.check_output(["git","show",f"HEAD^:{rel}"],stderr=subprocess.DEVNULL)
+        if path.endswith(".gz"): raw=gzip.decompress(raw)
         return len(json.loads(raw).get("items",[]))
     except Exception:
         return None
