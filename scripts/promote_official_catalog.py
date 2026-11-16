@@ -317,6 +317,40 @@ def normalize_ingersoll_insert(row):
     }:
         row["category"] = "Tornitura · Impiego da verificare"
         row["application"] = "Tornitura · Impiego da verificare"
+    # Exact MT order variants; grade-specific VC from OPG-007-1 (2025).
+    mt_grades = {
+        "TT8105B": (6212536, "P01–P15", [(1015,1900),(885,1740),(755,1605),(820,1640),(690,1540),(755,1805),(590,1080),(525,985),(490,920),(690,1380),(330,655)]),
+        "TT8115B": (6212574, "P05–P20", [(920,1740),(785,1575),(655,1445),(720,1475),(590,1380),(655,1640),(490,920),(425,820),(395,755),(625,1245),(295,590)]),
+        "TT8125B": (6213016, "P15–P30", [(755,1575),(655,1380),(525,1245),(625,1310),(490,1150),(560,1310),(460,820),(395,755),(360,655),(460,920),(230,425)]),
+    }
+    for grade, (edp, iso_range, speeds) in mt_grades.items():
+        if code != norm("CNMG160612MT " + grade):
+            continue
+        product = "https://www.ingersoll-imc.com/product/" + str(edp)
+        guide = "https://ssl.ingersoll-imc.com/resources/pdf/opg-007-1_iso-turning.pdf"
+        grade_source = "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades"
+        row.update(category="Tornitura · Media", application="Tornitura media", grade=grade,
+                   material="Acciai (ISO " + iso_range + ")", geom="Rombo 80° · R1,2",
+                   f="0,229–0,559", ap="2,007–6,502")
+        row["familyConditions"] = [
+            {"material": "Acciai · gruppo VDI 3323 " + str(i),
+             "operation": "Tornitura ISO · grado " + grade,
+             "vc": (f"{lo * .3048:.1f}–{hi * .3048:.1f}").replace(".", ","),
+             "fn": "", "ap": ""}
+            for i, (lo, hi) in enumerate(speeds, 1)
+        ]
+        row["familyConditionsSource"] = guide
+        row["familyConditionsNote"] = "VC in m/min per grado e gruppo VDI 3323; identificare il gruppo esatto nella guida. FN e AP della scheda articolo sono intervalli geometrici, non condizioni simultanee garantite."
+        row.setdefault("parameterSources", {}).update({
+            "f": {"url": product, "unit": "mm/giro"},
+            "ap": {"url": product, "unit": "mm"},
+            "geom": {"url": product},
+            "grade": {"url": product},
+            "material": {"url": grade_source}
+        })
+        row["parameterStatus"] = "official-item-feed-depth-and-grade-speed-verified"
+        row["verificationStatus"] = "official-product-verified"
+        break
     # CAT-30-3, pages 7 and 51: chipbreaker-specific application and depth.
     # These values do not determine the workpiece material or CBN grade.
     if str(row.get("sourceOfficial", "")).endswith("/cat-30-3-cbn-inserts-catalog.pdf"):
