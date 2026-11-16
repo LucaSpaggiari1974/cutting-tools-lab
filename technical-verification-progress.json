@@ -1,0 +1,71 @@
+{
+  "updatedAt": "2026-11-16",
+  "status": "in-progress",
+  "manufacturer": "Ingersoll",
+  "batchTarget": 50,
+  "verifiedSourceRecords": [
+    {
+      "code": "SPGX060204WG",
+      "grade": "IN2505",
+      "source": "https://ssl.ingersoll-imc.com/resources/pdf/NEW-221-5_Gold-Twin.pdf",
+      "pages": [
+        2,
+        5,
+        6,
+        7
+      ],
+      "status": "code-grade-geometry-and-system-conditions-verified",
+      "ap": "not-applicable-to-drilling",
+      "publication": "not-verified"
+    },
+    {
+      "code": "SPGX07T308WG",
+      "grade": "IN2505",
+      "source": "https://ssl.ingersoll-imc.com/resources/pdf/NEW-221-5_Gold-Twin.pdf",
+      "pages": [
+        2,
+        5,
+        6,
+        7
+      ],
+      "status": "code-grade-geometry-and-system-conditions-verified",
+      "ap": "not-applicable-to-drilling",
+      "publication": "not-verified"
+    },
+    {
+      "code": "SPGX090408WG",
+      "grade": "IN2505",
+      "source": "https://ssl.ingersoll-imc.com/resources/pdf/NEW-221-5_Gold-Twin.pdf",
+      "pages": [
+        2,
+        5,
+        6,
+        7
+      ],
+      "status": "code-grade-geometry-and-system-conditions-verified",
+      "ap": "not-applicable-to-drilling",
+      "publication": "not-verified"
+    },
+    {
+      "code": "SPGX110408WG",
+      "grade": "IN2505",
+      "source": "https://ssl.ingersoll-imc.com/resources/pdf/NEW-221-5_Gold-Twin.pdf",
+      "pages": [
+        2,
+        5,
+        6,
+        7
+      ],
+      "status": "code-grade-geometry-and-system-conditions-verified",
+      "ap": "not-applicable-to-drilling",
+      "publication": "not-verified"
+    }
+  ],
+  "commits": [
+    "95b8134aff7581fd5dc907046c08380baca99dbb",
+    "c00ca874630c40676826bd5eb34dc135253251c1"
+  ],
+  "next": "Verificare rigenerazione e presenza dei quattro codici nel catalogo pubblicato; continuare con altri codici Ingersoll. Non contare come verificati codici solo estratti o condizioni generiche PCD.",
+  "regressionTests": "pending",
+  "publication": "pending"
+}
