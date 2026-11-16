@@ -38,13 +38,49 @@
       "source": "https://ssl.ingersoll-imc.com/resources/pdf/NEW-221-5_Gold-Twin.pdf",
       "pages": [
         2,
+        3,
+        4,
         5,
         6,
         7
       ],
       "status": "code-grade-geometry-and-system-conditions-verified",
       "ap": "not-applicable-to-drilling",
-      "publication": "not-verified"
+      "publication": "not-verified",
+      "caseStudies": [
+        {
+          "source": "https://ssl.ingersoll-imc.com/resources/pdf/NEW-221-5_Gold-Twin.pdf#page=3",
+          "material": "SAE 4340",
+          "body": "CD3300165N6R01",
+          "head": "TPA1690R01-C",
+          "diameterMm": 33,
+          "vcMMin": [
+            116.738,
+            139.903,
+            159.715
+          ],
+          "fnMmRev": [
+            0.2032,
+            0.254,
+            0.3048
+          ],
+          "holeDepthMm": 152.4,
+          "coolantPsi": 145,
+          "scope": "Prova sperimentale del sistema, non raccomandazione universale; profondità foro non AP."
+        },
+        {
+          "source": "https://ssl.ingersoll-imc.com/resources/pdf/NEW-221-5_Gold-Twin.pdf#page=4",
+          "material": "AISI 4140",
+          "body": "CD3300165N6R01",
+          "head": "TPA1690R01-C",
+          "diameterMm": 33,
+          "vcMMin": 139.9032,
+          "fnMmRev": 0.254,
+          "holeDepthMm": 152.4,
+          "coolantPsi": 145,
+          "scope": "Prova durata utensile del sistema, non raccomandazione universale."
+        }
+      ]
     },
     {
       "code": "SPGX110408WG",
@@ -65,7 +101,7 @@
     "95b8134aff7581fd5dc907046c08380baca99dbb",
     "c00ca874630c40676826bd5eb34dc135253251c1"
   ],
-  "next": "Verificare rigenerazione e presenza dei quattro codici nel catalogo pubblicato; continuare con altri codici Ingersoll. Non contare come verificati codici solo estratti o condizioni generiche PCD.",
+  "next": "Verificare rigenerazione e presenza dei quattro codici nel catalogo pubblicato; continuare con altri codici Ingersoll. Casi applicativi SPGX090408WG documentati separatamente dalle raccomandazioni; non contare come nuovi codici.",
   "regressionTests": "pending",
   "publication": "pending"
 }
