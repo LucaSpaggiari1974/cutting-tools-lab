@@ -272,9 +272,20 @@
     "30b531ffb036d63b356ebc3f07aceadadbf5f45c",
     "098f9902201f5afb35038a90e9d9cf0773050da7",
     "0776c60e81df9a6a5a9de33f46d00ea0d9a4c1a1",
-    "a0c84caacd4d26958a45176d59a53cb21291ba20"
+    "a0c84caacd4d26958a45176d59a53cb21291ba20",
+    "7a0129430737cede467b559196522769b36a82df",
+    "ff206275348038442f3494bb61152558a424e05b"
   ],
   "next": "13 record verificati alla fonte; verificare rigenerazione, regressioni e pubblicazione; proseguire con altri codici Ingersoll fino a 50.",
-  "regressionTests": "pending",
-  "publication": "pending"
+  "regressionTests": "pending-after-fix",
+  "publication": "pending-after-fix",
+  "infrastructureFindings": [
+    {
+      "date": "2026-11-16",
+      "run": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/43949972496",
+      "finding": "Guardian confrontava il seed JSON (63 record) con il catalogo generato online (1217). Il deploy su push ricomprimeva il seed, rischiando di sovrascrivere il catalogo generato.",
+      "fix": "Deploy usa gzip versionato; Guardian legge gzip corrente e precedente. Verificare esecuzioni successive e contenuto online.",
+      "status": "fix-committed-not-yet-verified"
+    }
+  ]
 }
