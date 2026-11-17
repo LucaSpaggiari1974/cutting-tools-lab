@@ -274,7 +274,8 @@
     "0776c60e81df9a6a5a9de33f46d00ea0d9a4c1a1",
     "a0c84caacd4d26958a45176d59a53cb21291ba20",
     "7a0129430737cede467b559196522769b36a82df",
-    "ff206275348038442f3494bb61152558a424e05b"
+    "ff206275348038442f3494bb61152558a424e05b",
+    "2ec201ecb4d1655a42463964ec4a4b431f6418dc"
   ],
   "next": "13 record verificati alla fonte; proseguire con altri codici Ingersoll fino a 50; risolvere classificazione dei 870 record senza attribuzioni arbitrarie e verificare Windows.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
@@ -293,6 +294,12 @@
       "deployRun": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/43951967408",
       "finding": "Deploy Cloudflare riuscito; Guardian 22:30 UTC conferma 1217 inserti online e GitHub, nessun duplicato, 470 utensili completi, homepage raggiungibile. Unico errore: 870 record Tornitura · Impiego da verificare. Non riclassificare senza fonte.",
       "status": "publication-count-verified-category-regression-open"
+    },
+    {
+      "date": "2026-11-17",
+      "finding": "Le varianti MT moderne potevano conservare una VC specifica preesistente non verificata nonostante la guida fornisse soltanto VC per grado.",
+      "fix": "Azzeramento esplicito della VC articolo e della relativa provenienza per tutte le nove varianti MT verificate; condizioni per grado conservate.",
+      "status": "fix-committed-tests-pending"
     }
   ]
 }
