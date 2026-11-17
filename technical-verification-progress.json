@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-17",
+  "updatedAt": "2026-11-18",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -511,6 +511,25 @@
           }
         ],
         "scope": "Combinazioni dalla colonna Part Number; FN/AP geometrici convertiti da pollici. Materiale, VC per grado e presenza nel catalogo da verificare; non conteggiate come complete."
+      },
+      "CNMG160608MT": {
+        "source": "https://www.ingersoll-imc.com/product?ecatProductId=38765",
+        "fnMmRev": [
+          0.2032,
+          0.5588
+        ],
+        "apMm": [
+          2.0066,
+          6.5024
+        ],
+        "application": "Tornitura media",
+        "variants": [
+          {
+            "grade": "TT8125B",
+            "edp": "6212684"
+          }
+        ],
+        "scope": "Combinazione codice-grado ufficiale; FN/AP convertiti da pollici. Presenza nel catalogo, materiale e VC da verificare; non conteggiata come completa."
       }
     }
   }
