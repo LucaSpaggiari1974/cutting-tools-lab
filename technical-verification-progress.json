@@ -452,6 +452,65 @@
           }
         ],
         "scope": "Codici ISO e gradi dalla colonna Part Number; FN/AP geometrici convertiti da pollici. Materiale, VC per grado e presenza nel catalogo da verificare; non conteggiati come completi."
+      },
+      "CNMG120412MT": {
+        "source": "https://www.ingersoll-imc.com/product?ecatProductId=38764",
+        "fnMmRev": [
+          0.2032,
+          0.5588
+        ],
+        "apMm": [
+          1.4986,
+          5.0038
+        ],
+        "application": "Tornitura media",
+        "variants": [
+          {
+            "grade": "TT5100",
+            "edp": "5514886"
+          },
+          {
+            "grade": "TT8020",
+            "edp": "5515532"
+          },
+          {
+            "grade": "TT7100",
+            "edp": "5517269"
+          },
+          {
+            "grade": "TT9215",
+            "edp": "5520476"
+          },
+          {
+            "grade": "TT9225",
+            "edp": "5520543"
+          },
+          {
+            "grade": "TT9235",
+            "edp": "5520613"
+          },
+          {
+            "grade": "TT5080",
+            "edp": "5523008"
+          },
+          {
+            "grade": "TT7015",
+            "edp": "5523617"
+          },
+          {
+            "grade": "TT8115B",
+            "edp": "6213087"
+          },
+          {
+            "grade": "TT8125B",
+            "edp": "6212922"
+          },
+          {
+            "grade": "TT8105B",
+            "edp": "6212323"
+          }
+        ],
+        "scope": "Combinazioni dalla colonna Part Number; FN/AP geometrici convertiti da pollici. Materiale, VC per grado e presenza nel catalogo da verificare; non conteggiate come complete."
       }
     }
   }
