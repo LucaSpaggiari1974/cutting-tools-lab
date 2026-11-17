@@ -317,6 +317,63 @@
       "CNMG190616MT"
     ],
     "scope": "Geometria, impiego medio, FN e AP verificati per codice ISO senza grado. Applicazione solo a record esistenti con codice esatto; presenza nel catalogo generato, grado, materiale e VC da verificare. Non conteggiati nei 13 record completi.",
-    "status": "import-rule-committed-tests-pending"
+    "status": "import-rule-committed-tests-pending",
+    "gradeAvailability": {
+      "CNMG120404MT": {
+        "source": "https://www.ingersoll-imc.com/product?ecatProductId=38761",
+        "fnMmRev": [
+          0.1524,
+          0.4064
+        ],
+        "apMm": [
+          0.9906,
+          5.0038
+        ],
+        "application": "Tornitura media",
+        "variants": [
+          {
+            "grade": "TT5100",
+            "edp": "5514822"
+          },
+          {
+            "grade": "TT8020",
+            "edp": "5515731"
+          },
+          {
+            "grade": "TT5080",
+            "edp": "5523051"
+          },
+          {
+            "grade": "TT7015",
+            "edp": "5523646"
+          },
+          {
+            "grade": "TT7005",
+            "edp": "5523663"
+          },
+          {
+            "grade": "CT3000",
+            "edp": "5740043"
+          },
+          {
+            "grade": "TT7025",
+            "edp": "6304186"
+          },
+          {
+            "grade": "TT8115B",
+            "edp": "6213105"
+          },
+          {
+            "grade": "TT8125B",
+            "edp": "6212426"
+          },
+          {
+            "grade": "TT8105B",
+            "edp": "6240985"
+          }
+        ],
+        "scope": "Combinazioni codice-grado confermate nella scheda ufficiale; FN/AP della geometria, VC e materiale da incrociare con guida grado e presenza nel catalogo esistente. Non conteggiate come complete."
+      }
+    }
   }
 }
