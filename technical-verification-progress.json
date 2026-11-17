@@ -373,6 +373,85 @@
           }
         ],
         "scope": "Combinazioni codice-grado confermate nella scheda ufficiale; FN/AP della geometria, VC e materiale da incrociare con guida grado e presenza nel catalogo esistente. Non conteggiate come complete."
+      },
+      "CNMG120408MT": {
+        "source": "https://www.ingersoll-imc.com/product?ecatProductId=38762",
+        "fnMmRev": [
+          0.1778,
+          0.5588
+        ],
+        "apMm": [
+          1.1938,
+          5.0038
+        ],
+        "application": "Tornitura media",
+        "variants": [
+          {
+            "grade": "TT8020",
+            "edp": "5514708"
+          },
+          {
+            "grade": "TT5100",
+            "edp": "5514742"
+          },
+          {
+            "grade": "TT7100",
+            "edp": "5516534"
+          },
+          {
+            "grade": "PV3010",
+            "edp": "5516743"
+          },
+          {
+            "grade": "TT9225",
+            "edp": "5519912"
+          },
+          {
+            "grade": "TT9215",
+            "edp": "5520431"
+          },
+          {
+            "grade": "TT9235",
+            "edp": "5520609"
+          },
+          {
+            "grade": "TT5080",
+            "edp": "5523007"
+          },
+          {
+            "grade": "TT7015",
+            "edp": "5523575"
+          },
+          {
+            "grade": "TT9080",
+            "edp": "5580420"
+          },
+          {
+            "grade": "CT3000",
+            "edp": "5780187"
+          },
+          {
+            "grade": "TT7025",
+            "edp": "6189110"
+          },
+          {
+            "grade": "TT8105B",
+            "edp": "6212319"
+          },
+          {
+            "grade": "TT8115B",
+            "edp": "6213082"
+          },
+          {
+            "grade": "TT8125B",
+            "edp": "6212912"
+          },
+          {
+            "grade": "TT8135B",
+            "edp": "6213088"
+          }
+        ],
+        "scope": "Codici ISO e gradi dalla colonna Part Number; FN/AP geometrici convertiti da pollici. Materiale, VC per grado e presenza nel catalogo da verificare; non conteggiati come completi."
       }
     }
   }
