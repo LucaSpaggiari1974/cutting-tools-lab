@@ -348,6 +348,9 @@ def normalize_ingersoll_insert(row):
             "grade": {"url": product},
             "material": {"url": grade_source}
         })
+        # Grade-level VC is not an item-specific recommendation.
+        row["vc"] = "—"
+        row.setdefault("parameterSources", {}).pop("vc", None)
         row["parameterStatus"] = "official-item-feed-depth-and-grade-speed-verified"
         row["verificationStatus"] = "official-product-verified"
         break
@@ -384,6 +387,9 @@ def normalize_ingersoll_insert(row):
             "grade": {"url": product},
             "material": {"url": guide}
         })
+        # Grade-level VC is not an item-specific recommendation.
+        row["vc"] = "—"
+        row.setdefault("parameterSources", {}).pop("vc", None)
         row["parameterStatus"] = "official-item-feed-depth-and-grade-speed-verified"
         row["verificationStatus"] = "official-product-verified"
         break
@@ -415,6 +421,9 @@ def normalize_ingersoll_insert(row):
             "geom": {"url": product}, "grade": {"url": product},
             "material": {"url": grade_source}
         })
+        # Grade-level VC is not an item-specific recommendation.
+        row["vc"] = "—"
+        row.setdefault("parameterSources", {}).pop("vc", None)
         row["parameterStatus"] = "official-item-feed-depth-and-grade-speed-verified"
         row["verificationStatus"] = "official-product-verified"
         break
