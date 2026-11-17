@@ -527,9 +527,137 @@
           {
             "grade": "TT8125B",
             "edp": "6212684"
+          },
+          {
+            "grade": "TT7005",
+            "edp": "5523786"
+          },
+          {
+            "grade": "TT7015",
+            "edp": "5580742"
           }
         ],
-        "scope": "Combinazione codice-grado ufficiale; FN/AP convertiti da pollici. Presenza nel catalogo, materiale e VC da verificare; non conteggiata come completa."
+        "scope": "Combinazioni dalla tabella ufficiale indicizzata; la pagina corrente mostra solo TT8125B. TT7005 e TT7015 documentati storicamente, disponibilità corrente non confermata. FN/AP geometrici convertiti da pollici; presenza nel catalogo da verificare.",
+        "gradeConditions": {
+          "source": "https://ssl.ingersoll-imc.com/resources/pdf/opg-007-1_iso-turning.pdf",
+          "materialSource": "https://www.ingersoll-imc.com/product-lines/black-rush",
+          "scope": "VC generale per grado e gruppo VDI 3323, non specifica dell'inserto. Valori originali SFM; conversione 0,3048 m/min per SFM.",
+          "material": "Ghise",
+          "groups": [
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "TT7005": [
+            [
+              985,
+              1805
+            ],
+            [
+              985,
+              1410
+            ],
+            [
+              525,
+              1310
+            ],
+            [
+              460,
+              1150
+            ],
+            [
+              655,
+              1510
+            ],
+            [
+              590,
+              1150
+            ]
+          ],
+          "TT7015": [
+            [
+              950,
+              1475
+            ],
+            [
+              820,
+              1180
+            ],
+            [
+              490,
+              1150
+            ],
+            [
+              425,
+              985
+            ],
+            [
+              820,
+              1280
+            ],
+            [
+              655,
+              1050
+            ]
+          ],
+          "vcMMin": {
+            "TT7005": [
+              [
+                300.228,
+                550.164
+              ],
+              [
+                300.228,
+                429.768
+              ],
+              [
+                160.02,
+                399.288
+              ],
+              [
+                140.208,
+                350.52
+              ],
+              [
+                199.644,
+                460.248
+              ],
+              [
+                179.832,
+                350.52
+              ]
+            ],
+            "TT7015": [
+              [
+                289.56,
+                449.58
+              ],
+              [
+                249.936,
+                359.664
+              ],
+              [
+                149.352,
+                350.52
+              ],
+              [
+                129.54,
+                300.228
+              ],
+              [
+                249.936,
+                390.144
+              ],
+              [
+                199.644,
+                320.04
+              ]
+            ]
+          }
+        }
       }
     }
   }
