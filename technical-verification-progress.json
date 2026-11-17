@@ -275,7 +275,8 @@
     "a0c84caacd4d26958a45176d59a53cb21291ba20",
     "7a0129430737cede467b559196522769b36a82df",
     "ff206275348038442f3494bb61152558a424e05b",
-    "2ec201ecb4d1655a42463964ec4a4b431f6418dc"
+    "2ec201ecb4d1655a42463964ec4a4b431f6418dc",
+    "e57c97ff51dfadf9da0171ab82e0cced99f9d117"
   ],
   "next": "13 record verificati alla fonte; proseguire con altri codici Ingersoll fino a 50; risolvere classificazione dei 870 record senza attribuzioni arbitrarie e verificare Windows.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
@@ -301,5 +302,21 @@
       "fix": "Azzeramento esplicito della VC articolo e della relativa provenienza per tutte le nove varianti MT verificate; condizioni per grado conservate.",
       "status": "fix-committed-tests-pending"
     }
-  ]
+  ],
+  "partialFamilyVerification": {
+    "source": "https://ingersoll-imc.com/product-family/301774",
+    "codes": [
+      "CNMG120404MT",
+      "CNMG120408MT",
+      "CNMG120412MT",
+      "CNMG160608MT",
+      "CNMG160612MT",
+      "CNMG160616MT",
+      "CNMG190608MT",
+      "CNMG190612MT",
+      "CNMG190616MT"
+    ],
+    "scope": "Geometria, impiego medio, FN e AP verificati per codice ISO senza grado. Applicazione solo a record esistenti con codice esatto; presenza nel catalogo generato, grado, materiale e VC da verificare. Non conteggiati nei 13 record completi.",
+    "status": "import-rule-committed-tests-pending"
+  }
 }
