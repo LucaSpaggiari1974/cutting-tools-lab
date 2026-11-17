@@ -1,6 +1,6 @@
 {
   "version": "4.2-historical-catalog-korloy-removed",
-  "updatedAt": "2026-11-10T11:51:09.653035+00:00",
+  "updatedAt": "2026-11-17T12:32:14.070842+00:00",
   "source": "Catalogo storico ripulito: record KORLOY rimossi su richiesta. I dati rimasti richiedono verifica tecnica corrente; non equivalgono a parametri ufficiali aggiornati.",
   "scope": "Record storici mantenuti solo per continuità della consultazione. Parametri Vc, avanzamento e ap non devono essere considerati verificati senza conferma della scheda ufficiale del codice esatto.",
   "status": "historical-needs-official-verification",
@@ -119,7 +119,7 @@
       "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&f=catcover.jpg&catalogid=1248936",
       "photoSource": "manufacturer official website",
       "photoVerified": true,
-      "photoVerifiedAt": "2026-11-10T11:51:15.175536+00:00",
+      "photoVerifiedAt": "2026-11-17T12:32:19.992545+00:00",
       "photoNote": "Foto ufficiale verificata sulla pagina prodotto con corrispondenza esatta del codice.",
       "photoStatus": "available"
     },
@@ -391,7 +391,7 @@
       "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&f=catcover.jpg&catalogid=1248927",
       "photoSource": "manufacturer official website",
       "photoVerified": true,
-      "photoVerifiedAt": "2026-11-10T11:51:29.044057+00:00",
+      "photoVerifiedAt": "2026-11-17T12:32:35.294200+00:00",
       "photoNote": "Foto ufficiale verificata sulla pagina prodotto con corrispondenza esatta del codice.",
       "photoStatus": "available"
     },
@@ -412,7 +412,7 @@
       "photoUrl": "https://epublications.sandvik.coromant.com/frontend/\\/frontend/getwebdata.do?path=img&f=catcover.jpg&catalogid=1248927",
       "photoSource": "manufacturer official website",
       "photoVerified": true,
-      "photoVerifiedAt": "2026-11-10T11:51:30.451240+00:00",
+      "photoVerifiedAt": "2026-11-17T12:32:38.243294+00:00",
       "photoNote": "Foto ufficiale verificata sulla pagina prodotto con corrispondenza esatta del codice.",
       "photoStatus": "available"
     },
@@ -895,7 +895,8 @@
       "parameterStatus": "official-partial",
       "verificationStatus": "official-product-table",
       "cuttingConditions": "Fn in mm/giro e Ap in mm, convertiti dalla scheda della geometria esatta; Vc e materiale da verificare per qualità.",
-      "photoStatus": "unavailable"
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Ingersoll",
@@ -913,7 +914,8 @@
       "parameterStatus": "official-partial",
       "verificationStatus": "official-product-table",
       "cuttingConditions": "Fn in mm/giro e Ap in mm, convertiti dalla scheda della geometria esatta; Vc e materiale da verificare per qualità.",
-      "photoStatus": "unavailable"
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Ingersoll",
@@ -931,7 +933,8 @@
       "parameterStatus": "official-partial",
       "verificationStatus": "official-product-table",
       "cuttingConditions": "Fn in mm/giro e Ap in mm, convertiti dalla scheda della geometria esatta; Vc e materiale da verificare per qualità.",
-      "photoStatus": "unavailable"
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Ingersoll",
@@ -949,7 +952,8 @@
       "parameterStatus": "official-partial",
       "verificationStatus": "official-product-table",
       "cuttingConditions": "Fn in mm/giro e Ap in mm, convertiti dalla scheda della geometria esatta; Vc e materiale da verificare per qualità.",
-      "photoStatus": "unavailable"
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Ingersoll",
@@ -967,7 +971,8 @@
       "parameterStatus": "official-partial",
       "verificationStatus": "official-product-table",
       "cuttingConditions": "Fn in mm/giro e Ap in mm, convertiti dalla scheda della geometria esatta; Vc e materiale da verificare per qualità.",
-      "photoStatus": "unavailable"
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Ingersoll",
@@ -985,7 +990,8 @@
       "parameterStatus": "official-partial",
       "verificationStatus": "official-product-table",
       "cuttingConditions": "Fn in mm/giro e Ap in mm, convertiti dalla scheda della geometria esatta; Vc e materiale da verificare per qualità.",
-      "photoStatus": "unavailable"
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Ingersoll",
@@ -1003,7 +1009,8 @@
       "parameterStatus": "official-partial",
       "verificationStatus": "official-product-table",
       "cuttingConditions": "Fn in mm/giro e Ap in mm, convertiti dalla scheda della geometria esatta; Vc e materiale da verificare per qualità.",
-      "photoStatus": "unavailable"
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Ingersoll",
@@ -1021,7 +1028,8 @@
       "parameterStatus": "official-partial",
       "verificationStatus": "official-product-table",
       "cuttingConditions": "Fn in mm/giro e Ap in mm, convertiti dalla scheda della geometria esatta; Vc e materiale da verificare per qualità.",
-      "photoStatus": "unavailable"
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
       "maker": "Ingersoll",
@@ -1039,12 +1047,13 @@
       "parameterStatus": "official-partial",
       "verificationStatus": "official-product-table",
       "cuttingConditions": "Fn in mm/giro e Ap in mm, convertiti dalla scheda della geometria esatta; Vc e materiale da verificare per qualità.",
-      "photoStatus": "unavailable"
+      "photoStatus": "unavailable",
+      "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     }
   ],
   "photoPolicy": {
     "mode": "manufacturer-exact-preferred-reference-allowed",
     "rule": "Preferire foto ufficiali del produttore collegate al codice esatto; se non verificabili, preservare una foto reale di riferimento esplicitamente marcata come tale.",
-    "lastRun": "2026-11-10T11:51:09.653035+00:00"
+    "lastRun": "2026-11-17T12:32:14.070842+00:00"
   }
 }
