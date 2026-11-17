@@ -317,6 +317,34 @@ def normalize_ingersoll_insert(row):
     }:
         row["category"] = "Tornitura · Impiego da verificare"
         row["application"] = "Tornitura · Impiego da verificare"
+    # Official CNMG MT family table: dimensions and feed/depth by exact ISO
+    # geometry, not evidence of a grade or a grade-specific order code.
+    mt_family = {
+        "CNMG120404MT": (0.4, .006, .016, .039, .197),
+        "CNMG120408MT": (0.8, .007, .022, .047, .197),
+        "CNMG120412MT": (1.2, .008, .022, .059, .197),
+        "CNMG160608MT": (0.8, .008, .022, .079, .256),
+        "CNMG160612MT": (1.2, .009, .022, .079, .256),
+        "CNMG160616MT": (1.6, .012, .022, .079, .256),
+        "CNMG190608MT": (0.8, .009, .022, .118, .315),
+        "CNMG190612MT": (1.2, .010, .022, .118, .315),
+        "CNMG190616MT": (1.6, .012, .022, .118, .315),
+    }
+    if code in mt_family:
+        radius, flo, fhi, alo, ahi = mt_family[code]
+        source = "https://ingersoll-imc.com/product-family/301774"
+        def mt_range(lo, hi):
+            return f"{lo * 25.4:.3f}–{hi * 25.4:.3f}".replace(".", ",")
+        row.update(category="Tornitura · Media", application="Tornitura media",
+                   geom="Rombo 80° · R" + str(radius).replace(".", ","),
+                   f=mt_range(flo, fhi), ap=mt_range(alo, ahi), vc="—")
+        sources = row.setdefault("parameterSources", {})
+        sources.pop("vc", None)
+        sources.update({field: {"url": source, **({"unit": unit} if unit else {})}
+                        for field, unit in (("f", "mm/giro"), ("ap", "mm"),
+                                            ("geom", None), ("application", None))})
+        row["parameterStatus"] = "official-geometry-feed-depth-verified-grade-pending"
+        row["familyConditionsNote"] = "Limiti FN e AP della geometria MT; grado, materiale e VC da verificare separatamente."
     # Exact MT order variants; grade-specific VC from OPG-007-1 (2025).
     mt_grades = {
         "TT8105B": (6212536, "P01–P15", [(1015,1900),(885,1740),(755,1605),(820,1640),(690,1540),(755,1805),(590,1080),(525,985),(490,920),(690,1380),(330,655)]),
