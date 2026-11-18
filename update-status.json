@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-18T06:30:59Z",
+  "updatedAt": "2026-11-18T13:04:14Z",
   "run": "daily",
   "changed": true,
   "catalogItems": 1217,
@@ -35,16 +35,11 @@
   "removedDetails": [],
   "photosUpdated": 0,
   "sourcesChecked": 8,
-  "sourcesReachable": 7,
-  "sourcesFailed": 1,
+  "sourcesReachable": 8,
+  "sourcesFailed": 0,
   "newProducts": 0,
   "autoIndexing": "disabled-by-policy",
   "note": "Il job non aggiunge mai automaticamente Product JSON-LD non classificati: nuovi codici devono essere verificati come inserti da fonte ufficiale prima dell'indicizzazione.",
   "backup": "backups/catalog-latest.json",
-  "errors": [
-    {
-      "maker": "Ingersoll Cutting Tools",
-      "error": "The read operation timed out"
-    }
-  ]
+  "errors": []
 }
