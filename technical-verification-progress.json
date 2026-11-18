@@ -277,9 +277,10 @@
     "ff206275348038442f3494bb61152558a424e05b",
     "2ec201ecb4d1655a42463964ec4a4b431f6418dc",
     "e57c97ff51dfadf9da0171ab82e0cced99f9d117",
-    "78ded90bb0305d0d9a022c19269163104fb3dec9"
+    "78ded90bb0305d0d9a022c19269163104fb3dec9",
+    "81dead700440a8ed535f92c0151a5d64c72ba82d"
   ],
-  "next": "13 record verificati alla fonte; proseguire con altri codici Ingersoll fino a 50; risolvere classificazione dei 870 record senza attribuzioni arbitrarie e verificare Windows.",
+  "next": "Verificare presenza delle 23 combinazioni esatte nel catalogo generato, test e pubblicazione; proseguire Ingersoll fino a 50 record completi. 13 verifiche alla fonte già conteggiate; non incrementare senza riscontro.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -689,7 +690,7 @@
       }
     },
     "exactGradeImport": {
-      "count": 20,
+      "count": 23,
       "status": "rule-committed-catalog-presence-and-tests-pending",
       "scope": "Incrocio esatto delle varianti EDP già documentate con le guide ufficiali dei sette gradi già verificati. VC generale separata; nessun nuovo record creato.",
       "orders": {
@@ -772,6 +773,18 @@
         "CNMG160608MTTT8125B": [
           "CNMG160608MT",
           6212684
+        ],
+        "CNMG160616MTTT5100": [
+          "CNMG160616MT",
+          5515841
+        ],
+        "CNMG160616MTTT8125B": [
+          "CNMG160616MT",
+          6212778
+        ],
+        "CNMG160616MTTT8115B": [
+          "CNMG160616MT",
+          6236556
         ]
       }
     }
