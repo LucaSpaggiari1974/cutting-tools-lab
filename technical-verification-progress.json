@@ -748,5 +748,25 @@
         ]
       }
     }
+  },
+  "publicationValidation": {
+    "checkedAt": "2026-11-18T02:41:18Z",
+    "importCommit": "78ded90bb0305d0d9a022c19269163104fb3dec9",
+    "dailyRun": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44224138600",
+    "dailyResult": "success: promozione, verifica parametri pubblicabili, pubblicazione Cloudflare e verifica Windows",
+    "deployRun": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44224142909",
+    "deployResult": "success",
+    "guardianRun": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44224216769",
+    "guardianResult": "failure: controllo architetturale indipendente",
+    "catalogItems": 1217,
+    "coverage": {
+      "vc": 40,
+      "f_or_fz": 50,
+      "ap": 110,
+      "material": 65
+    },
+    "promotionDuplicates": 0,
+    "exactOrderPresence": "non verificata: catalog.json storico non rappresenta asset gzip generato",
+    "completion": false
   }
 }
