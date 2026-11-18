@@ -22,9 +22,9 @@
       "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto."
     },
     {
-      "category": "Tornitura · Finitura",
+      "category": "Tornitura · Media",
       "code": "VNMG332MT TT5080",
-      "geom": "Rombo 35° · R0,787",
+      "geom": "Rombo negativo 35° · rompitruciolo MT · R0,787",
       "material": "—",
       "vc": "—",
       "f": "0,178–0,356",
@@ -33,7 +33,7 @@
       "productUrl": "https://www.ingersoll-imc.com/product?ecatProductId=39560",
       "parameterStatus": "official-partial",
       "verificationStatus": "historical-source-seed",
-      "sourceNote": "Record recuperato da una versione storica del catalogo. Parametri da verificare sul catalogo ufficiale aggiornato prima dell'uso produttivo.",
+      "sourceNote": "Codice ANSI VNMG332MT TT5080, ISO VNMG160408MT TT5080, EDP 5523013; impiego medio e Fn/Ap verificati nella scheda ufficiale. Vc e materiale specifici non confermati.",
       "photoStatus": "unavailable",
       "photoNote": "Anteprima non disponibile: nessuna foto ufficiale verificata per il codice esatto.",
       "application": "Tornitura · Media",
