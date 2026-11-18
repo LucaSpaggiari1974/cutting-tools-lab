@@ -345,6 +345,7 @@ def normalize_ingersoll_insert(row):
                                             ("geom", None), ("application", None))})
         row["parameterStatus"] = "official-geometry-feed-depth-verified-grade-pending"
         row["familyConditionsNote"] = "Limiti FN e AP della geometria MT; grado, materiale e VC da verificare separatamente."
+    mt_verified_orders = {"CNMG120404MTTT5100":["CNMG120404MT",5514822],"CNMG120404MTTT8020":["CNMG120404MT",5515731],"CNMG120404MTTT5080":["CNMG120404MT",5523051],"CNMG120404MTTT8115B":["CNMG120404MT",6213105],"CNMG120404MTTT8125B":["CNMG120404MT",6212426],"CNMG120404MTTT8105B":["CNMG120404MT",6240985],"CNMG120408MTTT8020":["CNMG120408MT",5514708],"CNMG120408MTTT5100":["CNMG120408MT",5514742],"CNMG120408MTTT5080":["CNMG120408MT",5523007],"CNMG120408MTTT9080":["CNMG120408MT",5580420],"CNMG120408MTTT8105B":["CNMG120408MT",6212319],"CNMG120408MTTT8115B":["CNMG120408MT",6213082],"CNMG120408MTTT8125B":["CNMG120408MT",6212912],"CNMG120412MTTT5100":["CNMG120412MT",5514886],"CNMG120412MTTT8020":["CNMG120412MT",5515532],"CNMG120412MTTT5080":["CNMG120412MT",5523008],"CNMG120412MTTT8115B":["CNMG120412MT",6213087],"CNMG120412MTTT8125B":["CNMG120412MT",6212922],"CNMG120412MTTT8105B":["CNMG120412MT",6212323],"CNMG160608MTTT8125B":["CNMG160608MT",6212684]}
     # Exact MT order variants; grade-specific VC from OPG-007-1 (2025).
     mt_grades = {
         "TT8105B": (6212536, "P01–P15", [(1015,1900),(885,1740),(755,1605),(820,1640),(690,1540),(755,1805),(590,1080),(525,985),(490,920),(690,1380),(330,655)]),
@@ -352,14 +353,22 @@ def normalize_ingersoll_insert(row):
         "TT8125B": (6213016, "P15–P30", [(755,1575),(655,1380),(525,1245),(625,1310),(490,1150),(560,1310),(460,820),(395,755),(360,655),(460,920),(230,425)]),
     }
     for grade, (edp, iso_range, speeds) in mt_grades.items():
-        if code != norm("CNMG160612MT " + grade):
+        order = mt_verified_orders.get(code)
+        if code == norm("CNMG160612MT " + grade):
+            geometry = "CNMG160612MT"
+        elif order and code == norm(order[0] + grade):
+            geometry, edp = order
+        else:
             continue
+        radius, flo, fhi, alo, ahi = mt_family[geometry]
+        def item_range(lo, hi):
+            return f"{lo * 25.4:.3f}–{hi * 25.4:.3f}".replace(".", ",")
         product = "https://www.ingersoll-imc.com/product/" + str(edp)
         guide = "https://ssl.ingersoll-imc.com/resources/pdf/opg-007-1_iso-turning.pdf"
         grade_source = "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades"
         row.update(category="Tornitura · Media", application="Tornitura media", grade=grade,
-                   material="Acciai (ISO " + iso_range + ")", geom="Rombo 80° · R1,2",
-                   f="0,229–0,559", ap="2,007–6,502")
+                   material="Acciai (ISO " + iso_range + ")", geom="Rombo 80° · R" + str(radius).replace(".", ","),
+                   f=item_range(flo, fhi), ap=item_range(alo, ahi))
         row["familyConditions"] = [
             {"material": "Acciai · gruppo VDI 3323 " + str(i),
              "operation": "Tornitura ISO · grado " + grade,
@@ -390,15 +399,23 @@ def normalize_ingersoll_insert(row):
         "TT9080": (6100877, [[12,395,950],[13,395,885],[14,295,785],[31,130,525],[32,100,425],[33,115,260],[34,100,230],[35,100,195],[36,295,590],[37,130,260]]),
     }
     for grade, (edp, speeds) in mt_additional.items():
-        if code != norm("CNMG160612MT " + grade):
+        order = mt_verified_orders.get(code)
+        if code == norm("CNMG160612MT " + grade):
+            geometry = "CNMG160612MT"
+        elif order and code == norm(order[0] + grade):
+            geometry, edp = order
+        else:
             continue
+        radius, flo, fhi, alo, ahi = mt_family[geometry]
+        def item_range(lo, hi):
+            return f"{lo * 25.4:.3f}–{hi * 25.4:.3f}".replace(".", ",")
         product = "https://www.ingersoll-imc.com/product/" + str(edp)
         guide = "https://ssl.ingersoll-imc.com/resources/pdf/opg-007-1_iso-turning.pdf"
         def mt_material(i):
             return "Acciai" if i <= 11 else "Inossidabili" if i <= 14 else "Titanio e leghe di titanio" if i >= 36 else "Superleghe"
         row.update(category="Tornitura · Media", application="Tornitura media", grade=grade,
                    material="; ".join(dict.fromkeys(mt_material(i) for i, lo, hi in speeds)),
-                   geom="Rombo 80° · R1,2", f="0,229–0,559", ap="2,007–6,502")
+                   geom="Rombo 80° · R" + str(radius).replace(".", ","), f=item_range(flo, fhi), ap=item_range(alo, ahi))
         row["familyConditions"] = [
             {"material": mt_material(i) + " · gruppo VDI 3323 " + str(i),
              "operation": "Tornitura ISO · grado " + grade,
