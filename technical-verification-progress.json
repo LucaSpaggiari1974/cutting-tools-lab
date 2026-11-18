@@ -280,7 +280,7 @@
     "78ded90bb0305d0d9a022c19269163104fb3dec9",
     "81dead700440a8ed535f92c0151a5d64c72ba82d"
   ],
-  "next": "Verificare presenza delle 23 combinazioni esatte nel catalogo generato, test e pubblicazione; proseguire Ingersoll fino a 50 record completi. 13 verifiche alla fonte già conteggiate; non incrementare senza riscontro.",
+  "next": "Verificare codici normalizzati e presenza delle restanti 20 combinazioni nel gzip generato; CNMG160616MT non trovato letteralmente nello snapshot esaminato. Non creare record nuovi automaticamente. Proseguire Ingersoll fino a 50 verifiche complete.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -303,6 +303,12 @@
       "finding": "Le varianti MT moderne potevano conservare una VC specifica preesistente non verificata nonostante la guida fornisse soltanto VC per grado.",
       "fix": "Azzeramento esplicito della VC articolo e della relativa provenienza per tutte le nove varianti MT verificate; condizioni per grado conservate.",
       "status": "fix-committed-tests-pending"
+    },
+    {
+      "date": "2026-11-18",
+      "catalogBlob": "f040728346ca7cc6b370db4558a7de509b99b8ea",
+      "finding": "catalog.json.gz letto e decompresso direttamente dal repository; JSON valido, 3254213 byte decompressi. Nessun record items contiene la stringa CNMG160616MT: le tre regole esatte per tale codice non possono essere considerate applicate a questo snapshot. Verificare eventuali codici normalizzati e le altre 20 combinazioni prima di aggiornare il conteggio.",
+      "status": "generated-catalog-inspected-partial-match-audit"
     }
   ],
   "partialFamilyVerification": {
