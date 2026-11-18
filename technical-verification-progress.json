@@ -659,6 +659,33 @@
             ]
           }
         }
+      },
+      "CNMG160616MT": {
+        "source": "https://www.ingersoll-imc.com/product?ecatProductId=38768",
+        "fnMmRev": [
+          0.3048,
+          0.5588
+        ],
+        "apMm": [
+          2.0066,
+          6.5024
+        ],
+        "application": "Tornitura media",
+        "variants": [
+          {
+            "grade": "TT5100",
+            "edp": "5515841"
+          },
+          {
+            "grade": "TT8125B",
+            "edp": "6212778"
+          },
+          {
+            "grade": "TT8115B",
+            "edp": "6236556"
+          }
+        ],
+        "scope": "Combinazioni esatte dalla tabella ufficiale; FN/AP geometrici convertiti da pollici. Materiale e VC per grado già documentati separatamente per altri codici; presenza nel catalogo generato e importazione da verificare. Non conteggiate come complete."
       }
     },
     "exactGradeImport": {
