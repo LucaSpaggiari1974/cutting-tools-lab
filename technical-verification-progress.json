@@ -767,6 +767,21 @@
     },
     "promotionDuplicates": 0,
     "exactOrderPresence": "non verificata: catalog.json storico non rappresenta asset gzip generato",
-    "completion": false
+    "completion": false,
+    "guardianDiagnosis": {
+      "source": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44224216769/job/134533313110",
+      "error": "Categorie inserti non ammesse: Tornitura · Impiego da verificare",
+      "unclassifiedTurning": 870,
+      "checksPassed": [
+        "catalog-json-valid",
+        "complete-tools-json-valid",
+        "no-duplicate-inserts",
+        "catalog-shrink-within-safety-limit",
+        "online-catalog-matches-github",
+        "online-complete-tools-matches-github",
+        "online-homepage"
+      ],
+      "resolution": "Classificare solo con evidenza ufficiale; non disabilitare il controllo né assegnare categorie arbitrarie."
+    }
   }
 }
