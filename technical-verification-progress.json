@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-18",
+  "updatedAt": "2026-11-19",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -588,6 +588,16 @@
         }
       ],
       "finding": "Colonna TT5080: valori solo nei gruppi VDI 31–37 (superleghe e titanio); non attribuire valori P/M/K/N/H da colonne adiacenti. Applicabilità alla geometria MT e presenza nello snapshot ancora da confermare."
+    },
+    {
+      "date": "2026-11-19",
+      "status": "historical-category-corrected",
+      "code": "VNMG332MT TT5080",
+      "isoCode": "VNMG160408MT TT5080",
+      "edp": "5523013",
+      "source": "https://www.ingersoll-imc.com/product?ecatProductId=39560",
+      "commit": "f59145f1c80b1252585d85d6aa9ab32225f8e41f",
+      "finding": "Corretta categoria storica da finitura a media, geometria negativa 35° MT; confermati Fn 0,1778–0,3556 mm/giro e Ap 0,9906–2,9972 mm. Nessuna attribuzione di Vc/materiale specifici. Pubblicazione non verificata; non conteggiato come completo."
     }
   ],
   "partialFamilyVerification": {
