@@ -276,7 +276,8 @@
     "7a0129430737cede467b559196522769b36a82df",
     "ff206275348038442f3494bb61152558a424e05b",
     "2ec201ecb4d1655a42463964ec4a4b431f6418dc",
-    "e57c97ff51dfadf9da0171ab82e0cced99f9d117"
+    "e57c97ff51dfadf9da0171ab82e0cced99f9d117",
+    "78ded90bb0305d0d9a022c19269163104fb3dec9"
   ],
   "next": "13 record verificati alla fonte; proseguire con altri codici Ingersoll fino a 50; risolvere classificazione dei 870 record senza attribuzioni arbitrarie e verificare Windows.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
@@ -658,6 +659,93 @@
             ]
           }
         }
+      }
+    },
+    "exactGradeImport": {
+      "count": 20,
+      "status": "rule-committed-catalog-presence-and-tests-pending",
+      "scope": "Incrocio esatto delle varianti EDP già documentate con le guide ufficiali dei sette gradi già verificati. VC generale separata; nessun nuovo record creato.",
+      "orders": {
+        "CNMG120404MTTT5100": [
+          "CNMG120404MT",
+          5514822
+        ],
+        "CNMG120404MTTT8020": [
+          "CNMG120404MT",
+          5515731
+        ],
+        "CNMG120404MTTT5080": [
+          "CNMG120404MT",
+          5523051
+        ],
+        "CNMG120404MTTT8115B": [
+          "CNMG120404MT",
+          6213105
+        ],
+        "CNMG120404MTTT8125B": [
+          "CNMG120404MT",
+          6212426
+        ],
+        "CNMG120404MTTT8105B": [
+          "CNMG120404MT",
+          6240985
+        ],
+        "CNMG120408MTTT8020": [
+          "CNMG120408MT",
+          5514708
+        ],
+        "CNMG120408MTTT5100": [
+          "CNMG120408MT",
+          5514742
+        ],
+        "CNMG120408MTTT5080": [
+          "CNMG120408MT",
+          5523007
+        ],
+        "CNMG120408MTTT9080": [
+          "CNMG120408MT",
+          5580420
+        ],
+        "CNMG120408MTTT8105B": [
+          "CNMG120408MT",
+          6212319
+        ],
+        "CNMG120408MTTT8115B": [
+          "CNMG120408MT",
+          6213082
+        ],
+        "CNMG120408MTTT8125B": [
+          "CNMG120408MT",
+          6212912
+        ],
+        "CNMG120412MTTT5100": [
+          "CNMG120412MT",
+          5514886
+        ],
+        "CNMG120412MTTT8020": [
+          "CNMG120412MT",
+          5515532
+        ],
+        "CNMG120412MTTT5080": [
+          "CNMG120412MT",
+          5523008
+        ],
+        "CNMG120412MTTT8115B": [
+          "CNMG120412MT",
+          6213087
+        ],
+        "CNMG120412MTTT8125B": [
+          "CNMG120412MT",
+          6212922
+        ],
+        "CNMG120412MTTT8105B": [
+          "CNMG120412MT",
+          6212323
+        ],
+        "CNMG160608MTTT8125B": [
+          "CNMG160608MT",
+          6212684
+        ]
       }
     }
   }
