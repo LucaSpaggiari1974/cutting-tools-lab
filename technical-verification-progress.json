@@ -280,7 +280,7 @@
     "78ded90bb0305d0d9a022c19269163104fb3dec9",
     "81dead700440a8ed535f92c0151a5d64c72ba82d"
   ],
-  "next": "Verificare codici normalizzati e presenza delle restanti 20 combinazioni nel gzip generato; CNMG160616MT non trovato letteralmente nello snapshot esaminato. Non creare record nuovi automaticamente. Proseguire Ingersoll fino a 50 verifiche complete.",
+  "next": "Analizzare i risultati della ricerca normalizzata delle 23 regole e gli EDP; verificare identità nei campi strutturati prima di importare o creare record.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -309,6 +309,175 @@
       "catalogBlob": "f040728346ca7cc6b370db4558a7de509b99b8ea",
       "finding": "catalog.json.gz letto e decompresso direttamente dal repository; JSON valido, 3254213 byte decompressi. Nessun record items contiene la stringa CNMG160616MT: le tre regole esatte per tale codice non possono essere considerate applicate a questo snapshot. Verificare eventuali codici normalizzati e le altre 20 combinazioni prima di aggiornare il conteggio.",
       "status": "generated-catalog-inspected-partial-match-audit"
+    },
+    {
+      "date": "2026-11-18",
+      "catalogBlob": "f040728346ca7cc6b370db4558a7de509b99b8ea",
+      "status": "23-rule-normalized-audit",
+      "matches": [
+        {
+          "key": "CNMG120404MTTT5100",
+          "edp": 5514822,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120404MTTT8020",
+          "edp": 5515731,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120404MTTT5080",
+          "edp": 5523051,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120404MTTT8115B",
+          "edp": 6213105,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120404MTTT8125B",
+          "edp": 6212426,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120404MTTT8105B",
+          "edp": 6240985,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120408MTTT8020",
+          "edp": 5514708,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120408MTTT5100",
+          "edp": 5514742,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120408MTTT5080",
+          "edp": 5523007,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120408MTTT9080",
+          "edp": 5580420,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120408MTTT8105B",
+          "edp": 6212319,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120408MTTT8115B",
+          "edp": 6213082,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120408MTTT8125B",
+          "edp": 6212912,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120412MTTT5100",
+          "edp": 5514886,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120412MTTT8020",
+          "edp": 5515532,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120412MTTT5080",
+          "edp": 5523008,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120412MTTT8115B",
+          "edp": 6213087,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120412MTTT8125B",
+          "edp": 6212922,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG120412MTTT8105B",
+          "edp": 6212323,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG160608MTTT8125B",
+          "edp": 6212684,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG160616MTTT5100",
+          "edp": 5515841,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG160616MTTT8125B",
+          "edp": 6212778,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        },
+        {
+          "key": "CNMG160616MTTT8115B",
+          "edp": 6236556,
+          "exact": 0,
+          "code": 0,
+          "edpHits": 0
+        }
+      ],
+      "scope": "Ricerca su tutti i record items, normalizzazione alfanumerica maiuscola e ricerca EDP; nessun incremento delle verifiche complete senza confronto dei campi."
     }
   ],
   "partialFamilyVerification": {
