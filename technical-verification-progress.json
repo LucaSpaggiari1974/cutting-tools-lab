@@ -497,6 +497,97 @@
         2.9972
       ],
       "finding": "Il seed catalog.json classifica erroneamente come finitura; scheda ufficiale conferma impiego medio e corrispondenza ANSI/ISO. VC e materiale per grado e presenza nello snapshot generato da verificare. Non conteggiato come completo."
+    },
+    {
+      "date": "2026-11-18",
+      "status": "grade-speed-table-verified",
+      "grade": "TT5080",
+      "source": "https://ssl.ingersoll-imc.com/resources/pdf/opg-007-1_iso-turning.pdf",
+      "revision": "OPG-007-1 (04/2025), pagina 3",
+      "scope": "Condizioni generali tornitura ISO PVD per grado, non specifiche del singolo inserto.",
+      "isoMaterial": "S",
+      "speedUnitOriginal": "SFM",
+      "speedUnit": "m/min",
+      "conditions": [
+        {
+          "vdi": 31,
+          "sfm": [
+            165,
+            560
+          ],
+          "vc": [
+            50.292,
+            170.688
+          ]
+        },
+        {
+          "vdi": 32,
+          "sfm": [
+            130,
+            490
+          ],
+          "vc": [
+            39.624,
+            149.352
+          ]
+        },
+        {
+          "vdi": 33,
+          "sfm": [
+            150,
+            295
+          ],
+          "vc": [
+            45.72,
+            89.916
+          ]
+        },
+        {
+          "vdi": 34,
+          "sfm": [
+            115,
+            260
+          ],
+          "vc": [
+            35.052,
+            79.248
+          ]
+        },
+        {
+          "vdi": 35,
+          "sfm": [
+            100,
+            230
+          ],
+          "vc": [
+            30.48,
+            70.104
+          ]
+        },
+        {
+          "vdi": 36,
+          "sfm": [
+            360,
+            625
+          ],
+          "vc": [
+            109.728,
+            190.5
+          ]
+        },
+        {
+          "vdi": 37,
+          "sfm": [
+            165,
+            295
+          ],
+          "vc": [
+            50.292,
+            89.916
+          ]
+        }
+      ],
+      "finding": "Colonna TT5080: valori solo nei gruppi VDI 31–37 (superleghe e titanio); non attribuire valori P/M/K/N/H da colonne adiacenti. Applicabilità alla geometria MT e presenza nello snapshot ancora da confermare."
     }
   ],
   "partialFamilyVerification": {
