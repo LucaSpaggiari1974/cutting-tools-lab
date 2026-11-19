@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T09:05:21Z",
+  "updatedAt": "2026-11-19T11:03:49Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -280,7 +280,7 @@
     "78ded90bb0305d0d9a022c19269163104fb3dec9",
     "81dead700440a8ed535f92c0151a5d64c72ba82d"
   ],
-  "next": "Verificare visivamente celle unite della tabella NEW-334-3 p.12 e integrare condizioni contestuali GoldTwin modulare nel generatore; verificare snapshot gzip e proseguire dai codici promossi.; integrare anche le varianti CNMG160612MT appena documentate dopo verifica presenza. Verificare condizioni di sistema NEW-221-6 per i tre codici SPGX appena confermati e integrare solo campi concordanti.",
+  "next": "Verificare visivamente celle unite della tabella NEW-334-3 p.12 e integrare condizioni contestuali GoldTwin modulare nel generatore; verificare snapshot gzip e proseguire dai codici promossi.; integrare anche le varianti CNMG160612MT appena documentate dopo verifica presenza. Verificare condizioni di sistema NEW-221-6 per i tre codici SPGX appena confermati e integrare solo campi concordanti. Tabella NEW-221-6 p.8 verificata visivamente per SPGX06/07/09: integrare come condizioni contestuali, non valori universali.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -1360,6 +1360,360 @@
       "scope": "Tre codici presenti nel rapporto promozione corrente; posizione esterna, geometria quadrata, foratura GoldTwin. Spessori divergenti tra PDF 2024 e schede attuali per due codici: non promuovere lo spessore senza chiarimento. VC/FN specifici non riportati; AP non applicabile. Non conteggiati come completi.",
       "additionalSource": "https://ssl.ingersoll-imc.com/resources/pdf/new-221-6_gold-twin.pdf#page=7",
       "finding": "Revisione NEW-221-6 (10/2022) conferma SPGX110408WG, non SPGX110708WG; mantiene la discrepanza aperta."
+    },
+    {
+      "date": "2026-11-19",
+      "status": "goldtwin-system-table-visually-verified",
+      "source": "https://ssl.ingersoll-imc.com/resources/pdf/new-221-6_gold-twin.pdf#page=8",
+      "scope": "Condizioni raccomandate del sistema GoldTwin 5xD, non parametri universali del singolo inserto. Avanzamento per giro completo, non raddoppiare. Celle unite controllate visivamente. AP non applicabile; diametro e profondità foro distinti.",
+      "columns": [
+        {
+          "code": "SPGX060204WG",
+          "grade": "IN2505",
+          "diameterMm": [
+            26,
+            28.9
+          ]
+        },
+        {
+          "code": "SPGX07T308WG",
+          "grade": "IN2505",
+          "diameterMm": [
+            29,
+            32.9
+          ]
+        },
+        {
+          "code": "SPGX090408WG",
+          "grade": "IN2505",
+          "diameterMm": [
+            33,
+            36.9
+          ]
+        }
+      ],
+      "units": {
+        "vc": "m/min",
+        "fn": "mm/giro"
+      },
+      "rows": [
+        {
+          "iso": "P",
+          "materialNumbers": [
+            1,
+            2
+          ],
+          "vc": [
+            118.872,
+            198.12
+          ],
+          "fnByColumn": [
+            [
+              0.2032,
+              0.2794,
+              0.3556
+            ],
+            [
+              0.254,
+              0.3048,
+              0.3556
+            ],
+            [
+              0.2032,
+              0.3048,
+              0.4064
+            ]
+          ]
+        },
+        {
+          "iso": "P",
+          "materialNumbers": [
+            3,
+            4,
+            5
+          ],
+          "vc": [
+            129.54,
+            190.5
+          ],
+          "fnByColumn": [
+            [
+              0.2032,
+              0.2794,
+              0.3556
+            ],
+            [
+              0.254,
+              0.3048,
+              0.3556
+            ],
+            [
+              0.2032,
+              0.3048,
+              0.4064
+            ]
+          ]
+        },
+        {
+          "iso": "P",
+          "materialNumbers": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "vc": [
+            99.06,
+            198.12
+          ],
+          "fnByColumn": [
+            [
+              0.2032,
+              0.2794,
+              0.3302
+            ],
+            [
+              0.254,
+              0.2794,
+              0.3302
+            ],
+            [
+              0.254,
+              0.3048,
+              0.3556
+            ]
+          ]
+        },
+        {
+          "iso": "P",
+          "materialNumbers": [
+            10,
+            11
+          ],
+          "vc": [
+            99.06,
+            160.02
+          ],
+          "fnByColumn": [
+            [
+              0.2032,
+              0.2794,
+              0.3302
+            ],
+            [
+              0.254,
+              0.2794,
+              0.3302
+            ],
+            [
+              0.254,
+              0.3048,
+              0.3556
+            ]
+          ]
+        },
+        {
+          "iso": "M",
+          "materialNumbers": [
+            12,
+            13,
+            14
+          ],
+          "vc": [
+            79.248,
+            140.208
+          ],
+          "fnByColumn": [
+            [
+              0.127,
+              0.2032,
+              0.254
+            ],
+            [
+              0.1524,
+              0.2032,
+              0.254
+            ],
+            [
+              0.1524,
+              0.2032,
+              0.254
+            ]
+          ]
+        },
+        {
+          "iso": "K",
+          "materialNumbers": [
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "vc": [
+            99.06,
+            251.46
+          ],
+          "fnByColumn": [
+            [
+              0.254,
+              0.3556,
+              0.4572
+            ],
+            [
+              0.254,
+              0.3556,
+              0.4572
+            ],
+            [
+              0.3048,
+              0.4064,
+              0.508
+            ]
+          ]
+        },
+        {
+          "iso": "N",
+          "materialNumbers": [
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28
+          ],
+          "vc": [
+            160.02,
+            259.08
+          ],
+          "fnByColumn": [
+            [
+              0.3048,
+              0.4064,
+              0.508
+            ],
+            [
+              0.3048,
+              0.4064,
+              0.508
+            ],
+            [
+              0.3556,
+              0.4572,
+              0.5588
+            ]
+          ]
+        },
+        {
+          "iso": "S",
+          "materialNumbers": [
+            31
+          ],
+          "vc": [
+            30.48,
+            60.96
+          ],
+          "fnByColumn": [
+            [
+              0.1016,
+              0.127,
+              0.1524
+            ],
+            [
+              0.1016,
+              0.1524,
+              0.1778
+            ],
+            [
+              0.1524,
+              0.1778,
+              0.2032
+            ]
+          ]
+        },
+        {
+          "iso": "S",
+          "materialNumbers": [
+            32,
+            33,
+            34,
+            35,
+            36,
+            37
+          ],
+          "vc": [
+            30.48,
+            80.772
+          ],
+          "fnByColumn": [
+            [
+              0.1016,
+              0.127,
+              0.1524
+            ],
+            [
+              0.1016,
+              0.1524,
+              0.1778
+            ],
+            [
+              0.1524,
+              0.1778,
+              0.2032
+            ]
+          ]
+        },
+        {
+          "iso": "H",
+          "materialNumbers": [
+            38,
+            39
+          ],
+          "vc": [
+            19.812,
+            50.292
+          ],
+          "fnByColumn": [
+            [
+              0.1016,
+              0.127,
+              0.1524
+            ],
+            [
+              0.127,
+              0.1524,
+              0.1778
+            ],
+            [
+              0.1524,
+              0.1778,
+              0.2032
+            ]
+          ]
+        }
+      ],
+      "noRecommendationMaterialNumbers": [
+        29,
+        30,
+        40,
+        41
+      ],
+      "caseStudy": {
+        "source": "https://ssl.ingersoll-imc.com/resources/pdf/new-221-6_gold-twin.pdf#page=4",
+        "code": "SPGX090408WG",
+        "grade": "IN2505",
+        "material": "AISI 4140",
+        "body": "CD3300165N6R01",
+        "head": "TPC1690R01-C",
+        "vc": 139.9032,
+        "fn": 0.254,
+        "holeDepthMm": 152.4,
+        "coolant": "Interno, 145 psi",
+        "scope": "Prova di durata, non raccomandazione generale. Il bollettino riporta una discordanza sul codice della punta centrale tra prova e tabella corpi; non generalizzare."
+      }
     }
   ],
   "partialFamilyVerification": {
