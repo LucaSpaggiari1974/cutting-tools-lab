@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T11:03:49Z",
+  "updatedAt": "2026-11-19T12:36:01Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -280,7 +280,7 @@
     "78ded90bb0305d0d9a022c19269163104fb3dec9",
     "81dead700440a8ed535f92c0151a5d64c72ba82d"
   ],
-  "next": "Verificare visivamente celle unite della tabella NEW-334-3 p.12 e integrare condizioni contestuali GoldTwin modulare nel generatore; verificare snapshot gzip e proseguire dai codici promossi.; integrare anche le varianti CNMG160612MT appena documentate dopo verifica presenza. Verificare condizioni di sistema NEW-221-6 per i tre codici SPGX appena confermati e integrare solo campi concordanti. Tabella NEW-221-6 p.8 verificata visivamente per SPGX06/07/09: integrare come condizioni contestuali, non valori universali.",
+  "next": "Verificare visivamente celle unite della tabella NEW-334-3 p.12 e integrare condizioni contestuali GoldTwin modulare nel generatore; verificare snapshot gzip e proseguire dai codici promossi.; integrare anche le varianti CNMG160612MT appena documentate dopo verifica presenza. Verificare condizioni di sistema NEW-221-6 per i tre codici SPGX appena confermati e integrare solo campi concordanti. Tabella NEW-221-6 p.8 verificata visivamente per SPGX06/07/09: integrare come condizioni contestuali, non valori universali. Regola GoldTwin SPGX06/07/09 integrata: eseguire generatore e verificare snapshot e pubblicazione.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -1714,6 +1714,18 @@
         "coolant": "Interno, 145 psi",
         "scope": "Prova di durata, non raccomandazione generale. Il bollettino riporta una discordanza sul codice della punta centrale tra prova e tabella corpi; non generalizzare."
       }
+    },
+    {
+      "date": "2026-11-19",
+      "status": "goldtwin-system-conditions-import-rule-committed",
+      "commit": "00241f8e9ac89bb78d13e5e85bbe3cf69f19eccc",
+      "source": "https://ssl.ingersoll-imc.com/resources/pdf/new-221-6_gold-twin.pdf#page=8",
+      "codes": [
+        "SPGX060204WG",
+        "SPGX07T308WG",
+        "SPGX090408WG"
+      ],
+      "finding": "Integrate nel generatore le dieci righe contestuali per ciascun codice, con gruppi ISO, diametro e unità metriche. Rimossi eventuali parametri universali non verificati. Snapshot generato, test e pubblicazione ancora da verificare; nessun incremento del conteggio completo."
     }
   ],
   "partialFamilyVerification": {
