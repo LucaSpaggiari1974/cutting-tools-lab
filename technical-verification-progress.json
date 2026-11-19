@@ -280,7 +280,7 @@
     "78ded90bb0305d0d9a022c19269163104fb3dec9",
     "81dead700440a8ed535f92c0151a5d64c72ba82d"
   ],
-  "next": "Verificare codice SPGX110708WG nello snapshot e mantenere separato da EDP 6139079; ricercare condizioni GoldTwin per diametro e verificare promozione delle regole. Proseguire dai codici effettivamente promossi.",
+  "next": "Verificare presenza esatta dei codici SPGX nel catalogo generato e compatibilità delle condizioni GoldTwin 2016 con le versioni 2024; proseguire dai codici promossi.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -641,6 +641,403 @@
         "https://www.ingersoll-imc.com/product/6152043",
         "https://ssl.ingersoll-imc.com/resources/pdf/cat-031-1_winsfeed_new_products_catalog_2024.pdf#page=102"
       ]
+    },
+    {
+      "date": "2026-11-19",
+      "status": "official-system-conditions-documented",
+      "source": "https://ssl.ingersoll-imc.com/resources/pdf/NEW-221-5_Gold-Twin.pdf#page=7",
+      "revision": "NEW-221-5 (01/2016)",
+      "scope": "GoldTwin 5xD, famiglia SPGX11, condizioni di sistema per diametro della punta completa, non specifiche del singolo inserto. Non applicare a SPGX110708WG o SPGX140512WG senza conferma. Avanzamento per giro già riferito a due taglienti effettivi: non raddoppiare. AP non applicabile.",
+      "diameterBandsMm": [
+        [
+          37,
+          43.9
+        ],
+        [
+          44,
+          45.9
+        ]
+      ],
+      "conditions": [
+        {
+          "iso": "P",
+          "groups": "1–2",
+          "vcSfm": [
+            390,
+            650
+          ],
+          "vcMMin": [
+            118.872,
+            198.12
+          ],
+          "fnIpr": [
+            [
+              0.01,
+              0.013,
+              0.016
+            ],
+            [
+              0.011,
+              0.015,
+              0.018
+            ]
+          ],
+          "fnMmRev": [
+            [
+              0.254,
+              0.3302,
+              0.4064
+            ],
+            [
+              0.2794,
+              0.381,
+              0.4572
+            ]
+          ]
+        },
+        {
+          "iso": "P",
+          "groups": "3–5",
+          "vcSfm": [
+            425,
+            625
+          ],
+          "vcMMin": [
+            129.54,
+            190.5
+          ],
+          "fnIpr": [
+            [
+              0.01,
+              0.013,
+              0.016
+            ],
+            [
+              0.011,
+              0.015,
+              0.018
+            ]
+          ],
+          "fnMmRev": [
+            [
+              0.254,
+              0.3302,
+              0.4064
+            ],
+            [
+              0.2794,
+              0.381,
+              0.4572
+            ]
+          ]
+        },
+        {
+          "iso": "P",
+          "groups": "6–9",
+          "vcSfm": [
+            325,
+            650
+          ],
+          "vcMMin": [
+            99.06,
+            198.12
+          ],
+          "fnIpr": [
+            [
+              0.01,
+              0.012,
+              0.014
+            ],
+            [
+              0.01,
+              0.013,
+              0.016
+            ]
+          ],
+          "fnMmRev": [
+            [
+              0.254,
+              0.3048,
+              0.3556
+            ],
+            [
+              0.254,
+              0.3302,
+              0.4064
+            ]
+          ]
+        },
+        {
+          "iso": "P",
+          "groups": "10–11",
+          "vcSfm": [
+            325,
+            525
+          ],
+          "vcMMin": [
+            99.06,
+            160.02
+          ],
+          "fnIpr": [
+            [
+              0.01,
+              0.012,
+              0.014
+            ],
+            [
+              0.01,
+              0.013,
+              0.016
+            ]
+          ],
+          "fnMmRev": [
+            [
+              0.254,
+              0.3048,
+              0.3556
+            ],
+            [
+              0.254,
+              0.3302,
+              0.4064
+            ]
+          ]
+        },
+        {
+          "iso": "M",
+          "groups": "12–14",
+          "vcSfm": [
+            260,
+            460
+          ],
+          "vcMMin": [
+            79.248,
+            140.208
+          ],
+          "fnIpr": [
+            [
+              0.007,
+              0.009,
+              0.011
+            ],
+            [
+              0.007,
+              0.01,
+              0.012
+            ]
+          ],
+          "fnMmRev": [
+            [
+              0.1778,
+              0.2286,
+              0.2794
+            ],
+            [
+              0.1778,
+              0.254,
+              0.3048
+            ]
+          ]
+        },
+        {
+          "iso": "K",
+          "groups": "15–20",
+          "vcSfm": [
+            325,
+            825
+          ],
+          "vcMMin": [
+            99.06,
+            251.46
+          ],
+          "fnIpr": [
+            [
+              0.012,
+              0.016,
+              0.02
+            ],
+            [
+              0.014,
+              0.018,
+              0.022
+            ]
+          ],
+          "fnMmRev": [
+            [
+              0.3048,
+              0.4064,
+              0.508
+            ],
+            [
+              0.3556,
+              0.4572,
+              0.5588
+            ]
+          ]
+        },
+        {
+          "iso": "N",
+          "groups": "21–28",
+          "vcSfm": [
+            525,
+            850
+          ],
+          "vcMMin": [
+            160.02,
+            259.08
+          ],
+          "fnIpr": [
+            [
+              0.014,
+              0.018,
+              0.022
+            ],
+            [
+              0.016,
+              0.02,
+              0.024
+            ]
+          ],
+          "fnMmRev": [
+            [
+              0.3556,
+              0.4572,
+              0.5588
+            ],
+            [
+              0.4064,
+              0.508,
+              0.6096
+            ]
+          ]
+        },
+        {
+          "iso": "S",
+          "groups": "31",
+          "vcSfm": [
+            100,
+            200
+          ],
+          "vcMMin": [
+            30.48,
+            60.96
+          ],
+          "fnIpr": [
+            [
+              0.006,
+              0.007,
+              0.009
+            ],
+            [
+              0.006,
+              0.008,
+              0.009
+            ]
+          ],
+          "fnMmRev": [
+            [
+              0.1524,
+              0.1778,
+              0.2286
+            ],
+            [
+              0.1524,
+              0.2032,
+              0.2286
+            ]
+          ]
+        },
+        {
+          "iso": "S",
+          "groups": "32–37",
+          "vcSfm": [
+            100,
+            265
+          ],
+          "vcMMin": [
+            30.48,
+            80.772
+          ],
+          "fnIpr": [
+            [
+              0.006,
+              0.007,
+              0.009
+            ],
+            [
+              0.006,
+              0.008,
+              0.009
+            ]
+          ],
+          "fnMmRev": [
+            [
+              0.1524,
+              0.1778,
+              0.2286
+            ],
+            [
+              0.1524,
+              0.2032,
+              0.2286
+            ]
+          ]
+        },
+        {
+          "iso": "H",
+          "groups": "38–39",
+          "vcSfm": [
+            65,
+            165
+          ],
+          "vcMMin": [
+            19.812,
+            50.292
+          ],
+          "fnIpr": [
+            [
+              0.006,
+              0.007,
+              0.008
+            ],
+            [
+              0.006,
+              0.008,
+              0.009
+            ]
+          ],
+          "fnMmRev": [
+            [
+              0.1524,
+              0.1778,
+              0.2032
+            ],
+            [
+              0.1524,
+              0.2032,
+              0.2286
+            ]
+          ]
+        }
+      ],
+      "excludedGroups": [
+        29,
+        30,
+        40,
+        41
+      ],
+      "caseStudy": {
+        "source": "https://ssl.ingersoll-imc.com/resources/pdf/NEW-221-5_Gold-Twin.pdf#page=4",
+        "insert": "SPGX090408WG IN2505",
+        "body": "CD3300165N6R01",
+        "tip": "TPA1690R01-C IN2505",
+        "material": "AISI 4140",
+        "vcMMin": 139.9032,
+        "fnMmRev": 0.254,
+        "holeDepthMm": 152.4,
+        "coolantPsi": 145,
+        "scope": "Prova specifica, non raccomandazione universale"
+      }
     }
   ],
   "partialFamilyVerification": {
