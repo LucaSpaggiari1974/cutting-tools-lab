@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19",
+  "updatedAt": "2026-11-19T05:50:54Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -280,7 +280,7 @@
     "78ded90bb0305d0d9a022c19269163104fb3dec9",
     "81dead700440a8ed535f92c0151a5d64c72ba82d"
   ],
-  "next": "Verificare presenza esatta dei codici SPGX nel catalogo generato e compatibilità delle condizioni GoldTwin 2016 con le versioni 2024; proseguire dai codici promossi.",
+  "next": "Verificare snapshot gzip corrente e tabella condizioni specifica GoldTwin modulare CD_Y per SPGX140512WG; proseguire dai codici promossi.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -1038,6 +1038,20 @@
         "coolantPsi": 145,
         "scope": "Prova specifica, non raccomandazione universale"
       }
+    },
+    {
+      "date": "2026-11-19",
+      "status": "official-current-modular-head-compatibility-verified",
+      "code": "SPGX140512WG IN2505",
+      "source": "https://www.ingersoll-imc.com/product?ecatProductId=5741660",
+      "head": "CD4760042YRR01",
+      "headEdp": 6214162,
+      "diameterMm": 47.625,
+      "station": "Esterna",
+      "effectiveTeeth": 2,
+      "radiusMm": 1.1938,
+      "scope": "Scheda ufficiale corrente conferma codice e grado per testa modulare GoldTwin; corpi compatibili 3xD, 5xD, 7xD. Diametro 47,625 mm fuori dalle due fasce 37–45,9 mm già documentate per GoldTwin 2016; non trasferire VC/FN. AP non applicabile. Presenza nel rapporto di promozione confermata, snapshot gzip corrente non ancora ispezionato.",
+      "catalogBlob": "1640ec5d505ecaca8279442d18a5464f7b87109d"
     }
   ],
   "partialFamilyVerification": {
