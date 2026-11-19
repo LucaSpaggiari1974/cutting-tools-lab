@@ -280,7 +280,7 @@
     "78ded90bb0305d0d9a022c19269163104fb3dec9",
     "81dead700440a8ed535f92c0151a5d64c72ba82d"
   ],
-  "next": "Verificare promozione e pubblicazione delle due regole SPGX 2024, condizioni di sistema per diametro e discrepanza SPGX110408WG/110708WG; proseguire dai codici effettivamente promossi.",
+  "next": "Verificare codice SPGX110708WG nello snapshot e mantenere separato da EDP 6139079; ricercare condizioni GoldTwin per diametro e verificare promozione delle regole. Proseguire dai codici effettivamente promossi.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -618,6 +618,29 @@
       "scope": "Codici presenti nel rapporto di promozione del 18 novembre; quattro taglienti, foratura. Nessuna VC/FN specifica dedotta; AP non applicabile. Non trasferire automaticamente le condizioni GoldTwin 2016. Verificare anche discrepanza SPGX110408WG vs SPGX110708WG.",
       "commit": "b2c97f0b3b62c519f97a0fc2b9e1bfb25d090f73",
       "publication": "not-verified"
+    },
+    {
+      "date": "2026-11-19",
+      "status": "official-code-discrepancy-confirmed",
+      "records": [
+        {
+          "code": "SPGX110408WG",
+          "grade": "IN2505",
+          "edp": "6139079",
+          "radiusMm": 0.7874,
+          "thicknessMm": 4.8006,
+          "inscribedCircleMm": 11.6078,
+          "edges": 4,
+          "material": "Acciai e impiego generale (indicazione del produttore)",
+          "source": "https://www.ingersoll-imc.com/product/6139079"
+        }
+      ],
+      "finding": "La scheda prodotto attuale e i corpi CD3800190N6R01 e CD4130206N6R01 identificano SPGX110408WG, mentre il PDF 2024 p.102 riporta SPGX110708WG con identiche dimensioni. Non è provata equivalenza commerciale: non rinominare o unire i record senza conferma. VC/FN non riportati nella scheda inserto; AP non applicabile.",
+      "sources": [
+        "https://www.ingersoll-imc.com/product/6152035",
+        "https://www.ingersoll-imc.com/product/6152043",
+        "https://ssl.ingersoll-imc.com/resources/pdf/cat-031-1_winsfeed_new_products_catalog_2024.pdf#page=102"
+      ]
     }
   ],
   "partialFamilyVerification": {
