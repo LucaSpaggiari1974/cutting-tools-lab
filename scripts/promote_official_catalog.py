@@ -312,6 +312,33 @@ def normalize_ingersoll_insert(row):
             "grade": {"url": source + "#page=6"},
             "material": {"url": source + "#page=7"}
         })
+    # NEW-221-6 (2022), p. 8: tabella verificata visivamente.
+    # Condizioni del sistema, non valori specifici dell'inserto.
+    if code in {"SPGX060204WG", "SPGX07T308WG", "SPGX090408WG"}:
+        source = "https://ssl.ingersoll-imc.com/resources/pdf/new-221-6_gold-twin.pdf"
+        codes = ("SPGX060204WG", "SPGX07T308WG", "SPGX090408WG")
+        idx = codes.index(code)
+        diameters = ("26–28,9", "29–32,9", "33–36,9")
+        groups = [["P",[1,2],[118.872,198.12],[[0.2032,0.2794,0.3556],[0.254,0.3048,0.3556],[0.2032,0.3048,0.4064]]],["P",[3,4,5],[129.54,190.5],[[0.2032,0.2794,0.3556],[0.254,0.3048,0.3556],[0.2032,0.3048,0.4064]]],["P",[6,7,8,9],[99.06,198.12],[[0.2032,0.2794,0.3302],[0.254,0.2794,0.3302],[0.254,0.3048,0.3556]]],["P",[10,11],[99.06,160.02],[[0.2032,0.2794,0.3302],[0.254,0.2794,0.3302],[0.254,0.3048,0.3556]]],["M",[12,13,14],[79.248,140.208],[[0.127,0.2032,0.254],[0.1524,0.2032,0.254],[0.1524,0.2032,0.254]]],["K",[15,16,17,18,19,20],[99.06,251.46],[[0.254,0.3556,0.4572],[0.254,0.3556,0.4572],[0.3048,0.4064,0.508]]],["N",[21,22,23,24,25,26,27,28],[160.02,259.08],[[0.3048,0.4064,0.508],[0.3048,0.4064,0.508],[0.3556,0.4572,0.5588]]],["S",[31],[30.48,60.96],[[0.1016,0.127,0.1524],[0.1016,0.1524,0.1778],[0.1524,0.1778,0.2032]]],["S",[32,33,34,35,36,37],[30.48,80.772],[[0.1016,0.127,0.1524],[0.1016,0.1524,0.1778],[0.1524,0.1778,0.2032]]],["H",[38,39],[19.812,50.292],[[0.1016,0.127,0.1524],[0.127,0.1524,0.1778],[0.1524,0.1778,0.2032]]]]
+        names = {"P": "Acciai", "M": "Inossidabili", "K": "Ghise", "N": "Non ferrosi", "S": "Superleghe e titanio", "H": "Materiali temprati"}
+        def fmt(v):
+            return str(v).replace(".", ",")
+        row["familyConditions"] = [
+            {"material": names[iso] + " · gruppi " + ", ".join(map(str, nums)),
+             "operation": "Foratura GoldTwin 5xD Ø " + diameters[idx] + " mm",
+             "vc": "–".join(map(fmt, speeds)),
+             "fn": " / ".join(map(fmt, feeds[idx])), "ap": ""}
+            for iso, nums, speeds, feeds in groups
+        ]
+        row["familyConditionsSource"] = source + "#page=8"
+        row["familyConditionsNote"] = "Condizioni del sistema GoldTwin 5xD IN2505; VC in m/min, FN in mm/giro (tre valori tabellati). Non raddoppiare FN. AP non applicabile. Gruppi 29, 30, 40, 41 senza raccomandazione."
+        row["material"] = "; ".join(names.values())
+        for field in ("vc", "f", "fz", "fn", "ap"):
+            if field in row:
+                row[field] = "—"
+            row.setdefault("parameterSources", {}).pop(field, None)
+        row["parameterSources"]["material"] = {"url": source + "#page=8"}
+        row["parameterStatus"] = "official-system-conditions-verified"
     # Catalogo WinSFeed 2024, p. 102: identità e grado esatti.
     # Nessun trasferimento automatico delle condizioni del sistema 2016.
     if code in {"SPGX110708WG", "SPGX140512WG"}:
