@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T08:29:50Z",
+  "updatedAt": "2026-11-19T09:05:21Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -280,7 +280,7 @@
     "78ded90bb0305d0d9a022c19269163104fb3dec9",
     "81dead700440a8ed535f92c0151a5d64c72ba82d"
   ],
-  "next": "Verificare visivamente celle unite della tabella NEW-334-3 p.12 e integrare condizioni contestuali GoldTwin modulare nel generatore; verificare snapshot gzip e proseguire dai codici promossi.; integrare anche le varianti CNMG160612MT appena documentate dopo verifica presenza.",
+  "next": "Verificare visivamente celle unite della tabella NEW-334-3 p.12 e integrare condizioni contestuali GoldTwin modulare nel generatore; verificare snapshot gzip e proseguire dai codici promossi.; integrare anche le varianti CNMG160612MT appena documentate dopo verifica presenza. Verificare condizioni di sistema NEW-221-6 per i tre codici SPGX appena confermati e integrare solo campi concordanti.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -1309,6 +1309,57 @@
           ]
         }
       ]
+    },
+    {
+      "date": "2026-11-19",
+      "status": "three-existing-drilling-identities-crosschecked",
+      "source": "https://ssl.ingersoll-imc.com/resources/pdf/cat-031-1_winsfeed_new_products_catalog_2024.pdf#page=102",
+      "records": [
+        {
+          "code": "SPGX060204WG",
+          "grade": "IN2505",
+          "radiusMm": 0.4064,
+          "edges": 4,
+          "head": "CD2690025YFR01",
+          "headEdp": 6214154,
+          "source": "https://www.ingersoll-imc.com/product/6214154"
+        },
+        {
+          "code": "SPGX07T308WG",
+          "grade": "IN2505",
+          "edp": 6139078,
+          "radiusMm": 0.7874,
+          "edges": 4,
+          "material": "Acciai e impiego generale",
+          "source": "https://ingersoll-imc.com/product/6139078",
+          "head": "CD3015028YHR01",
+          "headEdp": 6214156,
+          "headSource": "https://www.ingersoll-imc.com/product/6214156",
+          "thicknessConflictMm": [
+            3.9624,
+            4.1402
+          ]
+        },
+        {
+          "code": "SPGX090408WG",
+          "grade": "IN2505",
+          "edp": 6130212,
+          "radiusMm": 0.7874,
+          "edges": 4,
+          "material": "Acciai e impiego generale",
+          "source": "https://ingersoll-imc.com/product/6130212",
+          "body": "CD3600180N6R01",
+          "bodyEdp": 6152031,
+          "bodySource": "https://ingersoll-imc.com/product?ecatProductId=1539019",
+          "thicknessConflictMm": [
+            4.2926,
+            4.4958
+          ]
+        }
+      ],
+      "scope": "Tre codici presenti nel rapporto promozione corrente; posizione esterna, geometria quadrata, foratura GoldTwin. Spessori divergenti tra PDF 2024 e schede attuali per due codici: non promuovere lo spessore senza chiarimento. VC/FN specifici non riportati; AP non applicabile. Non conteggiati come completi.",
+      "additionalSource": "https://ssl.ingersoll-imc.com/resources/pdf/new-221-6_gold-twin.pdf#page=7",
+      "finding": "Revisione NEW-221-6 (10/2022) conferma SPGX110408WG, non SPGX110708WG; mantiene la discrepanza aperta."
     }
   ],
   "partialFamilyVerification": {
