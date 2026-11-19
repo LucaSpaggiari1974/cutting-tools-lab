@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T12:58:37Z",
+  "updatedAt": "2026-11-19T15:24:14Z",
   "run": "daily",
   "changed": true,
   "catalogItems": 1217,
@@ -12,9 +12,9 @@
       "officialConditionContext": 10,
       "recommendedConditionTables": 0,
       "parameterRows": 0,
-      "familyConditionTables": 540,
+      "familyConditionTables": 537,
       "geometry": 239,
-      "material": 65,
+      "material": 62,
       "application": 1164
     },
     "completeTools": {
