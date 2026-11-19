@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T15:23:12Z",
+  "updatedAt": "2026-11-19T16:12:01Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -279,7 +279,8 @@
     "e57c97ff51dfadf9da0171ab82e0cced99f9d117",
     "78ded90bb0305d0d9a022c19269163104fb3dec9",
     "81dead700440a8ed535f92c0151a5d64c72ba82d",
-    "66db11f4a6f8fdd7e74ef69b3215355eec94062a"
+    "66db11f4a6f8fdd7e74ef69b3215355eec94062a",
+    "02412fba14b84febbb6e411cab88c4e64704f3f5"
   ],
   "next": "Verificare visivamente celle unite della tabella NEW-334-3 p.12 e integrare condizioni contestuali GoldTwin modulare nel generatore; verificare snapshot gzip e proseguire dai codici promossi.; integrare anche le varianti CNMG160612MT appena documentate dopo verifica presenza. Verificare condizioni di sistema NEW-221-6 per i tre codici SPGX appena confermati e integrare solo campi concordanti. Tabella NEW-221-6 p.8 verificata visivamente per SPGX06/07/09: integrare come condizioni contestuali, non valori universali. Regola GoldTwin SPGX06/07/09 integrata: eseguire generatore e verificare snapshot e pubblicazione.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
@@ -1734,6 +1735,16 @@
       "commit": "66db11f4a6f8fdd7e74ef69b3215355eec94062a",
       "source": "https://ssl.ingersoll-imc.com/resources/pdf/opg-007-1_iso-turning.pdf",
       "finding": "Allineata la regola TT5080 alla tabella per grado verificata il 18 novembre: soltanto VDI 31–37, rimossi gruppi M e valori discordanti. Limitate le scorciatoie CNMG160612MT alle quattro varianti EDP confermate (TT8115B, TT8125B, TT5100, TT8020); TT8135 resta nella regola storica separata. Nessun incremento dei record completi; test e snapshot pendenti."
+    },
+    {
+      "date": "2026-11-19",
+      "status": "unverified-parameter-regression-correction-committed",
+      "commit": "02412fba14b84febbb6e411cab88c4e64704f3f5",
+      "codes": [
+        "SPGX110708WG",
+        "SPGX140512WG"
+      ],
+      "finding": "Eliminati dal generatore eventuali VC/FN/FZ/AP e condizioni di famiglia ereditate senza prova per questi due codici; mantenuta identità ufficiale. PDF NEW-334-3 non accessibile durante il controllo; nessuna condizione modulare promossa. Test e pubblicazione pendenti; nessun incremento dei record completi."
     }
   ],
   "partialFamilyVerification": {
