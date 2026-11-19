@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T19:02:12Z",
+  "updatedAt": "2026-11-20T00:05:09+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -1752,6 +1752,34 @@
       "commit": "2677f37518c166bf8e08e42521d1d68261e6dcc5",
       "snapshotBlob": "010a3434615c798a66052d1e6726590bef5ba941",
       "finding": "Decodificato direttamente catalog.json.gz da GitHub (3.247.093 byte JSON decompressi): 1217 record, zero duplicati per chiave esatta produttore/codice/grado. Presenti tutti e cinque SPGX06/07/09/11/14 grado IN2505, VC/F/AP universali vuoti e cuttingConditions vuoto; familyConditions è un campo separato ancora da ispezionare. Rilevato inoltre che il generatore deduplica per produttore/codice senza grado: rischio di perdita varianti da verificare prima di cambiare la chiave. Un record storico CNMG120404RT conserva valori esplicitamente marcati non verificati. Nessuna nuova condizione tecnica importata; pubblicazione e test completi pendenti."
+    },
+    {
+      "date": "2026-11-20",
+      "status": "coverage-and-promotion-report-audited-not-complete",
+      "sourceFiles": [
+        "update-status.json",
+        "official-catalog-promotion-report.json"
+      ],
+      "sourceUpdatedAt": "2026-11-19T21:28:39Z",
+      "catalogItems": 1217,
+      "insertCoverage": {
+        "total": 1217,
+        "vc": 40,
+        "f_or_fz": 50,
+        "ap": 110,
+        "officialConditionContext": 10,
+        "recommendedConditionTables": 0,
+        "parameterRows": 0,
+        "familyConditionTables": 537,
+        "geometry": 239,
+        "material": 62,
+        "application": 1164
+      },
+      "stagingItems": 1272,
+      "promoted": 1154,
+      "skipped": 71,
+      "completeTools": 470,
+      "interpretation": "Contatori aggregati del job, non prova di 50 identità tecniche verificate né di pubblicazione Windows. 537 familyConditionTables non equivalgono a 537 inserti con condizioni ufficiali verificate. Le 71 esclusioni richiedono esame delle motivazioni; nessuna VC/FN/FZ/AP inventata."
     }
   ],
   "partialFamilyVerification": {
