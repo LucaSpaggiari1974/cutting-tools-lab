@@ -351,6 +351,13 @@ def normalize_ingersoll_insert(row):
             field: {"url": source} for field in ("geom", "grade", "application")
         })
         row["familyConditionsNote"] = "Inserto periferico a quattro taglienti; VC e FN dipendono dal sistema e dal diametro. AP non applicabile alla foratura."
+        # No verified item-level cutting values for these two codes.
+        for field in ("vc", "f", "fz", "fn", "ap"):
+            if field in row:
+                row[field] = "—"
+            row["parameterSources"].pop(field, None)
+        row.pop("familyConditions", None)
+        row.pop("familyConditionsSource", None)
     if "Tornitura" in str(row.get("category")) and row.get("verificationStatus") in {
         "official-catalog-code-extracted-needs-technical-verification", "official-catalog-extracted"
     }:
