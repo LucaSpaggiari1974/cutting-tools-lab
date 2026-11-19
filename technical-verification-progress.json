@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T16:12:01Z",
+  "updatedAt": "2026-11-19T19:02:12Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -282,7 +282,7 @@
     "66db11f4a6f8fdd7e74ef69b3215355eec94062a",
     "02412fba14b84febbb6e411cab88c4e64704f3f5"
   ],
-  "next": "Verificare visivamente celle unite della tabella NEW-334-3 p.12 e integrare condizioni contestuali GoldTwin modulare nel generatore; verificare snapshot gzip e proseguire dai codici promossi.; integrare anche le varianti CNMG160612MT appena documentate dopo verifica presenza. Verificare condizioni di sistema NEW-221-6 per i tre codici SPGX appena confermati e integrare solo campi concordanti. Tabella NEW-221-6 p.8 verificata visivamente per SPGX06/07/09: integrare come condizioni contestuali, non valori universali. Regola GoldTwin SPGX06/07/09 integrata: eseguire generatore e verificare snapshot e pubblicazione.",
+  "next": "Verificare visivamente celle unite della tabella NEW-334-3 p.12 e integrare condizioni contestuali GoldTwin modulare nel generatore; verificare snapshot gzip e proseguire dai codici promossi.; integrare anche le varianti CNMG160612MT appena documentate dopo verifica presenza. Verificare condizioni di sistema NEW-221-6 per i tre codici SPGX appena confermati e integrare solo campi concordanti. Tabella NEW-221-6 p.8 verificata visivamente per SPGX06/07/09: integrare come condizioni contestuali, non valori universali. Regola GoldTwin SPGX06/07/09 integrata: eseguire generatore e verificare snapshot e pubblicazione. Verificare direttamente familyConditions nello snapshot gzip (non cuttingConditions), chiavi normalizzate e varianti grado/EDP; controllare visualizzazione dei valori storici non verificati.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -1745,6 +1745,13 @@
         "SPGX140512WG"
       ],
       "finding": "Eliminati dal generatore eventuali VC/FN/FZ/AP e condizioni di famiglia ereditate senza prova per questi due codici; mantenuta identità ufficiale. PDF NEW-334-3 non accessibile durante il controllo; nessuna condizione modulare promossa. Test e pubblicazione pendenti; nessun incremento dei record completi."
+    },
+    {
+      "date": "2026-11-19",
+      "status": "generated-gzip-inspected-partial",
+      "commit": "2677f37518c166bf8e08e42521d1d68261e6dcc5",
+      "snapshotBlob": "010a3434615c798a66052d1e6726590bef5ba941",
+      "finding": "Decodificato direttamente catalog.json.gz da GitHub (3.247.093 byte JSON decompressi): 1217 record, zero duplicati per chiave esatta produttore/codice/grado. Presenti tutti e cinque SPGX06/07/09/11/14 grado IN2505, VC/F/AP universali vuoti e cuttingConditions vuoto; familyConditions è un campo separato ancora da ispezionare. Rilevato inoltre che il generatore deduplica per produttore/codice senza grado: rischio di perdita varianti da verificare prima di cambiare la chiave. Un record storico CNMG120404RT conserva valori esplicitamente marcati non verificati. Nessuna nuova condizione tecnica importata; pubblicazione e test completi pendenti."
     }
   ],
   "partialFamilyVerification": {
