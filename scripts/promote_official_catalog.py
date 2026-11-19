@@ -312,6 +312,18 @@ def normalize_ingersoll_insert(row):
             "grade": {"url": source + "#page=6"},
             "material": {"url": source + "#page=7"}
         })
+    # Catalogo WinSFeed 2024, p. 102: identità e grado esatti.
+    # Nessun trasferimento automatico delle condizioni del sistema 2016.
+    if code in {"SPGX110708WG", "SPGX140512WG"}:
+        source = "https://ssl.ingersoll-imc.com/resources/pdf/cat-031-1_winsfeed_new_products_catalog_2024.pdf#page=102"
+        radius = {"SPGX110708WG": "0,7874", "SPGX140512WG": "1,1938"}[code]
+        row.update(category="Foratura", application="Foratura GoldTwin",
+                   geom="Quadrato 90° · R" + radius, grade="IN2505",
+                   parameterStatus="official-code-grade-geometry-verified")
+        row.setdefault("parameterSources", {}).update({
+            field: {"url": source} for field in ("geom", "grade", "application")
+        })
+        row["familyConditionsNote"] = "Inserto periferico a quattro taglienti; VC e FN dipendono dal sistema e dal diametro. AP non applicabile alla foratura."
     if "Tornitura" in str(row.get("category")) and row.get("verificationStatus") in {
         "official-catalog-code-extracted-needs-technical-verification", "official-catalog-extracted"
     }:
