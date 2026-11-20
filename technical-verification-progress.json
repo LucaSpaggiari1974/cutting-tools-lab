@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20T05:32:38+01:00",
+  "updatedAt": "2026-11-20T12:11:21+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -1790,6 +1790,17 @@
       ],
       "sourceUpdatedAt": "2026-11-20T03:09:34Z",
       "finding": "Report aggiornato: 1272 staging, 1154 promossi, 71 esclusi (19 non-cutting-or-incomplete-code; 52 weak-code), 0 arricchimenti di record esistenti, 0 campi arricchiti, 47 possibili duplicati tra 470 utensili completi. Snapshot dichiarato 1217 inserti; copertura VC 40, FN/FZ 50, AP 110, geometria 239, materiale 62, 537 tabelle di famiglia non equivalgono a parametri specifici. Nessun nuovo blocco di 50 certificato. Controlli di pubblicazione Cloudflare/Windows e regressioni ancora pendenti."
+    },
+    {
+      "date": "2026-11-20",
+      "status": "identity-crosscheck-requires-official-reconciliation",
+      "sourceFiles": [
+        "technical-verification-progress.json",
+        "official-catalog-promotion-report.json"
+      ],
+      "finding": "Confronto delle identità SPGX riportate nel registro e nel campione di promozione: registro=SPGX060204WG, SPGX07T308WG, SPGX090408WG, SPGX110408WG; campione=SPGX060204WG, SPGX07T308WG, SPGX090408WG, SPGX110708WG, SPGX140512WG. Il campione include SPGX110708WG, SPGX140512WG non presente fra le identità SPGX verificate nel registro. La differenza non dimostra un errore del catalogo, ma richiede confronto della variante esatta e del grado con scheda ufficiale prima di promuovere o riutilizzare condizioni.",
+      "action": "Non trasferire FN/VC/AP fra codici SPGX simili; verificare corrispondenza codice/EDP/grado e condizioni GoldTwin direttamente nella fonte ufficiale. Nessun nuovo record dichiarato verificato.",
+      "batchCertified": false
     }
   ],
   "partialFamilyVerification": {
