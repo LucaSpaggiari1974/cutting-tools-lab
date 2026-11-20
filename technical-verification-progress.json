@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20T14:33:57+01:00",
+  "updatedAt": "2026-11-20T17:12:59+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -320,7 +320,7 @@
     "66db11f4a6f8fdd7e74ef69b3215355eec94062a",
     "02412fba14b84febbb6e411cab88c4e64704f3f5"
   ],
-  "next": "Verificare presenza esatta SPGX110708WG e SPGX140512WG grado IN2505 nello snapshot gzip e condizioni di sistema ufficiali prima di importare parametri; proseguire verifiche per blocchi di 50, regressioni e pubblicazione.",
+  "next": "Verificare nello snapshot gzip corrispondenza esatta SPGX110708WG e SPGX140512WG IN2505; controllare stazione e compatibilità su fonti ufficiali, poi proseguire blocchi da 50, regressioni e pubblicazione.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -1848,6 +1848,16 @@
       "edp": "6139079",
       "source": "https://www.ingersoll-imc.com/product/6139079",
       "finding": "Scheda ufficiale raggiungibile e riletta: EDP 6139079, codice SPGX110408WG IN2505, quattro indici, mano neutra, serie SPGX-WG, uso foratura GoldTwin, acciai/impiego generale. Dimensioni pubblicate in pollici: IC 0.457, S1 0.189, RE 0.031. Nessuna VC o FN specifica nella scheda; AP non pertinente alla foratura. La verifica non risolve la discrepanza con SPGX110708WG e non autorizza trasferimenti di parametri o incrementi dei record completi. Pubblicazione Cloudflare/Windows non verificata in questa esecuzione."
+    },
+    {
+      "date": "2026-11-20",
+      "status": "official-assembly-cross-reference-verified-not-cutting-parameters",
+      "code": "SPGX140512WG",
+      "grade": "IN2505",
+      "source": "https://www.ingersoll-imc.com/product?ecatProductId=5741660",
+      "finding": "La pagina ufficiale della testa modulare CD4760042YRR01 (EDP 6214162) elenca SPGX140512WG IN2505 come inserto nella stazione esterna (Outer), raggio angolo 0.047 pollici. Conferma un impiego di montaggio specifico, non VC/FN per singolo inserto; la pagina non dimostra presenza nello snapshot catalog.json.gz. Non applicare condizioni del corpo/testa come valori universali dell'inserto.",
+      "batchCertified": false,
+      "publication": "not-verified"
     }
   ],
   "partialFamilyVerification": {
