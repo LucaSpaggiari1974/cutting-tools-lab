@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20T00:05:09+01:00",
+  "updatedAt": "2026-11-20T05:32:38+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -1780,6 +1780,16 @@
       "skipped": 71,
       "completeTools": 470,
       "interpretation": "Contatori aggregati del job, non prova di 50 identità tecniche verificate né di pubblicazione Windows. 537 familyConditionTables non equivalgono a 537 inserti con condizioni ufficiali verificate. Le 71 esclusioni richiedono esame delle motivazioni; nessuna VC/FN/FZ/AP inventata."
+    },
+    {
+      "date": "2026-11-20",
+      "status": "latest-promotion-and-coverage-audited-no-new-verified-batch",
+      "sources": [
+        "official-catalog-promotion-report.json",
+        "update-status.json"
+      ],
+      "sourceUpdatedAt": "2026-11-20T03:09:34Z",
+      "finding": "Report aggiornato: 1272 staging, 1154 promossi, 71 esclusi (19 non-cutting-or-incomplete-code; 52 weak-code), 0 arricchimenti di record esistenti, 0 campi arricchiti, 47 possibili duplicati tra 470 utensili completi. Snapshot dichiarato 1217 inserti; copertura VC 40, FN/FZ 50, AP 110, geometria 239, materiale 62, 537 tabelle di famiglia non equivalgono a parametri specifici. Nessun nuovo blocco di 50 certificato. Controlli di pubblicazione Cloudflare/Windows e regressioni ancora pendenti."
     }
   ],
   "partialFamilyVerification": {
