@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20T12:11:21+01:00",
+  "updatedAt": "2026-11-20T13:31:07+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -1801,6 +1801,15 @@
       "finding": "Confronto delle identità SPGX riportate nel registro e nel campione di promozione: registro=SPGX060204WG, SPGX07T308WG, SPGX090408WG, SPGX110408WG; campione=SPGX060204WG, SPGX07T308WG, SPGX090408WG, SPGX110708WG, SPGX140512WG. Il campione include SPGX110708WG, SPGX140512WG non presente fra le identità SPGX verificate nel registro. La differenza non dimostra un errore del catalogo, ma richiede confronto della variante esatta e del grado con scheda ufficiale prima di promuovere o riutilizzare condizioni.",
       "action": "Non trasferire FN/VC/AP fra codici SPGX simili; verificare corrispondenza codice/EDP/grado e condizioni GoldTwin direttamente nella fonte ufficiale. Nessun nuovo record dichiarato verificato.",
       "batchCertified": false
+    },
+    {
+      "date": "2026-11-20",
+      "status": "official-product-page-rechecked-no-new-parameters",
+      "code": "SPGX110408WG",
+      "grade": "IN2505",
+      "edp": "6139079",
+      "source": "https://www.ingersoll-imc.com/product/6139079",
+      "finding": "Scheda ufficiale raggiungibile e riletta: EDP 6139079, codice SPGX110408WG IN2505, quattro indici, mano neutra, serie SPGX-WG, uso foratura GoldTwin, acciai/impiego generale. Dimensioni pubblicate in pollici: IC 0.457, S1 0.189, RE 0.031. Nessuna VC o FN specifica nella scheda; AP non pertinente alla foratura. La verifica non risolve la discrepanza con SPGX110708WG e non autorizza trasferimenti di parametri o incrementi dei record completi. Pubblicazione Cloudflare/Windows non verificata in questa esecuzione."
     }
   ],
   "partialFamilyVerification": {
