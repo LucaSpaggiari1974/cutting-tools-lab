@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-21T19:50:09+01:00",
+  "updatedAt": "2026-11-21T21:33:30+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -321,7 +321,7 @@
     "02412fba14b84febbb6e411cab88c4e64704f3f5",
     "47ebf715e144b364740abac779ce8e7ec38d097a"
   ],
-  "next": "Esaminare rapporto audit SPGX, certificare record contro cataloghi ufficiali in blocchi da 50, risolvere classificazione 870 tornitura, ripetere Guardian e test Windows dopo ripristino.",
+  "next": "Eseguire sei test di regressione e audit gzip reale; risolvere conflitti codice/grado e verificare blocchi da 50 da fonti ufficiali; Guardian e Windows ancora pendenti.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -1899,6 +1899,18 @@
       "script": "scripts/audit_catalog_snapshot.py",
       "finding": "Aggiunto controllo di sola lettura per decomprimere catalog.json.gz, identificare candidati SPGX110708WG e SPGX140512WG e segnalare possibili duplicati codice/grado. Lo script non importa parametri né certifica i record; l'accesso di rete diretto al gzip resta bloccato nell'ambiente locale.",
       "action": "Eseguire lo script contro il gzip versionato; verificare schema reale, EDP, gradi, fonti ufficiali e regressioni prima di qualunque promozione. Nessun blocco di 50 certificato.",
+      "batchCertified": false,
+      "publication": "not-verified"
+    },
+    {
+      "date": "2026-11-21",
+      "status": "audit-grade-conflict-guard-committed-tests-pending",
+      "commits": [
+        "85a169f22ec5d8540425c80cc1ff537e5c2ee4b7",
+        "5f5ba7494b2723f32e8218526d4fb7e23b62dd32"
+      ],
+      "finding": "L'audit SPGX poteva considerare IN2505 esatto dal suffisso del codice anche quando il campo grado esplicito riportava un altro grado. Corretto il criterio: un grado esplicito discordante non viene promosso; aggiunto test di regressione. Nessun valore di taglio modificato.",
+      "action": "Eseguire i sei test e l'audit sul gzip reale, analizzare le corrispondenze e il report, verificare i 50 record con fonti ufficiali; poi Guardian e Windows.",
       "batchCertified": false,
       "publication": "not-verified"
     }
