@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-21T08:22:24+01:00",
+  "updatedAt": "2026-11-21T13:47:13+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -318,7 +318,8 @@
     "78ded90bb0305d0d9a022c19269163104fb3dec9",
     "81dead700440a8ed535f92c0151a5d64c72ba82d",
     "66db11f4a6f8fdd7e74ef69b3215355eec94062a",
-    "02412fba14b84febbb6e411cab88c4e64704f3f5"
+    "02412fba14b84febbb6e411cab88c4e64704f3f5",
+    "47ebf715e144b364740abac779ce8e7ec38d097a"
   ],
   "next": "Verificare nello snapshot gzip corrispondenza esatta SPGX110708WG e SPGX140512WG IN2505; controllare stazione e compatibilità su fonti ufficiali, poi proseguire blocchi da 50, regressioni e pubblicazione.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
@@ -1888,6 +1889,16 @@
       "updateStatusSha": "3a201f910d306cb2d931685601bdbf7ab756ad69",
       "finding": "Verificato direttamente via GitHub Contents API che catalog.json.gz esiste ed è leggibile in base64 (lunghezza restituita 86169 caratteri), ma il blob corrente differisce dall'ultimo snapshot documentato. L'ambiente di elaborazione non dispone di accesso di rete diretto per scaricare/decomprimere il gzip; nessun confronto dei record SPGX, dei gradi o delle 23 regole può essere certificato in questa esecuzione. update-status.json riporta 1217 inserti ma il conteggio non è stato ricalcolato dal gzip.",
       "action": "Decomprimere e validare lo SHA corrente prima di confrontare codice+grado, duplicati, copertura parametri e pubblicazione; non trasferire condizioni generali agli inserti.",
+      "batchCertified": false,
+      "publication": "not-verified"
+    },
+    {
+      "date": "2026-11-21",
+      "status": "snapshot-audit-script-committed-not-executed",
+      "commit": "47ebf715e144b364740abac779ce8e7ec38d097a",
+      "script": "scripts/audit_catalog_snapshot.py",
+      "finding": "Aggiunto controllo di sola lettura per decomprimere catalog.json.gz, identificare candidati SPGX110708WG e SPGX140512WG e segnalare possibili duplicati codice/grado. Lo script non importa parametri né certifica i record; l'accesso di rete diretto al gzip resta bloccato nell'ambiente locale.",
+      "action": "Eseguire lo script contro il gzip versionato; verificare schema reale, EDP, gradi, fonti ufficiali e regressioni prima di qualunque promozione. Nessun blocco di 50 certificato.",
       "batchCertified": false,
       "publication": "not-verified"
     }
