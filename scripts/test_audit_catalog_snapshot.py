@@ -60,6 +60,17 @@ class CatalogAuditTests(unittest.TestCase):
         self.assertEqual(len(report["spgxCandidates"]["SPGX110708WG"]), 4)
         self.assertEqual(len(report["spgxExactIN2505Candidates"]["SPGX110708WG"]), 2)
 
+    def test_conflicting_explicit_grade_is_not_certified_from_code_suffix(self):
+        items = [
+            {"code": "SPGX110708WG IN2505", "grade": "OTHER"},
+            {"code": "SPGX110708WG IN2505"},
+        ]
+        result = self.run_audit({"items": items})
+        self.assertEqual(result.returncode, 0, result.stderr)
+        report = json.loads(result.stdout)
+        self.assertEqual(len(report["spgxCandidates"]["SPGX110708WG"]), 2)
+        self.assertEqual(len(report["spgxExactIN2505Candidates"]["SPGX110708WG"]), 1)
+
     def test_unexpected_schema_fails_closed(self):
         result = self.run_audit({"products": [{"code": "SPGX110708WG"}]})
         self.assertNotEqual(result.returncode, 0)
