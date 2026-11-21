@@ -44,7 +44,7 @@ def main():
         hits = []
         for index, rec in enumerate(records):
             candidates = fields(rec, keys)
-            if any(norm(target) in norm(s) for s in candidates):
+            if any(norm(target) == norm(s) or (norm(s).startswith(norm(target)) and norm(s)[len(norm(target)):] in {"IN2505"}) for s in candidates):
                 hits.append({"index": index, "codes": candidates, "grades": fields(rec, grade_keys),
                              "record": rec})
         matches[target] = hits
