@@ -48,6 +48,12 @@ def main():
                 hits.append({"index": index, "codes": candidates, "grades": fields(rec, grade_keys),
                              "record": rec})
         matches[target] = hits
+    # Separate exact code+grade evidence from code-only candidates. A missing grade is not IN2505.
+    exact_grade_matches = {
+        target: [hit for hit in hits if any(norm(g) == "IN2505" for g in hit["grades"])
+                 or any(norm(c) == norm(target) + "IN2505" for c in hit["codes"])]
+        for target, hits in matches.items()
+    }
     # Duplicate candidates only: keys may not be unique across grades/variants.
     identities = []
     for rec in records:
@@ -61,6 +67,7 @@ def main():
         "catalog": str(args.catalog), "items": len(items),
         "nonObjectItems": len(items) - len(records),
         "spgxCandidates": matches,
+        "spgxExactIN2505Candidates": exact_grade_matches,
         "duplicateIdentityCandidates": repeated,
         "warning": "Corrispondenze candidate, non certificazione: verificare schema, codice, grado, EDP e fonti ufficiali. Non attribuire VC/FN/FZ/AP generali agli articoli."
     }
