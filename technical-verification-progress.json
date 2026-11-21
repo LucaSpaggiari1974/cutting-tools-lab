@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-21T21:33:30+01:00",
+  "updatedAt": "2026-11-21T22:34:12+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -321,7 +321,7 @@
     "02412fba14b84febbb6e411cab88c4e64704f3f5",
     "47ebf715e144b364740abac779ce8e7ec38d097a"
   ],
-  "next": "Eseguire sei test di regressione e audit gzip reale; risolvere conflitti codice/grado e verificare blocchi da 50 da fonti ufficiali; Guardian e Windows ancora pendenti.",
+  "next": "Eseguire sette test e audit gzip su commit 9619cd0; ispezionare rapporto SPGX e duplicati, quindi verificare blocchi di 50 con fonti ufficiali; Guardian e Windows ancora pendenti.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -2499,5 +2499,14 @@
     "step": "Test funzionali browser della pagina Windows",
     "repairJob": "success",
     "postRepairBrowserVerification": "not-verified"
+  },
+  "auditSafetyFix": {
+    "issue": "Più campi grado espliciti discordanti potevano far apparire esatta una corrispondenza IN2505.",
+    "fixCommit": "a6f01d6d697a05bf3b2a030964bec5cf1c9f657b",
+    "testCommit": "9619cd030627507b62f443fcbc96ad65e7c7e86c",
+    "effect": "Il match esatto richiede che tutti i campi grado espliciti concordino su IN2505; nessun parametro tecnico promosso.",
+    "tests": "pending-GitHub-Actions",
+    "snapshot": "pending-new-run",
+    "batch50": "not-certified"
   }
 }
