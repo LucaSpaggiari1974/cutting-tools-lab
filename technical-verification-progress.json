@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-21T22:34:12+01:00",
+  "updatedAt": "2026-11-22T00:07:00+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -321,7 +321,7 @@
     "02412fba14b84febbb6e411cab88c4e64704f3f5",
     "47ebf715e144b364740abac779ce8e7ec38d097a"
   ],
-  "next": "Eseguire sette test e audit gzip su commit 9619cd0; ispezionare rapporto SPGX e duplicati, quindi verificare blocchi di 50 con fonti ufficiali; Guardian e Windows ancora pendenti.",
+  "next": "Audit gzip reale esaminato: SPGX110708WG e SPGX140512WG IN2505 presenti, nessun duplicato candidato; verificare fonte ufficiale ed EDP e continuare blocchi da 50. Guardian categoria 870 e Windows ancora pendenti.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -1911,6 +1911,16 @@
       ],
       "finding": "L'audit SPGX poteva considerare IN2505 esatto dal suffisso del codice anche quando il campo grado esplicito riportava un altro grado. Corretto il criterio: un grado esplicito discordante non viene promosso; aggiunto test di regressione. Nessun valore di taglio modificato.",
       "action": "Eseguire i sei test e l'audit sul gzip reale, analizzare le corrispondenze e il report, verificare i 50 record con fonti ufficiali; poi Guardian e Windows.",
+      "batchCertified": false,
+      "publication": "not-verified"
+    },
+    {
+      "date": "2026-11-22",
+      "status": "audit-artifact-inspected-spgx-present",
+      "run": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44934765448",
+      "artifact": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44934765448/artifacts/14719421096",
+      "finding": "Scaricato e letto il JSON nell'artefatto dell'audit reale: 1217 items, 0 elementi non-oggetto, 0 candidati duplicati secondo chiave codice/grado dello script. SPGX110708WG IN2505 all'indice 1024 e SPGX140512WG IN2505 all'indice 1025, una corrispondenza esatta ciascuno; fonte dichiarata catalogo ufficiale Ingersoll WinsFeed 2024 pagina 102. Entrambi sono classificati Foratura GoldTwin, senza VC/FN specifici, AP non applicabile e anteprime disabilitate. Il report verifica presenza nello snapshot ma non certifica intero catalogo né condizioni di taglio.",
+      "action": "Verificare il contenuto della fonte ufficiale per ogni dato prima di promuoverlo; controllare EDP e coerenza di famiglia; proseguire il blocco da 50 e test Guardian/Windows. Non convertire le condizioni generali in parametri specifici.",
       "batchCertified": false,
       "publication": "not-verified"
     }
