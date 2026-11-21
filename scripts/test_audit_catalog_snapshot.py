@@ -40,6 +40,13 @@ class CatalogAuditTests(unittest.TestCase):
         )
         self.assertEqual(report["spgxCandidates"]["SPGX110708WG"][0]["record"]["vc"], None)
 
+    def test_similar_but_different_code_is_not_a_match(self):
+        result = self.run_audit({"items": [{"code": "XSPGX110708WG", "grade": "IN2505"}, {"code": "SPGX110708WG", "grade": "IN2505"}]})
+        self.assertEqual(result.returncode, 0, result.stderr)
+        hits = json.loads(result.stdout)["spgxCandidates"]["SPGX110708WG"]
+        self.assertEqual(len(hits), 1)
+        self.assertEqual(hits[0]["record"]["code"], "SPGX110708WG")
+
     def test_unexpected_schema_fails_closed(self):
         result = self.run_audit({"products": [{"code": "SPGX110708WG"}]})
         self.assertNotEqual(result.returncode, 0)
