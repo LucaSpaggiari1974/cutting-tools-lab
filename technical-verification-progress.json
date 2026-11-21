@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20T17:12:59+01:00",
+  "updatedAt": "2026-11-21T02:14:09+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -1856,6 +1856,18 @@
       "grade": "IN2505",
       "source": "https://www.ingersoll-imc.com/product?ecatProductId=5741660",
       "finding": "La pagina ufficiale della testa modulare CD4760042YRR01 (EDP 6214162) elenca SPGX140512WG IN2505 come inserto nella stazione esterna (Outer), raggio angolo 0.047 pollici. Conferma un impiego di montaggio specifico, non VC/FN per singolo inserto; la pagina non dimostra presenza nello snapshot catalog.json.gz. Non applicare condizioni del corpo/testa come valori universali dell'inserto.",
+      "batchCertified": false,
+      "publication": "not-verified"
+    },
+    {
+      "date": "2026-11-21",
+      "status": "promotion-report-crosscheck-unresolved",
+      "sourceFiles": [
+        "official-catalog-promotion-report.json",
+        "technical-verification-progress.json"
+      ],
+      "finding": "Report promozione 2026-11-20T20:09:49Z: 1272 candidati in staging, 1154 promossi, 71 esclusi, 1217 inserti finali e 470 utensili completi. Il report segnala 47 corrispondenze duplicate nella fase utensili completi ma 0 duplicati esistenti rimossi: non dedurre che siano duplicati residui senza controllo delle chiavi e del catalogo. I cinque codici SPGX nel campione promozione includono SPGX110708WG e SPGX140512WG; campione non prova presenza nello snapshot gzip né grado esatto.",
+      "action": "Confrontare le identità SPGX e i gradi direttamente nel catalog.json.gz; verificare le 47 corrispondenze candidate utensili completi prima di cancellare record; non promuovere parametri generali a specifici.",
       "batchCertified": false,
       "publication": "not-verified"
     }
