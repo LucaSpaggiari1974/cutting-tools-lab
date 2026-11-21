@@ -47,6 +47,19 @@ class CatalogAuditTests(unittest.TestCase):
         self.assertEqual(len(hits), 1)
         self.assertEqual(hits[0]["record"]["code"], "SPGX110708WG")
 
+    def test_exact_grade_is_not_inferred_from_code_only(self):
+        items = [
+            {"code": "SPGX110708WG", "grade": "OTHER"},
+            {"code": "SPGX110708WG"},
+            {"code": "SPGX110708WG", "grade": "IN2505"},
+            {"code": "SPGX110708WG IN2505"},
+        ]
+        result = self.run_audit({"items": items})
+        self.assertEqual(result.returncode, 0, result.stderr)
+        report = json.loads(result.stdout)
+        self.assertEqual(len(report["spgxCandidates"]["SPGX110708WG"]), 4)
+        self.assertEqual(len(report["spgxExactIN2505Candidates"]["SPGX110708WG"]), 2)
+
     def test_unexpected_schema_fails_closed(self):
         result = self.run_audit({"products": [{"code": "SPGX110708WG"}]})
         self.assertNotEqual(result.returncode, 0)
