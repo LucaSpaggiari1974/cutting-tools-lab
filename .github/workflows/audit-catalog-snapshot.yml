@@ -1,0 +1,27 @@
+name: Audit catalogo tecnico (sola lettura)
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'catalog.json.gz'
+      - 'scripts/audit_catalog_snapshot.py'
+      - 'scripts/test_audit_catalog_snapshot.py'
+      - '.github/workflows/audit-catalog-snapshot.yml'
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test di regressione
+        run: python -m unittest discover -s scripts -p 'test_audit_catalog_snapshot.py' -v
+      - name: Analisi snapshot reale (senza modifiche)
+        run: python scripts/audit_catalog_snapshot.py catalog.json.gz --output audit-catalog-snapshot-report.json
+      - name: Pubblica rapporto per revisione
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-catalog-snapshot
+          path: audit-catalog-snapshot-report.json
+          if-no-files-found: warn
