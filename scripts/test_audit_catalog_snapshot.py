@@ -71,6 +71,17 @@ class CatalogAuditTests(unittest.TestCase):
         self.assertEqual(len(report["spgxCandidates"]["SPGX110708WG"]), 2)
         self.assertEqual(len(report["spgxExactIN2505Candidates"]["SPGX110708WG"]), 1)
 
+    def test_conflicting_grade_fields_are_not_exact_matches(self):
+        items = [
+            {"code": "SPGX110708WG", "grade": "IN2505", "grado": "OTHER"},
+            {"code": "SPGX110708WG", "grade": "IN2505", "grado": "IN2505"},
+        ]
+        result = self.run_audit({"items": items})
+        self.assertEqual(result.returncode, 0, result.stderr)
+        report = json.loads(result.stdout)
+        self.assertEqual(len(report["spgxCandidates"]["SPGX110708WG"]), 2)
+        self.assertEqual(len(report["spgxExactIN2505Candidates"]["SPGX110708WG"]), 1)
+
     def test_unexpected_schema_fails_closed(self):
         result = self.run_audit({"products": [{"code": "SPGX110708WG"}]})
         self.assertNotEqual(result.returncode, 0)
