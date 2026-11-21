@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-21T05:15:55+01:00",
+  "updatedAt": "2026-11-21T08:22:24+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -1879,6 +1879,17 @@
       "action": "Verificare se i timestamp derivano da aggiornamenti automatici online non versionati; riallineare i metadati solo dopo confronto dei payload, senza alterare codici o parametri. Classificare 870 record solo con evidenza tecnica. Nessun blocco di 50 certificato.",
       "batchCertified": false,
       "publication": "blocked"
+    },
+    {
+      "date": "2026-11-21",
+      "status": "snapshot-blob-changed-audit-required",
+      "catalogBlob": "1295551bbcf974daf529568f664902f6bc98b52b",
+      "previousCatalogBlob": "1640ec5d505ecaca8279442d18a5464f7b87109d",
+      "updateStatusSha": "3a201f910d306cb2d931685601bdbf7ab756ad69",
+      "finding": "Verificato direttamente via GitHub Contents API che catalog.json.gz esiste ed è leggibile in base64 (lunghezza restituita 86169 caratteri), ma il blob corrente differisce dall'ultimo snapshot documentato. L'ambiente di elaborazione non dispone di accesso di rete diretto per scaricare/decomprimere il gzip; nessun confronto dei record SPGX, dei gradi o delle 23 regole può essere certificato in questa esecuzione. update-status.json riporta 1217 inserti ma il conteggio non è stato ricalcolato dal gzip.",
+      "action": "Decomprimere e validare lo SHA corrente prima di confrontare codice+grado, duplicati, copertura parametri e pubblicazione; non trasferire condizioni generali agli inserti.",
+      "batchCertified": false,
+      "publication": "not-verified"
     }
   ],
   "partialFamilyVerification": {
