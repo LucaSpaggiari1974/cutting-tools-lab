@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-21T13:47:13+01:00",
+  "updatedAt": "2026-11-21T19:50:09+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -321,7 +321,7 @@
     "02412fba14b84febbb6e411cab88c4e64704f3f5",
     "47ebf715e144b364740abac779ce8e7ec38d097a"
   ],
-  "next": "Verificare nello snapshot gzip corrispondenza esatta SPGX110708WG e SPGX140512WG IN2505; controllare stazione e compatibilità su fonti ufficiali, poi proseguire blocchi da 50, regressioni e pubblicazione.",
+  "next": "Esaminare rapporto audit SPGX, certificare record contro cataloghi ufficiali in blocchi da 50, risolvere classificazione 870 tornitura, ripetere Guardian e test Windows dopo ripristino.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -2461,5 +2461,31 @@
       ],
       "resolution": "Classificare solo con evidenza ufficiale; non disabilitare il controllo né assegnare categorie arbitrarie."
     }
+  },
+  "auditWorkflowVerification": {
+    "run": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44934765448",
+    "result": "success",
+    "testsPassed": 5,
+    "snapshotAudit": "executed-successfully",
+    "artifact": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44934765448/artifacts/14719421096",
+    "limitation": "Il contenuto del rapporto non è ancora stato esaminato: nessuna variante SPGX o blocco da 50 certificato."
+  },
+  "guardianVerification": {
+    "run": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44934820969",
+    "result": "BLOCKED",
+    "githubCatalogItems": 1217,
+    "githubCompleteToolsItems": 470,
+    "onlineCatalogMatchesGithub": true,
+    "onlineCompleteToolsMatchesGithub": true,
+    "noDuplicateInserts": true,
+    "unclassifiedTurningInserts": 870,
+    "error": "Categoria non ammessa: Tornitura · Impiego da verificare"
+  },
+  "windowsVerification": {
+    "run": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44919401611",
+    "result": "failure",
+    "step": "Test funzionali browser della pagina Windows",
+    "repairJob": "success",
+    "postRepairBrowserVerification": "not-verified"
   }
 }
