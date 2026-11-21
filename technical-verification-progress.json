@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-21T02:14:09+01:00",
+  "updatedAt": "2026-11-21T05:15:55+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -1870,6 +1870,15 @@
       "action": "Confrontare le identità SPGX e i gradi direttamente nel catalog.json.gz; verificare le 47 corrispondenze candidate utensili completi prima di cancellare record; non promuovere parametri generali a specifici.",
       "batchCertified": false,
       "publication": "not-verified"
+    },
+    {
+      "date": "2026-11-21",
+      "status": "guardian-blocked-online-timestamps-mismatch",
+      "run": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44850512809",
+      "finding": "Guardian alle 01:30:09 UTC: JSON valido, 1217 inserti e 470 utensili completi, nessun duplicato inserti, homepage e conteggi online corrispondenti. Blocchi: 870 inserti nella categoria provvisoria Tornitura · Impiego da verificare; timestamp catalogo online 2026-11-21T01:29:00Z diverso da GitHub 2026-11-20T20:09:50Z; timestamp utensili completi online 2026-11-21T01:28:59Z diverso da GitHub 2026-11-20T20:09:49Z. Deploy 44848962815 riuscito, ma non certifica sincronizzazione dei dati.",
+      "action": "Verificare se i timestamp derivano da aggiornamenti automatici online non versionati; riallineare i metadati solo dopo confronto dei payload, senza alterare codici o parametri. Classificare 870 record solo con evidenza tecnica. Nessun blocco di 50 certificato.",
+      "batchCertified": false,
+      "publication": "blocked"
     }
   ],
   "partialFamilyVerification": {
