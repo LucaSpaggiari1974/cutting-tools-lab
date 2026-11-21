@@ -50,8 +50,8 @@ def main():
         matches[target] = hits
     # Separate exact code+grade evidence from code-only candidates. A missing grade is not IN2505.
     exact_grade_matches = {
-        target: [hit for hit in hits if any(norm(g) == "IN2505" for g in hit["grades"])
-                 or any(norm(c) == norm(target) + "IN2505" for c in hit["codes"])]
+        target: [hit for hit in hits if (any(norm(g) == "IN2505" for g in hit["grades"])
+                 or (not hit["grades"] and any(norm(c) == norm(target) + "IN2505" for c in hit["codes"])))]
         for target, hits in matches.items()
     }
     # Duplicate candidates only: keys may not be unique across grades/variants.
