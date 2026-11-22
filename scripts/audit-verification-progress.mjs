@@ -49,9 +49,6 @@ if (progress.status === "complete") {
   if (progress.publication !== "verified") errors.push("stato completo senza pubblicazione globale verificata");
 }
 for (const [index, record] of records.entries()) {
-  if (record.grade && record.code && String(record.code).replace(/[^A-Z0-9]/gi, "").toUpperCase().endsWith(String(record.grade).replace(/[^A-Z0-9]/gi, "").toUpperCase())) {
-    // Il codice completo può includere il grado: non è un errore, ma la chiave resta codice+grado.
-  }
   if (record.snapshotAudit?.identity && /candidata|non certificazione/i.test(record.snapshotAudit.identity) && record.publication === "verified")
     errors.push(`record ${index + 1}: pubblicazione certificata nonostante corrispondenza solo candidata`);
 }
