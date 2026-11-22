@@ -24,6 +24,18 @@ try {
   if (!response || !response.ok()) throw new Error("Homepage non caricata correttamente");
   await page.waitForFunction(() => document.querySelectorAll("tr.data").length >= 2, null, { timeout: 15000 });
   console.log("PASS: homepage e caricamento catalogo di prova");
+  const visualAudit = await page.evaluate(() => ({
+    italianNotice: document.body.innerText.includes("Visualizzazione senza anteprime"),
+    visibleImages: [...document.querySelectorAll("img, picture")].filter(el => {
+      const style = getComputedStyle(el);
+      const rect = el.getBoundingClientRect();
+      return style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
+    }).length
+  }));
+  if (!visualAudit.italianNotice) throw new Error("Avviso italiano senza anteprime assente");
+  if (visualAudit.visibleImages) throw new Error("Anteprime/immagini visibili: " + visualAudit.visibleImages);
+  console.log("PASS: interfaccia italiana e immagini disabilitate");
+
 
   const search = page.locator("#q");
   await search.fill("CTLAB-SMOKE-CNMG120408");
