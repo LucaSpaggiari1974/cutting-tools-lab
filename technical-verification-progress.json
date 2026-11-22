@@ -2582,5 +2582,15 @@
     "tests": "pending-GitHub-Actions",
     "snapshot": "pending-new-run",
     "batch50": "not-certified"
+  },
+  "registerIntegrityAudit": {
+    "checkedAt": "2026-11-22",
+    "scope": "Solo registro verifiedSourceRecords, non catalogo JSON/gzip né disponibilità delle pagine sorgente",
+    "recordCount": 15,
+    "uniqueCodeGradePairs": 15,
+    "duplicateCodeGradePairs": 0,
+    "officialDomainUrlReferences": 38,
+    "nonOfficialDomainUrlReferences": 0,
+    "limitations": "Controllo statico dei domini URL, non verifica contenuto o accessibilità delle fonti; 15 combinazioni documentate non equivalgono a 15 record integralmente certificati né a un blocco da 50."
   }
 }
