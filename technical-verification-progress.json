@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22T01:49:35+01:00",
+  "updatedAt": "2026-11-22T02:43:21+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -331,7 +331,7 @@
     "02412fba14b84febbb6e411cab88c4e64704f3f5",
     "47ebf715e144b364740abac779ce8e7ec38d097a"
   ],
-  "next": "Proseguire dal primo blocco Ingersoll da 50; verificare EDP e condizioni specifiche su fonti ufficiali. Audit snapshot conferma due candidati SPGX IN2505 agli indici 1024 e 1025; nessun blocco certificato. Guardian categoria 870 e Windows ancora pendenti.",
+  "next": "Primo blocco Ingersoll da 50 ancora non certificato; verificare EDP, materiali e condizioni specifiche da fonti ufficiali senza estrapolare VC/FN/FZ/AP. Esaminare il fallimento browser Windows del run 44969072376 e ripetere i test; Guardian categoria 870 ancora pendente.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -1945,6 +1945,15 @@
       "batchCertified": false,
       "windows": "not-verified",
       "action": "Verificare fonte e destinazione dei primi 50 Ingersoll, classificare solo con evidenze; test Windows e nuova esecuzione Guardian dopo modifiche."
+    },
+    {
+      "date": "2026-11-22",
+      "status": "windows-browser-functional-test-failed-repair-succeeded",
+      "run": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44969072376",
+      "finding": "Esecuzione Windows del 22 novembre 00:56 UTC: validazione statica HTML e blocchi JavaScript riuscita; installazione Playwright/Chromium riuscita; test funzionali browser falliti. Il job repair ha avuto esito positivo, ma non costituisce verifica funzionale. Non dedurre che Windows funzioni dal solo ripristino.",
+      "action": "Esaminare i log dettagliati del test browser e correggere la causa, quindi ripetere i test. Non certificare pubblicazione Windows.",
+      "batchCertified": false,
+      "publication": "windows-not-verified"
     }
   ],
   "partialFamilyVerification": {
