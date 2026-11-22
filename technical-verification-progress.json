@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22T08:02:00+01:00",
+  "updatedAt": "2026-11-22T09:02:38+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -1980,6 +1980,13 @@
       "finding": "Aggiunte allo smoke browser asserzioni sulla presenza dell'avviso italiano 'Visualizzazione senza anteprime' e sull'assenza di immagini/picture visibili. La verifica usa ancora fixture di due record, non il catalogo reale.",
       "action": "Eseguire GitHub Actions browser smoke; se passa, verificare separatamente catalogo reale e pubblicazione Windows. Nessun blocco tecnico di 50 certificato.",
       "batchCertified": false
+    },
+    {
+      "date": "2026-11-22",
+      "status": "static-ui-audit-only",
+      "indexBlob": "d7300b3321aec6b1bd9ad2b265164dce0c4a82c7",
+      "finding": "Lettura diretta di index.html sul ramo predefinito: lang=it, avviso 'Visualizzazione senza anteprime' presente, zero tag HTML <img> statici. Non dimostra assenza di immagini create dinamicamente né corretto funzionamento su Windows/Cloudflare.",
+      "next": "Eseguire browser-smoke aggiornato e test con catalogo reale, non soltanto fixture di due record."
     }
   ],
   "partialFamilyVerification": {
