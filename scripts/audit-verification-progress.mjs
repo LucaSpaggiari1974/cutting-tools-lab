@@ -11,14 +11,14 @@ const seen = new Set();
 for (const [index, record] of records.entries()) {
   const label = `record ${index + 1}`;
   if (!record.code || !record.grade) errors.push(`${label}: codice/grado mancante`);
-  const key = [record.code, record.grade].map(v => String(v ?? "").replace(/\\s+/g, "").toUpperCase()).join("|");
+  const key = [record.code, record.grade].map(v => String(v ?? "").replace(/\s+/g, "").toUpperCase()).join("|");
   if (seen.has(key)) errors.push(`${label}: duplicato codice/grado ${key}`);
   seen.add(key);
   for (const field of ["source", "product", "speedSource", "gradeSource", "materialSource"]) {
     if (!record[field]) continue;
     try {
       const url = new URL(record[field]);
-      if (url.protocol !== "https:" || !/(^|\\.)ingersoll-imc\\.com$/i.test(url.hostname))
+      if (url.protocol !== "https:" || !/(^|\.)ingersoll-imc\.com$/i.test(url.hostname))
         errors.push(`${label}: fonte non ufficiale in ${field}`);
     } catch { errors.push(`${label}: URL non valido in ${field}`); }
   }
