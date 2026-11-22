@@ -32,7 +32,7 @@ for (const [index, record] of records.entries()) {
     if (!study.scope || !study.material) errors.push(`${label}: caso studio senza ambito/materiale`);
     try {
       const url = new URL(study.source);
-      if (url.protocol !== "https:" || !/(^|\\.)ingersoll-imc\\.com$/i.test(url.hostname)) errors.push(`${label}: fonte caso studio non ufficiale`);
+      if (url.protocol !== "https:" || !/(^|\.)ingersoll-imc\.com$/i.test(url.hostname)) errors.push(`${label}: fonte caso studio non ufficiale`);
     } catch { errors.push(`${label}: URL caso studio non valido`); }
     for (const field of ["vcMMin", "fnMmRev"]) {
       const value = study[field];
