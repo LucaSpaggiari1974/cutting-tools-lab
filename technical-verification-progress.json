@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22T01:23:34+01:00",
+  "updatedAt": "2026-11-22T01:49:35+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -1933,6 +1933,18 @@
       "action": "Verificare il contenuto della fonte ufficiale per ogni dato prima di promuoverlo; controllare EDP e coerenza di famiglia; proseguire il blocco da 50 e test Guardian/Windows. Non convertire le condizioni generali in parametri specifici.",
       "batchCertified": false,
       "publication": "not-verified"
+    },
+    {
+      "date": "2026-11-22",
+      "status": "guardian-latest-run-confirmed-blocked-by-category",
+      "run": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44966461514",
+      "artifact": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44966461514/artifacts/14730953808",
+      "finding": "Log Guardian 00:24 UTC: 1217 inserti GitHub, 470 utensili completi, cataloghi online coincidenti con GitHub, nessun duplicato rilevato, homepage raggiungibile. Blocco confermato esclusivamente per categoria non ammessa 'Tornitura · Impiego da verificare' su 870 record; non riclassificare senza evidenza ufficiale.",
+      "deployRun": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44966415036",
+      "deployConclusion": "success",
+      "batchCertified": false,
+      "windows": "not-verified",
+      "action": "Verificare fonte e destinazione dei primi 50 Ingersoll, classificare solo con evidenze; test Windows e nuova esecuzione Guardian dopo modifiche."
     }
   ],
   "partialFamilyVerification": {
