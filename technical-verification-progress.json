@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22T02:43:21+01:00",
+  "updatedAt": "2026-11-22T04:05:31+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -331,7 +331,7 @@
     "02412fba14b84febbb6e411cab88c4e64704f3f5",
     "47ebf715e144b364740abac779ce8e7ec38d097a"
   ],
-  "next": "Primo blocco Ingersoll da 50 ancora non certificato; verificare EDP, materiali e condizioni specifiche da fonti ufficiali senza estrapolare VC/FN/FZ/AP. Esaminare il fallimento browser Windows del run 44969072376 e ripetere i test; Guardian categoria 870 ancora pendente.",
+  "next": "Verificare esito Windows dopo fix sintattico eeebbbc; proseguire verifica ufficiale dei primi 50 Ingersoll e controllo EDP/materiali/VC/FN/FZ/AP; Guardian 870 categorie pendente.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -1952,6 +1952,18 @@
       "run": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44969072376",
       "finding": "Esecuzione Windows del 22 novembre 00:56 UTC: validazione statica HTML e blocchi JavaScript riuscita; installazione Playwright/Chromium riuscita; test funzionali browser falliti. Il job repair ha avuto esito positivo, ma non costituisce verifica funzionale. Non dedurre che Windows funzioni dal solo ripristino.",
       "action": "Esaminare i log dettagliati del test browser e correggere la causa, quindi ripetere i test. Non certificare pubblicazione Windows.",
+      "batchCertified": false,
+      "publication": "windows-not-verified"
+    },
+    {
+      "date": "2026-11-22",
+      "status": "windows-smoke-syntax-fix-committed-tests-pending",
+      "run": "https://github.com/LucaSpaggiari1974/cutting-tools-lab/actions/runs/44969072376",
+      "jobId": 137044621511,
+      "finding": "Log Windows: scripts/browser-smoke.mjs riga 30 contiene sequenze letterali backslash-n all'interno della funzione passata a page.waitForFunction; Node 22 interrompe il parsing con SyntaxError: Invalid or unexpected token prima di avviare i test funzionali. Non è evidenza di difetto dell'interfaccia.",
+      "fix": "Sostituite le sequenze backslash-n spurie con veri ritorni a capo nel test, senza modificare il catalogo o l'HTML.",
+      "commit": "eeebbbc6798c8eefece65d115c257291887a27a9",
+      "action": "Attendere nuova esecuzione GitHub Actions Windows e leggere i risultati dei test reali; non certificare Windows fino al passaggio completo.",
       "batchCertified": false,
       "publication": "windows-not-verified"
     }
