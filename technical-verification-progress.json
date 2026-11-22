@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22T00:07:00+01:00",
+  "updatedAt": "2026-11-22T01:23:34+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -280,8 +280,13 @@
       "vc": "non-disponibile-nella-tabella",
       "fn": "non-disponibile-nella-tabella",
       "ap": "non-applicabile-alla-foratura",
-      "scope": "Dimensioni geometriche in pollici; non confondere con parametri di taglio. Condizioni di sistema e presenza nello snapshot non verificate.",
-      "publication": "not-verified"
+      "scope": "Dimensioni geometriche in pollici, non parametri di taglio. Presenza nello snapshot gzip confermata dall'audit agli indici 1024 e 1025 rispettivamente; EDP, condizioni specifiche di taglio e pubblicazione funzionale Windows ancora da verificare.",
+      "publication": "not-verified",
+      "snapshotAudit": {
+        "source": "GitHub Actions audit catalog.json.gz, rapporto esaminato il 2026-11-22",
+        "index": 1024,
+        "identity": "corrispondenza candidata codice/grado, non certificazione completa"
+      }
     },
     {
       "code": "SPGX140512WG",
@@ -299,8 +304,13 @@
       "vc": "non-disponibile-nella-tabella",
       "fn": "non-disponibile-nella-tabella",
       "ap": "non-applicabile-alla-foratura",
-      "scope": "Dimensioni geometriche in pollici; non confondere con parametri di taglio. Condizioni di sistema e presenza nello snapshot non verificate.",
-      "publication": "not-verified"
+      "scope": "Dimensioni geometriche in pollici, non parametri di taglio. Presenza nello snapshot gzip confermata dall'audit agli indici 1024 e 1025 rispettivamente; EDP, condizioni specifiche di taglio e pubblicazione funzionale Windows ancora da verificare.",
+      "publication": "not-verified",
+      "snapshotAudit": {
+        "source": "GitHub Actions audit catalog.json.gz, rapporto esaminato il 2026-11-22",
+        "index": 1025,
+        "identity": "corrispondenza candidata codice/grado, non certificazione completa"
+      }
     }
   ],
   "commits": [
@@ -321,7 +331,7 @@
     "02412fba14b84febbb6e411cab88c4e64704f3f5",
     "47ebf715e144b364740abac779ce8e7ec38d097a"
   ],
-  "next": "Audit gzip reale esaminato: SPGX110708WG e SPGX140512WG IN2505 presenti, nessun duplicato candidato; verificare fonte ufficiale ed EDP e continuare blocchi da 50. Guardian categoria 870 e Windows ancora pendenti.",
+  "next": "Proseguire dal primo blocco Ingersoll da 50; verificare EDP e condizioni specifiche su fonti ufficiali. Audit snapshot conferma due candidati SPGX IN2505 agli indici 1024 e 1025; nessun blocco certificato. Guardian categoria 870 e Windows ancora pendenti.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
