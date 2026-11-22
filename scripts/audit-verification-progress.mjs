@@ -30,6 +30,16 @@ for (const [index, record] of records.entries()) {
   }
   if (record.caseStudies) for (const study of record.caseStudies) {
     if (!study.scope || !study.material) errors.push(`${label}: caso studio senza ambito/materiale`);
+    try {
+      const url = new URL(study.source);
+      if (url.protocol !== "https:" || !/(^|\\.)ingersoll-imc\\.com$/i.test(url.hostname)) errors.push(`${label}: fonte caso studio non ufficiale`);
+    } catch { errors.push(`${label}: URL caso studio non valido`); }
+    for (const field of ["vcMMin", "fnMmRev"]) {
+      const value = study[field];
+      if (value === undefined) continue;
+      const values = Array.isArray(value) ? value : [value];
+      if (!values.length || !values.every(v => Number.isFinite(v) && v > 0)) errors.push(`${label}: ${field} caso studio non valido`);
+    }
   }
 }
 if (progress.batchTarget !== 50) errors.push("batchTarget diverso da 50");
