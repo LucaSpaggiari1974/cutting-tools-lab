@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22T04:05:31+01:00",
+  "updatedAt": "2026-11-22T04:54:10+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -331,7 +331,7 @@
     "02412fba14b84febbb6e411cab88c4e64704f3f5",
     "47ebf715e144b364740abac779ce8e7ec38d097a"
   ],
-  "next": "Verificare esito Windows dopo fix sintattico eeebbbc; proseguire verifica ufficiale dei primi 50 Ingersoll e controllo EDP/materiali/VC/FN/FZ/AP; Guardian 870 categorie pendente.",
+  "next": "Verificare nuova esecuzione browser-smoke dopo commit a58d349; proseguire audit dei primi 50 Ingersoll da fonti ufficiali; Guardian categorie e verifica pubblicazione ancora aperti.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
@@ -1966,6 +1966,12 @@
       "action": "Attendere nuova esecuzione GitHub Actions Windows e leggere i risultati dei test reali; non certificare Windows fino al passaggio completo.",
       "batchCertified": false,
       "publication": "windows-not-verified"
+    },
+    {
+      "date": "2026-11-22",
+      "finding": "Rilevata ancora una sequenza letterale \\\\n nel callback waitForFunction di scripts/browser-smoke.mjs (dopo return ...;), che causa errore sintattico. Sostituita con newline reale.",
+      "fixCommit": "a58d3492ce5996bbafa457e96a3bb7247b69585b",
+      "status": "fix-committed-browser-execution-pending"
     }
   ],
   "partialFamilyVerification": {
