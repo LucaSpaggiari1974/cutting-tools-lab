@@ -11,7 +11,7 @@ const seen = new Set();
 for (const [index, record] of records.entries()) {
   const label = `record ${index + 1}`;
   if (!record.code || !record.grade) errors.push(`${label}: codice/grado mancante`);
-  const key = [record.code, record.grade].map(v => String(v ?? "").replace(/\s+/g, "").toUpperCase()).join("|");
+  const key = [record.code, record.grade].map(v => String(v ?? "").replace(/[^A-Z0-9]/gi, "").toUpperCase()).join("|");
   if (seen.has(key)) errors.push(`${label}: duplicato codice/grado ${key}`);
   seen.add(key);
   for (const field of ["source", "product", "speedSource", "gradeSource", "materialSource"]) {
