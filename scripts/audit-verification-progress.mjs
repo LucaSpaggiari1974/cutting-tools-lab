@@ -43,7 +43,18 @@ for (const [index, record] of records.entries()) {
   }
 }
 if (progress.batchTarget !== 50) errors.push("batchTarget diverso da 50");
-if (records.length > progress.batchTarget && progress.status === "complete") errors.push("stato completo incoerente con batch");
+if (progress.status === "complete") {
+  if (records.length < progress.batchTarget) errors.push("stato completo senza 50 combinazioni documentate");
+  if (records.some(record => record.publication !== "verified")) errors.push("stato completo con pubblicazione di singoli record non verificata");
+  if (progress.publication !== "verified") errors.push("stato completo senza pubblicazione globale verificata");
+}
+for (const [index, record] of records.entries()) {
+  if (record.grade && record.code && String(record.code).replace(/[^A-Z0-9]/gi, "").toUpperCase().endsWith(String(record.grade).replace(/[^A-Z0-9]/gi, "").toUpperCase())) {
+    // Il codice completo può includere il grado: non è un errore, ma la chiave resta codice+grado.
+  }
+  if (record.snapshotAudit?.identity && /candidata|non certificazione/i.test(record.snapshotAudit.identity) && record.publication === "verified")
+    errors.push(`record ${index + 1}: pubblicazione certificata nonostante corrispondenza solo candidata`);
+}
 console.log(`Registro: ${records.length} combinazioni distinte su obiettivo blocco ${progress.batchTarget}; controlli strutturali: ${errors.length ? "FAIL" : "PASS"}.`);
 console.log("ATTENZIONE: PASS non significa verifica ufficiale dei valori né certificazione Cloudflare/Windows.");
 if (errors.length) { for (const error of errors) console.error(error); process.exitCode = 1; }
