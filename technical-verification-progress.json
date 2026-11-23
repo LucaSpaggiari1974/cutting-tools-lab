@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-23T07:31:48+01:00",
+  "updatedAt": "2026-11-23T07:41:30+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -125,7 +125,22 @@
       },
       "application": "Tornitura media",
       "geometrySource": "https://www.ingersoll-imc.com/product/6212536",
-      "geometryScope": "Dimensioni in pollici e applicazione media confermate nella scheda ufficiale EDP 6212536; non sono velocità di taglio specifiche né prova di pubblicazione."
+      "geometryScope": "Dimensioni in pollici e applicazione media confermate nella scheda ufficiale EDP 6212536; non sono velocità di taglio specifiche né prova di pubblicazione.",
+      "feedDepthProvenance": {
+        "source": "https://www.ingersoll-imc.com/product/6212536",
+        "edp": "6212536",
+        "sourceUnits": "pollici/giro (fn), pollici (ap)",
+        "sourceFnInRev": [
+          0.009,
+          0.022
+        ],
+        "sourceApIn": [
+          0.079,
+          0.256
+        ],
+        "conversion": "1 pollice = 25,4 mm; intervalli convertiti esattamente in mm/giro e mm",
+        "scope": "Intervalli specifici dell'articolo, non VC; validati rispetto alla scheda ufficiale consultata il 2026-11-23"
+      }
     },
     {
       "code": "CNMG160612MT TT8115B",
