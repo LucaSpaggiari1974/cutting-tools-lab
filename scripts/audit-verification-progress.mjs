@@ -32,6 +32,16 @@ for (const [index, record] of records.entries()) {
   // Non confondere fn (mm/giro) con fz (mm/dente), né la profondità foro con AP.
   const provenance = record.feedDepthProvenance;
   if (provenance) {
+    // La provenienza numerica deve essere riconducibile alla scheda ufficiale dell'articolo.
+    if (provenance.source) {
+      try {
+        const sourceUrl = new URL(provenance.source);
+        if (sourceUrl.protocol !== "https:" || !/(^|\\.)ingersoll-imc\\.com$/i.test(sourceUrl.hostname))
+          errors.push(`${label}: fonte numerica non ufficiale`);
+        if (record.product && sourceUrl.pathname.replace(/\\/$/, "") !== new URL(record.product).pathname.replace(/\\/$/, ""))
+          errors.push(`${label}: fonte numerica diversa dalla scheda articolo`);
+      } catch { errors.push(`${label}: URL provenienza numerica non valido`); }
+    }
     if (provenance.edp && record.product && !new URL(record.product).pathname.replace(/\/$/, "").endsWith("/" + provenance.edp))
       errors.push(`${label}: EDP di provenienza diverso dalla scheda articolo`);
     for (const [sourceField, metricField] of [["sourceFnInRev", "fnMmRev"], ["sourceApIn", "apMm"]]) {
