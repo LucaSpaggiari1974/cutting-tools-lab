@@ -52,6 +52,16 @@ for (const [index, record] of records.entries()) {
     if (!Array.isArray(range) || range.length !== 2 || !range.every(v => Number.isFinite(v) && v > 0) || range[0] > range[1])
       errors.push(`${label}: intervallo ${field} non valido`);
   }
+  // Non accettare attestazioni di una nuova verifica se il riferimento EDP non coincide.
+  if (record.officialPageRecheck) {
+    const check = record.officialPageRecheck;
+    if (!check.source || !record.product || check.source.replace(/\\/$/, "") !== record.product.replace(/\\/$/, ""))
+      errors.push(`${label}: ricontrollo ufficiale non corrispondente alla scheda prodotto`);
+    if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(String(check.date ?? "")) || Number.isNaN(Date.parse(check.date)))
+      errors.push(`${label}: data ricontrollo non valida`);
+    if (!Array.isArray(check.confirmed) || !check.confirmed.length || !check.limitations)
+      errors.push(`${label}: ricontrollo senza elementi confermati o limiti dichiarati`);
+  }
   if (record.caseStudies) for (const study of record.caseStudies) {
     if (!study.scope || !study.material) errors.push(`${label}: caso studio senza ambito/materiale`);
     try {
