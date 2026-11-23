@@ -14,13 +14,19 @@ for (const [index, record] of records.entries()) {
   const key = [record.code, record.grade].map(v => String(v ?? "").replace(/[^A-Z0-9]/gi, "").toUpperCase()).join("|");
   if (seen.has(key)) errors.push(`${label}: duplicato codice/grado ${key}`);
   seen.add(key);
-  for (const field of ["source", "product", "speedSource", "gradeSource", "materialSource"]) {
+  for (const field of ["source", "product", "speedSource", "gradeSource", "materialSource", "geometrySource"]) {
     if (!record[field]) continue;
     try {
       const url = new URL(record[field]);
       if (url.protocol !== "https:" || !/(^|\.)ingersoll-imc\.com$/i.test(url.hostname))
         errors.push(`${label}: fonte non ufficiale in ${field}`);
     } catch { errors.push(`${label}: URL non valido in ${field}`); }
+  }
+  if (record.geometry) {
+    for (const field of ["includedAngleDeg", "indexes", "inscribedCircleIn", "cornerRadiusIn", "cuttingEdgeLengthIn", "thicknessIn"]) {
+      if (record.geometry[field] !== undefined && (!Number.isFinite(record.geometry[field]) || record.geometry[field] <= 0))
+        errors.push(`${label}: geometria ${field} non valida`);
+    }
   }
   for (const field of ["fnMmRev", "apMm"]) {
     if (record[field] === undefined) continue;
