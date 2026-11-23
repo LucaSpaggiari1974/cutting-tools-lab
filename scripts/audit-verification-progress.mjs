@@ -72,7 +72,7 @@ for (const [index, record] of records.entries()) {
     const check = record.officialPageRecheck;
     if (!check.source || !record.product || check.source.replace(/\/$/, "") !== record.product.replace(/\/$/, ""))
       errors.push(`${label}: ricontrollo ufficiale non corrispondente alla scheda prodotto`);
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(check.date ?? "")) || Number.isNaN(Date.parse(check.date)))
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(check.date ?? "")) || !Number.isFinite(Date.parse(check.date)) || new Date(check.date).toISOString().slice(0, 10) !== check.date)
       errors.push(`${label}: data ricontrollo non valida`);
     if (!Array.isArray(check.confirmed) || !check.confirmed.length || !check.limitations)
       errors.push(`${label}: ricontrollo senza elementi confermati o limiti dichiarati`);
