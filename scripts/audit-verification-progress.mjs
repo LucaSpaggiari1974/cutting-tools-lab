@@ -55,9 +55,9 @@ for (const [index, record] of records.entries()) {
   // Non accettare attestazioni di una nuova verifica se il riferimento EDP non coincide.
   if (record.officialPageRecheck) {
     const check = record.officialPageRecheck;
-    if (!check.source || !record.product || check.source.replace(/\\/$/, "") !== record.product.replace(/\\/$/, ""))
+    if (!check.source || !record.product || check.source.replace(/\/$/, "") !== record.product.replace(/\/$/, ""))
       errors.push(`${label}: ricontrollo ufficiale non corrispondente alla scheda prodotto`);
-    if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(String(check.date ?? "")) || Number.isNaN(Date.parse(check.date)))
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(check.date ?? "")) || Number.isNaN(Date.parse(check.date)))
       errors.push(`${label}: data ricontrollo non valida`);
     if (!Array.isArray(check.confirmed) || !check.confirmed.length || !check.limitations)
       errors.push(`${label}: ricontrollo senza elementi confermati o limiti dichiarati`);
