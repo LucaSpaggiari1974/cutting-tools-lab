@@ -32,7 +32,7 @@ for (const [index, record] of records.entries()) {
   // Non confondere fn (mm/giro) con fz (mm/dente), né la profondità foro con AP.
   const provenance = record.feedDepthProvenance;
   if (provenance) {
-    if (provenance.edp && record.product && !record.product.replace(/\\/$/, "").endsWith("/" + provenance.edp))
+    if (provenance.edp && record.product && !new URL(record.product).pathname.replace(/\/$/, "").endsWith("/" + provenance.edp))
       errors.push(`${label}: EDP di provenienza diverso dalla scheda articolo`);
     for (const [sourceField, metricField] of [["sourceFnInRev", "fnMmRev"], ["sourceApIn", "apMm"]]) {
       if (provenance[sourceField] === undefined) continue;
