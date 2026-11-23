@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-23T04:05:27+01:00",
+  "updatedAt": "2026-11-23T05:56:05+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -161,7 +161,20 @@
         2.0066,
         6.5024
       ],
-      "publication": "not-verified"
+      "publication": "not-verified",
+      "geometry": {
+        "shape": "rombo negativo 80°",
+        "includedAngleDeg": 80,
+        "indexes": 4,
+        "inscribedCircleIn": 0.625,
+        "cornerRadiusIn": 0.047,
+        "cuttingEdgeLengthIn": 0.635,
+        "thicknessIn": 0.25,
+        "hand": "neutro"
+      },
+      "geometrySource": "https://www.ingersoll-imc.com/product/6213016",
+      "application": "Tornitura media",
+      "geometryScope": "Scheda ufficiale EDP 6213016: geometria e dimensioni in pollici; FN 0,0090–0,0220 pollici/giro e AP 0,079–0,256 pollici sono intervalli articolo già riportati in mm nel registro; nessuna VC specifica attestata e nessuna verifica di pubblicazione."
     },
     {
       "code": "CNMG160612MT TT5100",
@@ -344,7 +357,7 @@
     "02412fba14b84febbb6e411cab88c4e64704f3f5",
     "47ebf715e144b364740abac779ce8e7ec38d097a"
   ],
-  "next": "Continuare verifica schede ufficiali Ingersoll e identità snapshot; test script audit, categorie tornitura e pubblicazione Windows restano aperti.",
+  "next": "Proseguire con le schede ufficiali Ingersoll e il confronto puntuale con catalog.json.gz; restano aperti audit eseguibile, categorie e Windows.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
