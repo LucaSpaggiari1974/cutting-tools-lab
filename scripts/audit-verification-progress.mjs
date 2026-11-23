@@ -36,9 +36,9 @@ for (const [index, record] of records.entries()) {
     if (provenance.source) {
       try {
         const sourceUrl = new URL(provenance.source);
-        if (sourceUrl.protocol !== "https:" || !/(^|\\.)ingersoll-imc\\.com$/i.test(sourceUrl.hostname))
+        if (sourceUrl.protocol !== "https:" || !/(^|\.)ingersoll-imc\.com$/i.test(sourceUrl.hostname))
           errors.push(`${label}: fonte numerica non ufficiale`);
-        if (record.product && sourceUrl.pathname.replace(/\\/$/, "") !== new URL(record.product).pathname.replace(/\\/$/, ""))
+        if (record.product && sourceUrl.pathname.replace(/\/$/, "") !== new URL(record.product).pathname.replace(/\/$/, ""))
           errors.push(`${label}: fonte numerica diversa dalla scheda articolo`);
       } catch { errors.push(`${label}: URL provenienza numerica non valido`); }
     }
