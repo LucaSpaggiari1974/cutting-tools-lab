@@ -42,6 +42,15 @@ for (const [index, record] of records.entries()) {
     }
   }
 }
+// Una verifica strutturale non deve accettare un falso completamento globale.
+// Il conteggio di 50 riguarda soltanto un blocco, non l'intero catalogo.
+if (progress.status === "complete") {
+  if (progress.manufacturer !== "ALL" || progress.catalogCoverage?.allExistingRecordsVerified !== true ||
+      progress.catalogCoverage?.unresolvedGapsDocumented !== true ||
+      progress.catalogCoverage?.regressionsPassed !== true ||
+      progress.catalogCoverage?.windowsPublicationVerified !== true)
+    errors.push("completamento globale privo di copertura catalogo, lacune, regressioni o verifica Windows esplicite");
+}
 if (progress.batchTarget !== 50) errors.push("batchTarget diverso da 50");
 if (progress.status === "complete") {
   if (records.length < progress.batchTarget) errors.push("stato completo senza 50 combinazioni documentate");
