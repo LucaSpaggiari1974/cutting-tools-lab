@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-23T07:41:30+01:00",
+  "updatedAt": "2026-11-23T11:10:12+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -202,7 +202,18 @@
       },
       "geometrySource": "https://www.ingersoll-imc.com/product/6213016",
       "application": "Tornitura media",
-      "geometryScope": "Scheda ufficiale EDP 6213016: geometria e dimensioni in pollici; FN 0,0090–0,0220 pollici/giro e AP 0,079–0,256 pollici sono intervalli articolo già riportati in mm nel registro; nessuna VC specifica attestata e nessuna verifica di pubblicazione."
+      "geometryScope": "Scheda ufficiale EDP 6213016: geometria e dimensioni in pollici; FN 0,0090–0,0220 pollici/giro e AP 0,079–0,256 pollici sono intervalli articolo già riportati in mm nel registro; nessuna VC specifica attestata e nessuna verifica di pubblicazione.",
+      "officialPageRecheck": {
+        "date": "2026-11-23",
+        "source": "https://www.ingersoll-imc.com/product/6213016",
+        "confirmed": [
+          "EDP 6213016",
+          "CNMG160612MT TT8125B",
+          "rombo negativo 80°",
+          "tornitura media"
+        ],
+        "limitations": "Il testo HTML consultabile non espone valori numerici FN/AP/VC; nessuna nuova conferma di tali intervalli, nessuna VC specifica attribuita. Pagina con immagine rappresentativa: non introdurre anteprime nella UI."
+      }
     },
     {
       "code": "CNMG160612MT TT5100",
