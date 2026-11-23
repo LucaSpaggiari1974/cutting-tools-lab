@@ -28,6 +28,24 @@ for (const [index, record] of records.entries()) {
         errors.push(`${label}: geometria ${field} non valida`);
     }
   }
+  // Confronto dimensionale soltanto quando la fonte registra entrambe le unità.
+  // Non confondere fn (mm/giro) con fz (mm/dente), né la profondità foro con AP.
+  const provenance = record.feedDepthProvenance;
+  if (provenance) {
+    if (provenance.edp && record.product && !record.product.replace(/\\/$/, "").endsWith("/" + provenance.edp))
+      errors.push(`${label}: EDP di provenienza diverso dalla scheda articolo`);
+    for (const [sourceField, metricField] of [["sourceFnInRev", "fnMmRev"], ["sourceApIn", "apMm"]]) {
+      if (provenance[sourceField] === undefined) continue;
+      const original = provenance[sourceField];
+      const metric = record[metricField];
+      if (!Array.isArray(original) || original.length !== 2 || !original.every(v => Number.isFinite(v) && v > 0) || original[0] > original[1]) {
+        errors.push(`${label}: intervallo originale ${sourceField} non valido`);
+        continue;
+      }
+      if (!Array.isArray(metric) || metric.length !== 2 || metric.some((v, i) => !Number.isFinite(v) || Math.abs(v - original[i] * 25.4) > 0.00011))
+        errors.push(`${label}: conversione pollici → mm non coerente per ${metricField}`);
+    }
+  }
   for (const field of ["fnMmRev", "apMm"]) {
     if (record[field] === undefined) continue;
     const range = record[field];
