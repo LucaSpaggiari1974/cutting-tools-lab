@@ -91,6 +91,19 @@ for (const [index, record] of records.entries()) {
     }
   }
 }
+// Segnalare esplicitamente le attestazioni tecniche che il registro non rende
+// ancora riproducibili: il solo URL prodotto non prova gli intervalli numerici.
+const provenanceWarnings = [];
+for (const [index, record] of records.entries()) {
+  const label = `record ${index + 1} (${record.code} / ${record.grade})`;
+  const claimsItemFeedDepth = /item-feed-depth/i.test(String(record.status ?? ""));
+  if (claimsItemFeedDepth && record.fnMmRev && !record.feedDepthProvenance?.sourceFnInRev)
+    provenanceWarnings.push(`${label}: FN articolo dichiarato ma origine numerica non strutturata`);
+  if (claimsItemFeedDepth && record.apMm && !record.feedDepthProvenance?.sourceApIn)
+    provenanceWarnings.push(`${label}: AP articolo dichiarato ma origine numerica non strutturata`);
+  if (record.speedSource && !record.speedScope && record.gradeSpeedGroups)
+    provenanceWarnings.push(`${label}: velocità per grado senza ambito esplicito nel record`);
+}
 // Una verifica strutturale non deve accettare un falso completamento globale.
 // Il conteggio di 50 riguarda soltanto un blocco, non l'intero catalogo.
 if (progress.status === "complete") {
@@ -123,5 +136,6 @@ for (const record of records) {
 }
 console.log("Lacune per verifica successiva (non errori strutturali):", JSON.stringify(gaps));
 console.log(`Registro: ${records.length} combinazioni distinte su obiettivo blocco ${progress.batchTarget}; controlli strutturali: ${errors.length ? "FAIL" : "PASS"}.`);
+console.log("Avvisi di tracciabilità tecnica (non certificati):", JSON.stringify(provenanceWarnings));
 console.log("ATTENZIONE: PASS non significa verifica ufficiale dei valori né certificazione Cloudflare/Windows.");
 if (errors.length) { for (const error of errors) console.error(error); process.exitCode = 1; }
