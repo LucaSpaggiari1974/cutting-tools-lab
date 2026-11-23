@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22T09:02:38+01:00",
+  "updatedAt": "2026-11-23T04:05:27+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -112,7 +112,20 @@
         2.0066,
         6.5024
       ],
-      "publication": "not-verified"
+      "publication": "not-verified",
+      "geometry": {
+        "shape": "rombo 80° negativo",
+        "includedAngleDeg": 80,
+        "indexes": 4,
+        "inscribedCircleIn": 0.625,
+        "cornerRadiusIn": 0.047,
+        "cuttingEdgeLengthIn": 0.635,
+        "thicknessIn": 0.25,
+        "hand": "neutro"
+      },
+      "application": "Tornitura media",
+      "geometrySource": "https://www.ingersoll-imc.com/product/6212536",
+      "geometryScope": "Dimensioni in pollici e applicazione media confermate nella scheda ufficiale EDP 6212536; non sono velocità di taglio specifiche né prova di pubblicazione."
     },
     {
       "code": "CNMG160612MT TT8115B",
@@ -331,7 +344,7 @@
     "02412fba14b84febbb6e411cab88c4e64704f3f5",
     "47ebf715e144b364740abac779ce8e7ec38d097a"
   ],
-  "next": "Controllare esito browser smoke dopo commit 631287b; verificare 50 Ingersoll da fonti ufficiali e identità dei record nello snapshot; Guardian categorie e test catalogo reale ancora aperti.",
+  "next": "Continuare verifica schede ufficiali Ingersoll e identità snapshot; test script audit, categorie tornitura e pubblicazione Windows restano aperti.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
