@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-23T05:56:05+01:00",
+  "updatedAt": "2026-11-23T07:31:48+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -143,7 +143,20 @@
         2.0066,
         6.5024
       ],
-      "publication": "not-verified"
+      "publication": "not-verified",
+      "geometry": {
+        "shape": "rombo negativo 80°",
+        "includedAngleDeg": 80,
+        "indexes": 4,
+        "inscribedCircleIn": 0.625,
+        "cornerRadiusIn": 0.047,
+        "cuttingEdgeLengthIn": 0.635,
+        "thicknessIn": 0.25,
+        "hand": "neutro"
+      },
+      "geometrySource": "https://www.ingersoll-imc.com/product/6212574",
+      "application": "Tornitura media",
+      "geometryScope": "Scheda ufficiale EDP 6212574: geometria e dimensioni in pollici; FN 0,0090–0,0220 pollici/giro e AP 0,079–0,256 pollici sono intervalli dell'articolo, già convertiti in mm nel registro. Nessuna VC specifica verificata; pubblicazione non certificata."
     },
     {
       "code": "CNMG160612MT TT8125B",
