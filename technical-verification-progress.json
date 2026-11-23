@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-23T11:10:12+01:00",
+  "updatedAt": "2026-11-23T20:30:52+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -171,7 +171,18 @@
       },
       "geometrySource": "https://www.ingersoll-imc.com/product/6212574",
       "application": "Tornitura media",
-      "geometryScope": "Scheda ufficiale EDP 6212574: geometria e dimensioni in pollici; FN 0,0090–0,0220 pollici/giro e AP 0,079–0,256 pollici sono intervalli dell'articolo, già convertiti in mm nel registro. Nessuna VC specifica verificata; pubblicazione non certificata."
+      "geometryScope": "Scheda ufficiale EDP 6212574: geometria e dimensioni in pollici; FN 0,0090–0,0220 pollici/giro e AP 0,079–0,256 pollici sono intervalli dell'articolo, già convertiti in mm nel registro. Nessuna VC specifica verificata; pubblicazione non certificata.",
+      "officialPageRecheck": {
+        "date": "2026-11-23",
+        "source": "https://www.ingersoll-imc.com/product/6212574",
+        "confirmed": [
+          "EDP 6212574",
+          "CNMG160612MT TT8115B",
+          "geometria romboidale negativa 80°",
+          "applicazione tornitura media"
+        ],
+        "limitations": "La pagina HTML ufficiale consultata il 2026-11-23 conferma identità, geometria e applicazione, ma non espone valori numerici VC, FN o AP; gli intervalli numerici preesistenti non sono ricertificati da questo ricontrollo. Nessuna prova di importazione nel catalogo distribuito o funzionamento Windows."
+      }
     },
     {
       "code": "CNMG160612MT TT8125B",
@@ -396,7 +407,7 @@
     "02412fba14b84febbb6e411cab88c4e64704f3f5",
     "47ebf715e144b364740abac779ce8e7ec38d097a"
   ],
-  "next": "Proseguire con le schede ufficiali Ingersoll e il confronto puntuale con catalog.json.gz; restano aperti audit eseguibile, categorie e Windows.",
+  "next": "Proseguire con verifiche numeriche ufficiali e corrispondenza catalog.json.gz; ricontrollo EDP 6212574 limitato a identità, geometria e applicazione. Audit e pubblicazione Windows ancora aperti.",
   "regressionTests": "guardian-no-duplicates-and-count-match; blocked-by-unverified-turning-category",
   "publication": "cloudflare-catalog-count-and-homepage-verified; technical-import-and-Windows-pending",
   "infrastructureFindings": [
