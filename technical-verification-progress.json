@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-23T22:25:14+01:00",
+  "updatedAt": "2026-11-23T22:38:51+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -300,7 +300,18 @@
         6.5024
       ],
       "gradeSpeedGroups": 10,
-      "publication": "not-verified"
+      "publication": "not-verified",
+      "officialPageRecheck": {
+        "date": "2026-11-23",
+        "source": "https://www.ingersoll-imc.com/product/5523019",
+        "confirmed": [
+          "EDP 5523019",
+          "CNMG160612MT TT5080",
+          "geometria romboidale negativa 80° (caratteristica della serie)",
+          "applicazione tornitura media (caratteristica della serie)"
+        ],
+        "limitations": "La scheda HTML ufficiale consultata conferma identificazione e caratteristiche generali della serie ma non pubblica valori numerici VC, FN o AP. Gli intervalli preesistenti non sono ricertificati da questa verifica; materiale specifico, importazione nello snapshot e pubblicazione Windows non verificati."
+      }
     },
     {
       "code": "CNMG160612MT TT9080",
