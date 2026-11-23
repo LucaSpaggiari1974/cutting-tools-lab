@@ -61,6 +61,18 @@ for (const [index, record] of records.entries()) {
   if (record.snapshotAudit?.identity && /candidata|non certificazione/i.test(record.snapshotAudit.identity) && record.publication === "verified")
     errors.push(`record ${index + 1}: pubblicazione certificata nonostante corrispondenza solo candidata`);
 }
+// Inventario lacune: un record documentato non equivale a parametri completi.
+// Non trasformare una VC di grado o una prova di sistema in VC dell'articolo.
+const gaps = { noMaterial: [], noSpecificVc: [], noFeed: [], noDepth: [], candidateSnapshot: [] };
+for (const record of records) {
+  const id = `${record.code} / ${record.grade}`;
+  if (!record.material) gaps.noMaterial.push(id);
+  if (!Number.isFinite(record.vcMMin) && !record.itemVcMMin) gaps.noSpecificVc.push(id);
+  if (!record.fnMmRev && !record.fzMmTooth) gaps.noFeed.push(id);
+  if (!record.apMm && !/foratura|drilling/i.test(String(record.ap ?? ""))) gaps.noDepth.push(id);
+  if (/candidata|non certificazione/i.test(String(record.snapshotAudit?.identity ?? ""))) gaps.candidateSnapshot.push(id);
+}
+console.log("Lacune per verifica successiva (non errori strutturali):", JSON.stringify(gaps));
 console.log(`Registro: ${records.length} combinazioni distinte su obiettivo blocco ${progress.batchTarget}; controlli strutturali: ${errors.length ? "FAIL" : "PASS"}.`);
 console.log("ATTENZIONE: PASS non significa verifica ufficiale dei valori né certificazione Cloudflare/Windows.");
 if (errors.length) { for (const error of errors) console.error(error); process.exitCode = 1; }
