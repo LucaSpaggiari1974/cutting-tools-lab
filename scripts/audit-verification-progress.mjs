@@ -32,6 +32,11 @@ for (const [index, record] of records.entries()) {
   // Non confondere fn (mm/giro) con fz (mm/dente), né la profondità foro con AP.
   const provenance = record.feedDepthProvenance;
   if (provenance) {
+    // Non certificare conversioni numeriche senza la fonte originale dell'articolo.
+    if ((provenance.sourceFnInRev !== undefined || provenance.sourceApIn !== undefined) && !provenance.source)
+      errors.push(`${label}: valori originali FN/AP privi di URL di provenienza`);
+    if (provenance.edp && !/^\d+$/.test(String(provenance.edp)))
+      errors.push(`${label}: identificativo EDP di provenienza non numerico`);
     // La provenienza numerica deve essere riconducibile alla scheda ufficiale dell'articolo.
     if (provenance.source) {
       try {
