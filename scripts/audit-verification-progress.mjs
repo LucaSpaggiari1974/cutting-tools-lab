@@ -47,8 +47,12 @@ for (const [index, record] of records.entries()) {
           errors.push(`${label}: fonte numerica diversa dalla scheda articolo`);
       } catch { errors.push(`${label}: URL provenienza numerica non valido`); }
     }
-    if (provenance.edp && record.product && !new URL(record.product).pathname.replace(/\/$/, "").endsWith("/" + provenance.edp))
-      errors.push(`${label}: EDP di provenienza diverso dalla scheda articolo`);
+    if (provenance.edp && record.product) {
+      try {
+        if (!new URL(record.product).pathname.replace(/\/$/, "").endsWith("/" + provenance.edp))
+          errors.push(`${label}: EDP di provenienza diverso dalla scheda articolo`);
+      } catch { errors.push(`${label}: URL prodotto non valido per controllo EDP`); }
+    }
     for (const [sourceField, metricField] of [["sourceFnInRev", "fnMmRev"], ["sourceApIn", "apMm"]]) {
       if (provenance[sourceField] === undefined) continue;
       const original = provenance[sourceField];
