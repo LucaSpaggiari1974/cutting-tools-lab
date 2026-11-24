@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T00:33:50+01:00",
+  "updatedAt": "2026-11-24T01:09:28+01:00",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -361,7 +361,18 @@
       "publication": "not-verified",
       "speedSource": "https://ssl.ingersoll-imc.com/resources/pdf/iso-turning-carbide-og-test.pdf",
       "gradeSpeedGroups": 11,
-      "speedScope": "VC storica per grado esatto e gruppo VDI 3323; non specifica della geometria."
+      "speedScope": "VC storica per grado esatto e gruppo VDI 3323; non specifica della geometria.",
+      "officialPageRecheck": {
+        "date": "2026-11-24",
+        "source": "https://www.ingersoll-imc.com/product/5519559",
+        "confirmed": [
+          "EDP 5519559",
+          "CNMG160612MT TT8125",
+          "geometria romboidale negativa 80° (serie)",
+          "tornitura media (serie)"
+        ],
+        "limitations": "La scheda HTML consultata non espone intervalli numerici VC, FN o AP; non ricertifica i valori preesistenti. Materiale e velocità per grado richiedono verifica separata; importazione e pubblicazione Windows non verificate."
+      }
     },
     {
       "code": "CNMG160612MT TT8135",
@@ -382,7 +393,18 @@
       "publication": "not-verified",
       "speedSource": "https://ssl.ingersoll-imc.com/resources/pdf/iso-turning-carbide-og-test.pdf",
       "gradeSpeedGroups": 11,
-      "speedScope": "VC storica per grado esatto e gruppo VDI 3323; non specifica della geometria."
+      "speedScope": "VC storica per grado esatto e gruppo VDI 3323; non specifica della geometria.",
+      "officialPageRecheck": {
+        "date": "2026-11-24",
+        "source": "https://www.ingersoll-imc.com/product/5522646",
+        "confirmed": [
+          "EDP 5522646",
+          "CNMG160612MT TT8135",
+          "geometria romboidale negativa 80° (serie)",
+          "tornitura media (serie)"
+        ],
+        "limitations": "La scheda HTML consultata non espone intervalli numerici VC, FN o AP; non ricertifica i valori preesistenti. Materiale e velocità per grado richiedono verifica separata; importazione e pubblicazione Windows non verificate."
+      }
     },
     {
       "code": "SPGX110708WG",
