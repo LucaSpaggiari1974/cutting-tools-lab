@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T05:05:16Z",
+  "updatedAt": "2026-11-24T05:39:42Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -2775,6 +2775,26 @@
             "grade": "TT7005",
             "edp": "5523792",
             "source": "https://www.ingersoll-imc.com/product/5523792"
+          },
+          {
+            "grade": "TT5080",
+            "edp": "5523117",
+            "source": "https://www.ingersoll-imc.com/product?ecatProductId=38773"
+          },
+          {
+            "grade": "TT9080",
+            "edp": "6118083",
+            "source": "https://www.ingersoll-imc.com/product?ecatProductId=38773"
+          },
+          {
+            "grade": "TT8125B",
+            "edp": "6212502",
+            "source": "https://www.ingersoll-imc.com/product?ecatProductId=38773"
+          },
+          {
+            "grade": "TT8135B",
+            "edp": "6241939",
+            "source": "https://www.ingersoll-imc.com/product?ecatProductId=38773"
           }
         ],
         "geometry": {
@@ -2786,7 +2806,7 @@
           "thicknessIn": 0.25,
           "hand": "neutro"
         },
-        "scope": "Sette schede EDP ufficiali indicizzate con stessi intervalli; VC non verificata per articolo, presenza nello snapshot e importazione non verificate.",
+        "scope": "Undici combinazioni EDP confermate dalla tabella ufficiale; FN/AP per geometria esatta. VC e materiale per grado separati; importazione non verificata.",
         "numericProvenance": {
           "checkedAt": "2026-11-24",
           "sources": [
@@ -2796,7 +2816,8 @@
             "https://www.ingersoll-imc.com/product/5515898",
             "https://www.ingersoll-imc.com/product/6212538",
             "https://www.ingersoll-imc.com/product/5520548",
-            "https://www.ingersoll-imc.com/product/5523792"
+            "https://www.ingersoll-imc.com/product/5523792",
+            "https://www.ingersoll-imc.com/product?ecatProductId=38773"
           ],
           "original": {
             "fn": [
@@ -2927,10 +2948,52 @@
           }
         ],
         "geometry": {
-          "shape": "rombo negativo 80°"
+          "shape": "rombo negativo 80°",
+          "indexes": 4,
+          "inscribedCircleIn": 0.75,
+          "cornerRadiusIn": 0.063,
+          "cuttingEdgeLengthIn": 0.76,
+          "thicknessIn": 0.25,
+          "hand": "neutro"
         },
-        "scope": "Tabella ufficiale corrente consultata il 2026-11-24: tre combinazioni EDP; nessun valore numerico FN/AP/VC esposto nel testo. Materiale per grado e presenza nello snapshot da verificare.",
-        "catalogPresence": "not-verified"
+        "scope": "Intervalli della geometria esatta, non del grado. VC e materiale per grado da verificare separatamente; presenza nel catalogo non verificata.",
+        "catalogPresence": "not-verified",
+        "fnMmRev": [
+          0.3048,
+          0.5588
+        ],
+        "apMm": [
+          2.9972,
+          8.001
+        ],
+        "numericProvenance": {
+          "checkedAt": "2026-11-24",
+          "source": "https://www.ingersoll-imc.com/product?ecatProductId=38774",
+          "crossCheck": "https://www.ingersoll-imc.com/product-family/301774",
+          "sourcePart": "CNMG644MT",
+          "original": {
+            "fn": [
+              0.012,
+              0.022
+            ],
+            "fnUnit": "in/rev",
+            "ap": [
+              0.118,
+              0.315
+            ],
+            "apUnit": "in"
+          },
+          "conversionFactor": 25.4,
+          "fnMmRev": [
+            0.3048,
+            0.5588
+          ],
+          "apMm": [
+            2.9972,
+            8.001
+          ],
+          "catalogPresence": "not-verified"
+        }
       }
     },
     "exactGradeImport": {
@@ -3031,6 +3094,14 @@
           6236556
         ]
       }
+    },
+    "latestSourceAudit": {
+      "date": "2026-11-24",
+      "scope": "Varianti EDP nel registro famiglia, non snapshot distribuito",
+      "variants": 71,
+      "conflictingEdp": 0,
+      "newVariants": 4,
+      "numericCoverageAdded": "CNMG190616MT"
     }
   },
   "publicationValidation": {
