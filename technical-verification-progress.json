@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T02:14:52Z",
+  "updatedAt": "2026-11-24T03:49:45Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -2719,6 +2719,105 @@
           "apMm": [
             2.0066,
             6.5024
+          ],
+          "catalogPresence": "not-verified"
+        }
+      },
+      "CNMG190612MT": {
+        "source": "https://www.ingersoll-imc.com/product/5520618",
+        "fnMmRev": [
+          0.254,
+          0.5588
+        ],
+        "apMm": [
+          2.9972,
+          8.001
+        ],
+        "application": "Tornitura media",
+        "variants": [
+          {
+            "grade": "TT9235",
+            "edp": "5520618",
+            "source": "https://www.ingersoll-imc.com/product/5520618"
+          },
+          {
+            "grade": "TT5100",
+            "edp": "5515313",
+            "source": "https://www.ingersoll-imc.com/product/5515313"
+          },
+          {
+            "grade": "TT8115B",
+            "edp": "6212498",
+            "source": "https://www.ingersoll-imc.com/product/6212498",
+            "material": "Acciai",
+            "materialSource": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
+            "materialScope": "ISO P, rispettivamente P05–P20; indicazione generale del grado"
+          },
+          {
+            "grade": "TT8020",
+            "edp": "5515898",
+            "source": "https://www.ingersoll-imc.com/product/5515898"
+          },
+          {
+            "grade": "TT8105B",
+            "edp": "6212538",
+            "source": "https://www.ingersoll-imc.com/product/6212538",
+            "material": "Acciai",
+            "materialSource": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
+            "materialScope": "ISO P, rispettivamente P01–P15; indicazione generale del grado"
+          },
+          {
+            "grade": "TT9225",
+            "edp": "5520548",
+            "source": "https://www.ingersoll-imc.com/product/5520548"
+          },
+          {
+            "grade": "TT7005",
+            "edp": "5523792",
+            "source": "https://www.ingersoll-imc.com/product/5523792"
+          }
+        ],
+        "geometry": {
+          "shape": "rombo negativo 80°",
+          "indexes": 4,
+          "inscribedCircleIn": 0.75,
+          "cornerRadiusIn": 0.047,
+          "cuttingEdgeLengthIn": 0.76,
+          "thicknessIn": 0.25,
+          "hand": "neutro"
+        },
+        "scope": "Sette schede EDP ufficiali indicizzate con stessi intervalli; VC non verificata per articolo, presenza nello snapshot e importazione non verificate.",
+        "numericProvenance": {
+          "checkedAt": "2026-11-24",
+          "sources": [
+            "https://www.ingersoll-imc.com/product/5520618",
+            "https://www.ingersoll-imc.com/product/5515313",
+            "https://www.ingersoll-imc.com/product/6212498",
+            "https://www.ingersoll-imc.com/product/5515898",
+            "https://www.ingersoll-imc.com/product/6212538",
+            "https://www.ingersoll-imc.com/product/5520548",
+            "https://www.ingersoll-imc.com/product/5523792"
+          ],
+          "original": {
+            "fn": [
+              0.01,
+              0.022
+            ],
+            "fnUnit": "in/rev",
+            "ap": [
+              0.118,
+              0.315
+            ],
+            "apUnit": "in"
+          },
+          "conversionFactor": 25.4,
+          "fnMmRev": [
+            0.254,
+            0.5588
+          ],
+          "apMm": [
+            2.9972,
+            8.001
           ],
           "catalogPresence": "not-verified"
         }
