@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T03:49:45Z",
+  "updatedAt": "2026-11-24T05:05:16Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -2821,6 +2821,116 @@
           ],
           "catalogPresence": "not-verified"
         }
+      },
+      "CNMG190608MT": {
+        "source": "https://ingersoll-imc.com/product?ecatProductId=38771",
+        "fnMmRev": [
+          0.2286,
+          0.5588
+        ],
+        "apMm": [
+          2.9972,
+          8.001
+        ],
+        "application": "Tornitura media",
+        "variants": [
+          {
+            "grade": "TT8020",
+            "edp": "5515404"
+          },
+          {
+            "grade": "TT5100",
+            "edp": "5515405"
+          },
+          {
+            "grade": "TT9215",
+            "edp": "5520479"
+          },
+          {
+            "grade": "TT9225",
+            "edp": "5520546"
+          },
+          {
+            "grade": "TT9235",
+            "edp": "5520616"
+          },
+          {
+            "grade": "TT5080",
+            "edp": "5523123"
+          },
+          {
+            "grade": "TT7005",
+            "edp": "5523790"
+          },
+          {
+            "grade": "TT8125B",
+            "edp": "6212992"
+          },
+          {
+            "grade": "TT8115B",
+            "edp": "6242826"
+          }
+        ],
+        "geometry": {
+          "shape": "rombo negativo 80°",
+          "indexes": 4,
+          "inscribedCircleIn": 0.75,
+          "cornerRadiusIn": 0.031,
+          "cuttingEdgeLengthIn": 0.76,
+          "thicknessIn": 0.25,
+          "hand": "neutro"
+        },
+        "scope": "Tabella ufficiale indicizzata storica (2025); disponibilità attuale non confermata. FN/AP per geometria esatta, VC e materiale per grado da verificare separatamente.",
+        "numericProvenance": {
+          "checkedAt": "2026-11-24",
+          "source": "https://ingersoll-imc.com/product?ecatProductId=38771",
+          "sourcePart": "CNMG642MT",
+          "original": {
+            "fn": [
+              0.009,
+              0.022
+            ],
+            "fnUnit": "in/rev",
+            "ap": [
+              0.118,
+              0.315
+            ],
+            "apUnit": "in"
+          },
+          "conversionFactor": 25.4,
+          "fnMmRev": [
+            0.2286,
+            0.5588
+          ],
+          "apMm": [
+            2.9972,
+            8.001
+          ],
+          "catalogPresence": "not-verified"
+        }
+      },
+      "CNMG190616MT": {
+        "source": "https://ingersoll-imc.com/product?ecatProductId=38774",
+        "application": "Tornitura media",
+        "variants": [
+          {
+            "grade": "TT8020",
+            "edp": "5515805"
+          },
+          {
+            "grade": "TT8115B",
+            "edp": "6212782"
+          },
+          {
+            "grade": "TT8125B",
+            "edp": "6212773"
+          }
+        ],
+        "geometry": {
+          "shape": "rombo negativo 80°"
+        },
+        "scope": "Tabella ufficiale corrente consultata il 2026-11-24: tre combinazioni EDP; nessun valore numerico FN/AP/VC esposto nel testo. Materiale per grado e presenza nello snapshot da verificare.",
+        "catalogPresence": "not-verified"
       }
     },
     "exactGradeImport": {
