@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T01:28:09Z",
+  "updatedAt": "2026-11-24T02:14:52Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -2200,7 +2200,35 @@
             "edp": "6240985"
           }
         ],
-        "scope": "Combinazioni codice-grado confermate nella scheda ufficiale; FN/AP della geometria, VC e materiale da incrociare con guida grado e presenza nel catalogo esistente. Non conteggiate come complete."
+        "scope": "Combinazioni codice-grado confermate nella scheda ufficiale; FN/AP della geometria, VC e materiale da incrociare con guida grado e presenza nel catalogo esistente. Non conteggiate come complete.",
+        "numericProvenance": {
+          "checkedAt": "2026-11-24",
+          "source": "https://ingersoll-imc.com/product-family/301774",
+          "sourcePart": "CNMG431MT",
+          "scope": "Intervalli per geometria e dimensione ISO esatta, non per grado; nessuna VC specifica.",
+          "original": {
+            "fn": [
+              0.006,
+              0.016
+            ],
+            "fnUnit": "in/rev",
+            "ap": [
+              0.039,
+              0.197
+            ],
+            "apUnit": "in"
+          },
+          "conversionFactor": 25.4,
+          "fnMmRev": [
+            0.1524,
+            0.4064
+          ],
+          "apMm": [
+            0.9906,
+            5.0038
+          ],
+          "catalogPresence": "not-verified"
+        }
       },
       "CNMG120408MT": {
         "source": "https://www.ingersoll-imc.com/product?ecatProductId=38762",
@@ -2279,7 +2307,35 @@
             "edp": "6213088"
           }
         ],
-        "scope": "Codici ISO e gradi dalla colonna Part Number; FN/AP geometrici convertiti da pollici. Materiale, VC per grado e presenza nel catalogo da verificare; non conteggiati come completi."
+        "scope": "Codici ISO e gradi dalla colonna Part Number; FN/AP geometrici convertiti da pollici. Materiale, VC per grado e presenza nel catalogo da verificare; non conteggiati come completi.",
+        "numericProvenance": {
+          "checkedAt": "2026-11-24",
+          "source": "https://ingersoll-imc.com/product-family/301774",
+          "sourcePart": "CNMG432MT",
+          "scope": "Intervalli per geometria e dimensione ISO esatta, non per grado; nessuna VC specifica.",
+          "original": {
+            "fn": [
+              0.007,
+              0.022
+            ],
+            "fnUnit": "in/rev",
+            "ap": [
+              0.047,
+              0.197
+            ],
+            "apUnit": "in"
+          },
+          "conversionFactor": 25.4,
+          "fnMmRev": [
+            0.1778,
+            0.5588
+          ],
+          "apMm": [
+            1.1938,
+            5.0038
+          ],
+          "catalogPresence": "not-verified"
+        }
       },
       "CNMG120412MT": {
         "source": "https://www.ingersoll-imc.com/product?ecatProductId=38764",
@@ -2338,7 +2394,35 @@
             "edp": "6212323"
           }
         ],
-        "scope": "Combinazioni dalla colonna Part Number; FN/AP geometrici convertiti da pollici. Materiale, VC per grado e presenza nel catalogo da verificare; non conteggiate come complete."
+        "scope": "Combinazioni dalla colonna Part Number; FN/AP geometrici convertiti da pollici. Materiale, VC per grado e presenza nel catalogo da verificare; non conteggiate come complete.",
+        "numericProvenance": {
+          "checkedAt": "2026-11-24",
+          "source": "https://ingersoll-imc.com/product-family/301774",
+          "sourcePart": "CNMG433MT",
+          "scope": "Intervalli per geometria e dimensione ISO esatta, non per grado; nessuna VC specifica.",
+          "original": {
+            "fn": [
+              0.008,
+              0.022
+            ],
+            "fnUnit": "in/rev",
+            "ap": [
+              0.059,
+              0.197
+            ],
+            "apUnit": "in"
+          },
+          "conversionFactor": 25.4,
+          "fnMmRev": [
+            0.2032,
+            0.5588
+          ],
+          "apMm": [
+            1.4986,
+            5.0038
+          ],
+          "catalogPresence": "not-verified"
+        }
       },
       "CNMG160608MT": {
         "source": "https://www.ingersoll-imc.com/product?ecatProductId=38765",
@@ -2485,6 +2569,34 @@
               ]
             ]
           }
+        },
+        "numericProvenance": {
+          "checkedAt": "2026-11-24",
+          "source": "https://ingersoll-imc.com/product-family/301774",
+          "sourcePart": "CNMG542MT",
+          "scope": "Intervalli per geometria e dimensione ISO esatta, non per grado; nessuna VC specifica.",
+          "original": {
+            "fn": [
+              0.008,
+              0.022
+            ],
+            "fnUnit": "in/rev",
+            "ap": [
+              0.079,
+              0.256
+            ],
+            "apUnit": "in"
+          },
+          "conversionFactor": 25.4,
+          "fnMmRev": [
+            0.2032,
+            0.5588
+          ],
+          "apMm": [
+            2.0066,
+            6.5024
+          ],
+          "catalogPresence": "not-verified"
         }
       },
       "CNMG160616MT": {
@@ -2581,7 +2693,35 @@
             "source": "https://www.ingersoll-imc.com/product/5522646"
           }
         ],
-        "scope": "Cinque combinazioni esatte confermate da schede EDP ufficiali; rombo negativo 80°, quattro taglienti. FN/AP confermati dalla tabella geometrica e dalle prime tre schede EDP; VC e materiale per grado separati, presenza nel catalogo e importazione da verificare. TT8135 non equivale a TT8135B."
+        "scope": "Cinque combinazioni esatte confermate da schede EDP ufficiali; rombo negativo 80°, quattro taglienti. FN/AP confermati dalla tabella geometrica e dalle prime tre schede EDP; VC e materiale per grado separati, presenza nel catalogo e importazione da verificare. TT8135 non equivale a TT8135B.",
+        "numericProvenance": {
+          "checkedAt": "2026-11-24",
+          "source": "https://ingersoll-imc.com/product-family/301774",
+          "sourcePart": "CNMG543MT",
+          "scope": "Intervalli per geometria e dimensione ISO esatta, non per grado; nessuna VC specifica.",
+          "original": {
+            "fn": [
+              0.009,
+              0.022
+            ],
+            "fnUnit": "in/rev",
+            "ap": [
+              0.079,
+              0.256
+            ],
+            "apUnit": "in"
+          },
+          "conversionFactor": 25.4,
+          "fnMmRev": [
+            0.2286,
+            0.5588
+          ],
+          "apMm": [
+            2.0066,
+            6.5024
+          ],
+          "catalogPresence": "not-verified"
+        }
       }
     },
     "exactGradeImport": {
