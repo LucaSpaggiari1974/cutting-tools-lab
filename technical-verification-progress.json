@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T01:12:53Z",
+  "updatedAt": "2026-11-26T02:28:24Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -3332,6 +3332,31 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://www.ingersoll-imc.com/product/6242826",
+              "original": {
+                "fn": [
+                  0.009,
+                  0.022
+                ],
+                "fnUnit": "in/rev",
+                "ap": [
+                  0.118,
+                  0.315
+                ],
+                "apUnit": "in"
+              },
+              "fnMmRev": [
+                0.2286,
+                0.5588
+              ],
+              "apMm": [
+                2.9972,
+                8.001
+              ],
+              "scope": "Scheda EDP esatta: rombo negativo 80°, quattro taglienti, tornitura media. VC specifica non documentata; materiale generale del grado separato. Presenza nel catalogo distribuito non verificata."
             }
           }
         ],
@@ -3397,6 +3422,31 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://www.ingersoll-imc.com/product/6212782",
+              "original": {
+                "fn": [
+                  0.012,
+                  0.022
+                ],
+                "fnUnit": "in/rev",
+                "ap": [
+                  0.118,
+                  0.315
+                ],
+                "apUnit": "in"
+              },
+              "fnMmRev": [
+                0.3048,
+                0.5588
+              ],
+              "apMm": [
+                2.9972,
+                8.001
+              ],
+              "scope": "Scheda EDP esatta: rombo negativo 80°, quattro taglienti, tornitura media. VC specifica non documentata; materiale generale del grado separato. Presenza nel catalogo distribuito non verificata."
             }
           },
           {
@@ -3601,10 +3651,10 @@
     },
     "directProductAudit": {
       "date": "2026-11-26",
-      "verifiedExistingVariants": 4,
+      "verifiedExistingVariants": 2,
       "uniqueEdp": 71,
       "duplicateEdp": 0,
-      "scope": "Conferma diretta FN/AP di quattro varianti già registrate; nessuna nuova variante o VC; importazione e pubblicazione non certificate."
+      "scope": "Conferma diretta FN/AP di due varianti TT8115B già registrate; nessuna nuova variante o VC; importazione e pubblicazione non certificate."
     }
   },
   "publicationValidation": {
