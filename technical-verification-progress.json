@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T14:35:36Z",
+  "updatedAt": "2026-11-26T17:17:59Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -2461,7 +2461,43 @@
           },
           {
             "grade": "TT7015",
-            "edp": "5523575"
+            "edp": "5523575",
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://www.ingersoll-imc.com/product/5523575",
+              "edp": "5523575",
+              "code": "CNMG120408MT TT7015",
+              "grade": "TT7015",
+              "application": "Tornitura media",
+              "geometry": {
+                "shape": "rombo negativo",
+                "includedAngleDeg": 80,
+                "indexes": 4,
+                "inscribedCircleIn": 0.5,
+                "cornerRadiusIn": 0.031,
+                "cuttingEdgeLengthIn": 0.508,
+                "thicknessIn": 0.187,
+                "hand": "neutro"
+              },
+              "sourceFnInRev": [
+                0.007,
+                0.022
+              ],
+              "sourceApIn": [
+                0.047,
+                0.197
+              ],
+              "fnMmRev": [
+                0.1778,
+                0.5588
+              ],
+              "apMm": [
+                1.1938,
+                5.0038
+              ],
+              "conversion": "1 pollice = 25,4 mm",
+              "scope": "Scheda ufficiale indicizzata; VC e materiale specifico non documentati; disponibilità commerciale non confermata; pubblicazione non verificata."
+            }
           },
           {
             "grade": "TT9080",
