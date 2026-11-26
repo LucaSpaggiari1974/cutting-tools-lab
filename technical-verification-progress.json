@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T06:40:22Z",
+  "updatedAt": "2026-11-26T00:25:31Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -2996,6 +2996,31 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://www.ingersoll-imc.com/product/6212498",
+              "original": {
+                "fn": [
+                  0.01,
+                  0.022
+                ],
+                "fnUnit": "in/rev",
+                "ap": [
+                  0.118,
+                  0.315
+                ],
+                "apUnit": "in"
+              },
+              "fnMmRev": [
+                0.254,
+                0.5588
+              ],
+              "apMm": [
+                2.9972,
+                8.001
+              ],
+              "scope": "Scheda EDP esatta, geometria negativa 80°, quattro taglienti, tornitura media. VC specifica non documentata; materiale generale del grado separato. Presenza nel catalogo distribuito non verificata."
             }
           },
           {
@@ -3069,6 +3094,31 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://www.ingersoll-imc.com/product/6212502",
+              "original": {
+                "fn": [
+                  0.01,
+                  0.022
+                ],
+                "fnUnit": "in/rev",
+                "ap": [
+                  0.118,
+                  0.315
+                ],
+                "apUnit": "in"
+              },
+              "fnMmRev": [
+                0.254,
+                0.5588
+              ],
+              "apMm": [
+                2.9972,
+                8.001
+              ],
+              "scope": "Scheda EDP esatta, geometria negativa 80°, quattro taglienti, tornitura media. VC specifica non documentata; materiale generale del grado separato. Presenza nel catalogo distribuito non verificata."
             }
           },
           {
@@ -3221,6 +3271,31 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://www.ingersoll-imc.com/product/6212992",
+              "original": {
+                "fn": [
+                  0.009,
+                  0.022
+                ],
+                "fnUnit": "in/rev",
+                "ap": [
+                  0.118,
+                  0.315
+                ],
+                "apUnit": "in"
+              },
+              "fnMmRev": [
+                0.2286,
+                0.5588
+              ],
+              "apMm": [
+                2.9972,
+                8.001
+              ],
+              "scope": "Scheda EDP esatta, geometria negativa 80°, quattro taglienti, tornitura media. VC specifica non documentata; materiale generale del grado separato. Presenza nel catalogo distribuito non verificata."
             }
           },
           {
@@ -3308,6 +3383,31 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://www.ingersoll-imc.com/product/6212773",
+              "original": {
+                "fn": [
+                  0.012,
+                  0.022
+                ],
+                "fnUnit": "in/rev",
+                "ap": [
+                  0.118,
+                  0.315
+                ],
+                "apUnit": "in"
+              },
+              "fnMmRev": [
+                0.3048,
+                0.5588
+              ],
+              "apMm": [
+                2.9972,
+                8.001
+              ],
+              "scope": "Scheda EDP esatta, geometria negativa 80°, quattro taglienti, tornitura media. VC specifica non documentata; materiale generale del grado separato. Presenza nel catalogo distribuito non verificata."
             }
           }
         ],
@@ -3473,6 +3573,13 @@
       "uniqueEdp": 71,
       "conflictingEdp": 0,
       "scope": "Evidenza generale per grado esatto; nessuna promozione automatica nel catalogo."
+    },
+    "directProductAudit": {
+      "date": "2026-11-26",
+      "verifiedExistingVariants": 4,
+      "uniqueEdp": 71,
+      "duplicateEdp": 0,
+      "scope": "Conferma diretta FN/AP di quattro varianti già registrate; nessuna nuova variante o VC; importazione e pubblicazione non certificate."
     }
   },
   "publicationValidation": {
