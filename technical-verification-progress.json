@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T02:28:24Z",
+  "updatedAt": "2026-11-26T03:25:45Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -2217,6 +2217,42 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://www.ingersoll-imc.com/product/6213105",
+              "edp": "6213105",
+              "code": "CNMG120404MT TT8115B",
+              "grade": "TT8115B",
+              "application": "Tornitura media",
+              "geometry": {
+                "shape": "rombo negativo",
+                "includedAngleDeg": 80,
+                "indexes": 4,
+                "inscribedCircleIn": 0.5,
+                "cornerRadiusIn": 0.016,
+                "cuttingEdgeLengthIn": 0.508,
+                "thicknessIn": 0.187,
+                "hand": "neutro"
+              },
+              "sourceFnInRev": [
+                0.006,
+                0.016
+              ],
+              "sourceApIn": [
+                0.039,
+                0.197
+              ],
+              "fnMmRev": [
+                0.1524,
+                0.4064
+              ],
+              "apMm": [
+                0.9906,
+                5.0038
+              ],
+              "conversion": "1 pollice = 25,4 mm",
+              "scope": "Intervalli specifici articolo; materiale generale del grado separato; VC specifica non documentata; presenza nello snapshot e pubblicazione non verificate."
             }
           },
           {
@@ -2228,6 +2264,42 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://www.ingersoll-imc.com/product/6212426",
+              "edp": "6212426",
+              "code": "CNMG120404MT TT8125B",
+              "grade": "TT8125B",
+              "application": "Tornitura media",
+              "geometry": {
+                "shape": "rombo negativo",
+                "includedAngleDeg": 80,
+                "indexes": 4,
+                "inscribedCircleIn": 0.5,
+                "cornerRadiusIn": 0.016,
+                "cuttingEdgeLengthIn": 0.508,
+                "thicknessIn": 0.187,
+                "hand": "neutro"
+              },
+              "sourceFnInRev": [
+                0.006,
+                0.016
+              ],
+              "sourceApIn": [
+                0.039,
+                0.197
+              ],
+              "fnMmRev": [
+                0.1524,
+                0.4064
+              ],
+              "apMm": [
+                0.9906,
+                5.0038
+              ],
+              "conversion": "1 pollice = 25,4 mm",
+              "scope": "Intervalli specifici articolo; materiale generale del grado separato; VC specifica non documentata; presenza nello snapshot e pubblicazione non verificate."
             }
           },
           {
@@ -3156,6 +3228,42 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://www.ingersoll-imc.com/product/6241939",
+              "edp": "6241939",
+              "code": "CNMG190612MT TT8135B",
+              "grade": "TT8135B",
+              "application": "Tornitura media",
+              "geometry": {
+                "shape": "rombo negativo",
+                "includedAngleDeg": 80,
+                "indexes": 4,
+                "inscribedCircleIn": 0.75,
+                "cornerRadiusIn": 0.047,
+                "cuttingEdgeLengthIn": 0.76,
+                "thicknessIn": 0.25,
+                "hand": "neutro"
+              },
+              "sourceFnInRev": [
+                0.01,
+                0.022
+              ],
+              "sourceApIn": [
+                0.118,
+                0.315
+              ],
+              "fnMmRev": [
+                0.254,
+                0.5588
+              ],
+              "apMm": [
+                2.9972,
+                8.001
+              ],
+              "conversion": "1 pollice = 25,4 mm",
+              "scope": "Intervalli specifici articolo; materiale generale del grado separato; VC specifica non documentata; presenza nello snapshot e pubblicazione non verificate."
             }
           }
         ],
