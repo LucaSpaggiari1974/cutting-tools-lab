@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T00:25:31Z",
+  "updatedAt": "2026-11-26T01:12:53Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -3048,6 +3048,31 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://www.ingersoll-imc.com/product/6212538",
+              "original": {
+                "fn": [
+                  0.01,
+                  0.022
+                ],
+                "fnUnit": "in/rev",
+                "ap": [
+                  0.118,
+                  0.315
+                ],
+                "apUnit": "in"
+              },
+              "fnMmRev": [
+                0.254,
+                0.5588
+              ],
+              "apMm": [
+                2.9972,
+                8.001
+              ],
+              "scope": "Scheda EDP esatta, geometria negativa 80°, quattro taglienti, tornitura media. VC specifica non documentata; materiale generale del grado separato. Presenza nel catalogo distribuito non verificata."
             }
           },
           {
