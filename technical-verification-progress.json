@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T12:21:29Z",
+  "updatedAt": "2026-11-26T14:35:36Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -2557,6 +2557,42 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://ingersoll-imc.com/product/6212912",
+              "edp": "6212912",
+              "code": "CNMG120408MT TT8125B",
+              "grade": "TT8125B",
+              "application": "Tornitura media",
+              "geometry": {
+                "shape": "rombo negativo",
+                "includedAngleDeg": 80,
+                "indexes": 4,
+                "inscribedCircleIn": 0.5,
+                "cornerRadiusIn": 0.031,
+                "cuttingEdgeLengthIn": 0.508,
+                "thicknessIn": 0.187,
+                "hand": "neutro"
+              },
+              "sourceFnInRev": [
+                0.007,
+                0.022
+              ],
+              "sourceApIn": [
+                0.047,
+                0.197
+              ],
+              "fnMmRev": [
+                0.1778,
+                0.5588
+              ],
+              "apMm": [
+                1.1938,
+                5.0038
+              ],
+              "conversion": "1 pollice = 25,4 mm",
+              "scope": "Scheda ufficiale indicizzata; intervalli specifici articolo, VC non documentata; materiale generale separato; pubblicazione non verificata."
             }
           },
           {
