@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T03:25:45Z",
+  "updatedAt": "2026-11-26T12:21:29Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -2311,6 +2311,42 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://www.ingersoll-imc.com/product/6240985",
+              "edp": "6240985",
+              "code": "CNMG120404MT TT8105B",
+              "grade": "TT8105B",
+              "application": "Tornitura media",
+              "geometry": {
+                "shape": "rombo negativo",
+                "includedAngleDeg": 80,
+                "indexes": 4,
+                "inscribedCircleIn": 0.5,
+                "cornerRadiusIn": 0.016,
+                "cuttingEdgeLengthIn": 0.508,
+                "thicknessIn": 0.187,
+                "hand": "neutro"
+              },
+              "sourceFnInRev": [
+                0.006,
+                0.016
+              ],
+              "sourceApIn": [
+                0.039,
+                0.197
+              ],
+              "fnMmRev": [
+                0.1524,
+                0.4064
+              ],
+              "apMm": [
+                0.9906,
+                5.0038
+              ],
+              "conversion": "1 pollice = 25,4 mm",
+              "scope": "Scheda ufficiale indicizzata (copia del mese precedente); intervalli specifici articolo, VC non documentata; materiale generale separato; snapshot e pubblicazione non verificati."
             }
           }
         ],
@@ -2448,6 +2484,21 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "familyProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://ingersoll-imc.com/product?ecatProductId=38762",
+              "edp": "6212319",
+              "code": "CNMG120408MT TT8105B",
+              "fnMmRev": [
+                0.1778,
+                0.5588
+              ],
+              "apMm": [
+                1.1938,
+                5.0038
+              ],
+              "scope": "Identità nella tabella varianti ufficiale; intervalli della geometria comune, non scheda specifica EDP; VC non documentata."
             }
           },
           {
@@ -2459,6 +2510,42 @@
               "source": "https://www.ingersoll-imc.com/product-lines/tt81xx-turning-grades",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-26",
+              "source": "https://www.ingersoll-imc.com/product/6213082",
+              "edp": "6213082",
+              "code": "CNMG120408MT TT8115B",
+              "grade": "TT8115B",
+              "application": "Tornitura media",
+              "geometry": {
+                "shape": "rombo negativo",
+                "includedAngleDeg": 80,
+                "indexes": 4,
+                "inscribedCircleIn": 0.5,
+                "cornerRadiusIn": 0.031,
+                "cuttingEdgeLengthIn": 0.508,
+                "thicknessIn": 0.187,
+                "hand": "neutro"
+              },
+              "sourceFnInRev": [
+                0.007,
+                0.022
+              ],
+              "sourceApIn": [
+                0.047,
+                0.197
+              ],
+              "fnMmRev": [
+                0.1778,
+                0.5588
+              ],
+              "apMm": [
+                1.1938,
+                5.0038
+              ],
+              "conversion": "1 pollice = 25,4 mm",
+              "scope": "Scheda ufficiale indicizzata (copia del mese precedente); intervalli specifici articolo, VC non documentata; materiale generale separato; snapshot e pubblicazione non verificati."
             }
           },
           {
