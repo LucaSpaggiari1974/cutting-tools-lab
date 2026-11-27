@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T08:30:38Z",
+  "updatedAt": "2026-11-27T20:18:46Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -3759,6 +3759,31 @@
               "source": "https://www.ingersoll-imc.com/support/turning-grades-cross-reference",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-27",
+              "source": "https://www.ingersoll-imc.com/product/5515404",
+              "original": {
+                "fn": [
+                  0.009,
+                  0.022
+                ],
+                "fnUnit": "in/rev",
+                "ap": [
+                  0.118,
+                  0.315
+                ],
+                "apUnit": "in"
+              },
+              "fnMmRev": [
+                0.2286,
+                0.5588
+              ],
+              "apMm": [
+                2.9972,
+                8.001
+              ],
+              "scope": "Scheda EDP esatta CNMG190608MT TT8020: rombo negativo 80°, quattro taglienti, tornitura media. VC specifica non documentata; materiale generale del grado separato. Presenza nel catalogo distribuito non verificata."
             }
           },
           {
@@ -3770,6 +3795,31 @@
               "source": "https://www.ingersoll-imc.com/support/turning-grades-cross-reference",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-27",
+              "source": "https://www.ingersoll-imc.com/product/5515405",
+              "original": {
+                "fn": [
+                  0.009,
+                  0.022
+                ],
+                "fnUnit": "in/rev",
+                "ap": [
+                  0.118,
+                  0.315
+                ],
+                "apUnit": "in"
+              },
+              "fnMmRev": [
+                0.2286,
+                0.5588
+              ],
+              "apMm": [
+                2.9972,
+                8.001
+              ],
+              "scope": "Scheda EDP esatta CNMG190608MT TT5100: rombo negativo 80°, quattro taglienti, tornitura media. VC specifica non documentata; materiale generale del grado separato. Presenza nel catalogo distribuito non verificata."
             }
           },
           {
