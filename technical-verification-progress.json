@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T03:21:21Z",
+  "updatedAt": "2026-11-27T06:05:03Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -2262,7 +2262,32 @@
           },
           {
             "grade": "TT7015",
-            "edp": "5523646"
+            "edp": "5523646",
+            "directProductEvidence": {
+              "checkedAt": "2026-11-27",
+              "source": "https://www.ingersoll-imc.com/product/5523646",
+              "original": {
+                "fn": [
+                  0.006,
+                  0.016
+                ],
+                "fnUnit": "in/rev",
+                "ap": [
+                  0.039,
+                  0.197
+                ],
+                "apUnit": "in"
+              },
+              "fnMmRev": [
+                0.1524,
+                0.4064
+              ],
+              "apMm": [
+                0.9906,
+                5.0038
+              ],
+              "scope": "Scheda EDP esatta: rombo negativo 80°, quattro taglienti, tornitura media. VC specifica non documentata; eventuale materiale generale del grado separato. Presenza nel catalogo distribuito non verificata."
+            }
           },
           {
             "grade": "TT7005",
@@ -2273,6 +2298,31 @@
               "source": "https://www.ingersoll-imc.com/support/turning-grades-cross-reference",
               "scope": "Applicazione generale del grado; non esclusiva, non prova di VC né di idoneità per ogni condizione.",
               "checkedAt": "2026-11-24"
+            },
+            "directProductEvidence": {
+              "checkedAt": "2026-11-27",
+              "source": "https://www.ingersoll-imc.com/product/5523663",
+              "original": {
+                "fn": [
+                  0.006,
+                  0.016
+                ],
+                "fnUnit": "in/rev",
+                "ap": [
+                  0.039,
+                  0.197
+                ],
+                "apUnit": "in"
+              },
+              "fnMmRev": [
+                0.1524,
+                0.4064
+              ],
+              "apMm": [
+                0.9906,
+                5.0038
+              ],
+              "scope": "Scheda EDP esatta: rombo negativo 80°, quattro taglienti, tornitura media. VC specifica non documentata; eventuale materiale generale del grado separato. Presenza nel catalogo distribuito non verificata."
             }
           },
           {
