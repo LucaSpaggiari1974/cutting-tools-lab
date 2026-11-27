@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T07:29:38Z",
+  "updatedAt": "2026-11-27T08:30:38Z",
   "status": "in-progress",
   "manufacturer": "Ingersoll",
   "batchTarget": 50,
@@ -2327,7 +2327,32 @@
           },
           {
             "grade": "CT3000",
-            "edp": "5740043"
+            "edp": "5740043",
+            "directProductEvidence": {
+              "checkedAt": "2026-11-27",
+              "source": "https://www.ingersoll-imc.com/product/5740043",
+              "original": {
+                "fn": [
+                  0.006,
+                  0.016
+                ],
+                "fnUnit": "in/rev",
+                "ap": [
+                  0.039,
+                  0.197
+                ],
+                "apUnit": "in"
+              },
+              "fnMmRev": [
+                0.1524,
+                0.4064
+              ],
+              "apMm": [
+                0.9906,
+                5.0038
+              ],
+              "scope": "Scheda EDP esatta CNMG120404MT CT3000: rombo negativo 80°, quattro taglienti, tornitura media. VC e materiale specifici non documentati; presenza nel catalogo distribuito non verificata."
+            }
           },
           {
             "grade": "TT7025",
